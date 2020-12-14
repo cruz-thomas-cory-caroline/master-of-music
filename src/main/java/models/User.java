@@ -2,6 +2,7 @@ package models;
 
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -22,22 +23,27 @@ public class User {
     @Column(nullable = false)
     private boolean isAdmin;
 
+    @Column(nullable = true)
+    private String images;
+
     public User() {
     }
 
-    public User(long id, String email, String username, String password, boolean isAdmin) {
+    public User(long id, String email, String username, String password, boolean isAdmin, String images) {
         this.id = id;
         this.email = email;
         this.username = username;
         this.password = password;
         this.isAdmin = isAdmin;
+        this.images = images;
     }
 
-    public User(String email, String username, String password, boolean isAdmin) {
+    public User(String email, String username, String password, boolean isAdmin, String images) {
         this.email = email;
         this.username = username;
         this.password = password;
         this.isAdmin = isAdmin;
+        this.images = images;
 
     }
 
@@ -47,6 +53,7 @@ public class User {
         username = copy.username;
         password = copy.password;
         isAdmin = copy.isAdmin;
+        images = copy.images;
     }
 
     public long getId() {
@@ -87,5 +94,13 @@ public class User {
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
+    }
+
+    public String getImages() {
+        return images;
+    }
+
+    public void setImages(String images) {
+        this.images = images;
     }
 }
