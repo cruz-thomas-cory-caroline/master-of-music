@@ -1,4 +1,4 @@
-package models;
+package masterofmusic.masterofmusic.models;
 
 
 import javax.persistence.*;
@@ -26,24 +26,30 @@ public class User {
     @Column(nullable = true, columnDefinition = "varchar(255) default 'https://i.pinimg.com/originals/c3/e1/0a/c3e10aeb8ecc1f529d592146eb599ddf.jpg'")
     private String images;
 
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<PlayerGame> games;
+
     public User() {
     }
 
-    public User(long id, String email, String username, String password, boolean isAdmin, String images) {
+    public User(long id, String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games) {
         this.id = id;
         this.email = email;
         this.username = username;
         this.password = password;
         this.isAdmin = isAdmin;
         this.images = images;
+        this.games = games;
     }
 
-    public User(String email, String username, String password, boolean isAdmin, String images) {
+    public User(String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games) {
         this.email = email;
         this.username = username;
         this.password = password;
         this.isAdmin = isAdmin;
         this.images = images;
+        this.games = games;
 
     }
 
@@ -54,6 +60,7 @@ public class User {
         password = copy.password;
         isAdmin = copy.isAdmin;
         images = copy.images;
+        games = copy.games;
     }
 
     public long getId() {
@@ -102,5 +109,14 @@ public class User {
 
     public void setImages(String images) {
         this.images = images;
+    }
+
+
+    public List<PlayerGame> getGames() {
+        return games;
+    }
+
+    public void setGames(List<PlayerGame> games) {
+        this.games = games;
     }
 }
