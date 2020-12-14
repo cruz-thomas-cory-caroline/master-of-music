@@ -1,4 +1,4 @@
-package models;
+package masterofmusic.masterofmusic.models;
 
 
 import javax.persistence.*;
