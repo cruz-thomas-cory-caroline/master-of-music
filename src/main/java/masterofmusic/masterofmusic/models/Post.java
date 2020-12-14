@@ -1,4 +1,4 @@
-package models;
+package masterofmusic.masterofmusic.models;
 
 import javax.persistence.*;
 import java.util.List;
@@ -21,22 +21,22 @@ public class Post {
             joinColumns = {@JoinColumn(name="post_id")},
             inverseJoinColumns = {@JoinColumn(name="user_id")}
     )
-    private List<Comment> commentList;
+    private List<Comment> comments;
 
     public Post() {
     }
 
-    public Post(long id, String body, User owner, List<Comment> commentList) {
+    public Post(long id, String body, User owner, List<Comment> comments) {
         this.id = id;
         this.body = body;
         this.owner = owner;
-        this.commentList = commentList;
+        this.comments = comments;
     }
 
-    public Post(String body, User owner, List<Comment> commentList) {
+    public Post(String body, User owner, List<Comment> comments) {
         this.body = body;
         this.owner = owner;
-        this.commentList = commentList;
+        this.comments = comments;
     }
 
     public String getBody() {
@@ -64,10 +64,10 @@ public class Post {
     }
 
     public List<Comment> getCommentList() {
-        return commentList;
+        return comments;
     }
 
     public void setCommentList(List<Comment> commentList) {
-        this.commentList = commentList;
+        this.comments = commentList;
     }
 }
