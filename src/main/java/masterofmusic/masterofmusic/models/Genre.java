@@ -13,9 +13,9 @@ public class Genre {
     @Column(nullable = false, length = 45)
     private String name;
 
-//    @OneToOne
-//    @JoinColumn (name = "player_game_round_id")
-//    private PlayerGameRound playerGameRound;
+    @OneToOne
+    @JoinColumn (name = "player_game_round_id")
+    private PlayerGameRound playerGameRound;
 
     @ManyToMany(mappedBy = "genres")
     private List<Song> songs;
@@ -23,16 +23,16 @@ public class Genre {
     public Genre() {
     }
 
-    public Genre(long id, String name,  List<Song> songs) {
+    public Genre(long id, String name,  List<Song> songs, PlayerGameRound playerGameRound) {
         this.id = id;
         this.name = name;
-//        this.playerGameRound = playerGameRound;
+        this.playerGameRound = playerGameRound;
         this.songs = songs;
     }
 
-    public Genre(String name,List<Song> songs) {
+    public Genre(String name,List<Song> songs, PlayerGameRound playerGameRound) {
         this.name = name;
-//        this.playerGameRound = playerGameRound;
+        this.playerGameRound = playerGameRound;
         this.songs = songs;
     }
 
@@ -53,13 +53,13 @@ public class Genre {
         this.name = name;
     }
 
-//    public PlayerGameRound getPlayerGameRound() {
-//        return playerGameRound;
-//    }
-//
-//    public void setPlayerGameRound(PlayerGameRound playerGameRound) {
-//        this.playerGameRound = playerGameRound;
-//    }
+    public PlayerGameRound getPlayerGameRound() {
+        return playerGameRound;
+    }
+
+    public void setPlayerGameRound(PlayerGameRound playerGameRound) {
+        this.playerGameRound = playerGameRound;
+    }
 
     public List<Song> getSongs() {
         return songs;

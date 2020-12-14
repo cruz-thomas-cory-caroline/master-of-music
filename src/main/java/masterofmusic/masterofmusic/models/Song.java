@@ -9,12 +9,16 @@ public class Song {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @Column(nullable = false)
     private String title;
+
     @Column(nullable = false)
     private String artist;
+
     @Column(nullable = false, columnDefinition = "TEXT")
     private String lyrics;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "songs_genres",
