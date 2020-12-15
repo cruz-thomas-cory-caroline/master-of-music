@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="partials/head :: head('FAQ')">
+<head th:replace="partials/head :: head">
     <meta charset="UTF-8">
 
 </head>
@@ -8,6 +8,26 @@
 
 <main class="container">
     <h1 class="text-center">Forum</h1>
+    <div class="text-center mt-5">
+        <button type="button" class="btn btn-success" id="post-form">New Post</button>
+    </div>
+
+    <div class="card m-5" id="new-post">
+        <div class="card-header text-left">New Post</div>
+        <div class="card-body">
+            <label for="new-post-title">Subject: </label>
+            <br>
+            <input class="card-title" id="new-post-title" style="width: 50%">
+            <br>
+            <label for="new-post-body">Post: </label>
+            <textarea id="new-post-body" placeholder="Type your comment here" style="width: 100%; height: 100px"></textarea>
+        </div>
+        <div class="card-footer">
+            <button type="button" id="close-post" class="btn btn-danger">Close</button>
+            <a href="#" class="btn btn-primary">Reply</a>
+        </div>
+    </div>
+
     <div th:each="post : ${posts}" class="m-5">
         <div class="card text-center">
             <div class="card-header text-left" th:text="${post.getOwner().getUsername()}"></div>
@@ -60,20 +80,42 @@
                 </div>
             </div>
         </div>
-    <div th:each="comment : ${post.getCommentList()}">
-        <div class="card text-center wid">
-            <div class="card-header text-left" th:text="${comment.getOwner().getUsername()}"></div>
-            <div class="card-body">
-                <p class="card-text" th:text="${comment.getBody()}"></p>
 
-            </div>
-            <div class="card-footer">
-                <a href="#" class="btn btn-primary">Reply</a>
+
+        <div th:each="comment : ${post.getCommentList()}">
+            <div class="card text-center ml-auto" style="width: 90%">
+                <div class="card-header text-left" th:text="${comment.getOwner().getUsername()}"></div>
+                <div class="card-body">
+                    <p class="card-text" th:text="${comment.getBody()}"></p>
+                </div>
+                <div class="card-footer">
+<!--                    <a href="#" class="btn btn-primary">Reply</a>-->
+                </div>
             </div>
         </div>
-    </div>
+
+
+        <div id="post-reply" class="card text-center ml-auto" style="width: 90%">
+            <form th:action="@{forum/comment/(id=${post.id})}" th:method="post">
+                <div class="card">
+                    <h5 class="card-header">Reply</h5>
+                    <div class="card-body">
+                        <h4 class="card-title">RE: <span th:text="${post.getTitle()}"></span></h4>
+                        <textarea id="body" name="body" placeholder="Type your comment here" style="width: 100%; height: 100px"></textarea>
+                        <div>
+                            <button type="button" class="btn btn-danger" id="close-reply">Close</button>
+                            <button type="submit" class="btn btn-primary">Post</button>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
     </div>
 </main>
 
+<div th:include="partials/scripts.html :: scripts"></div>
 </body>
 </html>
