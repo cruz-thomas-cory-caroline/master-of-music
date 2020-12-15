@@ -13,6 +13,7 @@ public class ProfileController {
     @GetMapping("/profile/{id}")
     public String viewProfile(@PathVariable long id, Model model){
         model.addAttribute("profile");
+        return "/profile";
     }
 
 }
