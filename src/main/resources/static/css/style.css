@@ -8,6 +8,19 @@ body {
     background: rgba(20, 20, 31, 0.8);
 }
 
+.navbar-login {
+    background-color: #eee31a;
+    font-size: 1em;
+}
+
+#navbarCollapse {
+    margin-left: auto;
+}
+
+#profileIcon, .navbar-nav {
+    color: #1aeeee;
+}
+
 #backgroundSplashImg {
     width: 100vw;
     height: 100vh;
