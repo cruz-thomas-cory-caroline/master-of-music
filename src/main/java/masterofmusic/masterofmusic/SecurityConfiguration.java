@@ -10,6 +10,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -30,6 +33,26 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .userDetailsService(usersLoader) // How to find users by their username
                 .passwordEncoder(passwordEncoder()) // How to encode and verify passwords
         ;
+    }
+    public static boolean isValidPassword(String password) {
+        String regex = "^(?=.*[0-9])"
+                + "(?=.*[a-z])(?=.*[A-Z])"
+                + "(?=.*[@#$%^&+=!])"
+                + "(?=\\S+$).{8,20}$";
+        Pattern p = Pattern.compile(regex);
+        if (password == null) {
+            return false;
+        }
+        Matcher m = p.matcher(password);
+        return m.matches();
+    }
+
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
+            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+    public static boolean emailMeetsRequirements(String emailStr) {
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
+        return matcher.find();
     }
 
     @Override
@@ -60,4 +83,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authenticated()
         ;
     }
+
+
 }
