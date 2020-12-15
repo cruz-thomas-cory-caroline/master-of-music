@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="partials/head.html :: head"></div>
+    <title>FooterNav Partial</title>
+</head>
+<body>
+
+<footer th:fragment="footerNav">
+    <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark">
+        <div class="container-fluid">
+            <a href="#"><span class="badge text-dark navbar-login">Register or Log In</span></a>
+            <a class="navbar-profile ml-4" href="#"><i id="profileIcon" class="fas fa-user fa-3x"></i></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" aria-current="page" th:href="@{/index}">Games</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Leaderboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Challenges</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Achievements</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/forum}">Forum</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">FAQ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</footer>
+<div th:include="partials/scripts.html :: scripts"></div>
+</body>
+</html>

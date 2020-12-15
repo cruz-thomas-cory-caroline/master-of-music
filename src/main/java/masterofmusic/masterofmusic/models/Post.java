@@ -10,6 +10,9 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(nullable = false, length = 200)
+    private String title;
+
     @Column(nullable = false, columnDefinition = "TEXT")
     private String body;
 
@@ -26,14 +29,16 @@ public class Post {
     public Post() {
     }
 
-    public Post(long id, String body, User owner, List<Comment> comments) {
+    public Post(long id, String title, String body, User owner, List<Comment> comments) {
         this.id = id;
+        this.title = title;
         this.body = body;
         this.owner = owner;
         this.comments = comments;
     }
 
-    public Post(String body, User owner, List<Comment> comments) {
+    public Post(String title, String body, User owner, List<Comment> comments) {
+        this.title = title;
         this.body = body;
         this.owner = owner;
         this.comments = comments;
@@ -69,5 +74,21 @@ public class Post {
 
     public void setCommentList(List<Comment> commentList) {
         this.comments = commentList;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }

@@ -2,7 +2,6 @@
     "use strict";
 
     $("#playButton").hide();
-    $("#pickGame").hide();
     $("#lyricOptions").hide();
     $("#triviaOptions").hide();
     $("#backButton").hide();
@@ -31,12 +30,6 @@
             audio.pause();
             $('#audioButtonOff').hide();
             $('#audioButton').show();
-        });
-
-        $('#playButton').click(function() {
-            $("#playButton").hide();
-            $("#header").hide();
-            $("#pickGame").show('slow');
         });
 
         triviaSelection.click(function() {
