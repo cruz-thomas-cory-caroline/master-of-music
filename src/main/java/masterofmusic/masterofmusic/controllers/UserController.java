@@ -1,7 +1,9 @@
 package masterofmusic.masterofmusic.controllers;
 
+import masterofmusic.masterofmusic.SecurityConfiguration;
 import masterofmusic.masterofmusic.models.User;
 import masterofmusic.masterofmusic.repositories.UserRepository;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +23,7 @@ public class UserController {
     }
 
     @GetMapping("/sign-up")
-    public String showSignupForm(Model model){
+    public String showSignupForm(Model model) {
         model.addAttribute("user", new User());
         return "sign-up";
     }
@@ -29,15 +31,32 @@ public class UserController {
     @PostMapping("/sign-up")
     public String saveUser(@RequestParam(name = "password") String password,
                            @RequestParam(name = "confirmPassword") String confirmPassword,
-                           @ModelAttribute User user){
+                           @RequestParam(name = "email") String email,
+                           @ModelAttribute User user) {
+        boolean passwordRequirements = (SecurityConfiguration.isValidPassword(password));
+        boolean emailRequirements = (SecurityConfiguration.emailMeetsRequirements(email));
         if (!password.equals(confirmPassword)) {
             return "redirect:/sign-up?invalidpw";
-        } else {
-            String hash = passwordEncoder.encode(user.getPassword());
-            user.setPassword(hash);
-            users.save(user);
-            return "redirect:/login";
+        } else if (!passwordRequirements) {
+            return "redirect:/sign-up?invalidpwRequirements";
+        } else if (!emailRequirements) {
+            return "redirect:/sign-up?invalidEmail";
+//        } else {
+//            String hash = passwordEncoder.encode(user.getPassword());
+//            user.setPassword(hash);
+//            users.save(user);
+//            return "redirect:/login";
+//        }
         }
-
+            try {
+                String hash = passwordEncoder.encode(user.getPassword());
+                user.setPassword(hash);
+                users.save(user);
+                return "redirect:/login";
+            } catch (ConstraintViolationException e) {
+                e.printStackTrace();
+                return "redirect:/sign-up?usernameNotAvailable";
+            }
+        }
     }
-}
+

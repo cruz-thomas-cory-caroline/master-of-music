@@ -5,20 +5,38 @@
 </head>
 <body>
 <nav th:replace="partials/navbar :: nav"></nav>
-<header th:replace="partials/header :: header('Show Off Your World!')"></header>
+<!--<header th:replace="partials/header :: header('Show Off Your World!')"></header>-->
 
 <div class="card mx-auto my-5" style="width: 23rem">
     <article class="card-body">
         <h4 class="card-title text-center mb-4 mt-1">Create Account</h4>
         <hr>
         <div th:if="${param.error}" class="text-center">
-            <p class="text-danger">Invalid Username and Password.</p>
+            <p class="text-danger">Invalid Username or Password.</p>
         </div>
         <div th:if="${param.logout}" class="text-center">
             <p class="text-success">You have successfully logged out.</p>
         </div>
         <div th:if="${param.invalidpw}" class="text-center">
-            <p class="text-danger">Password mismatch</p>
+            <p class="text-danger">Passwords do not match.</p>
+        </div>
+        <div th:if="${param.invalidEmail}" class="text-center">
+            <p class="text-danger">Invalid Email.</p>
+        </div>
+        <div th:if="${param.usernameNotAvailable}" class="text-center">
+            <p class="text-danger">Username not available.</p>
+        </div>
+        <div th:if="${param.invalidpwRequirements}">
+            <p class="text-danger">Password does not meet requirements.</p>
+            <ul><h6>Password Requirements:</h6>
+                <li>It contains at least 8 characters and at most 20 characters.</li>
+                <li>It contains at least one digit.</li>
+                <li>It contains at least one upper case alphabet.</li>
+                <li>It contains at least one lower case alphabet.</li>
+                <li>It contains at least one special character which includes: </li>
+                <ul>!@#$%&*()-+=^.</ul>
+                <li>No spaces.</li>
+            </ul>
         </div>
         <form th:action="@{/sign-up}" method="post" th:object="${user}">
             <div class="form-group">
