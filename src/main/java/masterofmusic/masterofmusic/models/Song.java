@@ -25,7 +25,7 @@ public class Song {
             joinColumns = {@JoinColumn(name = "song_id")},
             inverseJoinColumns = {@JoinColumn(name = "genre_id")}
     )
-    private List<Genre> genres;
+    private List<Genre> song_genres;
 
     //CREATE
     public Song(long id, String title, String artist, String lyrics) {
