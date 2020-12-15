@@ -2,17 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:include="partials/header.html :: head"></div>
-    <title>Capstone Project</title>
+    <title>Master of Music</title>
 </head>
 
-<body>
+<body class="path">
 <img src="img/giphy.gif" id="backgroundSplashImg"/>
 <!--<audio id="my_audio" src="synthwaveLoop.wav" loop="loop" controls></audio>-->
 <a href="#"><i id="backButton" class="fas fa-backward"></i></a>
 <a href="#"><i id="audioButton" class="fas fa-volume-up mr-3"></i></a>
 <a href="#"><i id="audioButtonOff" class="fas fa-volume-mute mr-3"></i></a>
-<h1 id="header">MASTER OF MUSIC</h1>
-<a href="#"><i id="playButton" class="fas fa-play-circle"></i></a>
 
 <section id="pickGame" class="container">
     <div id="gameOptions" class="row px-4">
@@ -99,9 +97,10 @@
     </div>
 </section>
 
-<a href="#" id="clickMenu"> <i id="menuRecord" class="fas fa-compact-disc"></i>
-<h4 id="wordMenu" class="text-white text-start">MENU</h4></a>
+<!--<a href="#" id="clickMenu"> <i id="menuRecord" class="fas fa-compact-disc"></i>-->
+<!--<h4 id="wordMenu" class="text-white text-start">MENU</h4></a>-->
 
+<div th:include="partials/footerNav.html :: footerNav"></div>
 <div th:include="partials/scripts.html :: scripts"></div>
 </body>
 </html>

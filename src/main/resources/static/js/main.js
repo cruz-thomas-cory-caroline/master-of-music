@@ -33,6 +33,7 @@
             $('#audioButton').show();
         });
 
+
         $('#playButton').click(function() {
             $("#playButton").hide();
             $("#header").hide();
