@@ -17,15 +17,20 @@ public class Comment {
     @ManyToMany(mappedBy = "comments")
     private List<Post> posts;
 
-    public Comment(long id, String body,  List<Post> posts) {
+    @OneToOne
+    private User owner;
+
+    public Comment(long id, String body,  List<Post> posts, User owner) {
         this.id = id;
         this.body = body;
         this.posts = posts;
+        this.owner = owner;
     }
 
-    public Comment(String body,  List<Post> posts) {
+    public Comment(String body,  List<Post> posts, User owner) {
         this.body = body;
         this.posts = posts;
+        this.owner = owner;
     }
 
     public Comment() {
