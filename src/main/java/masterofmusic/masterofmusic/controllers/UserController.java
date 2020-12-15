@@ -35,28 +35,20 @@ public class UserController {
                            @ModelAttribute User user) {
         boolean passwordRequirements = (SecurityConfiguration.isValidPassword(password));
         boolean emailRequirements = (SecurityConfiguration.emailMeetsRequirements(email));
+
         if (!password.equals(confirmPassword)) {
             return "redirect:/sign-up?invalidpw";
         } else if (!passwordRequirements) {
             return "redirect:/sign-up?invalidpwRequirements";
         } else if (!emailRequirements) {
             return "redirect:/sign-up?invalidEmail";
-//        } else {
-//            String hash = passwordEncoder.encode(user.getPassword());
-//            user.setPassword(hash);
-//            users.save(user);
-//            return "redirect:/login";
-//        }
+        } else {
+            String hash = passwordEncoder.encode(user.getPassword());
+            user.setPassword(hash);
+            users.save(user);
+            return "redirect:/login";
         }
-            try {
-                String hash = passwordEncoder.encode(user.getPassword());
-                user.setPassword(hash);
-                users.save(user);
-                return "redirect:/login";
-            } catch (ConstraintViolationException e) {
-                e.printStackTrace();
-                return "redirect:/sign-up?usernameNotAvailable";
-            }
-        }
+
     }
+}
 
