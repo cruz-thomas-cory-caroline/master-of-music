@@ -60,4 +60,12 @@ public class Comment {
     public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
 }
