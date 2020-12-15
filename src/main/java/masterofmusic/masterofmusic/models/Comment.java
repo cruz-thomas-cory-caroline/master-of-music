@@ -17,6 +17,9 @@ public class Comment {
     @ManyToMany(mappedBy = "comments")
     private List<Post> posts;
 
+    @OneToOne
+    private User owner;
+
     public Comment(long id, String body,  List<Post> posts) {
         this.id = id;
         this.body = body;
