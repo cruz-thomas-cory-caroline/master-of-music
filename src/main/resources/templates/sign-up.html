@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/head :: head('Sign Up')">
+    <meta charset="UTF-8">
+</head>
+<body>
+<nav th:replace="partials/navbar :: nav"></nav>
+<header th:replace="partials/header :: header('Show Off Your World!')"></header>
+
+<div class="card mx-auto my-5" style="width: 23rem">
+    <article class="card-body">
+        <h4 class="card-title text-center mb-4 mt-1">Create Account</h4>
+        <hr>
+        <div th:if="${param.error}" class="text-center">
+            <p class="text-danger">Invalid Username and Password.</p>
+        </div>
+        <div th:if="${param.logout}" class="text-center">
+            <p class="text-success">You have successfully logged out.</p>
+        </div>
+        <div th:if="${param.invalidpw}" class="text-center">
+            <p class="text-danger">Password mismatch</p>
+        </div>
+        <form th:action="@{/sign-up}" method="post" th:object="${user}">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-user"></i></span>
+                    </div>
+                    <input th:field="*{username}" class="form-control" placeholder="Enter username" type="text">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                    </div>
+                    <input class="form-control" placeholder="Enter email" type="email" th:field="*{email}">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                    </div>
+                    <input class="form-control" placeholder="Enter password" type="password" name="password" th:field="*{password}">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fas fa-key"></i> </span>
+                    </div>
+                    <input class="form-control" placeholder="Confirm password" type="password" name="confirmPassword">
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+            </div>
+            <p class="text-center">Already have an account? <a th:href="@{/login}">Login</a></p>
+
+        </form>
+    </article>
+</div>
+
+<footer th:replace="partials/partials :: footer"></footer>
+<th:block th:include="partials/scripts :: scripts"></th:block>
+</body>
+</html>

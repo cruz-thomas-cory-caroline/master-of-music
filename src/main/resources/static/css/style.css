@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=New+Rocker&display=swap');
+
+#backgroundSplashImg {
+    width: 100vw;
+    height: 100vh;
+    z-index: -100;
+    position: relative;
+}
+
+#backButton {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 8px;
+    z-index: 1;
+    font-size: 2.5em;
+    color: #f7ff00;
+    text-shadow: 1px 1px 2px #fcc910, 0 0 25px blue, 0 0 5px darkblue;
+}
+
+#audioButton, #audioButtonOff {
+    position: absolute;
+    top: 1%;
+    left: 94%;
+    z-index: 3;
+    font-size: 2.5em;
+    color: #f7ff00;
+    text-shadow: 1px 1px 2px #fcc910, 0 0 25px blue, 0 0 5px darkblue;
+}
+
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
+
+@keyframes menuToMiddle {
+    from {top: 78%; left: 89%}
+    to {top: 48%; left:50%}
+}
+
+#menuRecord {
+    position: absolute;
+    top: 78%;
+    left:89%;
+    z-index: 3;
+    font-size: 8em;
+    color: #ee00ff;
+    text-shadow: 1px 1px 2px blue, 0 0 25px #fcc910, 0 0 5px darkblue;
+    animation-name: spin;
+    animation-duration: 1000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+#wordMenu {
+    position: absolute;
+    top: 91%;
+    left: 88%;
+    z-index: 4;
+    background-color: #a207e5;
+    font-family: 'New Rocker', cursive;
+    font-size: 3em;
+}
+
+@keyframes zoomHeader {
+    from {font-size: 1em;}
+    to {font-size: 8em;}
+}
+
+@keyframes moveHeaderUp {
+    from {top: 50%;}
+    to {top: 40%;}
+}
+
+#header {
+    position: absolute;
+    width: 100vw;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bolder;
+    text-align: center;
+    font-family: 'New Rocker', cursive;
+    color: #c62a88;
+    text-shadow: 1px 1px 2px #fcc910, 0 0 25px blue, 0 0 5px darkblue;
+    animation-name: zoomHeader, moveHeaderUp;
+    animation-duration: 5000ms, 1000ms;
+    animation-delay: 0ms, 6000ms; /* add this */
+    animation-timing-function: ease-in, ease-out;
+    animation-iteration-count: 1, 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.95);
+        /*box-shadow: 0 0 0 0 rgb(55, 10, 176);*/
+    }
+
+    70% {
+        transform: scale(1.5);
+        /*box-shadow: 0 0 0 10px rgb(153, 25, 136);*/
+    }
+
+    100% {
+        transform: scale(0.95);
+        /*box-shadow: 0 0 0 0 rgba(55, 10, 176);*/
+    }
+}
+
+#playButton {
+    animation: pulse 2s infinite;
+    font-size: 80px;
+    position: absolute;
+    z-index: 2;
+    top: 55%;
+    left: 48%;
+    transform: translate(-50%, -50%);
+    color: #b7138a;
+}
+
+#gameOptions {
+    position: absolute;
+    width: 100vw;
+    height: 20em;
+    z-index: 2;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#triviaIcon, #lyricIcon {
+    animation: pulse 4s infinite;
+    font-size: 13em;
+    color: #07dce5;
+}
+
+.gameTitles {
+    width: 100%;
+    position: absolute;
+    top: 20%;
+    font-family: 'New Rocker', cursive;
+    color: #b7138a;
+    text-shadow: 2px 2px 4px #1b0230, 0 0 25px #ebebee, 0 0 10px darkblue;
+    font-size: 3em;
+}
+
+.gameTitles:hover {
+    text-shadow: 2px 2px 4px #fcc910, 0 0 25px blue, 0 0 10px darkblue;
+}
+
+.form-check-label, h5 {
+    font-family: 'New Rocker', cursive;
+    color: #b7138a;
+    text-shadow: 1px 1px 2px #fcc910, 0 0 25px blue, 0 0 5px darkblue;
+    font-size: 2.5em;
+}
