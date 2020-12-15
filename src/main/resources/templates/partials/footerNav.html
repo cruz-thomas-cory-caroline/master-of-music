@@ -1,49 +1,38 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <div th:include="partials/header.html :: head"></div>
+    <div th:include="partials/head.html :: head"></div>
     <title>FooterNav Partial</title>
 </head>
-<body class="d-flex flex-column">
-<div class="flex-grow-1 flex-shrink-0">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-lg-8 py-5">
-                <h2 class="text-white mb-5">Bootstrap Sticky Footer</h2>
-                <ol class="text-white-50 pl-3">
-                    <li class="mb-3">Add <code>d-flex flex-column</code> classes to <code>body</code></li>
-                    <li class="mb-3">Wrap your content in a <code>div</code> with <code>flex-grow-1 flex-shrink-0</code> classes</li>
-                    <li class="mb-3">Add <code>flex-shrink-0</code> class to your footer.</li>
-                </ol>
-            </div>
-        </div>
-    </div>
-</div>
+<body>
+
 <footer th:fragment="footerNav">
     <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Bottom navbar</a>
+            <a href="#"><span class="badge text-dark navbar-login">Register or Log In</span></a>
+            <a class="navbar-profile ml-4" href="#"><i id="profileIcon" class="fas fa-user fa-3x"></i></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" aria-current="page" href="#">Home</a>
+                        <a class="nav-link" aria-current="page" th:href="@{/index}">Games</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" href="#">Leaderboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        <a class="nav-link" href="#">Challenges</a>
                     </li>
-                    <li class="nav-item dropup">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdown10" data-bs-toggle="dropdown" aria-expanded="false">Dropup</a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdown10">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Achievements</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/forum}">Forum</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">FAQ</a>
                     </li>
                 </ul>
             </div>

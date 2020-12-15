@@ -7,8 +7,18 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
+<!--<nav th:replace="partials/navbar.html :: nav"></nav>-->
 
-<h1>Username</h1>
+<div>
+    <img style="height: 12em; width: 12em" th:src="${profile.images}">
+    <h1 th:text="${profile.username}">Username</h1>
+    <h3 th:text="${profile.email}"></h3>
+</div>
+
+<div>
+    <p th:text="${stats.score}"></p>
+</div>
+
 <a href="#">Edit Username</a>
 
 <div th:replace="partials/scripts.html :: scripts"></div>

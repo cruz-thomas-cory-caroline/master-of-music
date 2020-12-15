@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <div th:include="partials/header.html :: head"></div>
+    <div th:include="partials/head.html :: head"></div>
     <title>Master of Music</title>
 </head>
 
@@ -13,12 +13,15 @@
 <a href="#"><i id="audioButtonOff" class="fas fa-volume-mute mr-3"></i></a>
 
 <section id="pickGame" class="container">
-    <div id="gameOptions" class="row px-4">
+    <div id="gameOptions" class="row">
+
         <div class="col-sm-12 col-md-6 text-center">
+
             <section id="triviaSection">
             <i id="triviaIcon" class="fas fa-music"></i>
             <a href="#"><p id="triviaSelection" class="gameTitles">MUSIC TRIVIA MASTER</p></a>
             </section>
+
             <section id="lyricOptions">
                 <form>
                     <h5 class="text-white text-start">Difficulty:</h5>
@@ -54,7 +57,9 @@
                 </form>
             </section>
         </div>
+
         <div class="col-sm-12 col-md-6 text-center">
+
             <section id="lyricSection">
             <i id="lyricIcon" class="fas fa-microphone-alt"></i>
             <a href="#"><p id="lyricSelection" class="gameTitles">LYRIC MASTER</p></a>
