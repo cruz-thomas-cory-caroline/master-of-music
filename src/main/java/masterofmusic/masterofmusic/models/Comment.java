@@ -20,15 +20,17 @@ public class Comment {
     @OneToOne
     private User owner;
 
-    public Comment(long id, String body,  List<Post> posts) {
+    public Comment(long id, String body,  List<Post> posts, User owner) {
         this.id = id;
         this.body = body;
         this.posts = posts;
+        this.owner = owner;
     }
 
-    public Comment(String body,  List<Post> posts) {
+    public Comment(String body,  List<Post> posts, User owner) {
         this.body = body;
         this.posts = posts;
+        this.owner = owner;
     }
 
     public Comment() {
@@ -57,5 +59,13 @@ public class Comment {
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 }
