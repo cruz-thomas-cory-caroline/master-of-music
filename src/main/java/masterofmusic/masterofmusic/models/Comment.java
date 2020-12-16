@@ -14,22 +14,23 @@ public class Comment {
     @Column(nullable = false, length = 255)
     private String body;
 
-    @ManyToMany(mappedBy = "comments")
-    private List<Post> posts;
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private Post post;
 
     @OneToOne
     private User owner;
 
-    public Comment(long id, String body,  List<Post> posts, User owner) {
+    public Comment(long id, String body,  Post post, User owner) {
         this.id = id;
         this.body = body;
-        this.posts = posts;
+        this.post = post;
         this.owner = owner;
     }
 
-    public Comment(String body,  List<Post> posts, User owner) {
+    public Comment(String body, Post post, User owner) {
         this.body = body;
-        this.posts = posts;
+        this.post = post;
         this.owner = owner;
     }
 
@@ -53,19 +54,29 @@ public class Comment {
         this.body = body;
     }
 
-    public List<Post> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(List<Post> posts) {
-        this.posts = posts;
-    }
-
     public User getOwner() {
         return owner;
     }
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", body='" + body + '\'' +
+                ", post=" + post +
+                ", owner=" + owner +
+                '}';
     }
 }

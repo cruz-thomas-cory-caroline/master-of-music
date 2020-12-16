@@ -60,7 +60,7 @@
 
 
         <div th:id="'comment'+${post.id}" class="card text-center ml-auto post-reply" style="width: 90%">
-            <form th:action="@{forum/comment/(id=${post.id})}" th:method="post">
+            <form th:action="@{forum/comment/{id}(id=${post.id})}" th:method="post" th:object="${comment}">
                 <div class="card">
                     <h5 class="card-header">Reply</h5>
                     <div class="card-body">
@@ -70,7 +70,6 @@
                             <button type="button" class="btn btn-danger close-reply" th:value="'comment'+${post.id}">Close</button>
                             <button type="submit" class="btn btn-primary">Post</button>
                         </div>
-
                     </div>
                 </div>
             </form>
