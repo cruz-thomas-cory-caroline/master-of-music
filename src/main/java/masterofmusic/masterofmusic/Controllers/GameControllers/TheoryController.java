@@ -1,4 +1,4 @@
-package masterofmusic.masterofmusic.Controllers.GameControllers;
+package masterofmusic.masterofmusic.controllers.GameControllers;
 
 
 import masterofmusic.masterofmusic.models.Question;
