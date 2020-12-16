@@ -1,5 +1,4 @@
 package masterofmusic.masterofmusic.controllers;
-
 import masterofmusic.masterofmusic.SecurityConfiguration;
 import masterofmusic.masterofmusic.models.User;
 import masterofmusic.masterofmusic.repositories.UserRepository;
@@ -11,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.swing.*;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -35,7 +37,17 @@ public class UserController {
                            @ModelAttribute User user) {
         boolean passwordRequirements = (SecurityConfiguration.isValidPassword(password));
         boolean emailRequirements = (SecurityConfiguration.emailMeetsRequirements(email));
-
+        List<User> usersList = users.findAll();
+        for (User u : usersList) {
+            if (user.getUsername().equalsIgnoreCase(u.getUsername())){
+                return "redirect:/sign-up?usernameNotAvailable";
+            }
+        }
+        for (User u : usersList) {
+            if (user.getEmail().equalsIgnoreCase(u.getEmail())){
+                return "redirect:/sign-up?emailNotAvailable";
+            }
+        }
         if (!password.equals(confirmPassword)) {
             return "redirect:/sign-up?invalidpw";
         } else if (!passwordRequirements) {
