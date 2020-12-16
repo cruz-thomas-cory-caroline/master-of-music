@@ -10,5 +10,5 @@ import java.util.List;
 
 @Repository
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
-    List<Answer> getAllByQuestionId(long id);
+    ArrayList<Answer> getAllByQuestionId(long id);
 }

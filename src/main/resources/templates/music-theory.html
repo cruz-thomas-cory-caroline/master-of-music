@@ -8,12 +8,15 @@
 
 <h1 th:text="${questions}"></h1>
 
-<div  th:each="answer : ${answers}">
-    <form>
+
+<form>
+    <div  th:each="answer : ${answers}">
         <label th:for="${answer.id}" th:text="${answer.answer}"></label>
-        <input type="radio" th:id="${answer.id}" th:name="${answer.answer}">
-    </form>
-</div>
+        <input type="radio" th:id="${answer.id}" th:name="${answer.answer}" th:value="${answer.answer}">
+    </div>
+    <input checked="checked" type="radio">
+</form>
+
 
 
 
