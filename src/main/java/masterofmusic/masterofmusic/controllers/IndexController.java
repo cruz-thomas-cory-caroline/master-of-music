@@ -1,4 +1,4 @@
-package masterofmusic.masterofmusic.controllers;
+package masterofmusic.masterofmusic.Controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 

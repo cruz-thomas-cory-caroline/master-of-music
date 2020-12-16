@@ -1,4 +1,4 @@
-package masterofmusic.masterofmusic.controllers;
+package masterofmusic.masterofmusic.Controllers;
 
 import masterofmusic.masterofmusic.repositories.PostRepository;
 import masterofmusic.masterofmusic.repositories.UserRepository;
