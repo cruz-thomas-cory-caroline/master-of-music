@@ -1,4 +1,4 @@
-package masterofmusic.masterofmusic.controllers;
+package masterofmusic.masterofmusic.Controllers;
 
 import masterofmusic.masterofmusic.models.User;
 import org.springframework.stereotype.Controller;

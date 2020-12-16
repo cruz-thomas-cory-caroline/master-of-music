@@ -1,5 +1,4 @@
-package masterofmusic.masterofmusic.controllers;
-
+package masterofmusic.masterofmusic.Controllers;
 import masterofmusic.masterofmusic.SecurityConfiguration;
 import masterofmusic.masterofmusic.models.User;
 import masterofmusic.masterofmusic.repositories.UserRepository;
