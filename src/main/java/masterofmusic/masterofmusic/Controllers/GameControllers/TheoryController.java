@@ -6,8 +6,11 @@ import masterofmusic.masterofmusic.repositories.QuestionRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
 import java.util.List;
+
 
 @Controller
 public class TheoryController {
@@ -18,13 +21,10 @@ public class TheoryController {
         this.questionDao = questionDao;
     }
 
-    @GetMapping("/music-theory")
-    public String viewQuizFormat(Model model){
-        List<Question> theoryList = questionDao.findAllByGameId(2L);
-        for(int i = 0; i <= theoryList.size(); i++){
-
-        }
-        model.addAttribute("questions", questionDao.findAllByGameId(2L));
+    @GetMapping("/music-theory/{id}")
+    public String viewQuizFormat(@PathVariable int id, Model model){
+        ArrayList<Question> theoryList = questionDao.findAllByGameId(2L);
+        model.addAttribute("questions", theoryList.get(id).getQuestion());
         return "/music-theory";
     }
 
