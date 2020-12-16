@@ -19,6 +19,14 @@ public class Question {
     @OneToMany(mappedBy = "question")
     private List<Answer> answers; //error will go away when game table is created
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "questions_genres",
+            joinColumns = {@JoinColumn(name = "question_id")},
+            inverseJoinColumns = {@JoinColumn(name = "genre_id")}
+    )
+    private List<Genre> question_genres;
+
     @Column(nullable = true)
     private String img; //String for image url for image game
 
