@@ -5,7 +5,7 @@
     <title>Master of Music</title>
 </head>
 
-<body class="path">
+<body>
 <!--<img src="img/giphy.gif" id="backgroundSplashImg"/>-->
 <!--<audio id="my_audio" src="synthwaveLoop.wav" loop="loop" controls></audio>-->
 <a th:href="@{/index}"><i id="backButton" class="fas fa-backward"></i></a>
@@ -15,7 +15,7 @@
 <section id="pickGame" class="container">
     <div id="gameOptions" class="row d-flex justify-space-around">
 
-        <div class="col-sm-12 col-md-6 text-center">
+        <div class="col-sm-12 col-md-6 text-center divMoveDown">
 
             <section id="triviaSection">
             <i id="triviaIcon" class="fas fa-music"></i>
@@ -58,7 +58,7 @@
             </section>
         </div>
 
-        <div class="col-sm-12 col-md-6 text-center">
+        <div class="col-sm-12 col-md-6 text-center divMoveDown">
 
             <section id="lyricSection">
             <i id="lyricIcon" class="fas fa-microphone-alt"></i>
@@ -146,7 +146,7 @@
 
         <div class="col-sm-12 col-md-6 text-center">
 
-            <section id="unscrambleLyricSection">
+            <section id="unscrambleLyricSection" class="w-100 h-100">
                 <i id="unscrambleLyricIcon" class="fas fa-compact-disc"></i>
                 <a href="#"><p id="unscrambleLyricSelection" class="gameTitles">UNSCRAMBLE MASTER</p></a>
             </section>

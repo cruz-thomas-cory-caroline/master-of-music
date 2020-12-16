@@ -25,13 +25,6 @@ body {
     color: #1aeeee;
 }
 
-/*#backgroundSplashImg {*/
-/*    width: 100vw;*/
-/*    height: 100%;*/
-/*    z-index: -100;*/
-/*    position: relative;*/
-/*}*/
-
 #backButton {
     position: absolute;
     top: 0;
@@ -149,9 +142,9 @@ body {
 #gameOptions {
     position: absolute;
     width: 100vw;
-    height: 80vh;
+    height: 100%;
     z-index: 2;
-    top: 50%;
+    top: 58%;
     left: 50%;
     transform: translate(-50%, -50%);
 }

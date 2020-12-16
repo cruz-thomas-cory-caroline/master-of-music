@@ -37,24 +37,34 @@
         triviaSelection.click(function() {
             $("#lyricSection").hide();
             $("#triviaOptions").show();
+            $("#musicTheorySection").hide();
+            $("#unscrambleLyricSection").hide();
             $("#backButton").show();
+            $(".divMoveDown").css("margin-top", "10%");
         });
 
         lyricSelection.click(function() {
             $("#triviaSection").hide();
             $("#lyricOptions").show();
+            $("#musicTheorySection").hide();
+            $("#unscrambleLyricSection").hide();
             $("#backButton").show();
+            $(".divMoveDown").css("margin-top", "10%");
         });
 
         $("#musicTheorySelection").click(function() {
             $("#unscrambleLyricSection").hide();
-            $("#unscrambleOptions").show();
+            $("#musicTheoryOptions").show();
+            $("#triviaSection").hide();
+            $("#lyricSection").hide();
             $("#backButton").show();
         });
 
         $("#unscrambleLyricSelection").click(function() {
             $("#musicTheorySection").hide();
             $("#unscrambleOptions").show();
+            $("#lyricSection").hide();
+            $("#triviaSection").hide();
             $("#backButton").show();
         });
 
