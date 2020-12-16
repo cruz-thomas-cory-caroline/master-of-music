@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <div th:include="partials/head.html :: head"></div>
     <title>Forum</title>
@@ -8,6 +9,30 @@
 
 <main class="container">
     <h1 class="text-center">Forum</h1>
+    <div sec:authorize="isAuthenticated()">
+    <div class="text-center mt-5">
+        <button type="button" class="btn btn-success" id="post-form">New Post</button>
+    </div>
+    </div>
+
+    <div class="card m-5" id="new-post">
+        <div class="card-header text-left">New Post</div>
+        <form th:action="@{/forum/post}" method="post" th:object="${post}">
+            <div class="card-body">
+                <label for="new-post-title">Subject: </label>
+                <br>
+                <input class="card-title" id="new-post-title" style="width: 50%" th:field="*{title}">
+                <br>
+                <label for="new-post-body">Post: </label>
+                <textarea id="new-post-body" placeholder="Type your comment here" style="width: 100%; height: 100px"  th:field="*{body}"></textarea>
+            </div>
+            <div class="card-footer">
+                <button type="button" id="close-post" class="btn btn-danger">Close</button>
+                <button type="submit" class="btn btn-primary">Post</button>
+            </div>
+        </form>
+    </div>
+
     <div th:each="post : ${posts}" class="m-5">
         <div class="card text-center">
             <div class="card-header text-left" th:text="${post.getOwner().getUsername()}"></div>
@@ -16,64 +41,44 @@
                 <p class="card-text" th:text="${post.getBody()}"></p>
             </div>
             <div class="card-footer">
-                <a href="#" class="btn btn-primary">Reply</a>
+                <button type="button" th:value="'comment'+${post.id}" class="reply btn btn-primary">Reply</button>
             </div>
         </div>
 
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-             aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit Post</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form th:action="@{/posts/update/(id=${post.id})}" method="post">
-                        <div class="modal-body text-left">
-                            <div>
-                                <label for="title">Title: </label>
-                                <br>
-                                <input id="title" name="title" th:value="${post.getTitle()}" style="width: 100%">
-                            </div>
-                            <div>
-                                <label for="description">Description: </label>
-                                <br>
-                                <textarea id="description" name="description" th:text="${post.getBody()}"
-                                          style="width: 100%; height: 200px"></textarea>
-                            </div>
-                            <div>
-                                <label for="created_by">Created By: </label>
-                                <br>
-                                <input id="created_by" name="created_by" th:value="${post.getOwner().getEmail()}"
-                                       style="width: 100%" readonly>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Save</button>
-                        </div>
-                    </form>
+        <div th:each="comment : ${post.getCommentList()}">
+            <div class="card text-center ml-auto" style="width: 90%">
+                <div class="card-header text-left" th:text="${comment.getOwner().getUsername()}"></div>
+                <div class="card-body">
+                    <p class="card-text" th:text="${comment.getBody()}"></p>
+                </div>
+                <div class="card-footer">
+<!--                    <a href="#" class="btn btn-primary">Reply</a>-->
                 </div>
             </div>
         </div>
-    <div th:each="comment : ${post.getCommentList()}">
-        <div class="card text-center wid">
-            <div class="card-header text-left" th:text="${comment.getOwner().getUsername()}"></div>
-            <div class="card-body">
-                <p class="card-text" th:text="${comment.getBody()}"></p>
 
-            </div>
-            <div class="card-footer">
-                <a href="#" class="btn btn-primary">Reply</a>
-            </div>
+
+        <div th:id="'comment'+${post.id}" class="card text-center ml-auto post-reply" style="width: 90%">
+            <form th:action="@{forum/comment/{id}(id=${post.id})}" th:method="post" th:object="${comment}">
+                <div class="card">
+                    <h5 class="card-header">Reply</h5>
+                    <div class="card-body">
+                        <h4 class="card-title">RE: <span th:text="${post.getTitle()}"></span></h4>
+                        <textarea id="body" name="body" placeholder="Type your comment here" style="width: 100%; height: 100px"></textarea>
+                        <div>
+                            <button type="button" class="btn btn-danger close-reply" th:value="'comment'+${post.id}">Close</button>
+                            <button type="submit" class="btn btn-primary">Post</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
-    </div>
+
+
     </div>
 </main>
 
+<div th:include="partials/scripts.html :: scripts"></div>
 </body>
 </html>
