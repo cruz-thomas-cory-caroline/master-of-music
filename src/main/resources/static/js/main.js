@@ -8,6 +8,8 @@
     $('#audioButtonOff').hide();
     $("#menuRecord").hide();
     $("#wordMenu").hide();
+    $("#unscrambleOptions").hide();
+    $("#musicTheoryOptions").hide();
 
     $(document).ready(function(){
         let triviaSelection = $('#triviaSelection');
@@ -35,24 +37,37 @@
         triviaSelection.click(function() {
             $("#lyricSection").hide();
             $("#triviaOptions").show();
+            $("#musicTheorySection").hide();
+            $("#unscrambleLyricSection").hide();
             $("#backButton").show();
+            $(".divMoveDown").css("margin-top", "10%");
         });
 
         lyricSelection.click(function() {
             $("#triviaSection").hide();
             $("#lyricOptions").show();
+            $("#musicTheorySection").hide();
+            $("#unscrambleLyricSection").hide();
+            $("#backButton").show();
+            $(".divMoveDown").css("margin-top", "10%");
+        });
+
+        $("#musicTheorySelection").click(function() {
+            $("#unscrambleLyricSection").hide();
+            $("#musicTheoryOptions").show();
+            $("#triviaSection").hide();
+            $("#lyricSection").hide();
             $("#backButton").show();
         });
 
-        $("#backButton").click(function() {
-            if ($("#lyricOptions").show()) {
-                $("#lyricOptions").hide();
-                $("#triviaSection").show();
-            } if ($("#triviaOptions").show()) {
-                $("#triviaOptions").hide();
-                $("#lyricSection").show();
-            }
-        })
+        $("#unscrambleLyricSelection").click(function() {
+            $("#musicTheorySection").hide();
+            $("#unscrambleOptions").show();
+            $("#lyricSection").hide();
+            $("#triviaSection").hide();
+            $("#backButton").show();
+        });
+
 
     });
 
