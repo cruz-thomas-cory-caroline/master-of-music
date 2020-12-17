@@ -7,14 +7,18 @@
 </head>
 <body>
 <form th:action="@{/finish-lyrics}">
-<div class="card w-50">
-    <div class="card-body">
-        <h5 class="card-title" th:text="${questions}"></h5>
-        <div class="card-text" th:each="answer : ${answers}"></div>
-        <p th:id="${answers}"></p>
-        <a href="#" class="btn btn-primary">Button</a>
+    <div th:each="song : ${songs}">
+        <div class="card w-50">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${song.title}"></h5>
+                <h5 class="card-text" th:text="${song.lyrics}"></h5>
+                <div class="card-text" th:each="answer : ${answers.get(songs.indexOf(song))}">
+                    <p th:text="${answer}"></p>
+                    <a href="#" class="btn btn-primary">Button</a>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 </form>
 </body>
 <th:block th:include="partials/scripts :: scripts"></th:block>
