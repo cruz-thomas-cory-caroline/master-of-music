@@ -1,10 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <div th:include="partials/head.html :: head"></div>
+    <title>Music Trivia Master</title>
 </head>
 <body>
 
+<form>
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
+        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
+        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <section th:each="question : ${questions}">
+                <h1 th:text="${question.question}" class="text-white text-start"></h1>
+                <div th:each="answer : ${answers}" class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="question1" id="answer1">
+                    <label th:text="${answer.answer}" class="form-check-label" for="answer1"></label>
+                </div>
+<!--                <div class="form-check form-check-inline">-->
+<!--                    <input class="form-check-input" type="radio" name="difficultyOptions" id="mediumChoice"-->
+<!--                           value="medium">-->
+<!--                    <label class="form-check-label" for="mediumChoice">Medium</label>-->
+<!--                </div>-->
+<!--                <div class="form-check form-check-inline">-->
+<!--                    <input class="form-check-input" type="radio" name="difficultyOptions" id="hardChoice"-->
+<!--                           value="hard">-->
+<!--                    <label class="form-check-label" for="hardChoice">Hard</label>-->
+<!--                </div>-->
+            </section>
+        </div>
+        <div class="carousel-item">
+            <img src="..." class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="..." class="d-block w-100" alt="...">
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </a>
+</div>
+</form>
+
+
+<div th:include="partials/footerNav.html :: footerNav"></div>
+<div th:include="partials/scripts.html :: scripts"></div>
 </body>
 </html>

@@ -7,9 +7,11 @@ import org.springframework.stereotype.Repository;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
-      ArrayList<Question> findAllByGameId(long id);
+      List<Question> findAllByGameId(long id);
+      List<Question> getQuestionByGame_Id(long id);
 }
