@@ -40,8 +40,16 @@
                 <h5 class="card-title" th:text="${post.getTitle()}"></h5>
                 <p class="card-text" th:text="${post.getBody()}"></p>
             </div>
+
             <div class="card-footer">
-                <button type="button" th:value="'comment'+${post.id}" class="reply btn btn-primary">Reply</button>
+                <div sec:authorize="isAuthenticated()">
+<!--                    <div th:if="${#authentication.principal.is_admin} == true">-->
+                        <form th:action="@{/post/{id}/delete(id=${post.id})}" method="post">
+                            <button type="submit" class="btn btn-danger">Remove</button>
+                        </form>
+<!--                    </div>-->
+                    <button type="button" th:value="'comment'+${post.id}" class="reply btn btn-primary">Reply</button>
+                </div>
             </div>
         </div>
 

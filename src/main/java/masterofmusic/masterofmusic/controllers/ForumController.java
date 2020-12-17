@@ -48,4 +48,10 @@ public class ForumController {
         return "redirect:/forum";
     }
 
+    @PostMapping("/post/{id}/delete")
+    public String deletePost(@PathVariable long id) {
+        postDao.deleteById(id);
+        return "redirect:/forum";
+    }
+
 }
