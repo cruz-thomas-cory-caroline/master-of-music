@@ -35,7 +35,7 @@ public class TheoryController {
 
 
     @PostMapping("/music-theory/{id}")
-    public String createScore(@RequestParam(name = "answers")String userAnswer, @PathVariable int id, Model model){
+    public String submitAnswer(@RequestParam(name = "answers")String userAnswer, @PathVariable int id, Model model){
         ArrayList<Question> theoryList = questionDao.findAllByGameId(2L);
         long questionId = theoryList.get(id).getId();
         ArrayList<Answer> answerList = answerDao.getAllByQuestionId(questionId);
@@ -48,8 +48,9 @@ public class TheoryController {
         if(userAnswer.equalsIgnoreCase(correctAnswer)){
             model.addAttribute("correct", "Great Job!");
         }
-
         return "music-theory";
     }
+
+
 
 }

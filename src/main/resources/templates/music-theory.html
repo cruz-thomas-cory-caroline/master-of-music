@@ -28,6 +28,8 @@
         </div>
         <div class="card-body">
             <h2>You gained x points!</h2>
+            <form method="GET" th:action="@{|/music-theory/${id + 1}|}">
+                <button name="next-round">Next Round</button>
             </form>
         </div>
     </div>
