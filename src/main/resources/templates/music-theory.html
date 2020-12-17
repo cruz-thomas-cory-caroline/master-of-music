@@ -10,11 +10,10 @@
 
 
 <form>
-    <div  th:each="answer : ${answers}">
+    <div th:each="answer : ${answers}">
         <label th:for="${answer.id}" th:text="${answer.answer}"></label>
-        <input type="radio" th:id="${answer.id}" th:name="${answer.answer}" th:value="${answer.answer}">
+        <input type="radio" th:id="${answer.id}" name="answers" th:value="${answer.answer}">
     </div>
-    <input checked="checked" type="radio">
 </form>
 
 
