@@ -27,6 +27,7 @@ public class ForumController {
     public String showForumPage(Model model) {
         model.addAttribute("posts", postDao.findAll());
         model.addAttribute("post", new Post());
+        model.addAttribute("comment", new Comment());
         if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString().equalsIgnoreCase("anonymousUser")) {
             model.addAttribute("user", (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         }
@@ -48,6 +49,20 @@ public class ForumController {
         Post parentPost = postDao.getOne(id);
         Comment commentToSave = new Comment(body, parentPost, hardCodedUser);
         commentDao.save(commentToSave);
+        return "redirect:/forum";
+    }
+
+    @PostMapping("/post/{id}/edit")
+    public String submitPostEdit(@PathVariable long id, @ModelAttribute Post post) {
+        post.setOwner(userDao.getOne(1L));
+        Post dbPost = postDao.save(post);
+        return "redirect:/forum";
+    }
+
+    @PostMapping("/comment/{id}/edit")
+    public String submitCommentEdit(@PathVariable long id, @ModelAttribute Comment comment) {
+        comment.setOwner(userDao.getOne(1L));
+        Comment dbComment = commentDao.save(comment);
         return "redirect:/forum";
     }
 

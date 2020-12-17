@@ -30,17 +30,30 @@
     })
 
     $('#submit-post-edit').hide()
+    $('#close-post-edit').hide()
     $( "#post-edit" ).click(function() {
         $('.post-title').replaceWith($('<input th:field="*{title}"></input>').val($('.post-title').text()));
         $('.post-body').replaceWith($('<textarea th:field="*{body}"></textarea>').text($('.post-body').text()));
         $('#submit-post-edit').show()
-
+        $('#close-post-edit').show()
+        $('.post-buttons').hide()
     });
 
+    $('#close-post-edit').click(function () {
+        $('.post-buttons').show()
+    })
+
+    $('#close-comment-edit').hide()
     $('#submit-comment-edit').hide()
     $( "#comment-edit" ).click(function() {
         $('.comment-body').replaceWith($('<textarea th:field="*{body}"></textarea>').text($('.comment-body').text()));
         $('#submit-comment-edit').show()
+        $('#close-comment-edit').show()
+        $('.comment-buttons').hide()
     });
+
+    $('#close-comment-edit').click(function () {
+        $('.comment-buttons').show()
+    })
 
 })();

@@ -40,19 +40,22 @@
             <form th:action="@{/post/{id}/edit(id=${post.id})}" method="post" th:object="${post}">
                 <div class="card-body">
                     <h5 class="card-title post-title" th:text="${post.getTitle()}"></h5>
+                    <br>
                     <p class="card-text post-body" th:text="${post.getBody()}"></p>
-                    <button id="submit-post-edit" type="submit">Submit Edit</button>
+                    <br>
+                    <button id="close-post-edit" type="button" class="btn btn-danger">Close</button>
+                    <button id="submit-post-edit" type="submit" class="btn btn-primary">Submit Edit</button>
                 </div>
             </form>
             <div class="card-footer">
                 <div sec:authorize="isAuthenticated()">
-                    <div th:if="${user.isAdmin() == true}">
+                    <div th:if="${user.isAdmin() == true}" class="post-buttons row justify-content-around">
                         <form th:action="@{/post/{id}/delete(id=${post.id})}" method="post">
                             <button type="submit" class="btn btn-danger">Remove</button>
                         </form>
-                        <button id="post-edit" type="button">Edit</button>
+                        <button id="post-edit" type="button" class="btn btn-secondary">Edit</button>
+                        <button type="button" th:value="'comment'+${post.id}" class="reply btn btn-primary">Reply</button>
                     </div>
-                    <button type="button" th:value="'comment'+${post.id}" class="reply btn btn-primary">Reply</button>
                 </div>
             </div>
         </div>
@@ -61,19 +64,22 @@
         <div th:each="comment : ${post.getCommentList()}">
             <div class="card text-center ml-auto" style="width: 90%">
                 <div class="card-header text-left" th:text="${comment.getOwner().getUsername()}"></div>
-                <form th:action="@{/comment/{id}/delete(id=${comment.id})}" method="post" th:object="${post}">
-                <div class="card-body">
-                    <p class="card-text comment-body" th:text="${comment.getBody()}"></p>
-                    <button id="submit-comment-edit" type="button">Submit Edit</button>
-                </div>
+                <form th:action="@{/comment/{id}/delete(id=${comment.id})}" method="post" th:object="${comment}">
+                    <div class="card-body">
+                        <p class="card-text comment-body" th:text="${comment.getBody()}"></p>
+                        <br>
+                        <button id="close-comment-edit" type="button" class=" btn btn-danger">Close</button>
+                        <button id="submit-comment-edit" type="button">Submit Edit</button>
+                    </div>
                 </form>
                 <div class="card-footer">
                     <div sec:authorize="isAuthenticated()">
-                        <div th:if="${user.isAdmin() == true || user.getId() == comment.getOwner().getId()}">
-                            <form th:action="@{/comment/{id}/delete(id=${comment.id})}" method="post">
-                                <button type="submit" class="btn btn-danger">Remove</button>
-                                <button id="comment-edit" type="button">Edit</button>
-                            </form>
+                            <div th:if="${user.isAdmin() == true || user.getId() == comment.getOwner().getId()}" class="comment-buttons row justify-content-around">
+                                <form th:action="@{/comment/{id}/delete(id=${comment.id})}" method="post">
+                                    <button type="submit" class="btn btn-danger">Remove</button>
+                                </form>
+                                <button id="comment-edit" type="button" class="btn btn-secondary">Edit</button>
+                            </div>
                         </div>
                     </div>
                 </div>
