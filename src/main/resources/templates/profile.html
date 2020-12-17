@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="partials/head.html :: head"></div>
+    <title>Profile</title>
+</head>
+<body>
+<!--<nav th:replace="partials/navbar.html :: nav"></nav>-->
+
+<div>
+    <img style="height: 12em; width: 12em" th:src="${profile.images}">
+    <h1 th:text="${profile.username}">Username</h1>
+    <h3 th:text="${profile.email}"></h3>
+</div>
+
+<div>
+    <p th:text="${stats.score}"></p>
+</div>
+
+<a href="#">Edit Username</a>
+
+<div th:replace="partials/scripts.html :: scripts"></div>
+</body>
+</html>
