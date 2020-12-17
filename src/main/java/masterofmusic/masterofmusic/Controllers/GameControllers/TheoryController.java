@@ -26,27 +26,28 @@ public class TheoryController {
 
     @GetMapping("/music-theory/{id}")
     public String viewQuizFormat(@PathVariable int id, Model model){
-        ArrayList<Question> theoryList = questionDao.findAllByGameId(2L);
-        model.addAttribute("questions", theoryList.get(id).getQuestion());
-        long questionId = theoryList.get(id).getId();
-        model.addAttribute("answers", answerDao.getAllByQuestionId(questionId));
+        ArrayList<Question> theoryList = questionDao.findAllByGameId(2L); // pull MT quest from database
+        model.addAttribute("questions", theoryList.get(id).getQuestion()); //pass to Front end .get(id) is determined by path variable
+        long questionId = theoryList.get(id).getId(); //return question object then get Id of that question
+        model.addAttribute("answers", answerDao.getAllByQuestionId(questionId)); //get answers to that Q and pass to Front end
         return "/music-theory";
     }
 
 
     @PostMapping("/music-theory/{id}")
-    public String createScore(@RequestParam(name = "answers")String userAnswer, @PathVariable int id){
+    public String createScore(@RequestParam(name = "answers")String userAnswer, @PathVariable int id, Model model){
         ArrayList<Question> theoryList = questionDao.findAllByGameId(2L);
         long questionId = theoryList.get(id).getId();
         ArrayList<Answer> answerList = answerDao.getAllByQuestionId(questionId);
-        String correctAnswer;
+        String correctAnswer = "";
         for (Answer answer: answerList){
-            if(answer.isCorrect()){
+            if(answer.isCorrect()) {
                 correctAnswer = answer.getAnswer();
             }
         }
-        System.out.println(userAnswer);
-//        System.out.println(correctAnswer);
+        if(userAnswer.equalsIgnoreCase(correctAnswer)){
+            model.addAttribute("correct", "Great Job!");
+        }
 
         return "music-theory";
     }

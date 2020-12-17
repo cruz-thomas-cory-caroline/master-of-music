@@ -1,25 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <div th:replace="partials/head.html :: head"></div>
     <title>Title</title>
 </head>
 <body>
-
-
-<h1 th:text="${questions}"></h1>
-
-
-<form METHOD="POST" th:action="@{|/music-theory/${id}|}">
-    <div th:each="answer : ${answers}">
-        <label th:for="${answer.id}" th:text="${answer.answer}"></label>
-        <input type="radio" th:id="${answer.id}" name="answers" th:value="${answer.answer}">
+<div th:hidden="${correct != null}">
+    <div class="card bg-light mb-3" style="max-width: 18rem;">
+        <div class="card-header">
+            <h1 th:text="${questions}"></h1>
+        </div>
+        <div class="card-body">
+            <form METHOD="POST" th:action="@{|/music-theory/${id}|}">
+                <div th:each="answer : ${answers}">
+                    <label th:for="${answer.id}" th:text="${answer.answer}"></label>
+                    <input type="radio" th:id="${answer.id}" name="answers" th:value="${answer.answer}">
+                </div>
+                <button type="submit">Submit your answer!</button>
+            </form>
+        </div>
     </div>
-    <button type="submit">Submit your answer!</button>
-</form>
-
-
-
-
+</div>
+<div th:if="${correct != null}">
+    <div class="card bg-light mb-3" style="max-width: 18rem;">
+        <div class="card-header">
+            <h1>Correct!</h1>
+        </div>
+        <div class="card-body">
+            <h2>You gained x points!</h2>
+            </form>
+        </div>
+    </div>
+</div>
+<div th:replace="partials/scripts.html :: scripts"></div>
 </body>
 </html>
