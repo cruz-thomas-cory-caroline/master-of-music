@@ -37,21 +37,28 @@ public class TriviaController {
 
     @GetMapping("/trivia-game")
     public String viewTriviaGame(Model viewModel) {
-        Game game = gameDao.getOne(3L);
         List<Question> triviaQuestions = questionDao.findAllByGameId(3);
+        List<List<Answer>> listOfAnswers = new ArrayList<>();
+        for (Question question : triviaQuestions) {
+            listOfAnswers.add(answerDao.findAllByQuestionId(question.getId()));
+        }
         viewModel.addAttribute("questions", triviaQuestions);
-        List<Answer> triviaAnswers = answerDao.findAllByQuestionId(1);
+        List<List<Answer>> triviaAnswers = listOfAnswers;
         viewModel.addAttribute("answers", triviaAnswers);
         return "trivia-game";
     }
 
-//    @PostMapping("/trivia-game")
-//    public String userTriviaSelection(
-//            @RequestParam(name = "difficultyOptions") String difficultyOptions,
-//            @RequestParam(name = "genreOptions") String genreOptions
-//    ) {
-////        Game game = gameDao.getOne(3L);
-//
-//        return "trivia-game";
-//    }
+    @PostMapping("/trivia-game")
+    public String userTriviaSelection(
+            @RequestParam(name = "1") String triviaAnswer,
+            @RequestParam(name ="2") String triviaAnswer2
+    ) {
+        List<String> userAnswers = new ArrayList<>();
+        userAnswers.add(triviaAnswer);
+        userAnswers.add(triviaAnswer2);
+//        Game game = gameDao.getOne(3L);
+        System.out.print(userAnswers);
+        return "trivia-game";
+    }
+
 }

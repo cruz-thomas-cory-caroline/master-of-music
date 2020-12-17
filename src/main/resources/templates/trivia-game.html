@@ -18,21 +18,25 @@
                 <h1 class="text-white text-start">START THE GAME</h1>
             </section>
         </div>
-        <div class="carousel-item" th:each="question : ${questions}">
+        <form th:action="@{/trivia-game}" th:method="post">
+            <div class="carousel-item" th:each="question : ${questions}">
 
-            <div id="cardQnA" class="card m-auto">
-                <div class="card-header" th:text="${question.question}">
-                </div>
-                <div class="card-body" th:each="answer : ${answers}">
-                    <input class="form-check-input" type="radio" name="difficultyOptions" id="easyChoice"
-                           value="easy">
-                    <label class="form-check-label" for="easyChoice" th:text="${answer.answer}"></label>
+                <div id="cardQnA" class="card m-auto">
+                    <div class="card-header" th:value="${question.id}" th:text="${question.question}">
+                    </div>
+                    <div class="card-body form-check form-check-inline" th:each="answer : ${answers.get(questions.indexOf(question))}">
+                        <input class="form-check-input" type="radio" th:name="${question.id}" th:value="${answer.answer}" id="triviaGameQuiz">
+                        <label class="form-check-label" for="triviaGameQuiz" th:text="${answer.answer}"></label>
+                    </div>
+<!--                    <div class="form-check form-check-inline">-->
+<!--                        <input class="form-check-input" type="radio" name="difficultyOptions" id="easyChoice"-->
+<!--                               value="easy">-->
+<!--                        <label class="form-check-label" for="easyChoice">Easy</label>-->
+<!--                    </div>-->
+                    <button class="btn btn-danger" type="submit">Submit Quiz</button>
                 </div>
             </div>
-
-            <!--            <div th:text="${question.question}"></div>-->
-
-        </div>
+        </form>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
