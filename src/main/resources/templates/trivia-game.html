@@ -6,50 +6,43 @@
 </head>
 <body>
 
-<form>
-<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+<div id="carouselExampleIndicators" class="carousel slide" data-interval="false" data-ride="carousel">
     <ol class="carousel-indicators">
-        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
-        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
-        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
     </ol>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <section th:each="question : ${questions}">
-                <h1 th:text="${question.question}" class="text-white text-start"></h1>
-                <div th:each="answer : ${answers}" class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="question1" id="answer1">
-                    <label th:text="${answer.answer}" class="form-check-label" for="answer1"></label>
-                </div>
-<!--                <div class="form-check form-check-inline">-->
-<!--                    <input class="form-check-input" type="radio" name="difficultyOptions" id="mediumChoice"-->
-<!--                           value="medium">-->
-<!--                    <label class="form-check-label" for="mediumChoice">Medium</label>-->
-<!--                </div>-->
-<!--                <div class="form-check form-check-inline">-->
-<!--                    <input class="form-check-input" type="radio" name="difficultyOptions" id="hardChoice"-->
-<!--                           value="hard">-->
-<!--                    <label class="form-check-label" for="hardChoice">Hard</label>-->
-<!--                </div>-->
+            <section>
+                <h1 class="text-white text-start">START THE GAME</h1>
             </section>
         </div>
-        <div class="carousel-item">
-            <img src="..." class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-            <img src="..." class="d-block w-100" alt="...">
+        <div class="carousel-item" th:each="question : ${questions}">
+
+            <div id="cardQnA" class="card m-auto">
+                <div class="card-header" th:text="${question.question}">
+                </div>
+                <div class="card-body" th:each="answer : ${answers}">
+                    <input class="form-check-input" type="radio" name="difficultyOptions" id="easyChoice"
+                           value="easy">
+                    <label class="form-check-label" for="easyChoice" th:text="${answer.answer}"></label>
+                </div>
+            </div>
+
+            <!--            <div th:text="${question.question}"></div>-->
+
         </div>
     </div>
-    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
     </a>
-    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
     </a>
 </div>
-</form>
 
 
 <div th:include="partials/footerNav.html :: footerNav"></div>
