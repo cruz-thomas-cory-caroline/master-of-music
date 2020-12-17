@@ -29,4 +29,18 @@
         console.log(buttonValue)
     })
 
+    $('#submit-post-edit').hide()
+    $( "#post-edit" ).click(function() {
+        $('.post-title').replaceWith($('<input th:field="*{title}"></input>').val($('.post-title').text()));
+        $('.post-body').replaceWith($('<textarea th:field="*{body}"></textarea>').text($('.post-body').text()));
+        $('#submit-post-edit').show()
+
+    });
+
+    $('#submit-comment-edit').hide()
+    $( "#comment-edit" ).click(function() {
+        $('.comment-body').replaceWith($('<textarea th:field="*{body}"></textarea>').text($('.comment-body').text()));
+        $('#submit-comment-edit').show()
+    });
+
 })();

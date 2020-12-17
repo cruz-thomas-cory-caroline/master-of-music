@@ -19,7 +19,6 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name = "post_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Post post;
 
     @OneToOne
@@ -38,9 +37,7 @@ public class Comment {
         this.owner = owner;
     }
 
-    public Comment() {
-
-    }
+    public Comment() {}
 
     public long getId() {
         return id;

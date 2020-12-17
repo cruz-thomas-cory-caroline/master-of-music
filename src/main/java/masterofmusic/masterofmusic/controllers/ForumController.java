@@ -24,9 +24,12 @@ public class ForumController {
     }
 
     @GetMapping("/forum")
-    public String showForumPage(Model model, Model model1, Model model2) {
+    public String showForumPage(Model model) {
         model.addAttribute("posts", postDao.findAll());
-        model1.addAttribute("post", new Post());
+        model.addAttribute("post", new Post());
+        if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString().equalsIgnoreCase("anonymousUser")) {
+            model.addAttribute("user", (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        }
         return "forum";
     }
 
@@ -51,6 +54,12 @@ public class ForumController {
     @PostMapping("/post/{id}/delete")
     public String deletePost(@PathVariable long id) {
         postDao.deleteById(id);
+        return "redirect:/forum";
+    }
+
+    @PostMapping("/comment/{id}/delete")
+    public String deleteComment(@PathVariable long id) {
+        commentDao.deleteById(id);
         return "redirect:/forum";
     }
 
