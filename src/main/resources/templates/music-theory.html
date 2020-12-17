@@ -6,14 +6,16 @@
 </head>
 <body>
 
+
 <h1 th:text="${questions}"></h1>
 
 
-<form>
+<form METHOD="POST" th:action="@{|/music-theory/${id}|}">
     <div th:each="answer : ${answers}">
         <label th:for="${answer.id}" th:text="${answer.answer}"></label>
         <input type="radio" th:id="${answer.id}" name="answers" th:value="${answer.answer}">
     </div>
+    <button type="submit">Submit your answer!</button>
 </form>
 
 
