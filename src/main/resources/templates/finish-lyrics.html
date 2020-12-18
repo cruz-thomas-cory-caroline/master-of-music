@@ -6,20 +6,32 @@
     <title>Finish the Lyrics</title>
 </head>
 <body>
-<form th:action="@{/finish-lyrics}">
-    <div th:each="song : ${songs}">
-        <div class="card w-50">
-            <div class="card-body">
-                <h5 class="card-title" th:text="${song.title}"></h5>
-                <h5 class="card-text" th:each="question : ${questions.get(songs.indexOf(song))}"></h5>
-                <div class="card-text" th:each="answer : ${answers.get(songs.indexOf(song))}">
-                    <p th:text="${answer}"></p>
-                    <a href="#" class="btn btn-primary">Button</a>
+
+<div class="card-body">
+    <form th:method="post" th:action="@{/finish-lyrics}">
+        <div th:each="question : ${questions}">
+            <h5 class="card-title" th:text="${question}"></h5>
+            <div class="card-text" th:each="answer : ${answers.get(questions.indexOf(question))}">
+                <div>
+                    <input th:type="radio" th:text="${answer}">
                 </div>
             </div>
+            <a href="#" class="btn btn-primary btn-small">Button</a>
         </div>
-    </div>
-</form>
+    </form>
+</div>
 </body>
 <th:block th:include="partials/scripts :: scripts"></th:block>
 </html>
+
+<!--<div class="card-body">-->
+<!--    <form th:method="post" th:action="@{/finish-lyrics}">-->
+<!--        <div th:each="question : ${questions}">-->
+<!--            <h5 class="card-title" th:text="${question}"></h5>-->
+<!--            <div class="card-text" th:each="answer : ${answers.get(questions.indexOf(question))}">-->
+<!--                <input th:type="radio" th:text="${answer}">-->
+<!--            </div>-->
+<!--            <a href="#" class="btn btn-primary btn-small">Button</a>-->
+<!--        </div>-->
+<!--    </form>-->
+<!--</div>-->
