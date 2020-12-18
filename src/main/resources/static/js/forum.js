@@ -2,12 +2,14 @@
     "use strict";
 
     $('#new-post').hide()
+    $('.post-reply').hide()
+    $('.post-edit-buttons').hide()
+    $('.comment-edit-buttons').hide()
+
     $('#post-form').click(function () {
         $('#new-post').show()
         $('#post-form').hide()
     })
-
-    $('.post-reply').hide()
 
     $('#close-post').click(function () {
         $('#new-post').hide()
@@ -29,31 +31,42 @@
         console.log(buttonValue)
     })
 
-    $('#submit-post-edit').hide()
-    $('#close-post-edit').hide()
-    $( "#post-edit" ).click(function() {
-        $('.post-title').replaceWith($('<input th:field="*{title}"></input>').val($('.post-title').text()));
-        $('.post-body').replaceWith($('<textarea th:field="*{body}"></textarea>').text($('.post-body').text()));
-        $('#submit-post-edit').show()
-        $('#close-post-edit').show()
-        $('.post-buttons').hide()
+    let previousPostTitle;
+    let previousPostBody;
+
+    $('.post-edit').click(function() {
+        buttonValue = $(this).attr("value");
+        previousPostTitle = $('#title-edit'+buttonValue)[0].outerHTML
+        previousPostBody = $('#body-edit'+buttonValue)[0].outerHTML
+        $('#title-edit'+buttonValue).replaceWith($('<input name="post-title" style="width: 50%"></input>').val($('#title-edit'+buttonValue).text()).attr('id', "input-post-title"+buttonValue));
+        $('#body-edit'+buttonValue).replaceWith($('<textarea name="post-body" style="width: 100%; height: 100px"></textarea>').text($('#body-edit'+buttonValue).text()).attr('id', "input-post-body"+buttonValue));
+        $('#post-edit-buttons'+buttonValue).show()
+        $('#post-admin-buttons'+buttonValue).hide()
     });
 
-    $('#close-post-edit').click(function () {
-        $('.post-buttons').show()
+    $('.close-post-edit').click(function () {
+        buttonValue = $(this).attr("value");
+        $('#input-post-title'+buttonValue).replaceWith(previousPostTitle);
+        $('#input-post-body'+buttonValue).replaceWith(previousPostBody);
+        $('#post-admin-buttons'+buttonValue).show()
+        $('#post-edit-buttons'+buttonValue).hide()
     })
 
-    $('#close-comment-edit').hide()
-    $('#submit-comment-edit').hide()
-    $( "#comment-edit" ).click(function() {
-        $('.comment-body').replaceWith($('<textarea th:field="*{body}"></textarea>').text($('.comment-body').text()));
-        $('#submit-comment-edit').show()
-        $('#close-comment-edit').show()
-        $('.comment-buttons').hide()
+    let previousCommentBody;
+
+    $('.comment-edit').click(function() {
+        buttonValue = $(this).attr("value");
+        previousCommentBody = $('#comment-edit'+buttonValue)[0].outerHTML
+        $('#comment-edit'+buttonValue).replaceWith($('<textarea name="comment-body" style="width: 100%; height: 100px"></textarea>').text($('#comment-edit'+buttonValue).text()).attr('id', "input-comment-body"+buttonValue));
+        $('#comment-edit-buttons'+buttonValue).show()
+        $('#comment-admin-buttons'+buttonValue).hide()
     });
 
-    $('#close-comment-edit').click(function () {
-        $('.comment-buttons').show()
+    $('.close-comment-edit').click(function () {
+        buttonValue = $(this).attr("value");
+        $('#input-comment-body'+buttonValue).replaceWith(previousCommentBody);
+        $('#comment-admin-buttons'+buttonValue).show()
+        $('#comment-edit-buttons'+buttonValue).hide()
     })
 
 })();
