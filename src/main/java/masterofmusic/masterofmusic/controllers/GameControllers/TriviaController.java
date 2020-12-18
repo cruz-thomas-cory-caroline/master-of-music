@@ -39,10 +39,12 @@ public class TriviaController {
 
     @GetMapping("/trivia-game")
     public String viewTriviaGame(Model viewModel) {
-        ArrayList<Question> questions = questionDao.findAllByGameId(3L);
-        var question = questions.get(0);
+//        ArrayList<Question> questions = questionDao.findAllByGameId(3L);
+        Question question = questionDao.getOne(1L);
+//        List<Answer> answers = question.getAnswers();
         viewModel.addAttribute("question", question);
-        return "/trivia-game";
+//        viewModel.addAttribute("answers", answers);
+        return "trivia-game";
     }
 
     @PostMapping("/trivia-game")
@@ -70,7 +72,7 @@ public class TriviaController {
         playerGameDao.save(currentPlayerGame);
         playerGameRoundDao.save(currentGameRound);
         genreDao.save(currentGenre);
-        return "/trivia-game";
+        return "redirect:/trivia-game";
     }
 
 }
