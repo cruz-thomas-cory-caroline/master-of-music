@@ -30,16 +30,19 @@ public class LyricsController {
         int count = songDao.findAll().size();
         List<List<String>> lyricAnswers = new ArrayList<>();
         List<Long> chosenSongs = new ArrayList<>();
+        chosenSongs.add((long) -1);
 
         for (Song song : songDao.findAll()) {
-            int counter = 4;
+            int counter = 4;//add one for correct answer
             List<String> lyricsSet = new ArrayList<>();
             while (counter > 0) {
-                Song songOne = songDao.getOne(((long) (Math.random() * ((count + 1) - 1 + 1) + 1)));
+                Song songOne = songDao.getOne(((long) (Math.random() * (count - 1 + 1) + 1)));
                 for (Long songId : chosenSongs) {
                     if (songId != songOne.getId()) {
                         chosenSongs.add(songOne.getId());
-                        lyricsSet.add(songOne.getLyrics());
+
+                        String lyricToManipulate = songOne.getLyrics();
+                        lyricsSet.add(songOne.getLyrics());//passed into new variable string to user
                         break;
                     }
                 }
@@ -47,6 +50,13 @@ public class LyricsController {
             }
             lyricAnswers.add(lyricsSet);
         }
+        for(List<String> list : lyricAnswers){
+            System.out.println("This is a list");
+            for(String stringLyric : list){
+                System.out.println(stringLyric);
+            }
+        }
+
         model.addAttribute("answers", lyricAnswers);
         return "finish-lyrics";
     }
