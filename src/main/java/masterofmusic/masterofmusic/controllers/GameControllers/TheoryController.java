@@ -55,6 +55,10 @@ public class TheoryController {
             winner.setScore(winner.getScore() + 2);
             PlayerGame dbWinner = playerGameDao.save(winner);
         }
+
+        if(!userAnswer.equalsIgnoreCase(correctAnswer)){
+            model.addAttribute("wrong", "Sorry");
+        }
         return "music-theory";
     }
 

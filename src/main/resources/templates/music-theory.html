@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <div th:replace="partials/head.html :: head"></div>
     <title>Title</title>
 </head>
 <body>
-<div th:hidden="${correct != null}">
-    <div class="card bg-light mb-3" style="max-width: 18rem;">
+<div th:switch="${wrong != null || correct != null }">
+    <div th:case="${false}" class="card bg-light mb-3" style="max-width: 18rem;">
         <div class="card-header">
             <h1 th:text="${questions}"></h1>
         </div>
@@ -20,7 +21,9 @@
             </form>
         </div>
     </div>
+    <span th:case="${true}"></span>
 </div>
+
 <div th:if="${correct != null}">
     <div class="card bg-light mb-3" style="max-width: 18rem;">
         <div class="card-header">
@@ -34,6 +37,24 @@
         </div>
     </div>
 </div>
+<div th:if="${wrong != null}">
+    <div class="card bg-light mb-3" style="max-width: 18rem;">
+        <div class="card-header">
+            <h1>Wrong</h1>
+        </div>
+        <div class="card-body">
+            <h2>You gained 0 points</h2>
+            <form method="GET" th:action="@{|/music-theory/${id}|}">
+                <button name="next-round">Retry</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
 <div th:replace="partials/scripts.html :: scripts"></div>
 </body>
 </html>
