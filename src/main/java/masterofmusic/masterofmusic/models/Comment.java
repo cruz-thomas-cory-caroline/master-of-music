@@ -1,6 +1,9 @@
 package masterofmusic.masterofmusic.models;
 
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -34,9 +37,7 @@ public class Comment {
         this.owner = owner;
     }
 
-    public Comment() {
-
-    }
+    public Comment() {}
 
     public long getId() {
         return id;

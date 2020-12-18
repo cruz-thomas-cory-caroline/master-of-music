@@ -175,3 +175,19 @@ body {
     text-shadow: 1px 1px 2px #fcc910, 0 0 25px blue, 0 0 5px darkblue;
     font-size: 2.5em;
 }
+
+/*TRIVIA-GAME CAROUSEL*/
+#carouselExampleIndicators {
+    position: absolute;
+    width: 80vw;
+    height: 70vh;
+    z-index: 4;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#cardQnA {
+    width: 30em;
+    height: 35em;
+}

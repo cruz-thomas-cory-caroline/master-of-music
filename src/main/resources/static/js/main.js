@@ -40,7 +40,7 @@
             $("#musicTheorySection").hide();
             $("#unscrambleLyricSection").hide();
             $("#backButton").show();
-            $(".divMoveDown").css("margin-top", "10%");
+            $(".divMoveDown").css("margin-top", "18%");
         });
 
         lyricSelection.click(function() {
@@ -49,7 +49,7 @@
             $("#musicTheorySection").hide();
             $("#unscrambleLyricSection").hide();
             $("#backButton").show();
-            $(".divMoveDown").css("margin-top", "10%");
+            $(".divMoveDown").css("margin-top", "18%");
         });
 
         $("#musicTheorySelection").click(function() {
@@ -67,6 +67,9 @@
             $("#triviaSection").hide();
             $("#backButton").show();
         });
+
+        // TRIVIA-GAME JS
+
 
 
     });

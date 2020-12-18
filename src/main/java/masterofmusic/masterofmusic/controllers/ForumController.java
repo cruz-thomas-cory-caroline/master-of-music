@@ -24,9 +24,12 @@ public class ForumController {
     }
 
     @GetMapping("/forum")
-    public String showForumPage(Model model, Model model1, Model model2) {
+    public String showForumPage(Model model) {
         model.addAttribute("posts", postDao.findAll());
-        model1.addAttribute("post", new Post());
+        model.addAttribute("post", new Post());
+        if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString().equalsIgnoreCase("anonymousUser")) {
+            model.addAttribute("user", (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        }
         return "forum";
     }
 
@@ -38,13 +41,46 @@ public class ForumController {
         return "redirect:/forum";
     }
 
-    @PostMapping("/forum/comment/{id}")
-    public String submitComment(@PathVariable long id,
+    @PostMapping("/forum/comment/")
+    public String submitComment(@RequestParam(name = "post-id") long id,
                                 @RequestParam(name = "body") String body) {
-        User hardCodedUser = userDao.getOne(3L);
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Post parentPost = postDao.getOne(id);
-        Comment commentToSave = new Comment(body, parentPost, hardCodedUser);
+        Comment commentToSave = new Comment(body, parentPost, loggedInUser);
         commentDao.save(commentToSave);
+        return "redirect:/forum";
+    }
+
+    @PostMapping("/post/{id}/edit")
+    public String submitPostEdit(@PathVariable long id,
+                                 @ModelAttribute Post post,
+                                 @RequestParam(name = "post-title") String title,
+                                 @RequestParam(name = "post-body") String body) {
+        post.setOwner(postDao.getOne(id).getOwner());
+        post.setTitle(title);
+        post.setBody(body);
+        Post dbPost = postDao.save(post);
+        return "redirect:/forum";
+    }
+
+    @PostMapping("/comment/{id}/edit")
+    public String submitCommentEdit(@PathVariable long id,
+                                    @RequestParam(name = "comment-body") String body) {
+        Comment commentEdit = commentDao.getOne(id);
+        commentEdit.setBody(body);
+        commentDao.save(commentEdit);
+        return "redirect:/forum";
+    }
+
+    @PostMapping("/post/{id}/delete")
+    public String deletePost(@PathVariable long id) {
+        postDao.deleteById(id);
+        return "redirect:/forum";
+    }
+
+    @PostMapping("/comment/{id}/delete")
+    public String deleteComment(@PathVariable long id) {
+        commentDao.deleteById(id);
         return "redirect:/forum";
     }
 
