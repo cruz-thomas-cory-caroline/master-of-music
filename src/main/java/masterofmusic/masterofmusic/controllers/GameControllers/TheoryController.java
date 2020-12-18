@@ -4,6 +4,7 @@ import masterofmusic.masterofmusic.models.Answer;
 import masterofmusic.masterofmusic.models.PlayerGame;
 import masterofmusic.masterofmusic.models.Question;
 
+import masterofmusic.masterofmusic.models.User;
 import masterofmusic.masterofmusic.repositories.AnswerRepository;
 import masterofmusic.masterofmusic.repositories.PlayerGameRepository;
 import masterofmusic.masterofmusic.repositories.QuestionRepository;
@@ -30,6 +31,14 @@ public class TheoryController {
 
     @GetMapping("/music-theory/{id}")
     public String viewQuizFormat(@PathVariable int id, Model model){
+        PlayerGame playerGame = playerGameDao.findByUserId(1);
+        User userPlaying = playerGame.getUser();
+       long userId = userPlaying.getId();
+
+        if(id == 6){
+            return "redirect:/profile/" + userId;
+        }
+
         ArrayList<Question> theoryList = questionDao.findAllByGameId(2L); // pull MT quest from database
         model.addAttribute("questions", theoryList.get(id).getQuestion()); //pass to Front end .get(id) is determined by path variable
         long questionId = theoryList.get(id).getId(); //return question object then get Id of that question
@@ -40,6 +49,7 @@ public class TheoryController {
 
     @PostMapping("/music-theory/{id}")
     public String submitAnswer(@RequestParam(name = "answers")String userAnswer, @PathVariable int id, Model model){
+
         ArrayList<Question> theoryList = questionDao.findAllByGameId(2L);
         long questionId = theoryList.get(id).getId();
         ArrayList<Answer> answerList = answerDao.getAllByQuestionId(questionId);
@@ -59,6 +69,10 @@ public class TheoryController {
         if(!userAnswer.equalsIgnoreCase(correctAnswer)){
             model.addAttribute("wrong", "Sorry");
         }
+
+
+
+
         return "music-theory";
     }
 
