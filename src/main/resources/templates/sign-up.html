@@ -4,8 +4,35 @@
     <meta charset="UTF-8">
     <div th:include="partials/head.html :: head"></div>
     <title>Sign-Up</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script>
+        var myApp = angular.module("myapp", []);
+        myApp.controller("PasswordController", function ($scope) {
+
+            var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+            var mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
+
+            $scope.passwordStrength = {
+                "float": "left",
+                "width": "100px",
+                "height": "25px",
+                "margin-left": "5px"
+            };
+
+            $scope.analyze = function (value) {
+                if (strongRegex.test(value)) {
+                    $scope.passwordStrength["background-color"] = "green";
+                } else if (mediumRegex.test(value)) {
+                    $scope.passwordStrength["background-color"] = "orange";
+                } else {
+                    $scope.passwordStrength["background-color"] = "red";
+                }
+            };
+
+        });
+    </script>
 </head>
-<body>
+<body ng-app="myapp">
 <div class="card mx-auto my-5" style="width: 23rem">
     <article class="card-body">
         <h4 class="card-title text-center mb-4 mt-1">Create Account</h4>
@@ -30,7 +57,7 @@
         </div>
         <div th:if="${param.invalidpwRequirements}">
             <p class="text-danger">Password does not meet requirements.</p>
-            <ul><h6>Password Requirements:</h6>
+            <ul class="text-danger"><h6>Password Requirements:</h6>
                 <li>It contains at least 8 characters and at most 20 characters.</li>
                 <li>It contains at least one digit.</li>
                 <li>It contains at least one upper case alphabet.</li>
@@ -57,39 +84,42 @@
                     <input class="form-control" placeholder="Enter email" type="email" th:field="*{email}">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-controller="PasswordController">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                        <input class="form-control" ng-model="password" ng-change="analyze(password)"
+                               placeholder="Enter password" type="password" name="password"
+                               th:field="*{password}">
                     </div>
-                    <input class="form-control" placeholder="Enter password" type="password" name="password"
-                           th:field="*{password}">
+                    <div ng-style="passwordStrength"></div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"> <i class="fas fa-key"></i> </span>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fas fa-key"></i> </span>
+                        </div>
+                        <input class="form-control" placeholder="Confirm password" type="password"
+                               name="confirmPassword">
                     </div>
-                    <input class="form-control" placeholder="Confirm password" type="password" name="confirmPassword">
                 </div>
-            </div>
-            <p class="text-center">Already have an account? <a th:href="@{/login}">Login</a></p>
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="isAdmin" th:value="${user.isAdmin()}" id="defaultCheck1">
-                            <label class="form-check-label" for="defaultCheck1">
-                              Select for Admin
-                            </label>
+                <p class="text-center">Already have an account? <a th:href="@{/login}">Login</a></p>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="isAdmin"
+                                       th:value="${user.isAdmin()}" id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Select for Admin
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
-            </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+                </div>
         </form>
     </article>
 </div>
