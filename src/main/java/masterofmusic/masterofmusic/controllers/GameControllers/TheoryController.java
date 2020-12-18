@@ -1,6 +1,5 @@
 package masterofmusic.masterofmusic.controllers.GameControllers;
 
-
 import masterofmusic.masterofmusic.models.Answer;
 import masterofmusic.masterofmusic.models.Question;
 import masterofmusic.masterofmusic.repositories.AnswerRepository;
@@ -9,7 +8,6 @@ import masterofmusic.masterofmusic.repositories.QuestionRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +23,7 @@ public class TheoryController {
         this.questionDao = questionDao;
         this.answerDao = answerDao;
         this.playerGameDao = playerGameDao;
+
     }
 
     @GetMapping("/music-theory/{id}")
@@ -54,7 +53,5 @@ public class TheoryController {
         }
         return "music-theory";
     }
-
-
 
 }
