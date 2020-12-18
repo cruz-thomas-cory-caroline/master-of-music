@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="partials/head.html :: head"></div>
+    <title>Unscramble The Lyrics</title>
+</head>
+<body>
+<main class="container">
+
+    <div th:each="lyricSet : ${scrambledLyricsSet}">
+        <div class="card">
+            <h5 class="card-header">Unscramble This</h5>
+            <div class="card-body">
+                <div class="row">
+                    <div th:each="word : ${lyricSet}">
+                        <a href="#" class="btn btn-primary" th:text="${word}"></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</main>
+
+</body>
+</html>
