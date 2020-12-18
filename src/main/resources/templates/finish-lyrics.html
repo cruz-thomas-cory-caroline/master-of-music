@@ -11,7 +11,7 @@
         <div class="card w-50">
             <div class="card-body">
                 <h5 class="card-title" th:text="${song.title}"></h5>
-                <h5 class="card-text" th:text="${song.lyrics}"></h5>
+                <h5 class="card-text" th:each="question : ${questions.get(songs.indexOf(song))}"></h5>
                 <div class="card-text" th:each="answer : ${answers.get(songs.indexOf(song))}">
                     <p th:text="${answer}"></p>
                     <a href="#" class="btn btn-primary">Button</a>
