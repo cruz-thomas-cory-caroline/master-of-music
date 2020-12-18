@@ -31,14 +31,16 @@ public class TheoryController {
 
     @GetMapping("/music-theory/{id}")
     public String viewQuizFormat(@PathVariable int id, Model model){
+
+//       finding the user Id
         PlayerGame playerGame = playerGameDao.findByUserId(1);
         User userPlaying = playerGame.getUser();
-       long userId = userPlaying.getId();
-
+        long userId = userPlaying.getId();
+//         redirecting the user if there are no more questions
         if(id == 6){
             return "redirect:/profile/" + userId;
         }
-
+//      pulling questions and answers
         ArrayList<Question> theoryList = questionDao.findAllByGameId(2L); // pull MT quest from database
         model.addAttribute("questions", theoryList.get(id).getQuestion()); //pass to Front end .get(id) is determined by path variable
         long questionId = theoryList.get(id).getId(); //return question object then get Id of that question
@@ -50,6 +52,7 @@ public class TheoryController {
     @PostMapping("/music-theory/{id}")
     public String submitAnswer(@RequestParam(name = "answers")String userAnswer, @PathVariable int id, Model model){
 
+//        finding the correct answer
         ArrayList<Question> theoryList = questionDao.findAllByGameId(2L);
         long questionId = theoryList.get(id).getId();
         ArrayList<Answer> answerList = answerDao.getAllByQuestionId(questionId);
@@ -59,6 +62,7 @@ public class TheoryController {
                 correctAnswer = answer.getAnswer();
             }
         }
+//        comparing user answer to correct answer/good ending
         if(userAnswer.equalsIgnoreCase(correctAnswer)){
             model.addAttribute("correct", "Great Job!");
             PlayerGame winner = playerGameDao.findByUserId(1);
@@ -66,12 +70,10 @@ public class TheoryController {
             PlayerGame dbWinner = playerGameDao.save(winner);
         }
 
+//        comparing user answer to correct answer/bad ending
         if(!userAnswer.equalsIgnoreCase(correctAnswer)){
             model.addAttribute("wrong", "Sorry");
         }
-
-
-
 
         return "music-theory";
     }

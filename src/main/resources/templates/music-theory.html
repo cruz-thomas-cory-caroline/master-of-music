@@ -6,7 +6,7 @@
     <title>Title</title>
 </head>
 <body>
-<div th:switch="${wrong != null || correct != null || goToProfile != null }" class="mt-5">
+<div th:switch="${wrong != null || correct != null}" class="mt-5">
     <div th:case="${false}" class="card bg-light m-auto" style="width: 38rem;">
         <div class="card-header">
             <h1 th:text="${questions}"></h1>
@@ -32,7 +32,7 @@
         <div class="card-body">
             <h2>You gained x points!</h2>
             <form method="GET" th:action="@{|/music-theory/${id + 1}|}">
-                <button name="next-round">Next Round</button>
+                <button name="next-round">Next!</button>
             </form>
         </div>
     </div>
@@ -51,6 +51,7 @@
     </div>
 </div>
 
+<div th:replace="partials/footerNav.html :: footerNav"></div>
 <div th:replace="partials/scripts.html :: scripts"></div>
 </body>
 </html>

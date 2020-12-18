@@ -10,12 +10,12 @@
 
 <div>
     <img style="height: 12em; width: 12em" th:src="${profile.images}">
-    <h1 th:text="${profile.username}">Username</h1>
-    <h3 th:text="${profile.email}"></h3>
+    <h1 style="color: white" th:text="${profile.username}">Username</h1>
+    <h3 style="color: white" th:text="${profile.email}"></h3>
 </div>
 
 <div>
-    <p th:text="${stats.score}"></p>
+    <p style="color: white" th:text="${stats.score}"></p>
 </div>
 
 <a href="#">Edit Username</a>
