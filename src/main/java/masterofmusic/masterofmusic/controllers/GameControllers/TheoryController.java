@@ -1,7 +1,9 @@
 package masterofmusic.masterofmusic.controllers.GameControllers;
 
 import masterofmusic.masterofmusic.models.Answer;
+import masterofmusic.masterofmusic.models.PlayerGame;
 import masterofmusic.masterofmusic.models.Question;
+
 import masterofmusic.masterofmusic.repositories.AnswerRepository;
 import masterofmusic.masterofmusic.repositories.PlayerGameRepository;
 import masterofmusic.masterofmusic.repositories.QuestionRepository;
@@ -49,7 +51,9 @@ public class TheoryController {
         }
         if(userAnswer.equalsIgnoreCase(correctAnswer)){
             model.addAttribute("correct", "Great Job!");
-
+            PlayerGame winner = playerGameDao.findByUserId(1);
+            winner.setScore(winner.getScore() + 2);
+            PlayerGame dbWinner = playerGameDao.save(winner);
         }
         return "music-theory";
     }
