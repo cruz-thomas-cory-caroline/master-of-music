@@ -34,6 +34,7 @@ public class UserController {
     public String saveUser(@RequestParam(name = "password") String password,
                            @RequestParam(name = "confirmPassword") String confirmPassword,
                            @RequestParam(name = "email") String email,
+                           @RequestParam(name = "isAdmin", defaultValue = "false") boolean isAdmin,
                            @ModelAttribute User user) {
         boolean passwordRequirements = (SecurityConfiguration.isValidPassword(password));
         boolean emailRequirements = (SecurityConfiguration.emailMeetsRequirements(email));
@@ -55,6 +56,7 @@ public class UserController {
         } else if (!emailRequirements) {
             return "redirect:/sign-up?invalidEmail";
         } else {
+            user.setAdmin(isAdmin);
             String hash = passwordEncoder.encode(user.getPassword());
             user.setPassword(hash);
             users.save(user);
