@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="partials/head.html :: head"></div>
+    <title>Music Trivia Master</title>
+</head>
+<body>
+
+<div id="carouselExampleIndicators" class="carousel slide" data-interval="false" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <section>
+                <h1 class="text-white text-start">START THE GAME</h1>
+            </section>
+        </div>
+        <form th:action="@{/trivia-game}" th:method="post">
+            <div class="carousel-item" th:each="question : ${questions}">
+
+                <div id="cardQnA" class="card m-auto">
+                    <div class="card-header" th:value="${question.id}" th:text="${question.question}">
+                    </div>
+                    <div class="card-body form-check form-check-inline" th:each="answer : ${answers.get(questions.indexOf(question))}">
+                        <input class="form-check-input" type="radio" name="question" th:value="${answer.answer}" id="triviaGameQuiz">
+                        <label class="form-check-label" for="triviaGameQuiz" th:text="${answer.answer}"></label>
+                    </div>
+<!--                    <div class="form-check form-check-inline">-->
+<!--                        <input class="form-check-input" type="radio" name="difficultyOptions" id="easyChoice"-->
+<!--                               value="easy">-->
+<!--                        <label class="form-check-label" for="easyChoice">Easy</label>-->
+<!--                    </div>-->
+                    <button class="btn btn-danger" type="submit">Submit Quiz</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </a>
+</div>
+
+
+<div th:include="partials/footerNav.html :: footerNav"></div>
+<div th:include="partials/scripts.html :: scripts"></div>
+</body>
+</html>
