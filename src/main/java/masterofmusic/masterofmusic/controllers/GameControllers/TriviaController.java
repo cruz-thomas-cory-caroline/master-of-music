@@ -50,14 +50,14 @@ public class TriviaController {
 
     @PostMapping("/trivia-game")
     public String userTriviaSelection(
-            @RequestParam(name = "1") String triviaAnswer,
-            @RequestParam(name ="2") String triviaAnswer2
+            @RequestParam(name = "question") List<String> triviaAnswer
+//            @RequestParam(name ="2") String triviaAnswer2
     ) {
-        List<String> userAnswers = new ArrayList<>();
-        userAnswers.add(triviaAnswer);
-        userAnswers.add(triviaAnswer2);
+//        List<String> userAnswers = new ArrayList<>();
+//        userAnswers.add(triviaAnswer);
+//        userAnswers.add(triviaAnswer2);
 //        Game game = gameDao.getOne(3L);
-        System.out.print(userAnswers);
+        System.out.print(triviaAnswer);
         return "trivia-game";
     }
 

@@ -25,7 +25,7 @@
                     <div class="card-header" th:value="${question.id}" th:text="${question.question}">
                     </div>
                     <div class="card-body form-check form-check-inline" th:each="answer : ${answers.get(questions.indexOf(question))}">
-                        <input class="form-check-input" type="radio" th:name="${question.id}" th:value="${answer.answer}" id="triviaGameQuiz">
+                        <input class="form-check-input" type="radio" name="question" th:value="${answer.answer}" id="triviaGameQuiz">
                         <label class="form-check-label" for="triviaGameQuiz" th:text="${answer.answer}"></label>
                     </div>
 <!--                    <div class="form-check form-check-inline">-->
