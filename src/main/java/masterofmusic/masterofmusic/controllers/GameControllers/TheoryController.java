@@ -4,6 +4,7 @@ package masterofmusic.masterofmusic.controllers.GameControllers;
 import masterofmusic.masterofmusic.models.Answer;
 import masterofmusic.masterofmusic.models.Question;
 import masterofmusic.masterofmusic.repositories.AnswerRepository;
+import masterofmusic.masterofmusic.repositories.PlayerGameRepository;
 import masterofmusic.masterofmusic.repositories.QuestionRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,10 +19,12 @@ public class TheoryController {
 
     private final QuestionRepository questionDao;
     private final AnswerRepository answerDao;
+    private final PlayerGameRepository playerGameDao;
 
-    public TheoryController(QuestionRepository questionDao, AnswerRepository answerDao){
+    public TheoryController(QuestionRepository questionDao, AnswerRepository answerDao, PlayerGameRepository playerGameDao){
         this.questionDao = questionDao;
         this.answerDao = answerDao;
+        this.playerGameDao = playerGameDao;
     }
 
     @GetMapping("/music-theory/{id}")
@@ -47,6 +50,7 @@ public class TheoryController {
         }
         if(userAnswer.equalsIgnoreCase(correctAnswer)){
             model.addAttribute("correct", "Great Job!");
+
         }
         return "music-theory";
     }
