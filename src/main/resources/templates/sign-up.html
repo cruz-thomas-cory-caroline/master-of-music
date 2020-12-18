@@ -30,6 +30,14 @@
             };
 
         });
+
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script>
+        $("#pwRequirements" ).click(function() {
+            $( "ul" ).show();
+        });
     </script>
 </head>
 <body ng-app="myapp">
@@ -57,7 +65,8 @@
         </div>
         <div th:if="${param.invalidpwRequirements}">
             <p class="text-danger">Password does not meet requirements.</p>
-            <ul class="text-danger"><h6>Password Requirements:</h6>
+        </div>
+            <ul class="text-danger" style="display: none"><h6>Password Requirements:</h6>
                 <li>It contains at least 8 characters and at most 20 characters.</li>
                 <li>It contains at least one digit.</li>
                 <li>It contains at least one upper case alphabet.</li>
@@ -66,7 +75,7 @@
                 <ul>!@#$%&*()-+=^.</ul>
                 <li>No spaces.</li>
             </ul>
-        </div>
+
         <form th:action="@{/sign-up}" method="post" th:object="${user}">
             <div class="form-group">
                 <div class="input-group">
@@ -90,7 +99,7 @@
                         <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                         <input class="form-control" ng-model="password" ng-change="analyze(password)"
                                placeholder="Enter password" type="password" name="password"
-                               th:field="*{password}">
+                               th:field="*{password}"><a id = "pwRequirements" href="#">Password Requirements</a>
                     </div>
                     <div ng-style="passwordStrength"></div>
                 </div>
