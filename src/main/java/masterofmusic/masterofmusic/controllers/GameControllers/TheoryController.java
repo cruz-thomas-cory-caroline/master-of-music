@@ -26,7 +26,7 @@ public class TheoryController {
 
     @GetMapping("/music-theory/{id}")
     public String viewQuizFormat(@PathVariable int id, Model model){
-        List<Question> theoryList = questionDao.findAllByGameId(2L);
+        ArrayList<Question> theoryList = questionDao.findAllByGameId(2L);
         model.addAttribute("questions", theoryList.get(id).getQuestion());
         long questionId = theoryList.get(id).getId();
         model.addAttribute("answers", answerDao.getAllByQuestionId(questionId));
