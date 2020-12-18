@@ -4,9 +4,8 @@ import masterofmusic.masterofmusic.models.Game;
 import masterofmusic.masterofmusic.repositories.AnswerRepository;
 import masterofmusic.masterofmusic.repositories.GameRepository;
 import masterofmusic.masterofmusic.repositories.QuestionRepository;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 public class IndexController {
 
@@ -21,14 +20,9 @@ public class IndexController {
         this.gameDao = gameDao;
     }
 
-//    @PostMapping("/index")
-//    public String indexPage(
-//            @RequestParam(name = "difficultyOptions") String difficultyOptions,
-//            @RequestParam(name = "genreOptions") String genreOptions
-//    ) {
-//        Game game = gameDao.getOne(3L);
-//
-//        return "posts/index";
-//    }
+    @GetMapping("/index")
+    public String indexPage(Model viewModel) {
+        return "index";
+    }
 
 }

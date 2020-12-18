@@ -1,16 +1,15 @@
 package masterofmusic.masterofmusic.controllers.GameControllers;
 
-import masterofmusic.masterofmusic.models.Answer;
-import masterofmusic.masterofmusic.models.Game;
-import masterofmusic.masterofmusic.models.Question;
-import masterofmusic.masterofmusic.repositories.AnswerRepository;
-import masterofmusic.masterofmusic.repositories.GameRepository;
-import masterofmusic.masterofmusic.repositories.QuestionRepository;
+import masterofmusic.masterofmusic.models.*;
+import masterofmusic.masterofmusic.repositories.*;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -19,46 +18,59 @@ public class TriviaController {
     private final QuestionRepository questionDao;
     private final AnswerRepository answerDao;
     private final GameRepository gameDao;
+    private final PlayerGameRepository playerGameDao;
+    private final PlayerGameRoundRepository playerGameRoundDao;
+    private final GenreRepository genreDao;
 
-    public TriviaController(QuestionRepository questionDao, AnswerRepository answerDao, GameRepository gameDao){
+    Timestamp gameTime = new Timestamp(0);
+    int gameScore = 0;
+    int gameLevel = 0;
+    String play_time = "";
+    int roundScore = 0;
+
+    public TriviaController(QuestionRepository questionDao, AnswerRepository answerDao, GameRepository gameDao, PlayerGameRepository playerGameDao, PlayerGameRoundRepository playerGameRoundDao, GenreRepository genreDao){
         this.questionDao = questionDao;
         this.answerDao = answerDao;
         this.gameDao = gameDao;
+        this.playerGameDao = playerGameDao;
+        this.playerGameRoundDao = playerGameRoundDao;
+        this.genreDao = genreDao;
     }
-
-//    @GetMapping("/trivia-game/{id}")
-//    public String startTriviaGame(@PathVariable int id, Model model) {
-//        List<Question> triviaQList = questionDao.findAllByGameId(3L);
-//        model.addAttribute("questions", triviaQList.get(id).getQuestion());
-//        long questionId = triviaQList.get(id).getId();
-//        model.addAttribute("answers", answerDao.getAllByQuestionId(questionId));
-//        return "trivia-game";
-//    }
 
     @GetMapping("/trivia-game")
     public String viewTriviaGame(Model viewModel) {
-        List<Question> triviaQuestions = questionDao.findAllByGameId(3);
-        List<List<Answer>> listOfAnswers = new ArrayList<>();
-        for (Question question : triviaQuestions) {
-            listOfAnswers.add(answerDao.findAllByQuestionId(question.getId()));
-        }
-        viewModel.addAttribute("questions", triviaQuestions);
-        List<List<Answer>> triviaAnswers = listOfAnswers;
-        viewModel.addAttribute("answers", triviaAnswers);
-        return "trivia-game";
+        ArrayList<Question> questions = questionDao.findAllByGameId(3L);
+        var question = questions.get(0);
+        viewModel.addAttribute("question", question);
+        return "/trivia-game";
     }
 
     @PostMapping("/trivia-game")
-    public String userTriviaSelection(
-            @RequestParam(name = "question") List<String> triviaAnswer
-//            @RequestParam(name ="2") String triviaAnswer2
-    ) {
-//        List<String> userAnswers = new ArrayList<>();
-//        userAnswers.add(triviaAnswer);
-//        userAnswers.add(triviaAnswer2);
-//        Game game = gameDao.getOne(3L);
-        System.out.print(triviaAnswer);
-        return "trivia-game";
+    public String gameSetup(
+            @RequestParam(name = "difficultyOptions") String difficultyOptions,
+            @RequestParam(name = "genreOptions") String genreOptions) {
+
+        Game game = gameDao.getOne(3L);
+        PlayerGame currentPlayerGame = new PlayerGame();
+        PlayerGameRound currentGameRound = new PlayerGameRound();
+        Genre currentGenre = new Genre();
+
+        currentPlayerGame.setGame(game);
+        currentPlayerGame.setScore(gameScore);
+        currentPlayerGame.setTimeElapsed(gameTime);
+
+        currentGameRound.setLevel(gameLevel);
+        currentGameRound.setPlay_time(play_time);
+        currentGameRound.setScore(roundScore);
+        currentGameRound.setPlayerGame(currentPlayerGame);
+        currentGameRound.setDifficulty(difficultyOptions);
+
+        currentGenre.setName(genreOptions);
+
+        playerGameDao.save(currentPlayerGame);
+        playerGameRoundDao.save(currentGameRound);
+        genreDao.save(currentGenre);
+        return "/trivia-game";
     }
 
 }
