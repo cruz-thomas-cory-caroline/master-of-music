@@ -6,8 +6,8 @@
     <title>Title</title>
 </head>
 <body>
-<div th:switch="${wrong != null || correct != null }">
-    <div th:case="${false}" class="card bg-light mb-3" style="max-width: 18rem;">
+<div th:switch="${wrong != null || correct != null }" class="mt-5">
+    <div th:case="${false}" class="card bg-light m-auto" style="width: 38rem;">
         <div class="card-header">
             <h1 th:text="${questions}"></h1>
         </div>
@@ -25,7 +25,7 @@
 </div>
 
 <div th:if="${correct != null}">
-    <div class="card bg-light mb-3" style="max-width: 18rem;">
+    <div class="card bg-light m-auto" style="max-width: 18rem;">
         <div class="card-header">
             <h1>Correct!</h1>
         </div>
@@ -38,7 +38,7 @@
     </div>
 </div>
 <div th:if="${wrong != null}">
-    <div class="card bg-light mb-3" style="max-width: 18rem;">
+    <div class="card bg-light m-auto" style="max-width: 18rem;">
         <div class="card-header">
             <h1>Wrong</h1>
         </div>
