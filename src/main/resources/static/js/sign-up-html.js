@@ -7,6 +7,7 @@ $(document).ready(function() {
     $("#pwRequirements").click(function () {
         $("#pwRequirementsList").show();
     });
+
 });
 
 })();
