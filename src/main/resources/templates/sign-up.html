@@ -15,28 +15,18 @@
             $scope.passwordStrength = {
                 "float": "left",
                 "width": "100px",
-                "height": "25px",
-                "margin-left": "5px"
             };
 
             $scope.analyze = function (value) {
                 if (strongRegex.test(value)) {
                     $scope.passwordStrength["background-color"] = "green";
                 } else if (mediumRegex.test(value)) {
-                    $scope.passwordStrength["background-color"] = "orange";
+                    $scope.passwordStrength["background-color"] = "yellow";
                 } else {
                     $scope.passwordStrength["background-color"] = "red";
                 }
             };
 
-        });
-
-
-    </script>
-    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-    <script>
-        $("#pwRequirements" ).click(function() {
-            $( "ul" ).show();
         });
     </script>
 </head>
@@ -66,7 +56,7 @@
         <div th:if="${param.invalidpwRequirements}">
             <p class="text-danger">Password does not meet requirements.</p>
         </div>
-            <ul class="text-danger" style="display: none"><h6>Password Requirements:</h6>
+            <ul id="pwRequirementsList" class="text-danger"><h6>Password Requirements:</h6>
                 <li>It contains at least 8 characters and at most 20 characters.</li>
                 <li>It contains at least one digit.</li>
                 <li>It contains at least one upper case alphabet.</li>
@@ -99,9 +89,9 @@
                         <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                         <input class="form-control" ng-model="password" ng-change="analyze(password)"
                                placeholder="Enter password" type="password" name="password"
-                               th:field="*{password}"><a id = "pwRequirements" href="#">Password Requirements</a>
-                    </div>
-                    <div ng-style="passwordStrength"></div>
+                               th:field="*{password}"><div ng-style="passwordStrength"></div>
+                    </div><a id = "pwRequirements" href="#">Password Requirements</a>
+
                 </div>
                 <div class="form-group">
                     <div class="input-group">
@@ -129,9 +119,12 @@
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
                 </div>
+            </div>
         </form>
     </article>
 </div>
+<script src="/static/js/sign-up-html.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <th:block th:include="partials/scripts :: scripts"></th:block>
 </body>
 </html>
