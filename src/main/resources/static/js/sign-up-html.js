@@ -1,11 +1,11 @@
 (function () {
     "use strict";
 
-    $("#pwRequirementsList").hide();
+    $("#pwRequirementsList").toggle();
 
 $(document).ready(function() {
     $("#pwRequirements").click(function () {
-        $("ul").show();
+        $("#pwRequirementsList").show();
     });
 });
 
