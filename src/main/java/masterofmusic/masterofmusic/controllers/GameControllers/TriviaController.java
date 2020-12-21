@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 @Controller
 public class TriviaController {
@@ -39,11 +40,10 @@ public class TriviaController {
 
     @GetMapping("/trivia-game")
     public String viewTriviaGame(Model viewModel) {
-//        ArrayList<Question> questions = questionDao.findAllByGameId(3L);
-        Question question = questionDao.getOne(1L);
-//        List<Answer> answers = question.getAnswers();
+        ArrayList<Question> questions = questionDao.findAllByGameId(3L);
+        Random rand = new Random();
+        Question question = questions.get(rand.nextInt(questions.size()));
         viewModel.addAttribute("question", question);
-//        viewModel.addAttribute("answers", answers);
         return "trivia-game";
     }
 
@@ -73,6 +73,43 @@ public class TriviaController {
         playerGameRoundDao.save(currentGameRound);
         genreDao.save(currentGenre);
         return "redirect:/trivia-game";
+    }
+
+    @PostMapping("/trivia-game/{id}")
+    public String viewNextQuizQuestion(
+            @PathVariable long id,
+            @RequestParam (name = "solutions") String userAnswer,
+            Model viewModel) {
+        boolean isCorrect = false;
+        Question question = questionDao.getOne(id);
+        List<Answer> availableAnswers = question.getAnswers();
+        for (Answer answer : availableAnswers) {
+            if (answer.isCorrect() & answer.getAnswer() == userAnswer) {
+                isCorrect = true;
+                break;
+            }
+        }
+//        viewModel.addAttribute("isCorrect", isCorrect);
+        return "redirect:/trivia-game";
+    }
+
+    @GetMapping("/trivia-game/{id}")
+    public String viewNewTriviaQuestion(
+            @PathVariable long id,
+            Model viewModel) {
+        ArrayList<Question> questions = questionDao.findAllByGameId(3L);
+        Random rand = new Random();
+        ArrayList<Question> newQuestionList = new ArrayList<>();
+        for (Question question : questions) {
+            if (question.getId() == id) {
+                continue;
+            } else {
+                newQuestionList.add(question);
+            }
+        }
+        Question question = questions.get(rand.nextInt(newQuestionList.size()));
+        viewModel.addAttribute("question", question);
+        return "trivia-game/";
     }
 
 }
