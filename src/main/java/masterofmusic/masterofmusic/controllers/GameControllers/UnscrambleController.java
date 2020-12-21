@@ -87,6 +87,7 @@ public class UnscrambleController {
             scrambledLyricsList.add(scrambledLyric);
         }
         model.addAttribute("scrambledLyricsSet", scrambledLyricsList);
+        model.addAttribute("originalLyrics", lyricsToScramble);
         return "unscramble";
     }
 }

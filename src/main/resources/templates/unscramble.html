@@ -13,8 +13,8 @@
             <div class="card-body justify content center">
                 <div class="row justify-content-center">
                     <div th:each="word : ${lyricSet}">
-                        <div class="drop-zone m-1" style="width: 75px; height: 50px; border: solid black 1px">
-                            <input type="hidden">
+                        <div class="drop-zone m-1"  style="width: 75px; height: 50px; border: solid black 1px">
+                            <input type="hidden" th:id="'word'+${lyricSet.indexOf(word)}">
                         </div>
                     </div>
                 </div>
@@ -26,6 +26,7 @@
                 </div>
             </div>
             <div class="card-footer text-center">
+                <input type="hidden" >
                 <button type="submit" class="btn btn-primary cat-button">Submit</button>
             </div>
         </div>
