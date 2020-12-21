@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.print.attribute.standard.PresentationDirection;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +29,8 @@ public class TriviaController {
     int gameLevel = 0;
     String play_time = "";
     int roundScore = 0;
+    int count = 0;
+    ArrayList<Question> askedQuestions = new ArrayList<>();
 
     public TriviaController(QuestionRepository questionDao, AnswerRepository answerDao, GameRepository gameDao, PlayerGameRepository playerGameDao, PlayerGameRoundRepository playerGameRoundDao, GenreRepository genreDao){
         this.questionDao = questionDao;
@@ -43,6 +46,7 @@ public class TriviaController {
         ArrayList<Question> questions = questionDao.findAllByGameId(3L);
         Random rand = new Random();
         Question question = questions.get(rand.nextInt(questions.size()));
+        askedQuestions.add(question);
         viewModel.addAttribute("question", question);
         return "trivia-game";
     }
@@ -82,6 +86,7 @@ public class TriviaController {
             Model viewModel) {
         boolean isCorrect = false;
         Question question = questionDao.getOne(id);
+
         List<Answer> availableAnswers = question.getAnswers();
         for (Answer answer : availableAnswers) {
             if (answer.isCorrect() & answer.getAnswer() == userAnswer) {
@@ -89,8 +94,13 @@ public class TriviaController {
                 break;
             }
         }
+        count++;
+        if (count == 3) {
+            count = 0;
+            return "redirect:/index";
+        }
 //        viewModel.addAttribute("isCorrect", isCorrect);
-        return "redirect:/trivia-game";
+        return "redirect:/trivia-game/{id}";
     }
 
     @GetMapping("/trivia-game/{id}")
@@ -108,8 +118,9 @@ public class TriviaController {
             }
         }
         Question question = questions.get(rand.nextInt(newQuestionList.size()));
+        askedQuestions.add(question);
         viewModel.addAttribute("question", question);
-        return "trivia-game/";
+        return "trivia-game";
     }
 
 }
