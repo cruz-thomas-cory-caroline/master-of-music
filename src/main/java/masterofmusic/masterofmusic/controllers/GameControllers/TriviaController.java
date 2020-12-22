@@ -24,14 +24,6 @@ public class TriviaController {
     private final PlayerGameRoundRepository playerGameRoundDao;
     private final GenreRepository genreDao;
 
-    Timestamp gameTime = new Timestamp(0);
-    int gameScore = 0;
-    int gameLevel = 0;
-    String play_time = "";
-    int roundScore = 0;
-    int count = 0;
-    ArrayList<Question> askedQuestions = new ArrayList<>();
-
     public TriviaController(QuestionRepository questionDao, AnswerRepository answerDao, GameRepository gameDao, PlayerGameRepository playerGameDao, PlayerGameRoundRepository playerGameRoundDao, GenreRepository genreDao){
         this.questionDao = questionDao;
         this.answerDao = answerDao;
@@ -41,86 +33,49 @@ public class TriviaController {
         this.genreDao = genreDao;
     }
 
-    @GetMapping("/trivia-game")
-    public String viewTriviaGame(Model viewModel) {
-        ArrayList<Question> questions = questionDao.findAllByGameId(3L);
-        Random rand = new Random();
-        Question question = questions.get(rand.nextInt(questions.size()));
-        askedQuestions.add(question);
-        viewModel.addAttribute("question", question);
-        return "trivia-game";
-    }
+    String difficultyOption;
+    String genreOption;
 
     @PostMapping("/trivia-game")
-    public String gameSetup(
-            @RequestParam(name = "difficultyOptions") String difficultyOptions,
-            @RequestParam(name = "genreOptions") String genreOptions) {
-
-        Game game = gameDao.getOne(3L);
-        PlayerGame currentPlayerGame = new PlayerGame();
-        PlayerGameRound currentGameRound = new PlayerGameRound();
-        Genre currentGenre = new Genre();
-
-        currentPlayerGame.setGame(game);
-        currentPlayerGame.setScore(gameScore);
-        currentPlayerGame.setTimeElapsed(gameTime);
-
-        currentGameRound.setLevel(gameLevel);
-        currentGameRound.setPlay_time(play_time);
-        currentGameRound.setScore(roundScore);
-        currentGameRound.setPlayerGame(currentPlayerGame);
-        currentGameRound.setDifficulty(difficultyOptions);
-
-        currentGenre.setName(genreOptions);
-
-        playerGameDao.save(currentPlayerGame);
-        playerGameRoundDao.save(currentGameRound);
-        genreDao.save(currentGenre);
+    public String triviaGameSetup(
+            @RequestParam(name = "difficultyOptions") String difficultySelection,
+            @RequestParam(name = "genreOptions") String genreSelection)
+     {
+        difficultyOption = difficultySelection;
+        genreOption = genreSelection;
         return "redirect:/trivia-game";
     }
 
-    @PostMapping("/trivia-game/{id}")
-    public String viewNextQuizQuestion(
-            @PathVariable long id,
-            @RequestParam (name = "solutions") String userAnswer,
-            Model viewModel) {
-        boolean isCorrect = false;
-        Question question = questionDao.getOne(id);
-
-        List<Answer> availableAnswers = question.getAnswers();
-        for (Answer answer : availableAnswers) {
-            if (answer.isCorrect() & answer.getAnswer() == userAnswer) {
-                isCorrect = true;
-                break;
-            }
-        }
-        count++;
-        if (count == 3) {
-            count = 0;
-            return "redirect:/index";
-        }
-//        viewModel.addAttribute("isCorrect", isCorrect);
-        return "redirect:/trivia-game/{id}";
+    @GetMapping("trivia-game")
+    public String viewTriviaGame(
+            Model viewModel
+    ) {
+        ArrayList<Question> questionBank = questionDao.findAllByGameId(3L);
+        ArrayList<Question> askedQuestionBank = new ArrayList<>();
+        Random rand = new Random();
+        Question question1 = questionBank.get(rand.nextInt(questionBank.size()));
+        askedQuestionBank.add(question1);
+        questionBank.removeAll(askedQuestionBank);
+        Question question2 = questionBank.get(rand.nextInt(questionBank.size()));
+        askedQuestionBank.add(question2);
+        questionBank.removeAll(askedQuestionBank);
+        Question question3 = questionBank.get(rand.nextInt(questionBank.size()));
+        askedQuestionBank.add(question3);
+        questionBank.removeAll(askedQuestionBank);
+        viewModel.addAttribute("question1", question1);
+        viewModel.addAttribute("question2", question2);
+        viewModel.addAttribute("question3", question3);
+        return "trivia-game";
     }
 
-    @GetMapping("/trivia-game/{id}")
-    public String viewNewTriviaQuestion(
-            @PathVariable long id,
-            Model viewModel) {
-        ArrayList<Question> questions = questionDao.findAllByGameId(3L);
-        Random rand = new Random();
-        ArrayList<Question> newQuestionList = new ArrayList<>();
-        for (Question question : questions) {
-            if (question.getId() == id) {
-                continue;
-            } else {
-                newQuestionList.add(question);
-            }
-        }
-        Question question = questions.get(rand.nextInt(newQuestionList.size()));
-        askedQuestions.add(question);
-        viewModel.addAttribute("question", question);
-        return "trivia-game";
+    @PostMapping("trivia-game/check")
+    public String checkTriviaGame(
+            @RequestParam(name = "solution1") String solution1,
+            @RequestParam(name = "solution2") String solution2,
+            @RequestParam(name = "solution3") String solution3
+    ) {
+        System.out.println(solution1 + ", " + solution2 + ", " + solution3);
+        return "/index";
     }
 
 }

@@ -179,15 +179,15 @@ body {
 /*TRIVIA-GAME CAROUSEL*/
 #carouselExampleIndicators {
     position: absolute;
-    width: 80vw;
-    height: 70vh;
+    width: 75vw;
+    height: 60vh;
     z-index: 4;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
-#cardQnA {
+.card {
     width: 30em;
     height: 35em;
 }
