@@ -50,6 +50,12 @@
 
         $(this).parent().find("input").val(playerAnswer)
         console.log($(this).parent().find("input")[0].value)
+        console.log($(this).parent().find("button")[1].value)
+        var song = $(this).parent().find("button")[1].value
+        console.log(song.lyrics)
+        if ($(this).parent().find("input")[0].value === console.log($(this).parent().find("button")[1].value.getLyrics())) {
+            console.log("Hello")
+        }
         $(this).parent().parent().hide()
         $(this).parent().parent().parent().next().first().show()
     })
