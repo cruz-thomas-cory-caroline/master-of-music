@@ -27,8 +27,8 @@
                          th:each="answer : ${question.getAnswers()}">
                         <input class="form-check-input solutions" type="radio" th:name="question_+${question.id}"
                                th:value="${answer.id}"
-                               id="triviaGameQ2">
-                        <label class="form-check-label" for="triviaGameQ2" th:text="${answer.answer}"></label>
+                               id="triviaGame">
+                        <label class="form-check-label" for="triviaGame" th:text="${answer.answer}"></label>
                     </div>
                     <button type="submit">Submit</button>
                 </div>

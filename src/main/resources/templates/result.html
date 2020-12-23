@@ -6,6 +6,9 @@
 </head>
 <body>
 
-<h5 th:text="${score}"></h5>
+<h1 class="text-light fs-1" th:text="${score}"></h1>
+
+<div th:include="partials/footerNav.html :: footerNav"></div>
+<div th:include="partials/scripts.html :: scripts"></div>
 </body>
 </html>

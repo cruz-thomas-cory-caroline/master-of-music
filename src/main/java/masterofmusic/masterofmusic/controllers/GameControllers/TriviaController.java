@@ -40,12 +40,12 @@ public class TriviaController {
     long mediumOption = 10000;
     long hardOption = 2000;
 
-    @PostMapping("/trivia-game/")
+    @PostMapping("/trivia-game/3")
     public String triviaGameSetup(
-            @PathVariable long triviaId,
             @RequestParam(name = "difficultyOptions") String difficultySelection,
-            @RequestParam(name = "genreOptions") String genreSelection)
-     {
+            @RequestParam(name = "genreOptions") String genreSelection,
+            Model viewModel
+    ) {
         difficultyOption = difficultySelection;
         genreOption = genreSelection;
         return "redirect:/trivia-game";
@@ -55,8 +55,35 @@ public class TriviaController {
     public String viewTriviaGame(
             Model viewModel
     ) {
-        ArrayList<Question> questions = questionDao.findAllByGameId(3L);
-        viewModel.addAttribute("questions", questions);
+        System.out.println(difficultyOption);
+        System.out.println(genreOption);
+        Random rand = new Random();
+        Genre genre = genreDao.getOne(1L);
+
+        if (genreOption.equals("Rock")) {
+
+            ArrayList<Question> questions = questionDao.findAllByGameId(3L);
+            ArrayList<Question> rockQuestions = new ArrayList<>();
+
+            for (Question question : questions) {
+                if (question.getQuestion_genres().contains(genre)) {
+                    rockQuestions.add(question);
+                    System.out.println(question.getQuestion());
+                }
+            }
+
+            ArrayList<Question> randomQs = new ArrayList<>();
+            for (var i = 0; i < 5; i++) {
+                randomQs.add(rockQuestions.get(rand.nextInt(rockQuestions.size())));
+            }
+
+            for (Question rq : randomQs) {
+                System.out.println(rq.getQuestion());
+            }
+            System.out.println(questions);
+
+            viewModel.addAttribute("questions", randomQs);
+        }
 
         return "trivia-game";
     }
@@ -74,7 +101,6 @@ public class TriviaController {
                 score++;
             }
         }
-//        return "trivia-game/result";
         model.addAttribute("score", score);
         return "result";
     }
