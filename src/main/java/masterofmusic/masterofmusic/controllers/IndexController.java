@@ -39,6 +39,8 @@ public class IndexController {
 
     @GetMapping("/index")
     public String indexPage(Model viewModel) {
+        Game game = gameDao.getOne(3L);
+        viewModel.addAttribute("game", game);
         return "index";
     }
 

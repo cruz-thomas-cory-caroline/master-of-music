@@ -69,7 +69,8 @@
         });
 
         // TRIVIA-GAME JS
-        let diffSelection = $("input[type='radio'][name='difficultyOptions']:checked").val();
+        // let diffSelection = $("input[type='radio'][name='difficultyOptions']:checked").val();
+        console.log(diffSelection);
         if (diffSelection === "easy") {
             $(".carousel-item").setAttribute("data-interval", "false");
         } else if (diffSelection === "medium") {

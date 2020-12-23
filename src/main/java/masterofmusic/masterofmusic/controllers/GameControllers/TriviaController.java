@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.print.attribute.standard.PresentationDirection;
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,9 +36,13 @@ public class TriviaController {
 
     String difficultyOption;
     String genreOption;
+    boolean easyOption = false;
+    long mediumOption = 10000;
+    long hardOption = 2000;
 
-    @PostMapping("/trivia-game")
+    @PostMapping("/trivia-game/")
     public String triviaGameSetup(
+            @PathVariable long triviaId,
             @RequestParam(name = "difficultyOptions") String difficultySelection,
             @RequestParam(name = "genreOptions") String genreSelection)
      {
@@ -50,32 +55,28 @@ public class TriviaController {
     public String viewTriviaGame(
             Model viewModel
     ) {
-        ArrayList<Question> questionBank = questionDao.findAllByGameId(3L);
-        ArrayList<Question> askedQuestionBank = new ArrayList<>();
-        Random rand = new Random();
-        Question question1 = questionBank.get(rand.nextInt(questionBank.size()));
-        askedQuestionBank.add(question1);
-        questionBank.removeAll(askedQuestionBank);
-        Question question2 = questionBank.get(rand.nextInt(questionBank.size()));
-        askedQuestionBank.add(question2);
-        questionBank.removeAll(askedQuestionBank);
-        Question question3 = questionBank.get(rand.nextInt(questionBank.size()));
-        askedQuestionBank.add(question3);
-        questionBank.removeAll(askedQuestionBank);
-        viewModel.addAttribute("question1", question1);
-        viewModel.addAttribute("question2", question2);
-        viewModel.addAttribute("question3", question3);
+        ArrayList<Question> questions = questionDao.findAllByGameId(3L);
+        viewModel.addAttribute("questions", questions);
+
         return "trivia-game";
     }
 
-    @PostMapping("trivia-game/check")
-    public String checkTriviaGame(
-            @RequestParam(name = "solution1") String solution1,
-            @RequestParam(name = "solution2") String solution2,
-            @RequestParam(name = "solution3") String solution3
+    @PostMapping("trivia-game/submit")
+    public String submit(
+            @RequestParam(name = "questionId") ArrayList<String> questionIds,
+            HttpServletRequest request,
+            Model model
     ) {
-        System.out.println(solution1 + ", " + solution2 + ", " + solution3);
-        return "/index";
+        int score = 0;
+        for (String questionId : questionIds) {
+            long answerIsCorrect = questionDao.findAnswerIdCorrect(Long.parseLong(questionId));
+            if(answerIsCorrect == Long.parseLong(request.getParameter("question_"+questionId))) {
+                score++;
+            }
+        }
+//        return "trivia-game/result";
+        model.addAttribute("score", score);
+        return "result";
     }
 
 }

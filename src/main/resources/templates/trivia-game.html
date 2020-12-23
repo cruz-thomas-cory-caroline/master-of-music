@@ -13,41 +13,26 @@
         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
     </ol>
     <div class="carousel-inner">
-        <form th:action="@{/trivia-game/check}" th:method="post">
-        <div class="carousel-item active">
+        <div class="carousel-item active" data-interval=false>
             <div class="card m-auto">
-                <h3 id="quizQuestion1" class="card-header" th:text="${question1.question}"></h3>
-                <div class="card-body form-check form-check-inline quizAnswers" th:each="answer : ${question1.getAnswers()}">
-
-                    <input class="form-check-input solutions" type="radio" name="solution1" th:value="${answer.answer}"
-                           id="triviaGameQ1">
-                    <label class="form-check-label" for="triviaGameQ1" th:text="${answer.answer}"></label>
-                </div>
+                <h3 class="card-header">START</h3>
             </div>
         </div>
-        <div class="carousel-item">
-            <div class="card m-auto">
-                <h3 id="quizQuestion2" class="card-header" th:text="${question2.question}"></h3>
-                <div class="card-body form-check form-check-inline quizAnswers" th:each="answer : ${question2.getAnswers()}">
-
-                    <input class="form-check-input solutions" type="radio" name="solution2" th:value="${answer.answer}"
-                           id="triviaGameQ2">
-                    <label class="form-check-label" for="triviaGameQ2" th:text="${answer.answer}"></label>
+        <form th:action="@{/trivia-game/submit}" th:method="post" >
+            <div class="carousel-item" th:each="question : ${questions}" data-interval=false>
+                <div class="card m-auto">
+                    <h3 class="card-header" th:text="${question.question}"></h3>
+                    <input type="hidden" name="questionId" th:value="${question.id}"/>
+                    <div class="card-body form-check form-check-inline quizAnswers"
+                         th:each="answer : ${question.getAnswers()}">
+                        <input class="form-check-input solutions" type="radio" th:name="question_+${question.id}"
+                               th:value="${answer.id}"
+                               id="triviaGameQ2">
+                        <label class="form-check-label" for="triviaGameQ2" th:text="${answer.answer}"></label>
+                    </div>
+                    <button type="submit">Submit</button>
                 </div>
             </div>
-        </div>
-        <div class="carousel-item">
-            <div class="card m-auto">
-                <h3 id="quizQuestions" class="card-header" th:text="${question3.question}"></h3>
-                <div class="card-body form-check form-check-inline quizAnswers" th:each="answer : ${question3.getAnswers()}">
-
-                    <input class="form-check-input solutions" type="radio" name="solution3" th:value="${answer.answer}"
-                           id="triviaGameQ3">
-                    <label class="form-check-label" for="triviaGameQ3" th:text="${answer.answer}"></label>
-                </div>
-                <button type="submit">Submit</button>
-            </div>
-        </div>
         </form>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
