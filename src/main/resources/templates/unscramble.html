@@ -6,7 +6,7 @@
 </head>
 <body>
 <main class="container">
-
+    <form th:action="@{/unscramble/results}" method="post">
     <div th:each="lyricSet : ${scrambledLyricsSet}" class="all-cards">
         <div class="card game-card">
             <h5 class="card-header">Unscramble This</h5>
@@ -26,13 +26,12 @@
                 </div>
             </div>
             <div class="card-footer text-center">
-                <input type="hidden">
+                <input type="hidden" th:name="'song'+${scrambledLyricsSet.indexOf(lyricSet)}">
                 <button type="submit" class="btn btn-primary cat-button">Submit</button>
-                <button type="button" class="btn btn-secondary" th:value="${songs[scrambledLyricsSet.indexOf(lyricSet)]}">Song ID To Test</button>
             </div>
         </div>
     </div>
-
+    </form>
 </main>
 <div th:include="partials/scripts.html :: scripts"></div>
 </body>
