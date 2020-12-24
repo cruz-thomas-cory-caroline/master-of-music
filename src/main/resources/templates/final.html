@@ -6,7 +6,28 @@
 </head>
 <body>
 <div>
-    <h1 th:text="${score}"></h1>
+
+    <div class="card">
+        <h5 class="card-header">Summary</h5>
+        <div class="card-body">
+            <div th:each="song : ${songs}">
+                <div class="row">
+                    <h5 class="card-title col-6">Title: <span th:text="${song.getTitle()}"></span></h5>
+                    <h5 class="card-title col-6">Artist: <span th:text="${song.getArtist()}"></span></h5>
+                </div>
+                <h6 class="card-text">Lyric: <span th:text="${song.getLyrics()}"></span></h6>
+                <h6 class="card-text">Your Answer: <span th:text="${userAnswers[songs.indexOf(song)]}"></span></h6>
+                <br>
+                <hr>
+            </div>
+            <div class="text-center">
+                <h1 th:text="${score}"></h1>
+            </div>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+
+
 </div>
 </body>
 <th:block th:include="partials/scripts :: scripts"></th:block>

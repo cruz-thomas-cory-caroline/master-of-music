@@ -106,7 +106,9 @@ public class UnscrambleController {
     @PostMapping("/unscramble/results")
     public String submitAnswers(HttpServletRequest request, Model model) {
         int score = 0;
+        List<String> userAnswers = new ArrayList<>();
         for(Song song : chosenSongs) {
+            userAnswers.add(request.getParameter("song"+chosenSongs.indexOf(song)));
             System.out.println(request.getParameter("song"+chosenSongs.indexOf(song)));
             System.out.println(song.getLyrics());
             if (request.getParameter("song"+chosenSongs.indexOf(song)).equalsIgnoreCase(song.getLyrics())) {
@@ -114,6 +116,8 @@ public class UnscrambleController {
             }
         }
         model.addAttribute("score", score);
+        model.addAttribute("songs", chosenSongs);
+        model.addAttribute("userAnswers", userAnswers);
         return "final";
     }
 
