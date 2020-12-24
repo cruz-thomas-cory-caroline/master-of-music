@@ -3,6 +3,7 @@
 
     $(".all-cards").hide();
     $(".all-cards").first().show()
+    $(".final-screen").hide()
 
     $(".words").draggable({
         opacity: .4,
@@ -38,22 +39,38 @@
     }
 
     $(".cat-button").click(function () {
-        var count = $(this).parent().parent().children().children()[0].childElementCount
+        var count = $(this).parent().parent().parent().children().children()[0].childElementCount
         var lyricSet = []
         for (var i = 0; i < count; i++) {
-            var word = $(this).parent().parent().children().children().children().children().children()[i].value
+            var word = $(this).parent().parent().parent().children().children().children().children().children()[i].value
             if (word !== "") {
                 lyricSet.push(word)
             }
         }
         let playerAnswer = lyricSet.join(" ")
-        $(this).parent().find("input").val(playerAnswer)
+        $(this).parent().parent().find("input").val(playerAnswer)
 
-        console.log($(this).parent().find("input")[0].value)
-        console.log($(this).parent().find("button")[1].value)
+        console.log($(this).parent().parent().find("input")[0].value)
 
-        $(this).parent().parent().hide()
-        $(this).parent().parent().parent().next().first().show()
+        $(this).parent().parent().parent().hide()
+        $(this).parent().parent().parent().parent().next().first().show()
+    })
+
+    $('.last-cat-button').click(function () {
+        var count = $(this).parent().parent().parent().children().children()[0].childElementCount
+        var lyricSet = []
+        for (var i = 0; i < count; i++) {
+            var word = $(this).parent().parent().parent().children().children().children().children().children()[i].value
+            if (word !== "") {
+                lyricSet.push(word)
+            }
+        }
+        let playerAnswer = lyricSet.join(" ")
+        $(this).parent().parent().find("input").val(playerAnswer)
+
+        console.log($(this).parent().parent().find("input")[0].value)
+        $(this).parent().parent().parent().hide()
+        $('.final-screen').show()
     })
 
 

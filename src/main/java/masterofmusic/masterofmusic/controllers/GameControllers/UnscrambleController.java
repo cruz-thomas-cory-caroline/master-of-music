@@ -36,7 +36,11 @@ public class UnscrambleController {
                                  @RequestParam(name = "inlineRadioOptions1") String genre,
                                  Model model) {
 
+        chosenSongIDs = new ArrayList<>();
+        chosenSongs = new ArrayList<>();
+
         List<Song> allSongs = songDao.findAll();
+
         while (chosenSongs.size() < numberOfQuestions) {
             int indexToAdd = ThreadLocalRandom.current().nextInt(0, allSongs.size());
             Song randomSong = allSongs.get(indexToAdd);
@@ -45,7 +49,6 @@ public class UnscrambleController {
                 chosenSongs.add(randomSong);
             }
         }
-
 
         List<String> lyricsToScramble = new ArrayList<>();
         List<String> lyricsStart = new ArrayList<>();
