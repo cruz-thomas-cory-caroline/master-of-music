@@ -31,10 +31,27 @@ public class UnscrambleController {
 
 
     @GetMapping("/unscramble")
-    public String unscrambleGame(@RequestParam(name = "count") int numberOfQuestions,
-                                 @RequestParam(name = "inlineRadioOptions") String difficulty,
+    public String unscrambleGame(@RequestParam(name = "inlineRadioOptions") String difficulty,
                                  @RequestParam(name = "inlineRadioOptions1") String genre,
                                  Model model) {
+
+        int numberOfQuestions = 0;
+        int timeLimit = 0;
+
+        switch (difficulty) {
+            case "easy":
+                numberOfQuestions = 5;
+                timeLimit = 45;
+                break;
+            case "medium":
+                numberOfQuestions = 10;
+                timeLimit = 30;
+                break;
+            case "hard":
+                numberOfQuestions = 15;
+                timeLimit = 15;
+                break;
+        }
 
         chosenSongIDs = new ArrayList<>();
         chosenSongs = new ArrayList<>();
@@ -101,6 +118,7 @@ public class UnscrambleController {
         model.addAttribute("scrambledLyricsSet", scrambledLyricsList);
         model.addAttribute("originalLyrics", lyricsToScramble);
         model.addAttribute("songs", chosenSongs);
+        model.addAttribute("timeLimit", timeLimit);
         return "unscramble";
     }
 

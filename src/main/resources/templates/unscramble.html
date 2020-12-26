@@ -7,43 +7,44 @@
 <body>
 <main class="container">
     <form th:action="@{/unscramble/results}" method="post">
-    <div th:each="lyricSet : ${scrambledLyricsSet}" class="all-cards">
-        <div class="card game-card">
-            <div class="card-header row">
-                <div class="mr-auto">
-                    <h5 th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getTitle()}"></h5>
+        <div th:each="lyricSet : ${scrambledLyricsSet}" class="all-cards">
+            <div class="card game-card">
+                <div class="card-header row">
+                    <div class="mr-auto">
+                        <h5 th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getTitle()}"></h5>
+                    </div>
+                    <div class="ml-auto">
+                        <div class="timer" th:text="${timeLimit}"></div>
+                    </div>
                 </div>
-                <div class="ml-auto">
-                    <div class="timer"></div>
-                </div>
-            </div>
-<!--            <h5 class="card-header" th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getTitle()}"></h5>-->
-            <div class="card-body justify content center">
-                <div class="row justify-content-center">
-                    <div th:each="word : ${lyricSet}">
-                        <div class="drop-zone m-1 unoccupied">
-                            <input type="hidden" th:id="'word'+${lyricSet.indexOf(word)}">
+                <!--            <h5 class="card-header" th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getTitle()}"></h5>-->
+                <div class="card-body justify content center">
+                    <div class="row justify-content-center">
+                        <div th:each="word : ${lyricSet}">
+                            <div class="drop-zone m-1 unoccupied">
+                                <input class="droppedWord" type="hidden" th:id="'word'+${lyricSet.indexOf(word)}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div th:each="word : ${lyricSet}">
+                            <a href="#" class="m-1 btn btn-primary words" th:text="${word}"></a>
                         </div>
                     </div>
                 </div>
-
-                <div class="row justify-content-center">
-                    <div th:each="word : ${lyricSet}">
-                        <a href="#" class="m-1 btn btn-primary words" th:text="${word}"></a>
+                <div class="card-footer text-center">
+                    <input type="hidden" class="fullAnswer" th:name="'song'+${scrambledLyricsSet.indexOf(lyricSet)}">
+                    <div th:if="${scrambledLyricsSet.indexOf(lyricSet) == scrambledLyricsSet.size()-1}">
+                        <button type="button" class="btn btn-primary last-cat-button">Lock It In!</button>
+                    </div>
+                    <div th:unless="${scrambledLyricsSet.indexOf(lyricSet) == scrambledLyricsSet.size()-1}">
+                        <button type="button" class="btn btn-primary cat-button">Lock It In!</button>
                     </div>
                 </div>
             </div>
-            <div class="card-footer text-center">
-                <input type="hidden" th:name="'song'+${scrambledLyricsSet.indexOf(lyricSet)}">
-                <div th:if="${scrambledLyricsSet.indexOf(lyricSet) == scrambledLyricsSet.size()-1}">
-                    <button type="button" class="btn btn-primary last-cat-button">Lock It In!</button>
-                </div>
-                <div th:unless="${scrambledLyricsSet.indexOf(lyricSet) == scrambledLyricsSet.size()-1}">
-                    <button type="button" class="btn btn-primary cat-button">Lock It In!</button>
-                </div>
-            </div>
         </div>
-    </div>
+
         <div class="card final-screen" style="width: 18rem;">
             <div class="card-body text-center">
                 <h2 class="card-title">Great Job!</h2>
