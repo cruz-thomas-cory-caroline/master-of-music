@@ -59,12 +59,14 @@
     $('.last-cat-button').click(function () {
         var count = $(this).parent().parent().parent().children().children()[0].childElementCount
         var lyricSet = []
+
         for (var i = 0; i < count; i++) {
             var word = $(this).parent().parent().parent().children().children().children().children().children()[i].value
             if (word !== "") {
                 lyricSet.push(word)
             }
         }
+
         let playerAnswer = lyricSet.join(" ")
         $(this).parent().parent().find("input").val(playerAnswer)
 
