@@ -11,12 +11,12 @@
     <form th:method="post" th:action="@{/finish-lyrics}">
         <div th:each="question : ${questions}">
             <h5 class="card-title" th:text="${question}"></h5>
-            <div class="card-text" th:each="answer : ${answers.get(questions.indexOf(question))}">
+            <div class="card-text" STYLE="color: white" th:each="answer : ${answers.get(questions.indexOf(question))}">
                 <div>
                     <input th:type="radio" th:text="${answer}">
                 </div>
             </div>
-            <a href="#" class="btn btn-primary btn-small">Button</a>
+            <a href="#" class="btn btn-primary btn-small">Submit</a>
         </div>
     </form>
 </div>
@@ -24,14 +24,4 @@
 <th:block th:include="partials/scripts :: scripts"></th:block>
 </html>
 
-<!--<div class="card-body">-->
-<!--    <form th:method="post" th:action="@{/finish-lyrics}">-->
-<!--        <div th:each="question : ${questions}">-->
-<!--            <h5 class="card-title" th:text="${question}"></h5>-->
-<!--            <div class="card-text" th:each="answer : ${answers.get(questions.indexOf(question))}">-->
-<!--                <input th:type="radio" th:text="${answer}">-->
-<!--            </div>-->
-<!--            <a href="#" class="btn btn-primary btn-small">Button</a>-->
-<!--        </div>-->
-<!--    </form>-->
-<!--</div>-->
+
