@@ -20,14 +20,20 @@
         accept: ".words",
         drop: function (event, ui) {
             $(".words").draggable()
-            console.log(ui.draggable)
-            $(this).css('border', 'none')
+            $(this).droppable( "option", "accept", ui.draggable);
+            $(this).removeClass("unoccupied")
+            $(this).addClass('occupied')
             $(this).find("input").val(ui.draggable[0].innerHTML)
-            console.log($(this).find("input").val())
             snapToMiddle(ui.draggable, $(this))
         },
-        out: function () {
-            $(this).css({'border': 'solid black 1px', 'width': '75px', 'height': '50px'})
+
+        out: function (event, ui) {
+            $(this).droppable( "option", "accept", '.words');
+            $(this).removeClass("occupied")
+            console.log("Removing Occupied Class...")
+            if (!$(this).hasClass('occupied')) {
+                console.log("Removed")
+            }
         }
     })
 
@@ -72,8 +78,7 @@
     })
 
     function timerStart() {
-        console.log("here")
-        var timeStart = 5
+        var timeStart = 50
         var countdown = setInterval(function () {
             if (timeStart !== timeEnd) {
                 $('.timer').html(timeStart - (timeEnd + 1))
