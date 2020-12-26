@@ -9,7 +9,15 @@
     <form th:action="@{/unscramble/results}" method="post">
     <div th:each="lyricSet : ${scrambledLyricsSet}" class="all-cards">
         <div class="card game-card">
-            <h5 class="card-header" th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getTitle()}"></h5>
+            <div class="card-header row">
+                <div class="mr-auto">
+                    <h5 th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getTitle()}"></h5>
+                </div>
+                <div class="ml-auto">
+                    <div class="timer"></div>
+                </div>
+            </div>
+<!--            <h5 class="card-header" th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getTitle()}"></h5>-->
             <div class="card-body justify content center">
                 <div class="row justify-content-center">
                     <div th:each="word : ${lyricSet}">
