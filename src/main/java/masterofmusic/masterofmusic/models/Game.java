@@ -15,6 +15,17 @@ public class Game {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "game")
     private List<Question> questions;
 
+    public List<Song> getSongs() {
+        return songs;
+    }
+
+    public void setSongs(List<Song> songs) {
+        this.songs = songs;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "game")
+    private List<Song> songs;
+
     public Game() {
     }
 

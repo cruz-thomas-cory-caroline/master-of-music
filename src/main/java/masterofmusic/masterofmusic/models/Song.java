@@ -19,6 +19,11 @@ public class Song {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String lyrics;
 
+
+    @ManyToOne
+    @JoinColumn(name = "game_id")
+    private Game game;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "songs_genres",
@@ -28,18 +33,20 @@ public class Song {
     private List<Genre> song_genres;
 
     //CREATE
-    public Song(long id, String title, String artist, String lyrics) {
+    public Song(long id, String title, String artist, String lyrics, Game game) {
         this.id = id;
         this.title = title;
         this.artist = artist;
         this.lyrics = lyrics;
+        this.game = game;
     }
 
     //READ
-    public Song(String title, String artist, String lyrics) {
+    public Song(String title, String artist, String lyrics, Game game) {
         this.title = title;
         this.artist = artist;
         this.lyrics = lyrics;
+        this.game = game;
     }
 
     public Song() {
@@ -75,5 +82,21 @@ public class Song {
 
     public void setLyrics(String lyrics) {
         this.lyrics = lyrics;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public List<Genre> getSong_genres() {
+        return song_genres;
+    }
+
+    public void setSong_genres(List<Genre> song_genres) {
+        this.song_genres = song_genres;
     }
 }
