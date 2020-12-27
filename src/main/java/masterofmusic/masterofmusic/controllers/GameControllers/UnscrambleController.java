@@ -6,6 +6,7 @@ import masterofmusic.masterofmusic.models.Song;
 import masterofmusic.masterofmusic.models.User;
 import masterofmusic.masterofmusic.repositories.GameRepository;
 import masterofmusic.masterofmusic.repositories.PlayerGameRepository;
+import masterofmusic.masterofmusic.repositories.PlayerGameRoundRepository;
 import masterofmusic.masterofmusic.repositories.SongRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
 
 import java.lang.reflect.Array;
@@ -27,26 +30,37 @@ public class UnscrambleController {
     private final SongRepository songDao;
     private final GameRepository gameDao;
     private final PlayerGameRepository playerGameDao;
+    private final PlayerGameRoundRepository playerGameRoundDoa;
     private List<Long> chosenSongIDs = new ArrayList<>();
     private List<Song> chosenSongs = new ArrayList<>();
+    private long currentGameID;
 
-    public UnscrambleController(SongRepository songDao, GameRepository gameDao, PlayerGameRepository playerGameDao) {
+    public UnscrambleController(SongRepository songDao, GameRepository gameDao, PlayerGameRepository playerGameDao, PlayerGameRoundRepository playerGameRoundDoa) {
         this.songDao = songDao;
         this.gameDao = gameDao;
         this.playerGameDao = playerGameDao;
-
+        this.playerGameRoundDoa = playerGameRoundDoa;
     }
 
 
     @GetMapping("/unscramble")
     public String unscrambleGame(@RequestParam(name = "inlineRadioOptions") String difficulty,
                                  @RequestParam(name = "inlineRadioOptions1") String genre,
+                                 @RequestParam(name = "round") long num,
                                  Model model) {
 
-        PlayerGame gameStart = new PlayerGame();
-        gameStart.setGame(gameDao.getOne(4L));
-        gameStart.setScore(0);
-        gameStart.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        if(num == 1) {
+            PlayerGame gameStart = new PlayerGame();
+            gameStart.setGame(gameDao.getOne(4L));
+            gameStart.setScore(0);
+            Date date = new Date();
+            gameStart.setTimeElapsed(new Timestamp(date.getTime()));
+            gameStart.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+            PlayerGame dbGameStart = playerGameDao.save(gameStart);
+            currentGameID = dbGameStart.getId();
+            chosenSongIDs = new ArrayList<>();
+            chosenSongs = new ArrayList<>();
+        }
 
         int numberOfQuestions = 0;
         int timeLimit = 0;
@@ -65,9 +79,6 @@ public class UnscrambleController {
                 timeLimit = 15;
                 break;
         }
-
-        chosenSongIDs = new ArrayList<>();
-        chosenSongs = new ArrayList<>();
 
         List<Song> allSongs = songDao.findAll();
 
@@ -133,7 +144,8 @@ public class UnscrambleController {
         model.addAttribute("songs", chosenSongs);
         model.addAttribute("timeLimit", timeLimit);
         model.addAttribute("difficulty", difficulty);
-        model.addAttribute("playerGame", gameStart.getId());
+        model.addAttribute("playerGame", currentGameID);
+        model.addAttribute("round", num);
         return "unscramble";
     }
 
@@ -146,8 +158,7 @@ public class UnscrambleController {
 
         PlayerGameRound newRoundCompleted = new PlayerGameRound();
         newRoundCompleted.setDifficulty(difficulty);
-        newRoundCompleted.setLevel(0);
-        newRoundCompleted.setLevel(newRoundCompleted.getLevel()+1);
+        newRoundCompleted.setLevel(playerGameDao.getOne(num).getPlayerGameRounds().size()+1);
         newRoundCompleted.setPlayerGame(playerGameDao.getOne(num));
 
         List<String> userAnswers = new ArrayList<>();
@@ -163,13 +174,17 @@ public class UnscrambleController {
                 countCorrect++;
             }
         }
+        playerGameDao.getOne(newRoundCompleted.getPlayerGame().getId()).setScore(newRoundCompleted.getPlayerGame().getScore()+newRoundCompleted.getScore());
+        playerGameRoundDoa.save(newRoundCompleted);
         model.addAttribute("score", newRoundCompleted.getScore());
         model.addAttribute("songs", chosenSongs);
         model.addAttribute("userAnswers", userAnswers);
         if (countCorrect >= chosenSongs.size()/2) {
             model.addAttribute("canAdvance", true);
         }
+        model.addAttribute("currentLevel", newRoundCompleted.getLevel());
         return "final";
     }
+
 
 }

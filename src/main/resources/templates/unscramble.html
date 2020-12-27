@@ -9,11 +9,13 @@
     <form th:action="@{/unscramble/results}" method="post">
         <input name="difficulty" type="hidden" th:value="${difficulty}">
         <input name="playerGame" type="hidden" th:value="${playerGame}">
+        <input name="level" type="hidden" th:value="${round}">
         <div th:each="lyricSet : ${scrambledLyricsSet}" class="all-cards">
             <div class="card game-card">
                 <div class="card-header row">
                     <div class="mr-auto">
                         <h5 th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getTitle()}"></h5>
+                        <h6>Round: <span th:text="${round}"></span></h6>
                     </div>
                     <div class="ml-auto">
                         <div class="timer" th:text="${timeLimit}"></div>
