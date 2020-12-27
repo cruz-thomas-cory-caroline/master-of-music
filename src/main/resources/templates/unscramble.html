@@ -7,6 +7,8 @@
 <body>
 <main class="container">
     <form th:action="@{/unscramble/results}" method="post">
+        <input name="difficulty" type="hidden" th:value="${difficulty}">
+        <input name="playerGame" type="hidden" th:value="${playerGame}">
         <div th:each="lyricSet : ${scrambledLyricsSet}" class="all-cards">
             <div class="card game-card">
                 <div class="card-header row">
@@ -33,13 +35,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-footer text-center">
+                <div class="card-footer text-center row">
+                    <div class="mr-auto">
+                        <p><span th:text="${scrambledLyricsSet.indexOf(lyricSet)+1}"></span>/<span th:text="${scrambledLyricsSet.size()}"></span></p>
+                    </div>
                     <input type="hidden" class="fullAnswer" th:name="'song'+${scrambledLyricsSet.indexOf(lyricSet)}">
-                    <div th:if="${scrambledLyricsSet.indexOf(lyricSet) == scrambledLyricsSet.size()-1}">
+                    <div class="ml-auto" th:if="${scrambledLyricsSet.indexOf(lyricSet) == scrambledLyricsSet.size()-1}">
                         <button type="button" class="btn btn-primary last-cat-button">Lock It In!</button>
                     </div>
-                    <div th:unless="${scrambledLyricsSet.indexOf(lyricSet) == scrambledLyricsSet.size()-1}">
-                        <button type="button" class="btn btn-primary cat-button">Lock It In!</button>
+                    <div class="ml-auto" th:unless="${scrambledLyricsSet.indexOf(lyricSet) == scrambledLyricsSet.size()-1}">
+                        <button type="button" class="btn btn-primary cat-button ml-auto">Lock It In!</button>
                     </div>
                 </div>
             </div>

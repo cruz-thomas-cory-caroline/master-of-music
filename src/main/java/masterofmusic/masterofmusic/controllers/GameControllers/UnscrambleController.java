@@ -1,8 +1,13 @@
 package masterofmusic.masterofmusic.controllers.GameControllers;
 
+import masterofmusic.masterofmusic.models.PlayerGame;
+import masterofmusic.masterofmusic.models.PlayerGameRound;
 import masterofmusic.masterofmusic.models.Song;
+import masterofmusic.masterofmusic.models.User;
 import masterofmusic.masterofmusic.repositories.GameRepository;
+import masterofmusic.masterofmusic.repositories.PlayerGameRepository;
 import masterofmusic.masterofmusic.repositories.SongRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,12 +26,15 @@ import java.util.regex.Pattern;
 public class UnscrambleController {
     private final SongRepository songDao;
     private final GameRepository gameDao;
+    private final PlayerGameRepository playerGameDao;
     private List<Long> chosenSongIDs = new ArrayList<>();
     private List<Song> chosenSongs = new ArrayList<>();
 
-    public UnscrambleController(SongRepository songDao, GameRepository gameDao) {
+    public UnscrambleController(SongRepository songDao, GameRepository gameDao, PlayerGameRepository playerGameDao) {
         this.songDao = songDao;
         this.gameDao = gameDao;
+        this.playerGameDao = playerGameDao;
+
     }
 
 
@@ -34,6 +42,11 @@ public class UnscrambleController {
     public String unscrambleGame(@RequestParam(name = "inlineRadioOptions") String difficulty,
                                  @RequestParam(name = "inlineRadioOptions1") String genre,
                                  Model model) {
+
+        PlayerGame gameStart = new PlayerGame();
+        gameStart.setGame(gameDao.getOne(4L));
+        gameStart.setScore(0);
+        gameStart.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
         int numberOfQuestions = 0;
         int timeLimit = 0;
@@ -119,28 +132,43 @@ public class UnscrambleController {
         model.addAttribute("originalLyrics", lyricsToScramble);
         model.addAttribute("songs", chosenSongs);
         model.addAttribute("timeLimit", timeLimit);
+        model.addAttribute("difficulty", difficulty);
+        model.addAttribute("playerGame", gameStart.getId());
         return "unscramble";
     }
 
 
     @PostMapping("/unscramble/results")
-    public String submitAnswers(HttpServletRequest request, Model model) {
-        int score = 0;
+    public String submitAnswers(@RequestParam(name = "difficulty") String difficulty,
+                                @RequestParam(name = "playerGame") long num,
+                                HttpServletRequest request,
+                                Model model) {
+
+        PlayerGameRound newRoundCompleted = new PlayerGameRound();
+        newRoundCompleted.setDifficulty(difficulty);
+        newRoundCompleted.setLevel(0);
+        newRoundCompleted.setLevel(newRoundCompleted.getLevel()+1);
+        newRoundCompleted.setPlayerGame(playerGameDao.getOne(num));
+
         List<String> userAnswers = new ArrayList<>();
         List<Integer> correctAnswers = new ArrayList<>();
+        int countCorrect = 0;
         for (Song song : chosenSongs) {
             userAnswers.add(request.getParameter("song" + chosenSongs.indexOf(song)));
             System.out.println(request.getParameter("song" + chosenSongs.indexOf(song)));
             System.out.println(song.getLyrics());
             if (request.getParameter("song" + chosenSongs.indexOf(song)).equalsIgnoreCase(song.getLyrics())) {
                 correctAnswers.add(chosenSongs.indexOf(song));
-                score++;
+                newRoundCompleted.setScore(newRoundCompleted.getScore()+1);
+                countCorrect++;
             }
         }
-        model.addAttribute("score", score);
+        model.addAttribute("score", newRoundCompleted.getScore());
         model.addAttribute("songs", chosenSongs);
-
         model.addAttribute("userAnswers", userAnswers);
+        if (countCorrect >= chosenSongs.size()/2) {
+            model.addAttribute("canAdvance", true);
+        }
         return "final";
     }
 

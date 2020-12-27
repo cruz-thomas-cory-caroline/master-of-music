@@ -10,6 +10,10 @@
     <div class="card">
         <h5 class="card-header">Summary</h5>
         <div class="card-body">
+            <div th:if="${canAdvance}">
+                <h3>Congratulations!</h3>
+                <p>You successfully answered enough to proceed to the next round!</p>
+            </div>
             <div th:each="song : ${songs}">
                 <div class="row">
                     <h5 class="card-title col-6">Title: <span th:text="${song.getTitle()}"></span></h5>
@@ -23,7 +27,10 @@
             <div class="text-center">
                 <h1 th:text="${score}"></h1>
             </div>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <div th:if="${canAdvance}">
+                <a href="#" class="btn btn-primary">Next Level</a>
+            </div>
+            <a href="/index" class="btn btn-primary">Home</a>
         </div>
     </div>
 
