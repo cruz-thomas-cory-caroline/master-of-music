@@ -6,7 +6,25 @@
 </head>
 <body>
 
-<h1 class="text-light fs-1" th:text="${score}"></h1>
+<div th:each="askedQuestion : ${askedQuestions}">
+    <!--    <h4 th:text="${askedQuestion.question}"></h4>-->
+    <!--</div>-->
+
+    <div>
+        <h2>CORRECT ANSWERS</h2>
+        <ul class="list-group list-group-flush" th:each="answer : ${correctAnswers}">
+            <li
+            <li class="list-group-item" th:text="${answer}"></li>
+        </ul>
+    </div>
+    <div>
+        <h2>INCORRECT ANSWERS</h2>
+        <ul class="list-group list-group-flush" th:each="InAnswer : ${incorrectAnswers}">
+            <li class="list-group-item" th:text="${InAnswer}"></li>
+        </ul>
+    </div>
+    <h1 class="text-light fs-1" th:text="${score}"></h1>
+</div>
 
 <div th:include="partials/footerNav.html :: footerNav"></div>
 <div th:include="partials/scripts.html :: scripts"></div>

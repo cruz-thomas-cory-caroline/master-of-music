@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.print.attribute.standard.PresentationDirection;
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Array;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,7 +69,7 @@ public class TriviaController {
             for (Question question : questions) {
                 if (question.getQuestion_genres().contains(genre)) {
                     rockQuestions.add(question);
-                    System.out.println(question.getQuestion());
+//                    System.out.println(question.getQuestion());
                 }
             }
 
@@ -77,13 +78,14 @@ public class TriviaController {
                 randomQs.add(rockQuestions.get(rand.nextInt(rockQuestions.size())));
             }
 
-            for (Question rq : randomQs) {
-                System.out.println(rq.getQuestion());
-            }
-            System.out.println(questions);
-
+//            for (Question rq : randomQs) {
+//                System.out.println(rq.getQuestion());
+//            }
+//            System.out.println(questions);
+            System.out.println(randomQs);
             viewModel.addAttribute("questions", randomQs);
         }
+
 
         return "trivia-game";
     }
@@ -95,12 +97,31 @@ public class TriviaController {
             Model model
     ) {
         int score = 0;
+        ArrayList<String> correctAnswers = new ArrayList<>();
+        ArrayList<String> incorrectAnswers = new ArrayList<>();
+        ArrayList<Long> askedQsIds = new ArrayList<>();
+        ArrayList<Question> askedQuestions = new ArrayList<>();
         for (String questionId : questionIds) {
             long answerIsCorrect = questionDao.findAnswerIdCorrect(Long.parseLong(questionId));
             if(answerIsCorrect == Long.parseLong(request.getParameter("question_"+questionId))) {
-                score++;
+                correctAnswers.add(answerDao.getOne(answerIsCorrect).getAnswer());
+                score += 5;
+            } else if (answerIsCorrect != Long.parseLong(request.getParameter("question_"+questionId))) {
+                incorrectAnswers.add(answerDao.getOne(answerIsCorrect).getAnswer());
             }
+         }
+        for (String questionId : questionIds) {
+            askedQsIds.add(Long.parseLong(questionId));
         }
+        for (Long askedQId : askedQsIds) {
+            askedQuestions.add(questionDao.getOne(askedQId));
+        }
+
+        System.out.println(incorrectAnswers);
+        System.out.println(correctAnswers);
+        model.addAttribute("askedQuestions", askedQuestions);
+        model.addAttribute("correctAnswers", correctAnswers);
+        model.addAttribute("incorrectAnswers", incorrectAnswers);
         model.addAttribute("score", score);
         return "result";
     }
