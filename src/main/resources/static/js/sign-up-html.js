@@ -1,12 +1,19 @@
 (function () {
     "use strict";
 
-    $("#pwRequirementsList").toggle();
+
 
 $(document).ready(function() {
+
+    $("#pwRequirementsList").hide();
     $("#pwRequirements").click(function () {
-        $("#pwRequirementsList").show();
+        $("#pwRequirementsList").toggle();
     });
+
+    $("#passwordStrength").hide();
+    $("#passwordEntered").keyup(function () {
+        $("#passwordStrength").show();
+    })
 
 });
 

@@ -86,13 +86,18 @@
             <div class="form-group" ng-controller="PasswordController" id="myPassword">
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                        <span class="input-group-text"> <i class="fa fa-lock"></i></span>
+                    </div>
                         <input class="form-control" ng-model="password" ng-change="analyze(password)"
-                               placeholder="Enter password" type="password" name="password"
-                               th:field="*{password}"><div ng-style="passwordStrength"></div>
-                    </div><a id = "pwRequirements" href="#">Password Requirements</a>
-
+                               placeholder="Enter password" type="password" id="passwordEntered" name="password"
+                               th:field="*{password}">
+                    <div id="passwordStrength" ng-style="passwordStrength">
+                    </div>
                 </div>
+                    <a id = "pwRequirements" href="#">Password Requirements</a>
+
+            </div>
+
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -107,11 +112,11 @@
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="isAdmin"
-                                       th:value="${user.isAdmin()}" id="defaultCheck1">
-                                <label class="form-check-label" for="defaultCheck1">
-                                    Select for Admin
-                                </label>
+<!--                                <input class="form-check-input" type="checkbox" name="isAdmin"-->
+<!--                                       th:value="${user.isAdmin()}" id="defaultCheck1">-->
+<!--                                <label class="form-check-label" for="defaultCheck1">-->
+<!--                                    Select for Admin-->
+<!--                                </label>-->
                             </div>
                         </div>
                     </div>
@@ -123,8 +128,6 @@
         </form>
     </article>
 </div>
-<!--<script src="/static/js/sign-up-html.js"></script>-->
-<!--<script src="https://code.jquery.com/jquery-3.5.0.js"></script>-->
 <th:block th:include="partials/scripts :: scripts"></th:block>
 </body>
 </html>
