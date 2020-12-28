@@ -8,18 +8,30 @@
 <body>
 
 <div class="card-body">
-    <form METHOD="POST" th:action="@{|/finish-lyrics|}">
+    <form th:method="post" th:action="@{|/finish-lyrics/{id}|}">
         <div th:each="question : ${questions}">
             <h5 class="card-title" th:text="${question}"></h5>
-<!--            <label th:text="${questions.get(id)}"></label>-->
-<!--            <input type="radio" th:id="${answer.id}" name="answers" th:value="${answer.answer}">-->
+            <div class="card-text" STYLE="color: white" th:each="answer : ${answers}">
+                    <input th:type="radio" th:id="${answer.id}">
+            </div>
+            <a href="#" class="btn btn-primary btn-small">Submit</a>
         </div>
-        <button type="submit">Submit your answer!</button>
     </form>
 </div>
 </body>
 <th:block th:include="partials/scripts :: scripts"></th:block>
 </html>
+
+<!--   <form METHOD="POST" th:action="@{|/finish-lyrics/{id}|}">
+        <div th:each="question : ${questions}">
+            <h5 class="card-title" th:text="${question}"></h5>
+            <div th:each="lyricAnswer : ${lyricAnswers}">
+            <input type="radio" th:id="${lyricAnswer.id}" th:text="${lyricAnswer.lyricAnswer}">
+        </div>
+        <button type="submit">Submit your answer!</button>
+        </div>
+    </form>-->
+
 <!--<form th:method="post" th:action="@{/finish-lyrics}">-->
 <!--    <div th:each="question : ${questions}">-->
 <!--        <h5 class="card-title" th:text="${question}"></h5>-->
@@ -31,4 +43,3 @@
 <!--        <a href="#" class="btn btn-primary btn-small">Submit</a>-->
 <!--    </div>-->
 <!--</form>-->
-

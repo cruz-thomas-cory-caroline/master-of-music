@@ -11,6 +11,6 @@ import java.util.List;
 
 @Repository
 public interface SongRepository extends JpaRepository <Song, Long> {
-//    ArrayList<Song> findAllByGameId(long id);
-//    List<Song> findQuestionsBySongEquals(Game game);
+    ArrayList<Song> findAllByGameId(long id);
+    List<Song> findLyricsBySong(Game game);
 }
