@@ -12,11 +12,25 @@
         <div th:each="question : ${questions}">
             <h5 class="card-title" th:text="${question}"></h5>
             <div class="card-text" STYLE="color: white" th:each="answer : ${answers}">
-                    <input th:type="radio" th:id="${answer.id}">
+                <label th:for="${answer.id}" th:text="${answer.lyricAnswer}"></label>
+                <input type="radio" th:id="${answer.id}" name="answers" th:value="${answer.lyricAnswer}">
             </div>
             <a href="#" class="btn btn-primary btn-small">Submit</a>
         </div>
     </form>
+</div>
+<div th:if="${correct != null}">
+    <div class="card bg-light mb-3" style="max-width: 18rem;">
+        <div class="card-header">
+            <h1>Correct!</h1>
+        </div>
+        <div class="card-body">
+            <h2>You gained x points!</h2>
+            <form method="GET" th:action="@{|/finish-lyrics/${id + 1}|}">
+                <button name="next-round">Next Round</button>
+            </form>
+        </div>
+    </div>
 </div>
 </body>
 <th:block th:include="partials/scripts :: scripts"></th:block>

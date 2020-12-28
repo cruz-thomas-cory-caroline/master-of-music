@@ -1,9 +1,11 @@
 package masterofmusic.masterofmusic.controllers.GameControllers;
 
+import masterofmusic.masterofmusic.models.Answer;
 import masterofmusic.masterofmusic.models.LyricAnswer;
 import masterofmusic.masterofmusic.models.Question;
 import masterofmusic.masterofmusic.models.Song;
 import masterofmusic.masterofmusic.repositories.LyricAnswerRepository;
+import masterofmusic.masterofmusic.repositories.PlayerGameRepository;
 import masterofmusic.masterofmusic.repositories.SongRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +18,12 @@ import java.util.List;
 public class LyricsController {
     private final SongRepository songDao;
     private final LyricAnswerRepository lyricAnswerDao;
+    private final PlayerGameRepository playerGameDao;
 
-    public LyricsController(SongRepository songDao, LyricAnswerRepository lyricAnswerDao) {
+    public LyricsController(SongRepository songDao, LyricAnswerRepository lyricAnswerDao, PlayerGameRepository playerGameDao) {
         this.songDao = songDao;
         this.lyricAnswerDao = lyricAnswerDao;
+        this.playerGameDao = playerGameDao;
     }
 
 //    @GetMapping("/finish-lyrics/{id}")
@@ -64,6 +68,25 @@ public class LyricsController {
         model.addAttribute("questions", lyricQuestions.get(id));
         return "finish-lyrics";
     }
+
+    @PostMapping("/finish-lyrics/{id}")
+    public String submitAnswer(@RequestParam(name = "answers")String userAnswer, @PathVariable int id, Model model){
+        ArrayList<Song> theoryList = songDao.findAllByGameId(1L);
+        long songId = theoryList.get(id).getId();
+        ArrayList<LyricAnswer> lyricAnswerArrayList = lyricAnswerDao.getAllBySongId(songId);
+        String correctAnswer = "";
+        for (LyricAnswer lyricAnswer: lyricAnswerArrayList){
+            if(lyricAnswer.isCorrect()) {
+                correctAnswer = lyricAnswer.getLyricAnswer();
+            }
+        }
+        if(userAnswer.equalsIgnoreCase(correctAnswer)){
+            model.addAttribute("correct", "Great Job!");
+
+        }
+        return "finish-lyrics";
+    }
+
 }
 
 //        for (Song song : songDao.findAll()) {
