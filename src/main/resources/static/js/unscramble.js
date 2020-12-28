@@ -1,9 +1,6 @@
 (function () {
     "use strict";
 
-    $(".all-cards").hide();
-    $(".final-screen").hide();
-
     $(".words").draggable({
         opacity: .4,
         revert: function (event, ui) {
@@ -30,9 +27,9 @@
             $(this).droppable( "option", "accept", '.words');
             $(this).find("input").val("")
             $(this).removeClass("occupied")
-            console.log("Removing Occupied Class...")
+            // console.log("Removing Occupied Class...")
             if (!$(this).hasClass('occupied')) {
-                console.log("Removed")
+                // console.log("Removed")
             }
         }
     })
@@ -76,14 +73,14 @@
                 $('.all-cards').eq(cardIndexShowing).find(".fullAnswer").val(lockAnswer())
                 setTimeout(function () {
                     if (cardIndexShowing + 1 === totalCardCount) {
-                        $('.all-cards').eq(cardIndexShowing).hide()
+                        $('.all-cards').eq(cardIndexShowing).addClass('hide')
                         $('.timer').html('')
-                        $('.final-screen').show()
+                        $('.final-screen').removeClass('hide')
                     } else {
-                        $('.all-cards').eq(cardIndexShowing).hide()
+                        $('.all-cards').eq(cardIndexShowing).add('hide')
                         $('.timer').html('')
                         cardIndexShowing++
-                        $('.all-cards').eq(cardIndexShowing).show()
+                        $('.all-cards').eq(cardIndexShowing).removeClass('hide')
                         timerStart()
                     }
                 }, 2000)
@@ -92,8 +89,8 @@
     }
 
     $('#startButton').click(function () {
-        $(this).hide()
-        $(".all-cards").first().show()
+        $(this).addClass('hide')
+        $(".all-cards").first().removeClass('hide')
         startTime = $('.timer')[0].innerHTML
         timerStart()
     })
@@ -101,10 +98,10 @@
     $(".cat-button").click(function () {
         $('.all-cards').eq(cardIndexShowing).find(".fullAnswer").val(lockAnswer())
         console.log($(this).parent().parent().find("input")[0].value)
-        $('.all-cards').eq(cardIndexShowing).hide()
+        $('.all-cards').eq(cardIndexShowing).addClass('hide')
         clearInterval(interval)
         timerStart()
-        $('.all-cards').eq(cardIndexShowing+1).show()
+        $('.all-cards').eq(cardIndexShowing+1).removeClass('hide')
         cardIndexShowing++
 
     })
@@ -112,9 +109,9 @@
     $('.last-cat-button').click(function () {
         $('.all-cards').eq(cardIndexShowing).find(".fullAnswer").val(lockAnswer())
         console.log($(this).parent().parent().find("input")[0].value)
-        $('.all-cards').eq(cardIndexShowing).hide()
+        $('.all-cards').eq(cardIndexShowing).addClass('hide')
         clearInterval(interval)
-        $('.final-screen').show()
+        $('.final-screen').removeClass('hide')
 
     })
 

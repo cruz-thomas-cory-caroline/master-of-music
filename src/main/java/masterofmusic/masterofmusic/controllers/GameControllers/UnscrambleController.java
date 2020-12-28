@@ -46,6 +46,8 @@ public class UnscrambleController {
                                  @RequestParam(name = "round") long num,
                                  Model model) {
 
+        chosenSongs = new ArrayList<>();
+
         if(num == 1) {
             PlayerGame gameStart = new PlayerGame();
             gameStart.setGame(gameDao.getOne(4L));
@@ -56,7 +58,6 @@ public class UnscrambleController {
             PlayerGame dbGameStart = playerGameDao.save(gameStart);
             currentGameID = dbGameStart.getId();
             chosenSongIDs = new ArrayList<>();
-            chosenSongs = new ArrayList<>();
         }
 
         int numberOfQuestions = 0;
@@ -158,6 +159,7 @@ public class UnscrambleController {
         newRoundCompleted.setLevel(playerGameDao.getOne(num).getPlayerGameRounds().size()+1);
         newRoundCompleted.setPlayerGame(playerGameDao.getOne(num));
         newRoundCompleted.setPlay_time("here");
+        newRoundCompleted.setScore(0);
 
         List<String> userAnswers = new ArrayList<>();
         List<Integer> correctAnswers = new ArrayList<>();

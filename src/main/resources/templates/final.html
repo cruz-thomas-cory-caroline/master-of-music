@@ -11,9 +11,10 @@
         <input type="hidden" id="score" th:value="${score}">
         <h5 class="card-header">Score <span id="scoreCounter"></span></h5>
         <div class="card-body">
-            <div th:if="${canAdvance}">
+            <div th:if="${canAdvance}" id="congrats" class="hide">
                 <h3>Congratulations!</h3>
                 <p>You successfully answered enough to proceed to the next round!</p>
+                <hr>
             </div>
             <div th:each="song : ${songs}">
                 <div class="row">
@@ -66,12 +67,17 @@
                                value="country">
                         <label class="form-check-label" for="inlineRadio14">Country</label>
                     </div>
-                    <input name= round type="hidden" th:value="${currentLevel+1}">
-                    <button type="submit">Next Round</button>
+                    <div>
+                        <input name= round type="hidden" th:value="${currentLevel+1}">
+                        <button type="submit">Next Round</button>
+                    </div>
                 </form>
 
             </div>
-            <a href="/index" class="btn btn-primary">Home</a>
+            <div th:unless="${canAdvance}">
+                <a href="/index" class="btn btn-primary">Home</a>
+            </div>
+
         </div>
     </div>
 
@@ -79,14 +85,18 @@
 </div>
 </body>
 <th:block th:include="partials/scripts :: scripts"></th:block>
+<script th:src="@{/js/unscramble.js}"></script>
 <script type="text/javascript">
     let scoreToCount = parseInt($('#score').val())
+    console.log(scoreToCount)
     let zero = 0
     function scoreCounter() {
         var scoreCount = setInterval(function () {
             if (zero === scoreToCount) {
                 console.log("done")
+                $('#scoreCounter').html(zero)
                 clearInterval(scoreCount)
+                $('#congrats').show()
             } else {
                 console.log(zero)
                 zero = zero + 1
@@ -96,4 +106,5 @@
     }
     scoreCounter()
 </script>
+
 </html>

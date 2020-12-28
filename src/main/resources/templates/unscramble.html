@@ -6,12 +6,15 @@
 </head>
 <body>
 <main class="container">
-    <button type="button" id="startButton">Start</button>
+    <div>
+        <button type="button" id="startButton" class="btn btn-primary btn-lg" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); height: 100px; width: 200px;">Start</button>
+    </div>
+
     <form th:action="@{/unscramble/results}" method="post">
         <input name="difficulty" type="hidden" th:value="${difficulty}">
         <input name="playerGame" type="hidden" th:value="${playerGame}">
         <input name="level" type="hidden" th:value="${round}">
-        <div th:each="lyricSet : ${scrambledLyricsSet}" class="all-cards">
+        <div th:each="lyricSet : ${scrambledLyricsSet}" class="all-cards hide">
             <div class="card game-card">
                 <div class="card-header row">
                     <div class="mr-auto">
@@ -53,7 +56,7 @@
             </div>
         </div>
 
-        <div class="card final-screen" style="width: 18rem;">
+        <div class="card final-screen hide" style="width: 18rem;">
             <div class="card-body text-center">
                 <h2 class="card-title">Great Job!</h2>
                 <h4 class="card-text">Ready to see your results?</h4>
@@ -64,5 +67,6 @@
 
 </main>
 <div th:include="partials/scripts.html :: scripts"></div>
+<script th:src="@{/js/unscramble.js}"></script>
 </body>
 </html>
