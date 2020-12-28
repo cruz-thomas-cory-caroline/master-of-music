@@ -99,27 +99,31 @@ public class TriviaController {
         int score = 0;
         ArrayList<String> correctAnswers = new ArrayList<>();
         ArrayList<String> incorrectAnswers = new ArrayList<>();
-        ArrayList<Long> askedQsIds = new ArrayList<>();
-        ArrayList<Question> askedQuestions = new ArrayList<>();
+        ArrayList<Question> correctQs = new ArrayList<>();
+        ArrayList<Long> submittedAnswersIds = new ArrayList<>();
+        ArrayList<String> submittedAnswers = new ArrayList<>();
+        ArrayList<Question> incorrectQs = new ArrayList<>();
         for (String questionId : questionIds) {
             long answerIsCorrect = questionDao.findAnswerIdCorrect(Long.parseLong(questionId));
             if(answerIsCorrect == Long.parseLong(request.getParameter("question_"+questionId))) {
                 correctAnswers.add(answerDao.getOne(answerIsCorrect).getAnswer());
+                correctQs.add(questionDao.getOne(Long.parseLong(questionId)));
                 score += 5;
             } else if (answerIsCorrect != Long.parseLong(request.getParameter("question_"+questionId))) {
+                submittedAnswersIds.add(Long.parseLong(request.getParameter("question_"+questionId)));
                 incorrectAnswers.add(answerDao.getOne(answerIsCorrect).getAnswer());
+                incorrectQs.add(questionDao.getOne(Long.parseLong(questionId)));
             }
          }
-        for (String questionId : questionIds) {
-            askedQsIds.add(Long.parseLong(questionId));
-        }
-        for (Long askedQId : askedQsIds) {
-            askedQuestions.add(questionDao.getOne(askedQId));
+        for (Long submittedAnswer : submittedAnswersIds) {
+            submittedAnswers.add(answerDao.getOne(submittedAnswer).getAnswer());
         }
 
         System.out.println(incorrectAnswers);
         System.out.println(correctAnswers);
-        model.addAttribute("askedQuestions", askedQuestions);
+        model.addAttribute("submittedAnswers", submittedAnswers);
+        model.addAttribute("correctQs", correctQs);
+        model.addAttribute("incorrectQs", incorrectQs);
         model.addAttribute("correctAnswers", correctAnswers);
         model.addAttribute("incorrectAnswers", incorrectAnswers);
         model.addAttribute("score", score);

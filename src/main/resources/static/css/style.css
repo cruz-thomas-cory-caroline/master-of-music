@@ -191,3 +191,7 @@ body {
     width: 30em;
     height: 35em;
 }
+
+.questionsResults {
+    font-weight: bold;
+}

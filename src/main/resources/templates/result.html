@@ -6,25 +6,31 @@
 </head>
 <body>
 
-<div th:each="askedQuestion : ${askedQuestions}">
-    <!--    <h4 th:text="${askedQuestion.question}"></h4>-->
-    <!--</div>-->
 
-    <div>
-        <h2>CORRECT ANSWERS</h2>
-        <ul class="list-group list-group-flush" th:each="answer : ${correctAnswers}">
-            <li
-            <li class="list-group-item" th:text="${answer}"></li>
+    <section class="container-fluid w-75 text-center">
+        <h3 class="text-light fs-1">SCORE: <span th:text="${score}"></span> </h3>
+        <div class="row d-flex m-0 p-0">
+    <div class="col-12 col-sm-6">
+        <h4 class="text-light fs-1 bg-success">CORRECT ANSWERS</h4>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" th:each="correctQ, int : ${correctQs}">
+                <p class="questionsResults" th:text="${correctQ.question}"></p>
+                <p>Correct Answer: <span th:text="${correctAnswers.get(int.index)}"></span> </p>
+            </li>
         </ul>
     </div>
-    <div>
-        <h2>INCORRECT ANSWERS</h2>
-        <ul class="list-group list-group-flush" th:each="InAnswer : ${incorrectAnswers}">
-            <li class="list-group-item" th:text="${InAnswer}"></li>
+    <div class="col-12 col-sm-6">
+        <h4 class="text-light fs-1 bg-danger">INCORRECT ANSWERS</h4>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" th:each="incorrectQ, int : ${incorrectQs}">
+                <p class="questionsResults" th:text="${incorrectQ.question}"></p>
+                <p>Submitted Answer: <span th:text="${submittedAnswers.get(int.index)}"></span></p>
+                <p>Correct Answer: <span th:text="${incorrectAnswers.get(int.index)}"></span> </p>
+            </li>
         </ul>
     </div>
-    <h1 class="text-light fs-1" th:text="${score}"></h1>
-</div>
+        </div>
+    </section>
 
 <div th:include="partials/footerNav.html :: footerNav"></div>
 <div th:include="partials/scripts.html :: scripts"></div>
