@@ -83,11 +83,9 @@ public class TriviaController {
                 randomQs.add(randRockQ);
                 rockQuestions.remove(randRockQ);
             }
-
+            viewModel.addAttribute("difficultyOption", difficultyOption);
             viewModel.addAttribute("questions", randomQs);
         }
-
-
         return "trivia-game";
     }
 

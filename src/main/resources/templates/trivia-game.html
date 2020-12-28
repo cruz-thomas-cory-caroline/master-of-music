@@ -25,7 +25,8 @@
                 </div>
             </div>
         </div>
-        <form th:action="@{/trivia-game/submit}" th:method="post" >
+        <form th:action="@{/trivia-game/submit}" th:method="post">
+            <input type="hidden" id="difficultySelected" name="difficultySelected" th:value="${difficultyOption}">
             <div class="carousel-item questionCount" th:each="question : ${questions}">
                 <div class="card m-auto triviaCard">
                     <h3 class="card-header questionLabel" th:text="${question.question}"></h3>

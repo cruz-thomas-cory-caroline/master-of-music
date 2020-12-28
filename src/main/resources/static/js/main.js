@@ -68,7 +68,18 @@
             $("#backButton").show();
         });
 
-        let timeLeft = 10;
+        let difficultyLevel = $("#difficultySelected").val();
+        console.log(difficultyLevel);
+
+        let timeLeft;
+        if (difficultyLevel === "easy") {
+            timeLeft = 60;
+        } else if (difficultyLevel === "medium") {
+            timeLeft = 45;
+        } else if (difficultyLevel === "hard") {
+            timeLeft = 30;
+        }
+
         $("#startGameButton").click(function() {
             let downloadTimer = setInterval(function(){
                 if(timeLeft <= 0){
