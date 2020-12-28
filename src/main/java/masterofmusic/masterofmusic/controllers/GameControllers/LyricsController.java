@@ -26,31 +26,14 @@ public class LyricsController {
         this.playerGameDao = playerGameDao;
     }
 
-//    @GetMapping("/finish-lyrics/{id}")
-//    public String lyricsQuiz(@PathVariable int id, Model model) {
-//        ArrayList<Song> lyricQuestions = songDao.findAllByGameId(1L);
-//        long songId = lyricQuestions.get(id).getId();
-//        ArrayList<LyricAnswer> lyricAnswers = lyricAnswerDao.getAllBySongId(songId);
-//
-//        model.addAttribute("questions", lyricQuestions.get(id).getLyrics());
-//
-//        model.addAttribute("lyricAnswers", lyricAnswers);
-//        return "finish-lyrics";
-//    }
-//}
-
     @GetMapping("/finish-lyrics/{id}")
     public String lyricsQuiz(@PathVariable int id, Model model) {
         ArrayList<Song> songDaoAllByGameIdList = songDao.findAllByGameId(1L);
         long songId = songDaoAllByGameIdList.get(id).getId();
 
         model.addAttribute("songs", songDao.findAll());
-        int count = songDao.findAll().size();
-        List<String> lyricAnswers = new ArrayList<>();
-        List<Long> chosenSongs = new ArrayList<>();
-        List<String> lyricQuestions = new ArrayList<>();
 
-//        for (Song song : songDao.findAll())
+        List<String> lyricQuestions = new ArrayList<>();
             for (Song song : songDao.findAllByGameId(1L)){
             Song songOne = songDao.getOne(song.getId());
 
@@ -89,6 +72,9 @@ public class LyricsController {
 
 }
 
+//  int count = songDao.findAll().size();
+//        List<String> lyricAnswers = new ArrayList<>();
+//        List<Long> chosenSongs = new ArrayList<>()
 //        for (Song song : songDao.findAll()) {
 //            chosenSongs = new ArrayList<>();
 //            int counter = 3;//add one for correct answer
