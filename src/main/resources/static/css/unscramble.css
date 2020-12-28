@@ -1,0 +1,21 @@
+.hide {
+    display: none;
+}
+
+.drop-zone {
+    border: solid black 1px;
+    width: 75px;
+    height: 50px;
+}
+
+.occupied{
+    border: none;
+    width: 75px;
+    height: 50px;
+}
+
+.unoccupied{
+    border: solid black 1px;
+    width: 75px;
+    height: 50px;
+}

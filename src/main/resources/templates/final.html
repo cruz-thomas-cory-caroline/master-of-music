@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="partials/head.html :: head"></div>
+    <title>Login</title>
+</head>
+<body>
+<div>
+
+    <div class="card text-center">
+        <input type="hidden" id="score" th:value="${score}">
+        <h5 class="card-header">Score <span id="scoreCounter"></span></h5>
+        <div class="card-body">
+            <div th:if="${canAdvance}" id="congrats" class="hide">
+                <h3>Congratulations!</h3>
+                <p>You successfully answered enough to proceed to the next round!</p>
+                <hr>
+            </div>
+            <div th:each="song : ${songs}">
+                <div class="row">
+                    <h5 class="card-title col-6 text-left">Title: <span th:text="${song.getTitle()}"></span></h5>
+                    <h5 class="card-title col-6 text-right">Artist: <span th:text="${song.getArtist()}"></span></h5>
+                </div>
+                <h6 class="card-text">Lyric: <span th:text="${song.getLyrics()}"></span></h6>
+                <h6 class="card-text">Your Answer: <span th:text="${userAnswers[songs.indexOf(song)]}"></span></h6>
+                <br>
+                <hr>
+            </div>
+            <div th:if="${canAdvance}">
+                <form th:action="@{/unscramble}" method="get">
+                    <h5 class="text-white text-start">Difficulty:</h5>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio8"
+                               value="easy">
+                        <label class="form-check-label" for="inlineRadio8">Easy</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio9"
+                               value="medium">
+                        <label class="form-check-label" for="inlineRadio9">Medium</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio10"
+                               value="hard">
+                        <label class="form-check-label" for="inlineRadio10">Hard</label>
+                    </div>
+
+
+                    <h5 class="text-white text-start">Genre:</h5>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio11"
+                               value="classic rock">
+                        <label class="form-check-label" for="inlineRadio11">Classic Rock</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio12"
+                               value="pop">
+                        <label class="form-check-label" for="inlineRadio12">Pop</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio13"
+                               value="hip-Hop">
+                        <label class="form-check-label" for="inlineRadio13">Hip-Hop</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio14"
+                               value="country">
+                        <label class="form-check-label" for="inlineRadio14">Country</label>
+                    </div>
+                    <div>
+                        <input name= round type="hidden" th:value="${currentLevel+1}">
+                        <button type="submit">Next Round</button>
+                    </div>
+                </form>
+
+            </div>
+            <div th:unless="${canAdvance}">
+                <a href="/index" class="btn btn-primary">Home</a>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+</body>
+<th:block th:include="partials/scripts :: scripts"></th:block>
+<script th:src="@{/js/unscramble.js}"></script>
+<script type="text/javascript">
+    let scoreToCount = parseInt($('#score').val())
+    console.log(scoreToCount)
+    let zero = 0
+    function scoreCounter() {
+        var scoreCount = setInterval(function () {
+            if (zero === scoreToCount) {
+                console.log("done")
+                $('#scoreCounter').html(zero)
+                clearInterval(scoreCount)
+                $('#congrats').show()
+            } else {
+                console.log(zero)
+                zero = zero + 1
+                $('#scoreCounter').html(zero)
+            }
+        }, 10)
+    }
+    scoreCounter()
+</script>
+
+</html>
