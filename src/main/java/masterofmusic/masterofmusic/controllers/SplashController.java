@@ -13,6 +13,6 @@ public class SplashController {
 
     @GetMapping("/index")
     public String index() {
-        return "posts/index";
+        return "index";
     }
 }
