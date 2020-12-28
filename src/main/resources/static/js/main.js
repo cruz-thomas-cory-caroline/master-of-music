@@ -40,7 +40,7 @@
             $("#musicTheorySection").hide();
             $("#unscrambleLyricSection").hide();
             $("#backButton").show();
-            $(".divMoveDown").css("margin-top", "10%");
+            $(".divMoveDown").css("margin-top", "18%");
         });
 
         lyricSelection.click(function() {
@@ -49,7 +49,7 @@
             $("#musicTheorySection").hide();
             $("#unscrambleLyricSection").hide();
             $("#backButton").show();
-            $(".divMoveDown").css("margin-top", "10%");
+            $(".divMoveDown").css("margin-top", "18%");
         });
 
         $("#musicTheorySelection").click(function() {
@@ -68,6 +68,40 @@
             $("#backButton").show();
         });
 
+        // $("#submitQuiz").hide();
+        // let difficultySelected;
+        //
+        // $('#gameSetupForm input').on('change', function() {
+        //     difficultySelected = ($('input[name=difficultyOptions]:checked', '#gameSetupForm').val());
+        //     console.log(difficultySelected)
+        //     if (difficultySelected === "easy") {
+        //         $("#submitQuiz").show();
+        //     }
+        // });
+
+        // var timeleft = 10;
+        // var downloadTimer = setInterval(function(){
+        //     if(timeleft <= 0){
+        //         clearInterval(downloadTimer);
+        //         document.getElementById("timer").innerHTML = timeleft;
+        //     } else {
+        //         document.getElementById("countdown").innerHTML = timeleft;
+        //     }
+        //     timeleft -= 1;
+        // }, 1000);
+
+        let timeLeft = 10;
+        $(".carControls").click(function() {
+            var downloadTimer = setInterval(function(){
+                if(timeLeft <= 0){
+                    clearInterval(downloadTimer);
+                    document.getElementById("timer").innerHTML = timeLeft;
+                } else {
+                    document.getElementById("timer").innerHTML = timeLeft;
+                }
+                timeLeft -= 1;
+            }, 1000);
+        })
 
     });
 
