@@ -73,45 +73,45 @@
             </section>
 
             <section id="triviaOptions">
-                <form th:action="@{/trivia-game/3}" method="post">
+                <form id="gameSetupForm" th:action="@{/trivia-game/3}" method="post">
                     <section>
-                        <h5 class="text-white text-start">Difficulty:</h5>
+                        <h5 class="text-white text-start difficultyLabel">Difficulty:</h5>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="difficultyOptions" id="easyChoice"
                                    value="easy">
-                            <label class="form-check-label" for="easyChoice">Easy</label>
+                            <label class="form-check-label difficultyLabel" for="easyChoice">Easy</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="difficultyOptions" id="mediumChoice"
                                    value="medium">
-                            <label class="form-check-label" for="mediumChoice">Medium</label>
+                            <label class="form-check-label difficultyLabel" for="mediumChoice">Medium</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="difficultyOptions" id="hardChoice"
                                    value="hard">
-                            <label class="form-check-label" for="hardChoice">Hard</label>
+                            <label class="form-check-label difficultyLabel" for="hardChoice">Hard</label>
                         </div>
                     </section>
                     <section>
-                        <h5 class="text-white text-start">Genre:</h5>
+                        <h5 class="text-white text-start genreLabel">Genre:</h5>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="genreOptions" id="rockChoice"
                                    value="Rock">
-                            <label class="form-check-label" for="rockChoice">Rock</label>
+                            <label class="form-check-label genreLabel" for="rockChoice">Rock</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="genreOptions" id="popChoice" value="Pop">
-                            <label class="form-check-label" for="popChoice">Pop</label>
+                            <label class="form-check-label genreLabel" for="popChoice">Pop</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="genreOptions" id="hiphopChoice"
                                    value="Hip-Hop">
-                            <label class="form-check-label" for="hiphopChoice">Hip-Hop</label>
+                            <label class="form-check-label genreLabel" for="hiphopChoice">Hip-Hop</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="genreOptions" id="countryChoice"
                                    value="Country">
-                            <label class="form-check-label" for="countryChoice">Country</label>
+                            <label class="form-check-label genreLabel" for="countryChoice">Country</label>
                         </div>
                     </section>
                     <button type="submit">Play</button>

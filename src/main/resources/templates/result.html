@@ -15,7 +15,7 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item" th:each="correctQ, int : ${correctQs}">
                 <p class="questionsResults" th:text="${correctQ.question}"></p>
-                <p>Correct Answer: <span th:text="${correctAnswers.get(int.index)}"></span> </p>
+                <p class="bg-success">Correct Answer: <span th:text="${correctAnswers.get(int.index)}"></span> </p>
             </li>
         </ul>
     </div>
@@ -24,8 +24,8 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item" th:each="incorrectQ, int : ${incorrectQs}">
                 <p class="questionsResults" th:text="${incorrectQ.question}"></p>
-                <p>Submitted Answer: <span th:text="${submittedAnswers.get(int.index)}"></span></p>
-                <p>Correct Answer: <span th:text="${incorrectAnswers.get(int.index)}"></span> </p>
+                <p class="bg-danger">Submitted Answer: <span th:text="${submittedAnswers.get(int.index)}"></span></p>
+                <p class="bg-success">Correct Answer: <span th:text="${incorrectAnswers.get(int.index)}"></span> </p>
             </li>
         </ul>
     </div>

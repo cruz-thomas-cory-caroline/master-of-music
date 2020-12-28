@@ -50,7 +50,7 @@ public class TriviaController {
         difficultyOption = difficultySelection;
         genreOption = genreSelection;
         return "redirect:/trivia-game";
-    }
+        }
 
     @GetMapping("trivia-game")
     public String viewTriviaGame(
@@ -61,6 +61,11 @@ public class TriviaController {
         Random rand = new Random();
         Genre genre = genreDao.getOne(1L);
 
+        String easy = "false";
+        String medium = "10000";
+        String hard = "5000";
+
+
         if (genreOption.equals("Rock")) {
 
             ArrayList<Question> questions = questionDao.findAllByGameId(3L);
@@ -69,20 +74,16 @@ public class TriviaController {
             for (Question question : questions) {
                 if (question.getQuestion_genres().contains(genre)) {
                     rockQuestions.add(question);
-//                    System.out.println(question.getQuestion());
                 }
             }
 
             ArrayList<Question> randomQs = new ArrayList<>();
             for (var i = 0; i < 5; i++) {
-                randomQs.add(rockQuestions.get(rand.nextInt(rockQuestions.size())));
+                Question randRockQ = rockQuestions.get(rand.nextInt(rockQuestions.size()));
+                randomQs.add(randRockQ);
+                rockQuestions.remove(randRockQ);
             }
 
-//            for (Question rq : randomQs) {
-//                System.out.println(rq.getQuestion());
-//            }
-//            System.out.println(questions);
-            System.out.println(randomQs);
             viewModel.addAttribute("questions", randomQs);
         }
 
