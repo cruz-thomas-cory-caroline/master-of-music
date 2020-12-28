@@ -103,4 +103,11 @@ public class Question {
         this.game = game;
     }
 
+    public List<Genre> getQuestion_genres() {
+        return question_genres;
+    }
+
+    public void setQuestion_genres(List<Genre> question_genres) {
+        this.question_genres = question_genres;
+    }
 }

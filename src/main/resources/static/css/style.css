@@ -169,7 +169,7 @@ body {
     text-shadow: 2px 2px 4px #fcc910, 0 0 25px blue, 0 0 10px darkblue;
 }
 
-.form-check-label, h5 {
+.genreLabel, .difficultyLabel {
     font-family: 'New Rocker', cursive;
     color: #b7138a;
     text-shadow: 1px 1px 2px #fcc910, 0 0 25px blue, 0 0 5px darkblue;
@@ -180,14 +180,35 @@ body {
 #carouselExampleIndicators {
     position: absolute;
     width: 80vw;
-    height: 70vh;
+    height: 85vh;
     z-index: 4;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
-#cardQnA {
+#carousel-inner {
+    width: 100%;
+    height: 100%;
+}
+
+.card {
     width: 30em;
     height: 35em;
+}
+
+.questionsResults {
+    font-weight: bold;
+}
+
+.questionLabel {
+    font-family: 'New Rocker', cursive;
+    font-size: 1.5em;
+}
+
+#timer {
+    float: right;
+    margin-top: .5em;
+    margin-right: 1em;
+    font-size: 3em;
 }
