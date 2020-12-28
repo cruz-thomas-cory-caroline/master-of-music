@@ -26,6 +26,31 @@ public class LyricsController {
         this.playerGameDao = playerGameDao;
     }
 
+//    @GetMapping("/finish-lyrics")
+//    public String lyricsQuiz(Model model) {
+//        List<Song> songDaoAll = songDao.findAll();
+//        long songId = songDaoAll.getId();
+//        model.addAttribute("songs", songDao.findAll());
+//
+//        List<String> lyricQuestions = new ArrayList<>();
+//        for (Song song : songDao.findAllByGameId(1L)){
+//            Song songOne = songDao.getOne(song.getId());
+//
+//            String lyricToManipulate = songOne.getLyrics();
+//
+//            String cutQuestion = (lyricToManipulate.substring(0, lyricToManipulate.lastIndexOf(" ")));
+//
+//            lyricQuestions.add(cutQuestion);
+//        }
+//
+//
+//
+//        model.addAttribute("answers", lyricAnswerDao.getAllBySongId(songId));
+//
+//        model.addAttribute("questions", lyricQuestions);
+//        return "finish-lyrics";
+//    }
+
     @GetMapping("/finish-lyrics/{id}")
     public String lyricsQuiz(@PathVariable int id, Model model) {
         ArrayList<Song> songDaoAllByGameIdList = songDao.findAllByGameId(1L);
