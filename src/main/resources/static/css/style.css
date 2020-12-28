@@ -192,7 +192,7 @@ body {
     height: 100%;
 }
 
-.card {
+.triviaCard {
     width: 30em;
     height: 35em;
 }
@@ -211,4 +211,10 @@ body {
     margin-top: .5em;
     margin-right: 1em;
     font-size: 3em;
+}
+
+#startGameButton {
+    animation: pulse 2s infinite;
+    font-size: 80px;
+    color: #b7138a;
 }

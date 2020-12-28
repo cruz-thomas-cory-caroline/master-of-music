@@ -109,7 +109,7 @@ public class TriviaController {
             if(answerIsCorrect == Long.parseLong(request.getParameter("question_"+questionId))) {
                 correctAnswers.add(answerDao.getOne(answerIsCorrect).getAnswer());
                 correctQs.add(questionDao.getOne(Long.parseLong(questionId)));
-                score += 5;
+                score += 100;
             } else if (answerIsCorrect != Long.parseLong(request.getParameter("question_"+questionId))) {
                 submittedAnswersIds.add(Long.parseLong(request.getParameter("question_"+questionId)));
                 incorrectAnswers.add(answerDao.getOne(answerIsCorrect).getAnswer());
