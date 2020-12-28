@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 @Controller
@@ -26,11 +28,11 @@ public class TheoryController {
         this.questionDao = questionDao;
         this.answerDao = answerDao;
         this.playerGameDao = playerGameDao;
-
     }
 
     @GetMapping("/music-theory/{id}")
     public String viewQuizFormat(@PathVariable int id, Model model){
+       
 
 //       finding the user Id
         PlayerGame playerGame = playerGameDao.findByUserId(1);
