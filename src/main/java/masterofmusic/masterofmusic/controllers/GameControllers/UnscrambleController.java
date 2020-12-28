@@ -18,12 +18,9 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Controller
 public class UnscrambleController {
@@ -160,6 +157,7 @@ public class UnscrambleController {
         newRoundCompleted.setDifficulty(difficulty);
         newRoundCompleted.setLevel(playerGameDao.getOne(num).getPlayerGameRounds().size()+1);
         newRoundCompleted.setPlayerGame(playerGameDao.getOne(num));
+        newRoundCompleted.setPlay_time("here");
 
         List<String> userAnswers = new ArrayList<>();
         List<Integer> correctAnswers = new ArrayList<>();
@@ -170,7 +168,7 @@ public class UnscrambleController {
             System.out.println(song.getLyrics());
             if (request.getParameter("song" + chosenSongs.indexOf(song)).equalsIgnoreCase(song.getLyrics())) {
                 correctAnswers.add(chosenSongs.indexOf(song));
-                newRoundCompleted.setScore(newRoundCompleted.getScore()+1);
+                newRoundCompleted.setScore(newRoundCompleted.getScore()+100);
                 countCorrect++;
             }
         }

@@ -7,8 +7,9 @@
 <body>
 <div>
 
-    <div class="card">
-        <h5 class="card-header">Summary</h5>
+    <div class="card text-center">
+        <input type="hidden" id="score" th:value="${score}">
+        <h5 class="card-header">Score <span id="scoreCounter"></span></h5>
         <div class="card-body">
             <div th:if="${canAdvance}">
                 <h3>Congratulations!</h3>
@@ -16,16 +17,13 @@
             </div>
             <div th:each="song : ${songs}">
                 <div class="row">
-                    <h5 class="card-title col-6">Title: <span th:text="${song.getTitle()}"></span></h5>
-                    <h5 class="card-title col-6">Artist: <span th:text="${song.getArtist()}"></span></h5>
+                    <h5 class="card-title col-6 text-left">Title: <span th:text="${song.getTitle()}"></span></h5>
+                    <h5 class="card-title col-6 text-right">Artist: <span th:text="${song.getArtist()}"></span></h5>
                 </div>
                 <h6 class="card-text">Lyric: <span th:text="${song.getLyrics()}"></span></h6>
                 <h6 class="card-text">Your Answer: <span th:text="${userAnswers[songs.indexOf(song)]}"></span></h6>
                 <br>
                 <hr>
-            </div>
-            <div class="text-center">
-                <h1 th:text="${score}"></h1>
             </div>
             <div th:if="${canAdvance}">
                 <form th:action="@{/unscramble}" method="get">
@@ -81,4 +79,21 @@
 </div>
 </body>
 <th:block th:include="partials/scripts :: scripts"></th:block>
+<script type="text/javascript">
+    let scoreToCount = parseInt($('#score').val())
+    let zero = 0
+    function scoreCounter() {
+        var scoreCount = setInterval(function () {
+            if (zero === scoreToCount) {
+                console.log("done")
+                clearInterval(scoreCount)
+            } else {
+                console.log(zero)
+                zero = zero + 1
+                $('#scoreCounter').html(zero)
+            }
+        }, 10)
+    }
+    scoreCounter()
+</script>
 </html>

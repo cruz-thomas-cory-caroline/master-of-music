@@ -6,6 +6,7 @@
 </head>
 <body>
 <main class="container">
+    <button type="button" id="startButton">Start</button>
     <form th:action="@{/unscramble/results}" method="post">
         <input name="difficulty" type="hidden" th:value="${difficulty}">
         <input name="playerGame" type="hidden" th:value="${playerGame}">

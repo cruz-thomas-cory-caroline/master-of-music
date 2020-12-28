@@ -2,8 +2,7 @@
     "use strict";
 
     $(".all-cards").hide();
-    $(".all-cards").first().show()
-    $(".final-screen").hide()
+    $(".final-screen").hide();
 
     $(".words").draggable({
         opacity: .4,
@@ -61,9 +60,8 @@
         let playerAnswer = lyricSet.join(" ")
         return playerAnswer;
     }
-
-    var startTime = $('.timer')[0].innerHTML
     var interval;
+    var startTime;
 
     function timerStart() {
         var timeStart = startTime
@@ -93,7 +91,12 @@
         }, 1000)
     }
 
-    timerStart()
+    $('#startButton').click(function () {
+        $(this).hide()
+        $(".all-cards").first().show()
+        startTime = $('.timer')[0].innerHTML
+        timerStart()
+    })
 
     $(".cat-button").click(function () {
         $('.all-cards').eq(cardIndexShowing).find(".fullAnswer").val(lockAnswer())
@@ -112,6 +115,10 @@
         $('.all-cards').eq(cardIndexShowing).hide()
         clearInterval(interval)
         $('.final-screen').show()
+
     })
+
+
+
 
 })();
