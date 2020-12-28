@@ -11,7 +11,7 @@ public class Song {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "game_id")
+    @JoinColumn(name = "game_id", nullable = true)
     private Game game;
 
     @OneToMany(mappedBy = "song")

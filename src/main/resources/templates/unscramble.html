@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="partials/head.html :: head"></div>
+    <title>Unscramble The Lyrics</title>
+</head>
+<body>
+<main class="container">
+    <div>
+        <button type="button" id="startButton" class="btn btn-primary btn-lg" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); height: 100px; width: 200px;">Start</button>
+    </div>
+
+    <form th:action="@{/unscramble/results}" method="post">
+        <input name="difficulty" type="hidden" th:value="${difficulty}">
+        <input name="playerGame" type="hidden" th:value="${playerGame}">
+        <input name="level" type="hidden" th:value="${round}">
+        <div th:each="lyricSet : ${scrambledLyricsSet}" class="all-cards hide">
+            <div class="card game-card">
+                <div class="card-header row">
+                    <div class="mr-auto">
+                        <h5 th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getTitle()}"></h5>
+                        <h6>Round: <span th:text="${round}"></span></h6>
+                    </div>
+                    <div class="ml-auto">
+                        <div class="timer" th:text="${timeLimit}"></div>
+                    </div>
+                </div>
+                <!--            <h5 class="card-header" th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getTitle()}"></h5>-->
+                <div class="card-body justify content center">
+                    <div class="row justify-content-center">
+                        <div th:each="word : ${lyricSet}">
+                            <div class="drop-zone m-1 unoccupied">
+                                <input class="droppedWord" type="hidden" th:id="'word'+${lyricSet.indexOf(word)}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div th:each="word : ${lyricSet}">
+                            <a href="#" class="m-1 btn btn-primary words" th:text="${word}"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-center row">
+                    <div class="mr-auto">
+                        <p><span th:text="${scrambledLyricsSet.indexOf(lyricSet)+1}"></span>/<span th:text="${scrambledLyricsSet.size()}"></span></p>
+                    </div>
+                    <input type="hidden" class="fullAnswer" th:name="'song'+${scrambledLyricsSet.indexOf(lyricSet)}">
+                    <div class="ml-auto" th:if="${scrambledLyricsSet.indexOf(lyricSet) == scrambledLyricsSet.size()-1}">
+                        <button type="button" class="btn btn-primary last-cat-button">Lock It In!</button>
+                    </div>
+                    <div class="ml-auto" th:unless="${scrambledLyricsSet.indexOf(lyricSet) == scrambledLyricsSet.size()-1}">
+                        <button type="button" class="btn btn-primary cat-button ml-auto">Lock It In!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card final-screen hide" style="width: 18rem;">
+            <div class="card-body text-center">
+                <h2 class="card-title">Great Job!</h2>
+                <h4 class="card-text">Ready to see your results?</h4>
+                <button type="submit" class="btn btn-primary result-button">View Results</button>
+            </div>
+        </div>
+    </form>
+
+</main>
+<div th:include="partials/scripts.html :: scripts"></div>
+<script th:src="@{/js/unscramble.js}"></script>
+</body>
+</html>
