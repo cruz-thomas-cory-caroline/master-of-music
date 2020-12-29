@@ -210,11 +210,16 @@ body {
     float: right;
     margin-top: .5em;
     margin-right: 1em;
-    font-size: 3em;
+    font-size: 4em;
 }
 
 #startGameButton {
     animation: pulse 2s infinite;
-    font-size: 80px;
+    font-size: 100px;
     color: #b7138a;
+}
+
+#timerInfoHeader {
+    font-family: 'New Rocker', cursive;
+    font-size: 2em;
 }

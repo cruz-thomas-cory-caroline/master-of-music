@@ -10,6 +10,7 @@
     $("#wordMenu").hide();
     $("#unscrambleOptions").hide();
     $("#musicTheoryOptions").hide();
+    $(".carControls").hide();
 
     $(document).ready(function(){
         let triviaSelection = $('#triviaSelection');
@@ -86,6 +87,7 @@
                     redirect();
                     clearInterval(downloadTimer);
                 } else {
+                    $(".carControls").show();
                     document.getElementById("timer").innerHTML = timeLeft;
                 }
                 timeLeft -= 1;
