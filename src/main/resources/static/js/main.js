@@ -83,14 +83,19 @@
         $("#startGameButton").click(function() {
             let downloadTimer = setInterval(function(){
                 if(timeLeft <= 0){
+                    redirect();
                     clearInterval(downloadTimer);
-                    document.getElementById("timer").innerHTML = timeLeft;
                 } else {
                     document.getElementById("timer").innerHTML = timeLeft;
                 }
                 timeLeft -= 1;
             }, 1000);
         })
+
+        let quizForm = $("#quizForm");
+        function redirect() {
+            quizForm.submit();
+        }
 
     });
 

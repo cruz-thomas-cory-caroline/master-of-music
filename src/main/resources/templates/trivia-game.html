@@ -25,7 +25,7 @@
                 </div>
             </div>
         </div>
-        <form th:action="@{/trivia-game/submit}" th:method="post">
+        <form th:action="@{/trivia-game/submit}" th:method="post" id="quizForm">
             <input type="hidden" id="difficultySelected" name="difficultySelected" th:value="${difficultyOption}">
             <div class="carousel-item questionCount" th:each="question : ${questions}">
                 <div class="card m-auto triviaCard">
@@ -34,8 +34,7 @@
                     <div class="card-body form-check form-check-inline quizAnswers"
                          th:each="answer : ${question.getAnswers()}">
                         <input class="form-check-input solutions" type="radio" th:name="question_+${question.id}"
-                               th:value="${answer.id}"
-                               id="triviaGame">
+                               th:value="${answer.id}" id="triviaGame">
                         <label class="form-check-label" for="triviaGame" th:text="${answer.answer}"></label>
                     </div>
                     <button id="submitQuiz" type="submit">Submit</button>
