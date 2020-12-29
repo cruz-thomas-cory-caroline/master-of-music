@@ -192,10 +192,10 @@ body {
     height: 100%;
 }
 
-.card {
-    width: 30em;
-    height: 35em;
-}
+/*.card {*/
+/*    width: 30em;*/
+/*    height: 35em;*/
+/*}*/
 
 .questionsResults {
     font-weight: bold;

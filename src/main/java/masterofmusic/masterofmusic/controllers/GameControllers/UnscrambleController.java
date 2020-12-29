@@ -4,10 +4,7 @@ import masterofmusic.masterofmusic.models.PlayerGame;
 import masterofmusic.masterofmusic.models.PlayerGameRound;
 import masterofmusic.masterofmusic.models.Song;
 import masterofmusic.masterofmusic.models.User;
-import masterofmusic.masterofmusic.repositories.GameRepository;
-import masterofmusic.masterofmusic.repositories.PlayerGameRepository;
-import masterofmusic.masterofmusic.repositories.PlayerGameRoundRepository;
-import masterofmusic.masterofmusic.repositories.SongRepository;
+import masterofmusic.masterofmusic.repositories.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,21 +25,23 @@ public class UnscrambleController {
     private final GameRepository gameDao;
     private final PlayerGameRepository playerGameDao;
     private final PlayerGameRoundRepository playerGameRoundDoa;
+    private final GenreRepository genreDao;
     private List<Long> chosenSongIDs = new ArrayList<>();
     private List<Song> chosenSongs = new ArrayList<>();
     private long currentGameID;
 
-    public UnscrambleController(SongRepository songDao, GameRepository gameDao, PlayerGameRepository playerGameDao, PlayerGameRoundRepository playerGameRoundDoa) {
+    public UnscrambleController(SongRepository songDao, GameRepository gameDao, PlayerGameRepository playerGameDao, PlayerGameRoundRepository playerGameRoundDoa, GenreRepository genreDao) {
         this.songDao = songDao;
         this.gameDao = gameDao;
         this.playerGameDao = playerGameDao;
         this.playerGameRoundDoa = playerGameRoundDoa;
+        this.genreDao = genreDao;
     }
 
 
     @GetMapping("/unscramble")
-    public String unscrambleGame(@RequestParam(name = "inlineRadioOptions") String difficulty,
-                                 @RequestParam(name = "inlineRadioOptions1") String genre,
+    public String unscrambleGame(@RequestParam(name = "4") String difficulty,
+                                 @RequestParam(name = "genre") String genre,
                                  @RequestParam(name = "round") long num,
                                  Model model) {
 
@@ -78,11 +77,31 @@ public class UnscrambleController {
                 break;
         }
 
-        List<Song> allSongs = songDao.findAll();
+        long genreID = 0;
+
+        switch (genre) {
+            case "rock":
+                genreID = 1;
+                break;
+            case "pop":
+                genreID = 2;
+                break;
+            case "hip-hop":
+                genreID = 3;
+                break;
+            case "country":
+                genreID = 4;
+                break;
+        }
+
+        List<Song> allSongsOfGenre = genreDao.getOne(genreID).getSongs();
+        System.out.println(allSongsOfGenre.size());
+        System.out.println(genreID);
+        System.out.println(timeLimit);
 
         while (chosenSongs.size() < numberOfQuestions) {
-            int indexToAdd = ThreadLocalRandom.current().nextInt(0, allSongs.size());
-            Song randomSong = allSongs.get(indexToAdd);
+            int indexToAdd = ThreadLocalRandom.current().nextInt(0, allSongsOfGenre.size());
+            Song randomSong = allSongsOfGenre.get(indexToAdd);
             if (!chosenSongIDs.contains(randomSong.getId())) {
                 chosenSongIDs.add(randomSong.getId());
                 chosenSongs.add(randomSong);

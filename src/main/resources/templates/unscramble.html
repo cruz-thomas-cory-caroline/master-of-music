@@ -14,6 +14,7 @@
         <input name="difficulty" type="hidden" th:value="${difficulty}">
         <input name="playerGame" type="hidden" th:value="${playerGame}">
         <input name="level" type="hidden" th:value="${round}">
+<!--        <input name="time" id="totalTime" type="hidden" th:value="${timeLimit}">-->
         <div th:each="lyricSet : ${scrambledLyricsSet}" class="all-cards hide">
             <div class="card game-card">
                 <div class="card-header row">
@@ -22,7 +23,7 @@
                         <h6>Round: <span th:text="${round}"></span></h6>
                     </div>
                     <div class="ml-auto">
-                        <div class="timer" th:text="${timeLimit}"></div>
+                        <h6><span class="unscramble-timer" th:text="${timeLimit}"></span> </h6>
                     </div>
                 </div>
                 <!--            <h5 class="card-header" th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getTitle()}"></h5>-->
@@ -46,6 +47,9 @@
                         <p><span th:text="${scrambledLyricsSet.indexOf(lyricSet)+1}"></span>/<span th:text="${scrambledLyricsSet.size()}"></span></p>
                     </div>
                     <input type="hidden" class="fullAnswer" th:name="'song'+${scrambledLyricsSet.indexOf(lyricSet)}">
+                    <div>
+                        <button type="button" id="undo-button" class="btn btn-warning">Undo All</button>
+                    </div>
                     <div class="ml-auto" th:if="${scrambledLyricsSet.indexOf(lyricSet) == scrambledLyricsSet.size()-1}">
                         <button type="button" class="btn btn-primary last-cat-button">Lock It In!</button>
                     </div>

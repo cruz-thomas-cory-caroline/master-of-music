@@ -21,6 +21,11 @@
             $(this).addClass('occupied')
             $(this).find("input").val(ui.draggable[0].innerHTML)
             snapToMiddle(ui.draggable, $(this))
+
+            if (!ui.draggable.data("originalPosition")) {
+                ui.draggable.data("originalPosition",
+                    ui.draggable.data("uiDraggable").originalPosition);
+            }
         },
 
         out: function (event, ui) {
@@ -34,6 +39,28 @@
         }
     })
 
+    function revertDraggable() {
+        $('.words').each(function() {
+            var $this = $(this),
+                position = $this.data("originalPosition");
+
+            if (position) {
+                $this.animate({
+                    left: position.left,
+                    top: position.top
+                }, 500, function() {
+                    $this.data("originalPosition", null);
+                });
+            }
+        });
+
+        $('.drop-zone').each(function() {
+            $(this).removeClass('occupied')
+            $(this).addClass('unoccupied')
+            $(this).find("input").val("")
+        })
+    }
+
     function snapToMiddle(dragger, target) {
         var offset = target.offset();
         var topMove = (target.outerHeight(true) - dragger.outerHeight(true)) / 2;
@@ -43,7 +70,6 @@
 
     var totalCardCount = $('.all-cards').length
     var cardIndexShowing = 0
-    var timeEnd = -1
 
     function lockAnswer() {
         var count = $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).length
@@ -59,26 +85,27 @@
     }
     var interval;
     var startTime;
+    var timeEnd = 0
 
     function timerStart() {
         var timeStart = startTime
-        $('.timer').html(timeStart)
+        $('.unscramble-timer').html(timeStart)
         interval  = setInterval(function () {
             if (timeStart !== timeEnd) {
-                $('.timer').html(timeStart - (timeEnd + 1))
                 timeStart--
+                $('.unscramble-timer').html(timeStart)
             } else {
                 clearInterval(interval)
-                $('.timer').html('Times Up!')
+                $('.unscramble-timer').html('Times Up!')
                 $('.all-cards').eq(cardIndexShowing).find(".fullAnswer").val(lockAnswer())
                 setTimeout(function () {
                     if (cardIndexShowing + 1 === totalCardCount) {
                         $('.all-cards').eq(cardIndexShowing).addClass('hide')
-                        $('.timer').html('')
+                        $('.unscramble-timer').html('')
                         $('.final-screen').removeClass('hide')
                     } else {
-                        $('.all-cards').eq(cardIndexShowing).add('hide')
-                        $('.timer').html('')
+                        $('.all-cards').eq(cardIndexShowing).addClass('hide')
+                        $('.unscramble-timer').html('')
                         cardIndexShowing++
                         $('.all-cards').eq(cardIndexShowing).removeClass('hide')
                         timerStart()
@@ -91,7 +118,8 @@
     $('#startButton').click(function () {
         $(this).addClass('hide')
         $(".all-cards").first().removeClass('hide')
-        startTime = $('.timer')[0].innerHTML
+        startTime = $('.unscramble-timer')[0].innerHTML
+        console.log(startTime)
         timerStart()
     })
 
@@ -113,6 +141,10 @@
         clearInterval(interval)
         $('.final-screen').removeClass('hide')
 
+    })
+
+    $('#undo-button').click(function() {
+        revertDraggable();
     })
 
 
