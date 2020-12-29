@@ -8,7 +8,8 @@
 
 
     <section class="container-fluid w-75 text-center">
-        <h3 class="text-light fs-1">SCORE: <span th:text="${score}"></span> </h3>
+        <input type="hidden" id="score" th:value="${score}">
+        <h3 class="text-light fs-1">SCORE: <span id="scoreCounter"></span> </h3>
         <div class="row d-flex m-0 p-0">
     <div class="col-12 col-sm-6">
         <h4 class="text-light fs-1 bg-success">CORRECT ANSWERS</h4>
@@ -34,5 +35,25 @@
 
 <div th:include="partials/footerNav.html :: footerNav"></div>
 <div th:include="partials/scripts.html :: scripts"></div>
+    <script type="text/javascript">
+        let scoreToCount = parseInt($('#score').val())
+        console.log(scoreToCount)
+        let zero = 0
+        function scoreCounter() {
+            var scoreCount = setInterval(function () {
+                if (zero === scoreToCount) {
+                    console.log("done")
+                    $('#scoreCounter').html(zero)
+                    clearInterval(scoreCount)
+                    $('#congrats').show()
+                } else {
+                    console.log(zero)
+                    zero = zero + 5
+                    $('#scoreCounter').html(zero)
+                }
+            }, 10)
+        }
+        scoreCounter()
+    </script>
 </body>
 </html>
