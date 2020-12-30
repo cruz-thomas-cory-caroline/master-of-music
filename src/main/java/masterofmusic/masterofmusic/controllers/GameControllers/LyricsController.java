@@ -24,56 +24,30 @@ public class LyricsController {
         this.playerGameDao = playerGameDao;
     }
 
-    @GetMapping("/lyric-master")
-    public String lyricsQuiz(Model model) {
 
+    @GetMapping("/lyric-master/{id}")
+    public String lyricsQuiz(@PathVariable int id, Model model) {
+        ArrayList<Song> songDaoAllByGameIdList = songDao.findAllByGameId(1L);
+        long songId = songDaoAllByGameIdList.get(id).getId();
 
         model.addAttribute("songs", songDao.findAll());
 
         List<String> lyricQuestions = new ArrayList<>();
-        for (Song song : songDao.findAllByGameId(1L)){
+            for (Song song : songDao.findAllByGameId(1L)){
             Song songOne = songDao.getOne(song.getId());
 
-            String lyricToManipulate = songOne.getLyrics();
+                String lyricToManipulate = songOne.getLyrics();
 
-            String cutQuestion = (lyricToManipulate.substring(0, lyricToManipulate.lastIndexOf(" ")));
+                String cutQuestion = (lyricToManipulate.substring(0, lyricToManipulate.lastIndexOf(" ")));
 
-            lyricQuestions.add(cutQuestion);
+                lyricQuestions.add(cutQuestion);
         }
 
-
-
-//        model.addAttribute("answers", lyricAnswerDao.getAllBySongId(songId));
-
-        model.addAttribute("questions", lyricQuestions);
+        model.addAttribute("answers", lyricAnswerDao.getAllBySongId(songId));
+        System.out.println( lyricAnswerDao.getAllBySongId(songId));
+        model.addAttribute("questions", lyricQuestions.get(id));
         return "lyric-master";
     }
-
-//    @GetMapping("/finish-lyrics/{id}")
-//    public String lyricsQuiz(@PathVariable int id, Model model) {
-//        ArrayList<Song> songDaoAllByGameIdList = songDao.findAllByGameId(1L);
-//        long songId = songDaoAllByGameIdList.get(id).getId();
-//
-//        model.addAttribute("songs", songDao.findAll());
-//
-//        List<String> lyricQuestions = new ArrayList<>();
-//            for (Song song : songDao.findAllByGameId(1L)){
-//            Song songOne = songDao.getOne(song.getId());
-//
-//                String lyricToManipulate = songOne.getLyrics();
-//
-//                String cutQuestion = (lyricToManipulate.substring(0, lyricToManipulate.lastIndexOf(" ")));
-//
-//                lyricQuestions.add(cutQuestion);
-//        }
-//
-//
-//
-//        model.addAttribute("answers", lyricAnswerDao.getAllBySongId(songId));
-//
-//        model.addAttribute("questions", lyricQuestions.get(id));
-//        return "finish-lyrics";
-//    }
 
     @PostMapping("/finish-lyrics/{id}")
     public String submitAnswer(@RequestParam(name = "answers")String userAnswer, @PathVariable int id, Model model){
@@ -93,7 +67,26 @@ public class LyricsController {
         return "lyric-master";
     }
 
+
+
 }
+
+//    @GetMapping("/lyric-master")
+//    public String lyricsQuiz(Model model) {
+//
+//
+//        model.addAttribute("songs", songDao.findAll());
+//
+//        List<String> lyricQuestions = new ArrayList<>();
+//        for (Song song : songDao.findAllByGameId(1L)){
+//            Song songOne = songDao.getOne(song.getId());
+//
+//            String lyricToManipulate = songOne.getLyrics();
+//
+//            String cutQuestion = (lyricToManipulate.substring(0, lyricToManipulate.lastIndexOf(" ")));
+//
+//            lyricQuestions.add(cutQuestion);
+//        }
 
 //  int count = songDao.findAll().size();
 //        List<String> lyricAnswers = new ArrayList<>();
