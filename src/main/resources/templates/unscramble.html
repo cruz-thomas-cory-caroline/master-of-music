@@ -14,20 +14,27 @@
         <input name="difficulty" type="hidden" th:value="${difficulty}">
         <input name="playerGame" type="hidden" th:value="${playerGame}">
         <input name="level" type="hidden" th:value="${round}">
-<!--        <input name="time" id="totalTime" type="hidden" th:value="${timeLimit}">-->
         <div th:each="lyricSet : ${scrambledLyricsSet}" class="all-cards hide">
             <div class="card game-card">
                 <div class="card-header row">
                     <div class="mr-auto">
-                        <h5 th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getTitle()}"></h5>
+                        <h4 class="title" th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getTitle()}"></h4>
+                        <h5 class="artist" th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getArtist()}"></h5>
                         <h6>Round: <span th:text="${round}"></span></h6>
                     </div>
                     <div class="ml-auto">
-                        <h6><span class="unscramble-timer" th:text="${timeLimit}"></span> </h6>
+                        <h6><span class="unscramble-timer" th:text="${timeLimit}"></span></h6>
                     </div>
                 </div>
-                <!--            <h5 class="card-header" th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getTitle()}"></h5>-->
                 <div class="card-body justify content center">
+                    <div class="text-center">
+                        <button type="button" class="btn btn-success song-clip-button"><i class="fas fa-play"></i></button>
+                    </div>
+                    <div class="hide audio-controls text-center">
+                        <audio controls>
+                            <source class="track-source" type="audio/mpeg">
+                        </audio>
+                    </div>
                     <div class="row justify-content-center">
                         <div th:each="word : ${lyricSet}">
                             <div class="drop-zone m-1 unoccupied">
@@ -48,7 +55,7 @@
                     </div>
                     <input type="hidden" class="fullAnswer" th:name="'song'+${scrambledLyricsSet.indexOf(lyricSet)}">
                     <div>
-                        <button type="button" id="undo-button" class="btn btn-warning">Undo All</button>
+                        <button type="button" class="btn btn-warning undo-button"><i class="fas fa-undo"></i></button>
                     </div>
                     <div class="ml-auto" th:if="${scrambledLyricsSet.indexOf(lyricSet) == scrambledLyricsSet.size()-1}">
                         <button type="button" class="btn btn-primary last-cat-button">Lock It In!</button>
@@ -71,6 +78,7 @@
 
 </main>
 <div th:include="partials/scripts.html :: scripts"></div>
+<script th:src="@{/js/keys.js}"></script>
 <script th:src="@{/js/unscramble.js}"></script>
 </body>
 </html>

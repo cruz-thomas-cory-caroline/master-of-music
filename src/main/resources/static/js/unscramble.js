@@ -58,6 +58,7 @@
             $(this).removeClass('occupied')
             $(this).addClass('unoccupied')
             $(this).find("input").val("")
+            $(this).droppable( "option", "accept", '.words');
         })
     }
 
@@ -104,6 +105,7 @@
                         $('.unscramble-timer').html('')
                         $('.final-screen').removeClass('hide')
                     } else {
+                        $('audio')[cardIndexShowing].pause()
                         $('.all-cards').eq(cardIndexShowing).addClass('hide')
                         $('.unscramble-timer').html('')
                         cardIndexShowing++
@@ -130,6 +132,7 @@
         clearInterval(interval)
         timerStart()
         $('.all-cards').eq(cardIndexShowing+1).removeClass('hide')
+        $('audio')[cardIndexShowing].pause()
         cardIndexShowing++
 
     })
@@ -140,14 +143,50 @@
         $('.all-cards').eq(cardIndexShowing).addClass('hide')
         clearInterval(interval)
         $('.final-screen').removeClass('hide')
-
+        $('audio')[cardIndexShowing].pause()
     })
 
-    $('#undo-button').click(function() {
+    $('.undo-button').click(function() {
         revertDraggable();
     })
 
+    $('.song-clip-button').click(function () {
+        console.log($('.all-cards').eq(cardIndexShowing).find($('.title')))
+        let songToSearch = $('.all-cards').eq(cardIndexShowing).find($('.title'))[0].innerHTML
+        console.log(songToSearch)
+        const settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://deezerdevs-deezer.p.rapidapi.com/search?q="+songToSearch,
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": SONG_API_KEY,
+                "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com"
+            }
+        };
 
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+            let artist = $('.artist')[cardIndexShowing].innerHTML
+            console.log(artist)
+            let audioClipPath = ""
+            let clipIndex = 0;
 
+            while (audioClipPath === "" && clipIndex < response.data.length) {
+                if (response.data[clipIndex].artist.name === artist) {
+                    audioClipPath = response.data[clipIndex].preview
+                } else {
+                    clipIndex++
+                }
+            }
+
+            $('source').eq(cardIndexShowing).attr('src', audioClipPath)
+            $('.song-clip-button').eq(cardIndexShowing).addClass('hide')
+            $('.audio-controls').eq(cardIndexShowing).removeClass('hide')
+            $('audio').get(cardIndexShowing).volume = .2
+            $('audio').get(cardIndexShowing).load();
+            $('audio').get(cardIndexShowing).play();
+        });
+    })
 
 })();
