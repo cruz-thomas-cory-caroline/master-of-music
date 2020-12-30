@@ -3,9 +3,11 @@
 <head>
     <div th:replace="partials/head.html :: head"></div>
     <title>Unscramble The Lyrics</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/enquire.js/2.0.2/enquire.min.js" integrity="sha512-13gC1aPMpFBoGaB8mP2dhgYVNE0s6i9Jv13z4MV2MmeJlS5HDlrwkp8rvIkuzmxn4VWywFhn2AOi5BHF8kjcNA==" crossorigin="anonymous"></script>
 </head>
 <body>
-<main class="container">
+<main class="container web">
     <div>
         <button type="button" id="startButton" class="btn btn-primary btn-lg" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); height: 100px; width: 200px;">Start</button>
     </div>
@@ -37,7 +39,8 @@
                     </div>
                     <div class="row justify-content-center">
                         <div th:each="word : ${lyricSet}">
-                            <div class="drop-zone m-1 unoccupied">
+                            <div class="drop-zone m-1 unoccupied text-center">
+                                <a href="#" class="m-auto hide btn btn-primary mobile-word"></a>
                                 <input class="droppedWord" type="hidden" th:id="'word'+${lyricSet.indexOf(word)}">
                             </div>
                         </div>
@@ -54,8 +57,12 @@
                         <p><span th:text="${scrambledLyricsSet.indexOf(lyricSet)+1}"></span>/<span th:text="${scrambledLyricsSet.size()}"></span></p>
                     </div>
                     <input type="hidden" class="fullAnswer" th:name="'song'+${scrambledLyricsSet.indexOf(lyricSet)}">
-                    <div>
+                    <div class="undo-button-class">
                         <button type="button" class="btn btn-warning undo-button"><i class="fas fa-undo"></i></button>
+                    </div>
+                    <div class="bf-buttons hide row">
+                        <button type="button" class="btn btn-warning back-button"><i class="fas fa-backward"></i></button>
+                        <button type="button" class="btn btn-warning forward-button"><i class="fas fa-forward"></i></button>
                     </div>
                     <div class="ml-auto" th:if="${scrambledLyricsSet.indexOf(lyricSet) == scrambledLyricsSet.size()-1}">
                         <button type="button" class="btn btn-primary last-cat-button">Lock It In!</button>
@@ -80,5 +87,7 @@
 <div th:include="partials/scripts.html :: scripts"></div>
 <script th:src="@{/js/keys.js}"></script>
 <script th:src="@{/js/unscramble.js}"></script>
+
+
 </body>
 </html>
