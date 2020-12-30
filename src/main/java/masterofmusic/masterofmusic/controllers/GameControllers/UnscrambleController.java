@@ -40,7 +40,7 @@ public class UnscrambleController {
 
 
     @GetMapping("/unscramble")
-    public String unscrambleGame(@RequestParam(name = "4") String difficulty,
+    public String unscrambleGame(@RequestParam(name = "difficulty") String difficulty,
                                  @RequestParam(name = "genre") String genre,
                                  @RequestParam(name = "round") long num,
                                  Model model) {

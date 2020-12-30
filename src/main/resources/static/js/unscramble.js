@@ -4,17 +4,16 @@
 
     enquire.register("screen and (max-width: 599px)", {
         match: function () {
-            $('main').eq(0).removeClass('mobile')
-            $('main').eq(0).addClass('web')
-
+            $('main').eq(0).removeClass('web')
+            $('main').eq(0).addClass('mobile')
             checkType()
         }
     });
 
     enquire.register("screen and (min-width: 900px)", {
         match: function () {
-            $('main').eq(0).removeClass('web')
-            $('main').eq(0).addClass('mobile')
+            $('main').eq(0).removeClass('mobile')
+            $('main').eq(0).addClass('web')
             checkType()
         }
     });
