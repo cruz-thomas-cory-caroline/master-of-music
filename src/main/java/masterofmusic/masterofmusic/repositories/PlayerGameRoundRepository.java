@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PlayerGameRoundRepository extends JpaRepository<PlayerGameRound, Long> {
     PlayerGameRound findByPlayerGameId(long id);
+    PlayerGameRound findById(long id);
 
 }

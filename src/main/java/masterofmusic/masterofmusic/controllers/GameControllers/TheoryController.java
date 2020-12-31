@@ -1,12 +1,10 @@
 package masterofmusic.masterofmusic.controllers.GameControllers;
 
-import masterofmusic.masterofmusic.models.Answer;
-import masterofmusic.masterofmusic.models.PlayerGame;
-import masterofmusic.masterofmusic.models.Question;
+import masterofmusic.masterofmusic.models.*;
 
-import masterofmusic.masterofmusic.models.User;
 import masterofmusic.masterofmusic.repositories.AnswerRepository;
 import masterofmusic.masterofmusic.repositories.PlayerGameRepository;
+import masterofmusic.masterofmusic.repositories.PlayerGameRoundRepository;
 import masterofmusic.masterofmusic.repositories.QuestionRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,16 +21,20 @@ public class TheoryController {
     private final QuestionRepository questionDao;
     private final AnswerRepository answerDao;
     private final PlayerGameRepository playerGameDao;
+    private final PlayerGameRoundRepository playerGameRoundDao;
 
-    public TheoryController(QuestionRepository questionDao, AnswerRepository answerDao, PlayerGameRepository playerGameDao){
+    public TheoryController(QuestionRepository questionDao, AnswerRepository answerDao, PlayerGameRepository playerGameDao,PlayerGameRoundRepository playerGameRoundDao){
         this.questionDao = questionDao;
         this.answerDao = answerDao;
         this.playerGameDao = playerGameDao;
+        this.playerGameRoundDao = playerGameRoundDao;
     }
 
     @GetMapping("/music-theory/{id}")
     public String viewQuizFormat(@PathVariable int id, Model model){
-       
+//      create a player game round
+        PlayerGameRound playerGameRound = new PlayerGameRound();
+
 
 //       finding the user Id
         PlayerGame playerGame = playerGameDao.findByUserId(1);
@@ -66,6 +68,8 @@ public class TheoryController {
         }
 //        comparing user answer to correct answer/good ending
         if(userAnswer.equalsIgnoreCase(correctAnswer)){
+            PlayerGameRound playerGameRound = playerGameRoundDao.findByPlayerGameId();
+
             model.addAttribute("correct", "Great Job!");
             PlayerGame winner = playerGameDao.findByUserId(1);
             winner.setScore(winner.getScore() + 2);
