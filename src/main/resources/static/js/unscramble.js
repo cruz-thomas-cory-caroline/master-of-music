@@ -96,9 +96,22 @@
         } else if ($('main').eq(0).hasClass('mobile')) {
 
             $('.all-cards').each(function () {
-                $(this).find($('.undo-button-class')).eq(0).addClass('hide')
-                $(this).find($('.bf-buttons')).eq(0).removeClass('hide')
                 $(this).find($('.drop-zone')).eq(0).addClass('highlighted')
+            })
+
+            $('.undo-button').click(function () {
+                $('.all-cards').eq(cardIndexShowing).find($('.words')).each(function () {
+                    $(this).removeClass('hide')
+                })
+                $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).each(function () {
+                    $(this).find('.mobile-word').addClass('hide')
+                    $(this).find('.mobile-word').text("")
+                    $(this).removeClass('occupied')
+                    $(this).removeClass('highlighted')
+                    $(this).addClass('unoccupied')
+                    $(this).find('input').val("")
+                })
+                $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(0).addClass("highlighted")
             })
 
             $('.words').click(function clickJump() {
