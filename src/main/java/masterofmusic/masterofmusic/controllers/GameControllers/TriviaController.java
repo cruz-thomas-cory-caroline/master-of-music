@@ -11,10 +11,7 @@ import javax.print.attribute.standard.PresentationDirection;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Array;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Controller
 public class TriviaController {
@@ -26,7 +23,7 @@ public class TriviaController {
     private final PlayerGameRoundRepository playerGameRoundDao;
     private final GenreRepository genreDao;
 
-    public TriviaController(QuestionRepository questionDao, AnswerRepository answerDao, GameRepository gameDao, PlayerGameRepository playerGameDao, PlayerGameRoundRepository playerGameRoundDao, GenreRepository genreDao){
+    public TriviaController(QuestionRepository questionDao, AnswerRepository answerDao, GameRepository gameDao, PlayerGameRepository playerGameDao, PlayerGameRoundRepository playerGameRoundDao, GenreRepository genreDao) {
         this.questionDao = questionDao;
         this.answerDao = answerDao;
         this.gameDao = gameDao;
@@ -50,7 +47,7 @@ public class TriviaController {
         difficultyOption = difficultySelection;
         genreOption = genreSelection;
         return "redirect:/trivia-game";
-        }
+    }
 
     @GetMapping("trivia-game")
     public String viewTriviaGame(
@@ -60,11 +57,6 @@ public class TriviaController {
         System.out.println(genreOption);
         Random rand = new Random();
         Genre genre = genreDao.getOne(1L);
-
-        String easy = "false";
-        String medium = "10000";
-        String hard = "5000";
-
 
         if (genreOption.equals("Rock")) {
 
@@ -83,13 +75,13 @@ public class TriviaController {
                 randomQs.add(randRockQ);
                 rockQuestions.remove(randRockQ);
             }
-
+            viewModel.addAttribute("difficultyOption", difficultyOption);
             viewModel.addAttribute("questions", randomQs);
         }
-
-
         return "trivia-game";
     }
+
+    int score = 0;
 
     @PostMapping("trivia-game/submit")
     public String submit(
@@ -97,27 +89,47 @@ public class TriviaController {
             HttpServletRequest request,
             Model model
     ) {
-        int score = 0;
         ArrayList<String> correctAnswers = new ArrayList<>();
         ArrayList<String> incorrectAnswers = new ArrayList<>();
         ArrayList<Question> correctQs = new ArrayList<>();
         ArrayList<Long> submittedAnswersIds = new ArrayList<>();
         ArrayList<String> submittedAnswers = new ArrayList<>();
         ArrayList<Question> incorrectQs = new ArrayList<>();
+        ArrayList<Long> checkSubAnsForNull = new ArrayList<>();
+
         for (String questionId : questionIds) {
-            long answerIsCorrect = questionDao.findAnswerIdCorrect(Long.parseLong(questionId));
-            if(answerIsCorrect == Long.parseLong(request.getParameter("question_"+questionId))) {
-                correctAnswers.add(answerDao.getOne(answerIsCorrect).getAnswer());
-                correctQs.add(questionDao.getOne(Long.parseLong(questionId)));
-                score += 5;
-            } else if (answerIsCorrect != Long.parseLong(request.getParameter("question_"+questionId))) {
-                submittedAnswersIds.add(Long.parseLong(request.getParameter("question_"+questionId)));
-                incorrectAnswers.add(answerDao.getOne(answerIsCorrect).getAnswer());
-                incorrectQs.add(questionDao.getOne(Long.parseLong(questionId)));
+            String subAns = request.getParameter("question_" + questionId);
+            if (subAns == null) {
+                subAns = "-1";
+                checkSubAnsForNull.add(Long.parseLong(subAns));
+            } else {
+                checkSubAnsForNull.add(Long.parseLong(subAns));
             }
-         }
+        }
+
+        for (String questionId : questionIds) {
+                long answerIsCorrect = questionDao.findAnswerIdCorrect(Long.parseLong(questionId));
+
+                if (answerIsCorrect == checkSubAnsForNull.get(questionIds.indexOf(questionId))) {
+                    correctAnswers.add(answerDao.getOne(answerIsCorrect).getAnswer());
+                    correctQs.add(questionDao.getOne(Long.parseLong(questionId)));
+                    score += 100;
+
+                } else if (checkSubAnsForNull.get(questionIds.indexOf(questionId)) == -1) {
+                        submittedAnswersIds.add(checkSubAnsForNull.get(questionIds.indexOf(questionId)));
+                        incorrectAnswers.add(answerDao.getOne(answerIsCorrect).getAnswer());
+                        incorrectQs.add(questionDao.getOne(Long.parseLong(questionId)));
+                }
+            }
+
+        System.out.println(checkSubAnsForNull);
+
         for (Long submittedAnswer : submittedAnswersIds) {
-            submittedAnswers.add(answerDao.getOne(submittedAnswer).getAnswer());
+            if (submittedAnswer != -1) {
+                submittedAnswers.add(answerDao.getOne(submittedAnswer).getAnswer());
+            } else {
+                submittedAnswers.add("Nothing Submitted");
+            }
         }
 
         System.out.println(incorrectAnswers);
