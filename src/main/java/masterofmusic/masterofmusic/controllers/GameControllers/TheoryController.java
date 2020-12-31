@@ -44,6 +44,8 @@ public class TheoryController {
         if(id == 6){
             return "redirect:/profile/" + userId;
         }
+
+
 //      pulling questions and answers
         ArrayList<Question> theoryList = questionDao.findAllByGameId(2L); // pull MT quest from database
         model.addAttribute("questions", theoryList.get(id).getQuestion()); //pass to Front end .get(id) is determined by path variable
@@ -68,7 +70,7 @@ public class TheoryController {
         }
 //        comparing user answer to correct answer/good ending
         if(userAnswer.equalsIgnoreCase(correctAnswer)){
-            PlayerGameRound playerGameRound = playerGameRoundDao.findByPlayerGameId();
+//            PlayerGameRound playerGameRound = playerGameRoundDao.findByPlayerGameId();
 
             model.addAttribute("correct", "Great Job!");
             PlayerGame winner = playerGameDao.findByUserId(1);
