@@ -1,8 +1,6 @@
 package masterofmusic.masterofmusic.repositories;
 
-import masterofmusic.masterofmusic.models.Answer;
 import masterofmusic.masterofmusic.models.LyricAnswer;
-import masterofmusic.masterofmusic.models.Question;
 import masterofmusic.masterofmusic.models.Song;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,6 +9,7 @@ import java.util.List;
 
 @Repository
 public interface LyricAnswerRepository extends JpaRepository<LyricAnswer, Long> {
+
     ArrayList<LyricAnswer> getAllBySongId(long id);
     List<LyricAnswer> findAllBySongId(long id);
 

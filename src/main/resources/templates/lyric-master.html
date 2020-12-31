@@ -8,19 +8,48 @@
 <body>
 
 <div class="card-body">
-    <div th:each="question : ${questions}">
-        <h5 class="card-title" th:text="${question}"></h5>
-    </div>
-    <form METHOD="POST" th:action="@{|/lyric-master/${id}|}">
-        <div class="card-text" STYLE="color: white" th:each="answer : ${answers}">
-            <label th:for="${answer.id}" th:text="${answer.lyricAnswer}"></label>
-            <input type="radio" th:id="${answer.id}" name="answers" th:value="${answer.lyricAnswer}">
-        </div>
-        <button>Next</button>
-    </form>
+        <form th:action="@{/lyric-master/{id}/submit}" th:method="post" th:object="${songs}">
+            <div th:each="question : ${questions}">
+                <div class="card m-auto">
+                    <h3 class="card-title questionLabel" th:text="${question}"></h3>
+                    <input type="hidden" name="songId" th:value="${question}"/>
+                    <div class="card-body form-check form-check-inline quizAnswers"
+                         th:each="answer : ${answers}">
+                        <input class="form-check-input solutions" type="radio" th:name="${answer.lyricAnswer}" th:value="${answer.id}" id="lyricMaster">
+                        <label class="form-check-label" th:for="lyricMaster" th:text="${answer.lyricAnswer}"></label>
+                    </div>
+                    <button id="submitQuiz" type="submit">Submit</button>
+                </div>
+            </div>
+        </form>
+
+<!--    <form th:action="@{/lyric-master/submit}" th:method="post" th:object="${songs}">-->
+<!--        <div th:each="question : ${questions}">-->
+<!--            <div class="card m-auto">-->
+<!--                <h3 class="card-title questionLabel" th:text="${question}"></h3>-->
+<!--                <input type="hidden" name="songId" th:value="${question}"/>-->
+<!--                <div class="card-body form-check form-check-inline quizAnswers"-->
+<!--                     th:each="answer : ${answers}">-->
+<!--                    <input class="form-check-input solutions" type="radio" th:name="${answer.lyricAnswer}" th:value="${answer.id}" id="lyricMaster">-->
+<!--                    <label class="form-check-label" th:for="lyricMaster" th:text="${answer.lyricAnswer}"></label>-->
+<!--                </div>-->
+<!--                <button id="submitQuiz" type="submit">Submit</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </form>-->
 </div>
 </body>
 <th:block th:include="partials/scripts :: scripts"></th:block>
 </html>
 
 
+<!--    <div th:each="question : ${questions}">-->
+<!--        <h5 class="card-title" th:text="${question}"></h5>-->
+<!--    </div>-->
+<!--    <form METHOD="POST" th:action="@{|/lyric-master/{id}|}">-->
+<!--        <div class="card-text" STYLE="color: white" th:each="answer : ${answers}">-->
+<!--            <label th:for="${answer.id}" th:text="${answer.lyricAnswer}"></label>-->
+<!--            <input type="radio" th:id="${answer.id}" name="answers" th:value="${answer.lyricAnswer}">-->
+<!--        </div>-->
+<!--        <button>Next</button>-->
+<!--    </form>-->
