@@ -161,6 +161,7 @@ public class UnscrambleController {
         model.addAttribute("songs", chosenSongs);
         model.addAttribute("timeLimit", timeLimit);
         model.addAttribute("difficulty", difficulty);
+        model.addAttribute("genre", genre);
         model.addAttribute("playerGame", currentGameID);
         model.addAttribute("round", num);
         return "unscramble";

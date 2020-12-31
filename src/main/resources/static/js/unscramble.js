@@ -6,6 +6,8 @@
         match: function () {
             $('main').eq(0).removeClass('web')
             $('main').eq(0).addClass('mobile')
+            $('.web-instr').eq(0).addClass('hide')
+            $('.mobile-instr').eq(0).removeClass('hide')
             checkType()
         }
     });
@@ -14,13 +16,27 @@
         match: function () {
             $('main').eq(0).removeClass('mobile')
             $('main').eq(0).addClass('web')
+            $('.mobile-instr').eq(0).addClass('hide')
+            $('.web-instr').eq(0).removeClass('hide')
             checkType()
         }
     });
 
     function checkType() {
         if ($('main').eq(0).hasClass('web')) {
-            $('.words').off()
+
+            $('.words').each(function() {
+                $(this).unbind('click')
+            })
+
+            $('.undo-button').each(function () {
+                $(this).unbind('click')
+            })
+
+            $('.drop-zone').each(function () {
+                $(this).removeClass('highlighted')
+            })
+
             $(".words").draggable({
                 opacity: .4,
                 revert: function (event, ui) {
@@ -224,7 +240,7 @@
     }
 
     $('#startButton').click(function () {
-        $(this).addClass('hide')
+        $('.game-start').addClass('hide')
         $(".all-cards").first().removeClass('hide')
         startTime = $('.unscramble-timer')[0].innerHTML
         console.log(startTime)
@@ -284,7 +300,7 @@
             }
 
             $('source').eq(cardIndexShowing).attr('src', audioClipPath)
-            $('.song-clip-button').eq(cardIndexShowing).addClass('hide')
+            $('.play-button').eq(cardIndexShowing).addClass('hide')
             $('.audio-controls').eq(cardIndexShowing).removeClass('hide')
             $('audio').get(cardIndexShowing).volume = .2
             $('audio').get(cardIndexShowing).load();
