@@ -9,7 +9,9 @@ import java.util.List;
 
 @Repository
 public interface LyricAnswerRepository extends JpaRepository<LyricAnswer, Long> {
+
     ArrayList<LyricAnswer> getAllBySongId(long id);
     List<LyricAnswer> findAllBySongId(long id);
+
 
 }
