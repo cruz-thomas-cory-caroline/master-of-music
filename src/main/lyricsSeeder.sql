@@ -13,7 +13,7 @@ VALUES (1, 'New York', 'Alica Keys', 'There''s nothing you can''t do, now you''r
        (5, 'Mercy', 'Brett Young', 'Why you hanging on so tight if this ain''t working Why you wanna stop this flame if it''s still burning Cause it''s still burning');
 
 
-#Classic Rock
+#Rock
 INSERT INTO songs (id, title, artist, lyrics)
 VALUES (6, 'Teenage Dirtbag', 'Wheatus', 'Yeah, I''m just a teenage dirtbag, baby Listen to Iron Maiden'),
        (7, 'All Star', 'Smash Mouth', 'Hey now, you''re an all star Get your game on, go play'),

@@ -3,10 +3,27 @@
 <head>
     <div th:replace="partials/head.html :: head"></div>
     <title>Unscramble The Lyrics</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/enquire.js/2.0.2/enquire.min.js" integrity="sha512-13gC1aPMpFBoGaB8mP2dhgYVNE0s6i9Jv13z4MV2MmeJlS5HDlrwkp8rvIkuzmxn4VWywFhn2AOi5BHF8kjcNA==" crossorigin="anonymous"></script>
 </head>
 <body>
-<main class="container">
-    <div>
+<main class="container web">
+    <div class="game-start">
+        <div class="card mx-auto" style="width: 18rem;">
+            <div class="card-body">
+                <h2 class="card-title text-center">Before You Begin!</h2>
+                <div class="row">
+                    <h4 class="card-subtitle mb-2 text-muted col-6 text-center">Difficulty: <span th:text="${difficulty}"></span></h4>
+                    <h4 class="card-subtitle mb-2 text-muted col-6 text-center">Genre: <span th:text="${genre}"></span></h4>
+                </div>
+                <div class="mobile-instr hide">
+                    <h4 class="card-text">You're playing the Mobile Version!</h4>
+                </div>
+                <div class="web-instr">
+                    <h4 class="card-text">You're playing the Web Version!</h4>
+                </div>
+            </div>
+        </div>
         <button type="button" id="startButton" class="btn btn-primary btn-lg" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); height: 100px; width: 200px;">Start</button>
     </div>
 
@@ -18,18 +35,27 @@
             <div class="card game-card">
                 <div class="card-header row">
                     <div class="mr-auto">
-                        <h5 th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getTitle()}"></h5>
+                        <h4 class="title" th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getTitle()}"></h4>
+                        <h5 class="artist" th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getArtist()}"></h5>
                         <h6>Round: <span th:text="${round}"></span></h6>
                     </div>
                     <div class="ml-auto">
-                        <div class="timer" th:text="${timeLimit}"></div>
+                        <h6><span class="unscramble-timer" th:text="${timeLimit}"></span></h6>
                     </div>
                 </div>
-                <!--            <h5 class="card-header" th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getTitle()}"></h5>-->
                 <div class="card-body justify content center">
+                    <div class="text-center play-button my-2">
+                        <button type="button" class="btn btn-success song-clip-button"><i class="fas fa-play"></i></button>
+                    </div>
+                    <div class="hide audio-controls text-center my-2">
+                        <audio controls>
+                            <source class="track-source" type="audio/mpeg">
+                        </audio>
+                    </div>
                     <div class="row justify-content-center">
                         <div th:each="word : ${lyricSet}">
-                            <div class="drop-zone m-1 unoccupied">
+                            <div class="drop-zone m-1 unoccupied text-center">
+                                <a href="#" class="m-auto hide btn btn-primary mobile-word"></a>
                                 <input class="droppedWord" type="hidden" th:id="'word'+${lyricSet.indexOf(word)}">
                             </div>
                         </div>
@@ -46,6 +72,9 @@
                         <p><span th:text="${scrambledLyricsSet.indexOf(lyricSet)+1}"></span>/<span th:text="${scrambledLyricsSet.size()}"></span></p>
                     </div>
                     <input type="hidden" class="fullAnswer" th:name="'song'+${scrambledLyricsSet.indexOf(lyricSet)}">
+                    <div class="undo-button-class">
+                        <button type="button" class="btn btn-warning undo-button"><i class="fas fa-undo"></i></button>
+                    </div>
                     <div class="ml-auto" th:if="${scrambledLyricsSet.indexOf(lyricSet) == scrambledLyricsSet.size()-1}">
                         <button type="button" class="btn btn-primary last-cat-button">Lock It In!</button>
                     </div>
@@ -56,7 +85,7 @@
             </div>
         </div>
 
-        <div class="card final-screen hide" style="width: 18rem;">
+        <div class="card final-screen hide mx-auto" style="width: 18rem;">
             <div class="card-body text-center">
                 <h2 class="card-title">Great Job!</h2>
                 <h4 class="card-text">Ready to see your results?</h4>
@@ -67,6 +96,9 @@
 
 </main>
 <div th:include="partials/scripts.html :: scripts"></div>
+<script th:src="@{/js/keys.js}"></script>
 <script th:src="@{/js/unscramble.js}"></script>
+
+
 </body>
 </html>
