@@ -11,7 +11,7 @@ public class LyricAnswer implements java.io.Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id; //auto generated id
 
-    @Column(name = "correct", nullable = false)
+    @Column(nullable = false)
     private boolean isCorrect;//boolean that determines if answer is true/false
 
     @ManyToOne(fetch = FetchType.LAZY)

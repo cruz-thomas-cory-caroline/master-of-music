@@ -4,30 +4,34 @@ package masterofmusic.masterofmusic.controllers.GameControllers;
 import masterofmusic.masterofmusic.services.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 
 @Controller
-@RequestMapping("song")
+//@RequestMapping("song")
 public class LyricController {
 
     @Autowired
     private SongService songService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @PostMapping("lyric-master")
+    public String lyricMasterIndex(Model model) {
+
+        return "lyric-master/form";
+    }
+
+//    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping("lyric-master")
     public String index(ModelMap modelMap) {
         modelMap.put("songs", songService.findAll());
         return "lyric-master/form";
     }
 
-    @RequestMapping(value = "submit", method = RequestMethod.POST)
-//    @PostMapping("lyric-master/submit")
+//    @RequestMapping(value = "submit", method = RequestMethod.POST)
+    @PostMapping("lyric-master/submit")
     public String submit(HttpServletRequest request) {
         int score = 0;
         String []songIds = request.getParameterValues("songId");
