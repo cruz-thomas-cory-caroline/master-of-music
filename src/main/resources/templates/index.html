@@ -23,44 +23,49 @@
             </section>
 
             <section id="lyricOptions">
-                <form th:action="@{/finish-lyrics/{id}}" method="post">
-                    <h5 class="text-white text-start">Difficulty:</h5>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                               value="option1">
-                        <label class="form-check-label" for="inlineRadio1">Easy</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                               value="option2">
-                        <label class="form-check-label" for="inlineRadio2">Medium</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3"
-                               value="option3">
-                        <label class="form-check-label" for="inlineRadio3">Hard</label>
-                    </div>
+                    <form th:action="@{/lyric-master/}" method="post">
+                        <section>
+                        <h5 class="text-white text-start">Difficulty:</h5>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="difficultyOptions" id="inlineRadio1"
+                                   value="option1">
+                            <label class="form-check-label" for="inlineRadio1">Easy</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="difficultyOptions" id="inlineRadio2"
+                                   value="option2">
+                            <label class="form-check-label" for="inlineRadio2">Medium</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="difficultyOptions" id="inlineRadio3"
+                                   value="option3">
+                            <label class="form-check-label" for="inlineRadio3">Hard</label>
+                        </div>
+                </section>
+                <section>
                     <h5 class="text-white text-start">Genre:</h5>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4"
+                        <input class="form-check-input" type="radio" name="genreOptions" id="inlineRadio4"
                                value="option4">
                         <label class="form-check-label" for="inlineRadio4">Rock</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5"
+                        <input class="form-check-input" type="radio" name="genreOptions" id="inlineRadio5"
                                value="option5">
                         <label class="form-check-label" for="inlineRadio5">Pop</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio6"
+                        <input class="form-check-input" type="radio" name="genreOptions" id="inlineRadio6"
                                value="option6">
                         <label class="form-check-label" for="inlineRadio6">Hip-Hop</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio7"
+                        <input class="form-check-input" type="radio" name="genreOptions" id="inlineRadio7"
                                value="option7">
                         <label class="form-check-label" for="inlineRadio7">Country</label>
                     </div>
+                </section>
+                <button type="submit">Play</button>
                 </form>
             </section>
         </div>
@@ -131,17 +136,17 @@
                     <input type="hidden" name="round" value="1">
                     <h5 class="text-white text-start">Difficulty:</h5>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio8"
+                        <input class="form-check-input" type="radio" name="difficulty" id="inlineRadio8"
                                value="easy">
                         <label class="form-check-label" for="inlineRadio8">Easy</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio9"
+                        <input class="form-check-input" type="radio" name="difficulty" id="inlineRadio9"
                                value="medium">
                         <label class="form-check-label" for="inlineRadio9">Medium</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio10"
+                        <input class="form-check-input" type="radio" name="difficulty" id="inlineRadio10"
                                value="hard">
                         <label class="form-check-label" for="inlineRadio10">Hard</label>
                     </div>
@@ -149,22 +154,22 @@
 
                     <h5 class="text-white text-start">Genre:</h5>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio11"
-                               value="classic rock">
-                        <label class="form-check-label" for="inlineRadio11">Classic Rock</label>
+                        <input class="form-check-input" type="radio" name="genre" id="inlineRadio11"
+                               value="rock">
+                        <label class="form-check-label" for="inlineRadio11">Rock</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio12"
+                        <input class="form-check-input" type="radio" name="genre" id="inlineRadio12"
                                value="pop">
                         <label class="form-check-label" for="inlineRadio12">Pop</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio13"
-                               value="hip-Hop">
+                        <input class="form-check-input" type="radio" name="genre" id="inlineRadio13"
+                               value="hip-hop">
                         <label class="form-check-label" for="inlineRadio13">Hip-Hop</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio14"
+                        <input class="form-check-input" type="radio" name="genre" id="inlineRadio14"
                                value="country">
                         <label class="form-check-label" for="inlineRadio14">Country</label>
                     </div>

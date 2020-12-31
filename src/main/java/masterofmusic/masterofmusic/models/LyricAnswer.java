@@ -4,15 +4,17 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "lyricAnswers")
-public class LyricAnswer {
+public class LyricAnswer implements java.io.Serializable{
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id; //auto generated id
 
     @Column(nullable = false)
-    private boolean isCorrect; //boolean that determines if answer is true/false
+    private boolean isCorrect;//boolean that determines if answer is true/false
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "song_id")
     private Song song; //foreign key to song table
 

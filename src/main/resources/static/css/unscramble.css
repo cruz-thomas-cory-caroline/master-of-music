@@ -19,3 +19,9 @@
     width: 75px;
     height: 50px;
 }
+
+.highlighted {
+    border: solid lightgreen 3px;
+    width: 75px;
+    height: 50px;
+}

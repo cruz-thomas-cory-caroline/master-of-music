@@ -10,6 +10,7 @@
     $("#wordMenu").hide();
     $("#unscrambleOptions").hide();
     $("#musicTheoryOptions").hide();
+    $(".carControls").hide();
 
     $(document).ready(function(){
         let triviaSelection = $('#triviaSelection');
@@ -68,40 +69,35 @@
             $("#backButton").show();
         });
 
-        // $("#submitQuiz").hide();
-        // let difficultySelected;
-        //
-        // $('#gameSetupForm input').on('change', function() {
-        //     difficultySelected = ($('input[name=difficultyOptions]:checked', '#gameSetupForm').val());
-        //     console.log(difficultySelected)
-        //     if (difficultySelected === "easy") {
-        //         $("#submitQuiz").show();
-        //     }
-        // });
+        let difficultyLevel = $("#difficultySelected").val();
+        console.log(difficultyLevel);
 
-        // var timeleft = 10;
-        // var downloadTimer = setInterval(function(){
-        //     if(timeleft <= 0){
-        //         clearInterval(downloadTimer);
-        //         document.getElementById("timer").innerHTML = timeleft;
-        //     } else {
-        //         document.getElementById("countdown").innerHTML = timeleft;
-        //     }
-        //     timeleft -= 1;
-        // }, 1000);
+        let timeLeft;
+        if (difficultyLevel === "easy") {
+            timeLeft = 60;
+        } else if (difficultyLevel === "medium") {
+            timeLeft = 45;
+        } else if (difficultyLevel === "hard") {
+            timeLeft = 30;
+        }
 
-        let timeLeft = 10;
-        $(".carControls").click(function() {
-            var downloadTimer = setInterval(function(){
+        $("#startGameButton").click(function() {
+            let downloadTimer = setInterval(function(){
                 if(timeLeft <= 0){
+                    redirect();
                     clearInterval(downloadTimer);
-                    document.getElementById("timer").innerHTML = timeLeft;
                 } else {
+                    $(".carControls").show();
                     document.getElementById("timer").innerHTML = timeLeft;
                 }
                 timeLeft -= 1;
             }, 1000);
         })
+
+        let quizForm = $("#quizForm");
+        function redirect() {
+            quizForm.submit();
+        }
 
     });
 

@@ -1,21 +1,26 @@
 package masterofmusic.masterofmusic.models;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "songs")
-public class Song {
+public class Song implements java.io.Serializable{
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
 
     @ManyToOne
     @JoinColumn(name = "game_id", nullable = true)
     private Game game;
 
-    @OneToMany(mappedBy = "song")
-    private List<LyricAnswer> lyricAnswers;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "song")
+    private Set<LyricAnswer> lyricAnswers = new HashSet<>(0);
 
     @Column(nullable = false)
     private String title;
@@ -39,22 +44,24 @@ public class Song {
     private List<Genre> song_genres;
 
     //CREATE
-    public Song(long id, String title, String artist, String lyrics, Game game, List<LyricAnswer> lyricAnswers) {
+    public Song(long id, String title, String artist, String lyrics, Game game, Set<LyricAnswer> lyricAnswers, String song) {
         this.id = id;
         this.title = title;
         this.artist = artist;
         this.lyrics = lyrics;
         this.game = game;
         this.lyricAnswers = lyricAnswers;
+        this.song = song;
     }
 
     //READ
-    public Song(String title, String artist, String lyrics, Game game, List<LyricAnswer> lyricAnswers) {
+    public Song(String title, String artist, String lyrics, Game game, Set<LyricAnswer> lyricAnswers, String song) {
         this.title = title;
         this.artist = artist;
         this.lyrics = lyrics;
         this.game = game;
         this.lyricAnswers = lyricAnswers;
+        this.song = song;
     }
 
     public Song() {
@@ -108,11 +115,11 @@ public class Song {
         this.song_genres = song_genres;
     }
 
-    public List<LyricAnswer> getLyricAnswers() {
+    public Set<LyricAnswer> getLyricAnswers() {
         return lyricAnswers;
     }
 
-    public void setLyricAnswers(List<LyricAnswer> lyricAnswers) {
+    public void setLyricAnswers(Set<LyricAnswer> lyricAnswers) {
         this.lyricAnswers = lyricAnswers;
     }
 
@@ -122,5 +129,9 @@ public class Song {
 
     public void setSong(String song) {
         this.song = song;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 }
