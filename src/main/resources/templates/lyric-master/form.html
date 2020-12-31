@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <div th:include="partials/head.html :: head"></div>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>Lyric Master</h3>
+<form th:action="@{/lyric-master/submit}" th:method="post">
+    <ol type="1">
+        <div class="card-body">
+            <div th:each="song : ${songs}">
+                <input type="hidden" name="songId" th:value="${song.id}">
+                <ol>
+                    <div class="card m-auto">
+                        <h3 class="card-title questionLabel" th:text="${song.lyrics}"></h3>
+                        <div class="card-body form-check form-check-inline quizAnswers"
+                             th:each="lyricAnswer : ${song.lyricAnswers}">
+                            <li>
+                                <input class="form-check-input solutions" type="radio" th:name="song_+${song.id}"
+                                       th:value="${lyricAnswer.id}"
+                                       th:text="${lyricAnswer.lyricAnswer}">
+                            </li>
+                        </div>
+                        <input type="submit" value="Submit">
+                    </div>
+                </ol>
+            </div>
+        </div>
+
+    </ol>
+
+</form>
+</body>
+<div th:include="partials/footerNav.html :: footerNav"></div>
+<div th:include="partials/scripts.html :: scripts"></div>
+</html>
