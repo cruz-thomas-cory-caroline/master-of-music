@@ -133,7 +133,6 @@
             $('.words').click(function clickJump() {
                 let dropZoneCount = $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).length
                 let x = 0
-
                 while (x < dropZoneCount) {
                     if ($('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(x).hasClass('unoccupied') && $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(x).hasClass('highlighted')) {
                         $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(x).removeClass('unoccupied')
@@ -150,9 +149,7 @@
                             } else {
                                 x = x + 1
                             }
-
                         }
-
                         $(this).addClass('hide')
                         break;
                     } else {
@@ -170,10 +167,8 @@
                 $(this).parent().removeClass('occupied')
                 $(this).parent().addClass('unoccupied')
                 $(this).addClass('hide')
-
                 let wordToReshow = $(this).text()
                 let y = 0
-
                 while (y < $('.all-cards').eq(cardIndexShowing).find($('.words')).length) {
                     if ($('.all-cards').eq(cardIndexShowing).find($('.words')).eq(y).text() === wordToReshow) {
                         $('.all-cards').eq(cardIndexShowing).find($('.words')).eq(y).removeClass('hide')
@@ -182,7 +177,6 @@
                         y = y + 1
                     }
                 }
-
                 $(this).text("")
                 $(this).parent().find("input").val("")
             })

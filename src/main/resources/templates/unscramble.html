@@ -13,18 +13,37 @@
             <div class="card-body">
                 <h2 class="card-title text-center">Before You Begin!</h2>
                 <div class="row">
-                    <h4 class="card-subtitle mb-2 text-muted col-6 text-center">Difficulty: <span th:text="${difficulty}"></span></h4>
-                    <h4 class="card-subtitle mb-2 text-muted col-6 text-center">Genre: <span th:text="${genre}"></span></h4>
+                    <h4 class="card-subtitle mb-2 text-muted col-6 text-left">Difficulty: <span th:text="${difficulty}"></span></h4>
+                    <h4 class="card-subtitle mb-2 text-muted col-6 text-right">Genre: <span th:text="${genre}"></span></h4>
                 </div>
                 <div class="mobile-instr hide">
-                    <h4 class="card-text">You're playing the Mobile Version!</h4>
+                    <h4>
+                        <ol>
+                            <li class="card-text">Click a word to place it on the board.</li>
+                            <li class="card-text">The word you click will go to the highlighted box.</li>
+                            <li class="card-text">You have <span th:text="${timeLimit}"></span> seconds to complete each lyric.</li>
+                            <liclass="card-text">Click Start to Begin!</h4>
+                        </ol>
+                    </h4>
+
                 </div>
                 <div class="web-instr">
-                    <h4 class="card-text">You're playing the Web Version!</h4>
+                    <h4>
+                        <ol>
+                            <li class="card-text">Drag and drop the words to the drop zone of your choice</li>
+                            <li class="card-text">You can drag the word out to place it back into the word bank</li>
+                            <li class="card-text">You have <span th:text="${timeLimit}"></span> seconds to complete each lyric.</li>
+                            <li class="card-text">Click Start to Begin!</li>
+                        </ol>
+                    </h4>
+
                 </div>
             </div>
+            <div class="card-footer text-center">
+                <button type="button" id="startButton" class="btn btn-primary btn-lg" style="height: 100px; width: 200px;">Start</button>
+            </div>
         </div>
-        <button type="button" id="startButton" class="btn btn-primary btn-lg" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); height: 100px; width: 200px;">Start</button>
+
     </div>
 
     <form th:action="@{/unscramble/results}" method="post">
