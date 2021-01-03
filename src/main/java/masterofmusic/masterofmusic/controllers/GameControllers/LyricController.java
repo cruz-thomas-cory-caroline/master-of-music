@@ -65,24 +65,20 @@ public class LyricController {
 
         Random rand = new Random();
 
-//
-//        int numberOfQuestions = 0;
-//        int timeLimit = 0;
-//
-//        switch (songDifficulty) {
-//            case "easy":
-//                numberOfQuestions = 5;
-//                timeLimit = 45;
-//                break;
-//            case "medium":
-//                numberOfQuestions = 10;
-//                timeLimit = 30;
-//                break;
-//            case "hard":
-//                numberOfQuestions = 15;
-//                timeLimit = 15;
-//                break;
-//        }
+
+        int timeLimit = 0;
+
+        switch (songDifficulty) {
+            case "easy":
+                timeLimit = 45;
+                break;
+            case "medium":
+                timeLimit = 30;
+                break;
+            case "hard":
+                timeLimit = 15;
+                break;
+        }
 
         Genre genreID = genreDao.getOne(0L);
         switch (songGenre) {
@@ -128,7 +124,7 @@ public class LyricController {
         modelMap.put("songs", songService.findAll());
         modelMap.addAttribute("songDifficulty", songDifficulty);
         modelMap.addAttribute("chosenSongs", chosenSongs);
-
+        modelMap.addAttribute("timeLimit", timeLimit);
 //    }
         return "lyric-master/form";
     }

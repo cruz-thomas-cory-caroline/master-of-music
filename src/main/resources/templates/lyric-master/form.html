@@ -8,16 +8,18 @@
 </head>
 <body>
 <h3>Lyric Master</h3>
+
 <form th:method="post" th:action="@{/lyric-master/submit}">
     <input type="hidden" id="difficultySelected" name="songDifficulty" th:value="${songDifficulty}">
     <ol type="1">
         <div class="card-body">
-
+            <button type="button" id="startButton" class="btn btn-primary btn-lg">Start</button>
             <div th:each="song : ${chosenSongs}">
                 <input type="hidden" name="songId" th:value="${song.id}">
                 <ol>
                     <div class="card m-auto">
                         <h3 class="card-title questionLabel" th:text="${song.lyrics}"></h3>
+                        <h6>Time Remaining: <span class="lyricMaster-timer" th:text="${timeLimit}"></span></h6>
                         <div class="card-body form-check form-check-inline quizAnswers"
                              th:each="lyricAnswer : ${song.lyricAnswers}">
                             <li>
@@ -69,7 +71,9 @@
 <!--        </div>-->
 <!--</form>-->
 
-</body>
 <div th:include="partials/footerNav.html :: footerNav"></div>
 <div th:include="partials/scripts.html :: scripts"></div>
+<script th:src="@{/js/lyric-master.js}"></script>
+</body>
+
 </html>
