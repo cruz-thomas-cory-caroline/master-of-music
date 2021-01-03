@@ -83,46 +83,69 @@ public class LyricController {
 //                timeLimit = 15;
 //                break;
 //        }
-        Genre genre = genreDao.getOne(1L);
-        if (songGenre.equals("Rock")) {
 
-            Iterable<Song> songs = songService.findAll();
-            ArrayList<Song> rockSongs = new ArrayList<>();
-
-            for (Song song : songs) {
-                if (song.getSong_genres().contains(genre)) {
-                    rockSongs.add(song);
-                }
-            }
-
-            ArrayList<Song> chosenSongs = new ArrayList<>();
-            for (var i = 0; i < 10; i++) {
-                Song randRockQ = rockSongs.get(rand.nextInt(rockSongs.size()));
-                chosenSongs.add(randRockQ);
-                rockSongs.remove(randRockQ);
-            }
-
-            modelMap.put("songs", songService.findAll());
-            modelMap.addAttribute("songDifficulty", songDifficulty);
-            modelMap.addAttribute("chosenSongs", chosenSongs);
+        Genre genreID = genreDao.getOne(0L);
+        switch (songGenre) {
+            case ("Rock"):
+                genreID = genreDao.getOne(1L);
+                break;
+            case ("Hip-Hop"):
+                genreID = genreDao.getOne(2L);
+                break;
+            case ("Pop"):
+                genreID = genreDao.getOne(3L);
+                break;
+            case ("Country"):
+                genreID = genreDao.getOne(4L);
+                break;
         }
 
-            return "lyric-master/form";
+        Iterable<Song> songs = songService.findAll();
+        ArrayList<Song> songsByGenre = new ArrayList<>();
+
+//        Genre rockGenre = genreDao.getOne(1L);
+//       if (songGenre.equals("Rock")){
+//            ArrayList<Song> rockSongs = new ArrayList<>();
+//            for (Song song : songs) {
+//                if (song.getSong_genres().contains(rockGenre)) {
+//                    rockSongs.add(song);
+//                }
+//            }
+
+        for (Song song : songs) {
+            if (song.getSong_genres().contains(genreID)) {
+                songsByGenre.add(song);
+            }
+        }
+        ArrayList<Song> chosenSongs = new ArrayList<>();
+        for (var i = 0; i < 10; i++) {
+            Song randRock = songsByGenre.get(rand.nextInt(songsByGenre.size()));
+            chosenSongs.add(randRock);
+            songsByGenre.remove(randRock);
         }
 
-        //    @RequestMapping(value = "submit", method = RequestMethod.POST)
-        @PostMapping("lyric-master/submit")
-        public String submit (HttpServletRequest request){
-            int score = 0;
-            String[] songIds = request.getParameterValues("songId");
-            for (String songId : songIds) {
-                long answerIdCorrect = songService.findAnswerIdCorrect(Long.parseLong(songId));
-                if (answerIdCorrect == Long.parseLong(request.getParameter("song_" + songId))) {
-                    score++;
-                }
-                request.setAttribute("score", score);
-                System.out.println(songId);
-            }
-            return "lyric-master/result";
-        }
+
+        modelMap.put("songs", songService.findAll());
+        modelMap.addAttribute("songDifficulty", songDifficulty);
+        modelMap.addAttribute("chosenSongs", chosenSongs);
+
+//    }
+        return "lyric-master/form";
     }
+
+    //    @RequestMapping(value = "submit", method = RequestMethod.POST)
+    @PostMapping("lyric-master/submit")
+    public String submit(HttpServletRequest request) {
+        int score = 0;
+        String[] songIds = request.getParameterValues("songId");
+        for (String songId : songIds) {
+            long answerIdCorrect = songService.findAnswerIdCorrect(Long.parseLong(songId));
+            if (answerIdCorrect == Long.parseLong(request.getParameter("song_" + songId))) {
+                score++;
+            }
+            request.setAttribute("score", score);
+            System.out.println(songId);
+        }
+        return "lyric-master/result";
+    }
+}
