@@ -19,7 +19,8 @@ Are you riding'),
        (32, 'Wings', 'Mac Miller', 'Water my seeds ''til the flower just grow, yeah'),
        (33, 'In Da Club (It''s Your Birthday)', '50 Cent', 'I''m fully focused man, my money on my mind
 '),
-       (34, 'The Real Slim Shady', 'Eminem', '''Cause I''m Slim Shady, yes I''m the real Shady');
+       (34, 'The Real Slim Shady', 'Eminem', '''Cause I''m Slim Shady, yes I''m the real Shady'),
+       (44, 'Whatever You Like', 'T.I.', 'Maybe I can treat you so special so nice');
 
 
 #Rock
@@ -256,4 +257,16 @@ VALUES (false, 'Put your lighters in the air', 1),
        (false, 'I''m worse at what I do best', 27),
        (true, 'I feel stupid and contagious', 27),
        (false, 'I found it hard, it''s hard to find', 27),
-       (false, 'Hello, hello, hello, how low', 27);
+       (false, 'Hello, hello, hello, how low', 27),
+       (false, 'My chick can have what she want', 44),
+       (false, 'My chick can have what she want', 44),
+       (false, 'You know it ain''t nothin'' drop a couple stacks on you', 44),
+       (true, 'I gas up the jet for you tonight', 44),
+       (false, 'I''m worse at what I do best', 45),
+       (true, 'I feel stupid and contagious', 45),
+       (false, 'I found it hard, it''s hard to find', 45),
+       (false, 'Hello, hello, hello, how low', 45);
+
+
+INSERT INTO songs_genres(song_id, genre_id)
+VALUES ()
