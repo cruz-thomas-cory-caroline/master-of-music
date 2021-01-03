@@ -27,4 +27,10 @@ public class SongServiceImpl implements SongService{
        }
        return -1;
     }
+
+    @Override
+    public Song findSongIdByGenre(long genreId) {
+        return songRepository.findById(genreId).get();
+    }
+
 }

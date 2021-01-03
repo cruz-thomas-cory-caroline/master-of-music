@@ -9,9 +9,11 @@
 <body>
 <h3>Lyric Master</h3>
 <form th:method="post" th:action="@{/lyric-master/submit}">
+    <input type="hidden" id="difficultySelected" name="songDifficulty" th:value="${songDifficulty}">
     <ol type="1">
         <div class="card-body">
-            <div th:each="song : ${songs}">
+
+            <div th:each="song : ${chosenSongs}">
                 <input type="hidden" name="songId" th:value="${song.id}">
                 <ol>
                     <div class="card m-auto">
