@@ -34,9 +34,12 @@ public class TriviaController {
 
     String difficultyOption;
     String genreOption;
-    boolean easyOption = false;
-    long mediumOption = 10000;
-    long hardOption = 2000;
+//    Timestamp gameTime = new Timestamp(0);
+//    int gameScore = 0;
+//    int gameLevel = 0;
+//    String play_time = "";
+//    int roundScore = 0;
+
 
     @PostMapping("/trivia-game/3")
     public String triviaGameSetup(
@@ -48,6 +51,7 @@ public class TriviaController {
         genreOption = genreSelection;
         return "redirect:/trivia-game";
     }
+
 
     @GetMapping("trivia-game")
     public String viewTriviaGame(
@@ -78,10 +82,12 @@ public class TriviaController {
             viewModel.addAttribute("difficultyOption", difficultyOption);
             viewModel.addAttribute("questions", randomQs);
         }
+
         return "trivia-game";
     }
 
     int score = 0;
+    int totalScore = 0;
 
     @PostMapping("trivia-game/submit")
     public String submit(
@@ -114,11 +120,15 @@ public class TriviaController {
                     correctAnswers.add(answerDao.getOne(answerIsCorrect).getAnswer());
                     correctQs.add(questionDao.getOne(Long.parseLong(questionId)));
                     score += 100;
-
+                    totalScore += score;
                 } else if (checkSubAnsForNull.get(questionIds.indexOf(questionId)) == -1) {
                         submittedAnswersIds.add(checkSubAnsForNull.get(questionIds.indexOf(questionId)));
                         incorrectAnswers.add(answerDao.getOne(answerIsCorrect).getAnswer());
                         incorrectQs.add(questionDao.getOne(Long.parseLong(questionId)));
+                } else if (answerIsCorrect != checkSubAnsForNull.get(questionIds.indexOf(questionId))) {
+                    submittedAnswersIds.add(checkSubAnsForNull.get(questionIds.indexOf(questionId)));
+                    incorrectAnswers.add(answerDao.getOne(answerIsCorrect).getAnswer());
+                    incorrectQs.add(questionDao.getOne(Long.parseLong(questionId)));
                 }
             }
 
@@ -132,6 +142,19 @@ public class TriviaController {
             }
         }
 
+        Game game = gameDao.getOne(3L);
+        PlayerGame currentPlayerGame = new PlayerGame();
+        PlayerGameRound currentGameRound = new PlayerGameRound();
+        Genre currentGenre = new Genre();
+
+        currentPlayerGame.setGame(game);
+        currentPlayerGame.setScore(totalScore);
+
+        currentGameRound.setDifficulty(difficultyOption);
+        currentGameRound.setScore(score);
+
+        currentGenre.setName(genreOption);
+
         System.out.println(incorrectAnswers);
         System.out.println(correctAnswers);
         model.addAttribute("submittedAnswers", submittedAnswers);
@@ -142,5 +165,33 @@ public class TriviaController {
         model.addAttribute("score", score);
         return "result";
     }
+
+    //    @PostMapping("/index")
+//    public String gameSetup(
+//            @RequestParam(name = "difficultyOptions") String difficultyOptions,
+//            @RequestParam(name = "genreOptions") String genreOptions) {
+//
+//        Game game = gameDao.getOne(3L);
+//        PlayerGame currentPlayerGame = new PlayerGame();
+//        PlayerGameRound currentGameRound = new PlayerGameRound();
+//        Genre currentGenre = new Genre();
+//
+//        currentPlayerGame.setGame(game);
+//        currentPlayerGame.setScore(gameScore);
+//        currentPlayerGame.setTimeElapsed(gameTime);
+//
+//        currentGameRound.setLevel(gameLevel);
+//        currentGameRound.setPlay_time(play_time);
+//        currentGameRound.setScore(roundScore);
+//        currentGameRound.setPlayerGame(currentPlayerGame);
+//        currentGameRound.setDifficulty(difficultyOptions);
+//
+//        currentGenre.setName(genreOptions);
+//
+//        playerGameDao.save(currentPlayerGame);
+//        playerGameRoundDao.save(currentGameRound);
+//        genreDao.save(currentGenre);
+//        return "redirect:/trivia-game";
+//    }
 
 }

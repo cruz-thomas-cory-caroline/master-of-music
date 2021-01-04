@@ -21,11 +21,11 @@ public class IndexController {
     private final PlayerGameRoundRepository playerGameRoundDao;
     private final GenreRepository genreDao;
 
-    Timestamp gameTime = new Timestamp(0);
-    int gameScore = 0;
-    int gameLevel = 0;
-    String play_time = "";
-    int roundScore = 0;
+//    Timestamp gameTime = new Timestamp(0);
+//    int gameScore = 0;
+//    int gameLevel = 0;
+//    String play_time = "";
+//    int roundScore = 0;
 
 
     public IndexController(QuestionRepository questionDao, AnswerRepository answerDao, GameRepository gameDao, PlayerGameRepository playerGameDao, PlayerGameRoundRepository playerGameRoundDao, GenreRepository genreDao){
@@ -43,32 +43,4 @@ public class IndexController {
         viewModel.addAttribute("game", game);
         return "index";
     }
-
-//    @PostMapping("/index")
-//    public String gameSetup(
-//            @RequestParam(name = "difficultyOptions") String difficultyOptions,
-//            @RequestParam(name = "genreOptions") String genreOptions) {
-//
-//        Game game = gameDao.getOne(3L);
-//        PlayerGame currentPlayerGame = new PlayerGame();
-//        PlayerGameRound currentGameRound = new PlayerGameRound();
-//        Genre currentGenre = new Genre();
-//
-//        currentPlayerGame.setGame(game);
-//        currentPlayerGame.setScore(gameScore);
-//        currentPlayerGame.setTimeElapsed(gameTime);
-//
-//        currentGameRound.setLevel(gameLevel);
-//        currentGameRound.setPlay_time(play_time);
-//        currentGameRound.setScore(roundScore);
-//        currentGameRound.setPlayerGame(currentPlayerGame);
-//        currentGameRound.setDifficulty(difficultyOptions);
-//
-//        currentGenre.setName(genreOptions);
-//
-//        playerGameDao.save(currentPlayerGame);
-//        playerGameRoundDao.save(currentGameRound);
-//        genreDao.save(currentGenre);
-//        return "redirect:/trivia-game";
-//    }
 }
