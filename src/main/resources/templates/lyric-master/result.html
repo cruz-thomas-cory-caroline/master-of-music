@@ -9,7 +9,7 @@
 <body text="white">
 <h3>Result</h3>
 <h3>Score</h3>
-<div th:text="${score}"></div>
+<div class="text-white" th:text="${score}"></div>
 <div class="row d-flex">
     <div class="col-12 col-sm-4">
         <h4 class="text-light fs-1 bg-success">CORRECT ANSWERS</h4>
@@ -27,7 +27,7 @@
             <li class="list-group-item" th:each="incorrectSong, int : ${incorrectSongs}">
                 <p class="questionsResults" th:text="${incorrectSong}"></p>
                 <p class="bg-danger text-light">SUBMITTED ANSWER: <span
-                        th:text="${submittedAnswer.get(int.index)}"></span></p>
+                        th:text="${userAnswer.get(int.index)}"></span></p>
                 <p class="bg-success text-light">CORRECT ANSWER: <span
                         th:text="${incorrectAnswers.get(int.index)}"></span></p>
             </li>

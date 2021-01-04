@@ -99,15 +99,6 @@ public class LyricController {
         Iterable<Song> songs = songService.findAll();
         ArrayList<Song> songsByGenre = new ArrayList<>();
 
-//        Genre rockGenre = genreDao.getOne(1L);
-//       if (songGenre.equals("Rock")){
-//            ArrayList<Song> rockSongs = new ArrayList<>();
-//            for (Song song : songs) {
-//                if (song.getSong_genres().contains(rockGenre)) {
-//                    rockSongs.add(song);
-//                }
-//            }
-
         for (Song song : songs) {
             if (song.getSong_genres().contains(genreID)) {
                 songsByGenre.add(song);
@@ -136,8 +127,7 @@ public class LyricController {
         ArrayList<String> incorrectAnswers = new ArrayList<>();
         ArrayList<String> correctSongs = new ArrayList<>();
         ArrayList<String> incorrectSongs = new ArrayList<>();
-        ArrayList<String> submittedAnswers = new ArrayList<>();
-        ArrayList<String> songsDisplayed = new ArrayList<>();
+        ArrayList<String> userAnswers = new ArrayList<>();
 
         int score = 0;
         String[] songIds = request.getParameterValues("songId");
@@ -147,25 +137,26 @@ public class LyricController {
             if (answerIdCorrect == Long.parseLong(request.getParameter("song_" + songId))) {
                 correctAnswers.add(lyricAnswerDao.getOne(answerIdCorrect).getLyricAnswer());
                 correctSongs.add(songDao.getOne(Long.valueOf(songId)).getLyrics());
-                submittedAnswers.add(lyricAnswerDao.getOne(Long.parseLong(songId)).getLyricAnswer());
-                songsDisplayed.add(songDao.getOne(Long.parseLong(songId)).getLyrics());
                 score+=100;
+
             } else if (answerIdCorrect != Long.parseLong(request.getParameter("song_" + songId))){
                 incorrectAnswers.add(lyricAnswerDao.getOne(answerIdCorrect).getLyricAnswer());
                 incorrectSongs.add(songDao.getOne(Long.parseLong(songId)).getLyrics());
-                submittedAnswers.add(lyricAnswerDao.getOne(Long.parseLong(songId)).getLyricAnswer());
-                songsDisplayed.add(songDao.getOne(Long.parseLong(songId)).getLyrics());
+                userAnswers.add(lyricAnswerDao.getOne(Long.parseLong(songId)).getLyricAnswer());
+
             }
 
-            System.out.println(submittedAnswers);
+
+
+            System.out.println(userAnswers);
 
             request.setAttribute("score", score);
             request.setAttribute("correctAnswers", correctAnswers);
             request.setAttribute("correctSongs", correctSongs);
             request.setAttribute("incorrectAnswers", incorrectAnswers);
             request.setAttribute("incorrectSongs", incorrectSongs);
-            request.setAttribute("submittedAnswer", submittedAnswers);
-            request.setAttribute("songsDisplayed", songsDisplayed);
+            request.setAttribute("userAnswer", userAnswers);
+
 
             System.out.println(songId);
         }
