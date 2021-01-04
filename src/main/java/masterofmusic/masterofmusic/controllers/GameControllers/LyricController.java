@@ -140,6 +140,9 @@ public class LyricController {
         ArrayList<String> correctSongs = new ArrayList<>();
         ArrayList<String> incorrectSongs = new ArrayList<>();
 
+        ArrayList<String> submittedAnswers = new ArrayList<>();
+        ArrayList<String> songsDisplayed = new ArrayList<>();
+
         int score = 0;
         String[] songIds = request.getParameterValues("songId");
 
@@ -148,17 +151,25 @@ public class LyricController {
             if (answerIdCorrect == Long.parseLong(request.getParameter("song_" + songId))) {
                 correctAnswers.add(lyricAnswerDao.getOne(answerIdCorrect).getLyricAnswer());
                 correctSongs.add(songDao.getOne(Long.valueOf(songId)).getLyrics());
+                submittedAnswers.add(lyricAnswerDao.getOne(answerIdCorrect).getLyricAnswer());
+                songsDisplayed.add(songDao.getOne(Long.parseLong(songId)).getLyrics());
                 score+=100;
             } else if (answerIdCorrect != Long.parseLong(request.getParameter("song_" + songId))){
                 incorrectAnswers.add(lyricAnswerDao.getOne(answerIdCorrect).getLyricAnswer());
                 incorrectSongs.add(songDao.getOne(Long.parseLong(songId)).getLyrics());
+                submittedAnswers.add(lyricAnswerDao.getOne(answerIdCorrect).getLyricAnswer());
+                songsDisplayed.add(songDao.getOne(Long.parseLong(songId)).getLyrics());
             }
+
+
 
             request.setAttribute("score", score);
             request.setAttribute("correctAnswers", correctAnswers);
             request.setAttribute("correctSongs", correctSongs);
             request.setAttribute("incorrectAnswers", incorrectAnswers);
             request.setAttribute("incorrectSongs", incorrectSongs);
+            request.setAttribute("submittedAnswer", submittedAnswers);
+            request.setAttribute("songsDisplayed", songsDisplayed);
 
             System.out.println(songId);
         }

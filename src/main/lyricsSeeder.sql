@@ -1,8 +1,5 @@
 USE master_of_music_db;
 
-INSERT INTO games (id, name)
-VALUES (1, 'Finish the Lyrics');
-
 #Hip-Hop
 INSERT INTO songs(id, title, artist, lyrics)
 VALUES (4, 'In My Feelings', 'Drake', 'Gotta be real with it, yup Kiki, do you love me
