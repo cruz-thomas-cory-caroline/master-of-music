@@ -2,17 +2,14 @@ package masterofmusic.masterofmusic.controllers.GameControllers;
 
 import masterofmusic.masterofmusic.models.*;
 
-import masterofmusic.masterofmusic.repositories.AnswerRepository;
-import masterofmusic.masterofmusic.repositories.PlayerGameRepository;
-import masterofmusic.masterofmusic.repositories.PlayerGameRoundRepository;
-import masterofmusic.masterofmusic.repositories.QuestionRepository;
+import masterofmusic.masterofmusic.repositories.*;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+
+import java.sql.Timestamp;
+import java.util.*;
 
 
 @Controller
@@ -22,28 +19,52 @@ public class TheoryController {
     private final AnswerRepository answerDao;
     private final PlayerGameRepository playerGameDao;
     private final PlayerGameRoundRepository playerGameRoundDao;
+    private final GameRepository gameDao;
 
-    public TheoryController(QuestionRepository questionDao, AnswerRepository answerDao, PlayerGameRepository playerGameDao,PlayerGameRoundRepository playerGameRoundDao){
+    public TheoryController(QuestionRepository questionDao, AnswerRepository answerDao, PlayerGameRepository playerGameDao,PlayerGameRoundRepository playerGameRoundDao, GameRepository gameDao){
         this.questionDao = questionDao;
         this.answerDao = answerDao;
         this.playerGameDao = playerGameDao;
         this.playerGameRoundDao = playerGameRoundDao;
+        this.gameDao = gameDao;
     }
 
     @GetMapping("/music-theory/{id}")
     public String viewQuizFormat(@PathVariable int id, Model model){
-        //check to see if user is logged in
-        // if user is logged in then create player game
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Game game = gameDao.findById(2);
         PlayerGame playerGame = new PlayerGame();
 
-        // if user is not logged in then don't save answers
+        ArrayList<PlayerGame> theoryGameList = playerGameDao.findAllByGameId(2L);
 
-        //Create a player game for game rounds to belong to
+        int x = 0;//set variable to one
 
+        for (PlayerGame theoryGame: theoryGameList) { //loop through theoryGameList
+            if(theoryGame.getUser().getId() == user.getId()){ //the id of the database game equals the id of the current user then...
+                x = 1; //set x to one
+                break; //continue with program
+            }
+        }
+
+        if(x != 1){ //if x does not equal one(the current users Id matched none in the database) then...
+            //tie user id to playerGame
+            playerGame.setUser(user);
+            //tie game id to playerGame
+            playerGame.setGame(game);
+            //save player game to database
+            playerGame.setScore(0);
+            Date date = new Date();
+            playerGame.setTimeElapsed(new Timestamp(date.getTime()));
+            PlayerGame dbPlayerGame = playerGameDao.save(playerGame);
+        }
 
 
 //      create a player game round
         PlayerGameRound playerGameRound = new PlayerGameRound();
+        //tie this round to a game
+        playerGameRound.setPlayerGame(playerGame);
+        //set score to negative 1 so it is easier to find in postMapping
+        playerGameRound.setScore(-1);
 
 
 //       finding the user Id
@@ -67,6 +88,7 @@ public class TheoryController {
 
     @PostMapping("/music-theory/{id}")
     public String submitAnswer(@RequestParam(name = "answers")String userAnswer, @PathVariable int id, Model model){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 //        finding the correct answer
         ArrayList<Question> theoryList = questionDao.findAllByGameId(2L);
@@ -80,16 +102,23 @@ public class TheoryController {
         }
 //        comparing user answer to correct answer/good ending
         if(userAnswer.equalsIgnoreCase(correctAnswer)){
-//            PlayerGameRound playerGameRound = playerGameRoundDao.findByPlayerGameId();
-
+            //save score to player game round
+            PlayerGameRound playerGameRound = playerGameRoundDao.findByScore(-1); //find round
+            playerGameRound.setScore(0); //reset score to zero
+            playerGameRound.setScore(playerGameRound.getScore() + 2); //increment
+            PlayerGameRound dbPlayerGameRound = playerGameRoundDao.save(playerGameRound);
             model.addAttribute("correct", "Great Job!");
-            PlayerGame winner = playerGameDao.findByUserId(1);
-            winner.setScore(winner.getScore() + 2);
-            PlayerGame dbWinner = playerGameDao.save(winner);
+            //save score to player game
+            PlayerGame winner = playerGameDao.findByUserId(user.getId()); //find game by userId
+            winner.setScore(winner.getScore() + 2); //increment
+            PlayerGame dbWinner = playerGameDao.save(winner); //save
         }
 
 //        comparing user answer to correct answer/bad ending
         if(!userAnswer.equalsIgnoreCase(correctAnswer)){
+            PlayerGameRound playerGameRound = playerGameRoundDao.findByScore(-1); //find round
+            playerGameRound.setScore(0); //reset score to zero
+            PlayerGameRound dbPlayerGameRound = playerGameRoundDao.save(playerGameRound);
             model.addAttribute("wrong", "Sorry");
         }
 
