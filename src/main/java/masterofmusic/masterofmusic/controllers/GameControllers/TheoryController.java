@@ -29,11 +29,12 @@ public class TheoryController {
         this.gameDao = gameDao;
     }
 
+    PlayerGame playerGame = new PlayerGame();
+
     @GetMapping("/music-theory/{id}")
     public String viewQuizFormat(@PathVariable int id, Model model){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Game game = gameDao.findById(2);
-        PlayerGame playerGame = new PlayerGame();
 
 
         //CREATE PLAYER GAME
@@ -51,13 +52,8 @@ public class TheoryController {
 
 
         //REDIRECT TO PROFILE
-//       finding the user Id
-        PlayerGame playerGameRedirect = playerGameDao.findByUserId(user.getId());
-        User userPlaying = playerGameRedirect.getUser();
-        long userId = userPlaying.getId();
-//         redirecting the user if there are no more questions
         if(id == 6){
-            return "redirect:/profile/" + userId;
+            return "redirect:/profile/" + user.getId();
         }
 
 
@@ -89,15 +85,17 @@ public class TheoryController {
 //        comparing user answer to correct answer/good ending
         if(userAnswer.equalsIgnoreCase(correctAnswer)){
             PlayerGameRound playerGameRound = new PlayerGameRound();
-            playerGameRound.setPlayerGame(playerGameDao.findByGameIdAndUserId(2L, user.getId()));
-
+            playerGameRound.setPlayerGame(playerGame);
             playerGameRound.setScore(playerGameRound.getScore() + 2); //increment
+            playerGameRound.setDifficulty("easy");
+            playerGameRound.setPlay_time("0");
             PlayerGameRound dbPlayerGameRound = playerGameRoundDao.save(playerGameRound);
             model.addAttribute("correct", "Great Job!");
+
             //save score to player game
-            PlayerGame winner = playerGameDao.findByUserId(user.getId()); //find game by userId
-            winner.setScore(winner.getScore() + 2); //increment
-            PlayerGame dbWinner = playerGameDao.save(winner); //save
+
+            playerGame.setScore(playerGame.getScore() + 2); //increment
+            PlayerGame dbWinner = playerGameDao.save(playerGame); //save
         }
 
 //        comparing user answer to correct answer/bad ending
