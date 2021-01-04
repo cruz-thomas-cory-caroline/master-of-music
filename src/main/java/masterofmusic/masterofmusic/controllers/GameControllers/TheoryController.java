@@ -32,13 +32,23 @@ public class TheoryController {
 
     @GetMapping("/music-theory/{id}")
     public String viewQuizFormat(@PathVariable int id, Model model){
+        //check to see if user is logged in
+        // if user is logged in then create player game
+        PlayerGame playerGame = new PlayerGame();
+
+        // if user is not logged in then don't save answers
+
+        //Create a player game for game rounds to belong to
+
+
+
 //      create a player game round
         PlayerGameRound playerGameRound = new PlayerGameRound();
 
 
 //       finding the user Id
-        PlayerGame playerGame = playerGameDao.findByUserId(1);
-        User userPlaying = playerGame.getUser();
+        PlayerGame playerGameRedirect = playerGameDao.findByUserId(1);
+        User userPlaying = playerGameRedirect.getUser();
         long userId = userPlaying.getId();
 //         redirecting the user if there are no more questions
         if(id == 6){
