@@ -42,4 +42,9 @@ $('#startButton').click(function () {
     timerStart()
 })
 
+    $('#showAnswerBtn').click(function() {
+        $('#showAnswer').addClass("highlight");
+
+    });
+
 })();

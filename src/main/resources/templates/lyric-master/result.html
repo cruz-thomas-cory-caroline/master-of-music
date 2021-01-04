@@ -9,5 +9,16 @@
 <h3>Result</h3>
 <h3>Score</h3>
 <div th:text="${score}"></div>
+<h3>Correct Questions: </h3>
+<div th:each="correctSong : ${correctSongs}"></div>
+<p th:text="${correctSongs}"></p>
+<h3>Correct Answers: </h3>
+<p th:text="${correctAnswers}"></p>
+
+<h3>Incorrect Questions: </h3>
+<div th:each="incorrectSong : ${incorrectSongs}"></div>
+<p th:text="${incorrectSongs}"></p>
+<h3>Incorrect Answers: </h3>
+<p th:text="${incorrectAnswers}"></p>
 </body>
 </html>

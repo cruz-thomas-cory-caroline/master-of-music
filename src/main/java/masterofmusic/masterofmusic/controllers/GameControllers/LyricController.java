@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Controller
 //@RequestMapping("song")
@@ -23,6 +22,8 @@ public class LyricController {
     @Autowired
     private SongService songService;
 
+    private final SongRepository songDao;
+    private final LyricAnswerRepository lyricAnswerDao;
     private final GameRepository gameDao;
     private final PlayerGameRepository playerGameDao;
     private final PlayerGameRoundRepository playerGameRoundDoa;
@@ -32,11 +33,13 @@ public class LyricController {
     private long currentGameID;
 
 
-    public LyricController(GameRepository gameDao, PlayerGameRepository playerGameDao, PlayerGameRoundRepository playerGameRoundDoa, GenreRepository genreDao) {
+    public LyricController(GameRepository gameDao, PlayerGameRepository playerGameDao, PlayerGameRoundRepository playerGameRoundDoa, GenreRepository genreDao, LyricAnswerRepository lyricAnswerDao, SongRepository songDao) {
         this.gameDao = gameDao;
         this.playerGameDao = playerGameDao;
         this.playerGameRoundDoa = playerGameRoundDoa;
         this.genreDao = genreDao;
+        this.lyricAnswerDao = lyricAnswerDao;
+        this.songDao = songDao;
     }
 
 
@@ -132,14 +135,30 @@ public class LyricController {
     //    @RequestMapping(value = "submit", method = RequestMethod.POST)
     @PostMapping("lyric-master/submit")
     public String submit(HttpServletRequest request) {
+        ArrayList<String> correctAnswers = new ArrayList<>();
+        ArrayList<String> incorrectAnswers = new ArrayList<>();
+        ArrayList<String> correctSongs = new ArrayList<>();
+        ArrayList<String> incorrectSongs = new ArrayList<>();
+
         int score = 0;
         String[] songIds = request.getParameterValues("songId");
         for (String songId : songIds) {
             long answerIdCorrect = songService.findAnswerIdCorrect(Long.parseLong(songId));
             if (answerIdCorrect == Long.parseLong(request.getParameter("song_" + songId))) {
-                score++;
+                correctAnswers.add(lyricAnswerDao.getOne(answerIdCorrect).getLyricAnswer());
+                correctSongs.add(songDao.getOne(Long.valueOf(songId)).getLyrics());
+                score+=100;
+            } else if (answerIdCorrect != Long.parseLong(request.getParameter("song_" + songId))){
+                incorrectAnswers.add(lyricAnswerDao.getOne(answerIdCorrect).getLyricAnswer());
+                incorrectSongs.add(songDao.getOne(Long.valueOf(songId)).getLyrics());
             }
+
             request.setAttribute("score", score);
+            request.setAttribute("correctAnswers", correctAnswers);
+            request.setAttribute("correctSongs", correctSongs);
+            request.setAttribute("incorrectAnswers", incorrectAnswers);
+            request.setAttribute("incorrectSongs", incorrectSongs);
+
             System.out.println(songId);
         }
         return "lyric-master/result";
