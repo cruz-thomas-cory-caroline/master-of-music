@@ -63,6 +63,9 @@ public class User {
         games = copy.games;
     }
 
+    public <T> User(String name, List<T> asList) {
+    }
+
     public long getId() {
         return id;
     }

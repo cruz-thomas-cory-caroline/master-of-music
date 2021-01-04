@@ -3,6 +3,8 @@ import masterofmusic.masterofmusic.SecurityConfiguration;
 import masterofmusic.masterofmusic.models.User;
 import masterofmusic.masterofmusic.repositories.UserRepository;
 import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.swing.*;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -29,6 +32,7 @@ public class UserController {
         model.addAttribute("user", new User());
         return "sign-up";
     }
+
 
     @PostMapping("/sign-up")
     public String saveUser(@RequestParam(name = "password") String password,
@@ -62,7 +66,17 @@ public class UserController {
             users.save(user);
             return "redirect:/login";
         }
+    }
 
+    @ModelAttribute("loggedinuser")
+    public User globalUserObject(Model model) {
+        // Add all null check and authentication check before using. Because this is global
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("loggedinuser", authentication.getName());
+        model.addAttribute("roles", authentication.getAuthorities());
+        // Create User pojo class
+        User user = new User(authentication.getName(), Arrays.asList(authentication.getAuthorities()));
+        return user;
     }
 }
 
