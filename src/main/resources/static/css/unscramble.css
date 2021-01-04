@@ -9,7 +9,7 @@
 }
 
 .occupied{
-    border-bottom: none;
+    border-bottom: solid black 1px;
     width: 75px;
     height: 50px;
 }

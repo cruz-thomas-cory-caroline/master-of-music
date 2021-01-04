@@ -71,18 +71,13 @@
                             <source class="track-source" type="audio/mpeg">
                         </audio>
                     </div>
-                    <div class="row justify-content-center">
+                    <div class="row justify-content-center all-words">
                         <div th:each="word : ${lyricSet}">
                             <div class="drop-zone m-1 unoccupied text-center">
                                 <a href="#" class="m-auto hide btn btn-primary mobile-word"></a>
-                                <input class="droppedWord" type="hidden" th:id="'word'+${lyricSet.indexOf(word)}">
+                                <a href="#" class="m-1 btn btn-primary words" th:text="${word}"></a>
+                                <input class="droppedWord" type="hidden" th:id="'word'+${lyricSet.indexOf(word)}" th:value="${word}">
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="row justify-content-center">
-                        <div th:each="word : ${lyricSet}">
-                            <a href="#" class="m-1 btn btn-primary words" th:text="${word}"></a>
                         </div>
                     </div>
                 </div>
@@ -91,9 +86,9 @@
                         <p><span th:text="${scrambledLyricsSet.indexOf(lyricSet)+1}"></span>/<span th:text="${scrambledLyricsSet.size()}"></span></p>
                     </div>
                     <input type="hidden" class="fullAnswer" th:name="'song'+${scrambledLyricsSet.indexOf(lyricSet)}">
-                    <div class="undo-button-class">
-                        <button type="button" class="btn btn-warning undo-button"><i class="fas fa-undo"></i></button>
-                    </div>
+<!--                    <div class="undo-button-class">-->
+<!--                        <button type="button" class="btn btn-warning undo-button"><i class="fas fa-undo"></i></button>-->
+<!--                    </div>-->
                     <div class="ml-auto">
                         <button type="button" class="btn btn-primary check-button ml-auto">Check</button>
                     </div>
