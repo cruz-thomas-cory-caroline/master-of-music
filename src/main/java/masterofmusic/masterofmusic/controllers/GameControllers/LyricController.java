@@ -142,6 +142,7 @@ public class LyricController {
 
         int score = 0;
         String[] songIds = request.getParameterValues("songId");
+
         for (String songId : songIds) {
             long answerIdCorrect = songService.findAnswerIdCorrect(Long.parseLong(songId));
             if (answerIdCorrect == Long.parseLong(request.getParameter("song_" + songId))) {
@@ -150,7 +151,7 @@ public class LyricController {
                 score+=100;
             } else if (answerIdCorrect != Long.parseLong(request.getParameter("song_" + songId))){
                 incorrectAnswers.add(lyricAnswerDao.getOne(answerIdCorrect).getLyricAnswer());
-                incorrectSongs.add(songDao.getOne(Long.valueOf(songId)).getLyrics());
+                incorrectSongs.add(songDao.getOne(Long.parseLong(songId)).getLyrics());
             }
 
             request.setAttribute("score", score);

@@ -3,22 +3,35 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <div th:include="partials/head.html :: head"></div>
+    <title>Master of Music Results</title>
 </head>
-<body>
+<body text="white">
 <h3>Result</h3>
 <h3>Score</h3>
 <div th:text="${score}"></div>
 <h3>Correct Questions: </h3>
-<div th:each="correctSong : ${correctSongs}"></div>
-<p th:text="${correctSongs}"></p>
-<h3>Correct Answers: </h3>
-<p th:text="${correctAnswers}"></p>
-
+<ul>
+    <p th:each="correctSong, int: ${correctSongs}"></p>
+    <li th:text="${correctSongs}"></li>
+    <h3>Correct Answers: </h3>
+    <li th:text="${correctAnswers}"></li>
+</ul>
 <h3>Incorrect Questions: </h3>
-<div th:each="incorrectSong : ${incorrectSongs}"></div>
-<p th:text="${incorrectSongs}"></p>
+<ul>
+    <li th:each="incorrectSong: ${incorrectSongs}">
+        <p th:text="${incorrectSongs}"></p>
+    </li>
+</ul>
+
 <h3>Incorrect Answers: </h3>
-<p th:text="${incorrectAnswers}"></p>
+<ul>
+    <li th:each="incorrectAnswer : ${incorrectAnswers}">
+    <p th:text="${incorrectAnswers}"></p>
+    </li>
+</ul>
+
+<div th:include="partials/footerNav.html :: footerNav"></div>
+<div th:include="partials/scripts.html :: scripts"></div>
 </body>
 </html>
