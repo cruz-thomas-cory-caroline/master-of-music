@@ -7,4 +7,6 @@ public interface SongService {
     public Iterable<Song> findAll();
 
     public long findAnswerIdCorrect(long songId);
+
+    public Song findSongIdByGenre(long genreId);
 }

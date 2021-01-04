@@ -14,7 +14,6 @@
 
 <section id="pickGame" class="container">
     <div id="gameOptions" class="row d-flex justify-space-around">
-
         <div class="col-sm-12 col-md-6 text-center divMoveDown">
 
             <section id="triviaSection">
@@ -27,42 +26,42 @@
                         <section>
                         <h5 class="text-white text-start">Difficulty:</h5>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="difficultyOptions" id="inlineRadio1"
-                                   value="option1">
-                            <label class="form-check-label" for="inlineRadio1">Easy</label>
+                            <input class="form-check-input" type="radio" name="songDifficulty" id="easySong"
+                                   value="easy" checked>
+                            <label class="form-check-label" for="easySong">Easy</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="difficultyOptions" id="inlineRadio2"
-                                   value="option2">
-                            <label class="form-check-label" for="inlineRadio2">Medium</label>
+                            <input class="form-check-input" type="radio" name="songDifficulty" id="mediumSong"
+                                   value="medium">
+                            <label class="form-check-label" for="mediumSong">Medium</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="difficultyOptions" id="inlineRadio3"
-                                   value="option3">
-                            <label class="form-check-label" for="inlineRadio3">Hard</label>
+                            <input class="form-check-input" type="radio" name="songDifficulty" id="hardSong"
+                                   value="hard">
+                            <label class="form-check-label" for="hardSong">Hard</label>
                         </div>
                 </section>
                 <section>
-                    <h5 class="text-white text-start">Genre:</h5>
+                    <h5 class="text-white text-start genreLabel">Genre:</h5>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="genreOptions" id="inlineRadio4"
-                               value="option4">
-                        <label class="form-check-label" for="inlineRadio4">Rock</label>
+                        <input class="form-check-input" type="radio" name="songGenre" id="rockSong"
+                               value="Rock" checked>
+                        <label class="form-check-label" for="rockSong">Rock</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="genreOptions" id="inlineRadio5"
-                               value="option5">
-                        <label class="form-check-label" for="inlineRadio5">Pop</label>
+                        <input class="form-check-input" type="radio" name="songGenre" id="popSong"
+                               value="Pop">
+                        <label class="form-check-label" for="popSong">Pop</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="genreOptions" id="inlineRadio6"
-                               value="option6">
-                        <label class="form-check-label" for="inlineRadio6">Hip-Hop</label>
+                        <input class="form-check-input" type="radio" name="songGenre" id="hiphopSong"
+                               value="Hip-Hop">
+                        <label class="form-check-label" for="hiphopSong">Hip-Hop</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="genreOptions" id="inlineRadio7"
-                               value="option7">
-                        <label class="form-check-label" for="inlineRadio7">Country</label>
+                        <input class="form-check-input" type="radio" name="songGenre" id="countrySong"
+                               value="Country">
+                        <label class="form-check-label" for="countrySong">Country</label>
                     </div>
                 </section>
                 <button type="submit">Play</button>
@@ -74,7 +73,7 @@
 
             <section id="lyricSection">
                 <i id="lyricIcon" class="fas fa-microphone-alt"></i>
-                <a href="#"><p id="lyricSelection" class="gameTitles">LYRIC MASTER</p></a>
+                <a href=#><p id="lyricSelection" class="gameTitles">LYRIC MASTER</p></a>
             </section>
 
             <section id="triviaOptions">
