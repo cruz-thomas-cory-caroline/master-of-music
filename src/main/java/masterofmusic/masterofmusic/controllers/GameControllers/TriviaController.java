@@ -34,24 +34,30 @@ public class TriviaController {
 
     String difficultyOption;
     String genreOption;
-//    Timestamp gameTime = new Timestamp(0);
-//    int gameScore = 0;
-//    int gameLevel = 0;
-//    String play_time = "";
-//    int roundScore = 0;
+    PlayerGame currentPlayerGame = new PlayerGame();
+    int totalScore = 0;
+    Genre currentGenre = new Genre();
+    Timestamp gameTime = new Timestamp(0);
+    int gameLevel = 0;
+    String play_time = "";
 
 
     @PostMapping("/trivia-game/3")
     public String triviaGameSetup(
             @RequestParam(name = "difficultyOptions") String difficultySelection,
-            @RequestParam(name = "genreOptions") String genreSelection,
-            Model viewModel
+            @RequestParam(name = "genreOptions") String genreSelection
     ) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         difficultyOption = difficultySelection;
         genreOption = genreSelection;
+        Game game = gameDao.getOne(3L);
+        currentPlayerGame.setUser(user);
+        currentPlayerGame.setGame(game);
+        currentPlayerGame.setScore(totalScore);
+        currentPlayerGame.setTimeElapsed(gameTime);
+        playerGameDao.save(currentPlayerGame);
         return "redirect:/trivia-game";
     }
-
 
     @GetMapping("trivia-game")
     public String viewTriviaGame(
@@ -86,9 +92,6 @@ public class TriviaController {
         return "trivia-game";
     }
 
-    int score = 0;
-    int totalScore = 0;
-
     @PostMapping("trivia-game/submit")
     public String submit(
             @RequestParam(name = "questionId") ArrayList<String> questionIds,
@@ -113,14 +116,14 @@ public class TriviaController {
             }
         }
 
+        int roundScore = 0;
         for (String questionId : questionIds) {
                 long answerIsCorrect = questionDao.findAnswerIdCorrect(Long.parseLong(questionId));
 
                 if (answerIsCorrect == checkSubAnsForNull.get(questionIds.indexOf(questionId))) {
                     correctAnswers.add(answerDao.getOne(answerIsCorrect).getAnswer());
                     correctQs.add(questionDao.getOne(Long.parseLong(questionId)));
-                    score += 100;
-                    totalScore += score;
+                    roundScore += 100;
                 } else if (checkSubAnsForNull.get(questionIds.indexOf(questionId)) == -1) {
                         submittedAnswersIds.add(checkSubAnsForNull.get(questionIds.indexOf(questionId)));
                         incorrectAnswers.add(answerDao.getOne(answerIsCorrect).getAnswer());
@@ -142,18 +145,18 @@ public class TriviaController {
             }
         }
 
-        Game game = gameDao.getOne(3L);
-        PlayerGame currentPlayerGame = new PlayerGame();
+        gameLevel += 1;
+        totalScore += roundScore;
         PlayerGameRound currentGameRound = new PlayerGameRound();
-        Genre currentGenre = new Genre();
-
-        currentPlayerGame.setGame(game);
+        currentGameRound.setLevel(gameLevel);
+        currentGameRound.setPlay_time(play_time);
+        currentGameRound.setScore(roundScore);
+        currentGameRound.setPlayerGame(currentPlayerGame);
         currentPlayerGame.setScore(totalScore);
-
+        playerGameDao.save(currentPlayerGame);
         currentGameRound.setDifficulty(difficultyOption);
-        currentGameRound.setScore(score);
+        playerGameRoundDao.save(currentGameRound);
 
-        currentGenre.setName(genreOption);
 
         System.out.println(incorrectAnswers);
         System.out.println(correctAnswers);
@@ -162,36 +165,17 @@ public class TriviaController {
         model.addAttribute("incorrectQs", incorrectQs);
         model.addAttribute("correctAnswers", correctAnswers);
         model.addAttribute("incorrectAnswers", incorrectAnswers);
-        model.addAttribute("score", score);
+        model.addAttribute("roundsScoreTotal", totalScore);
+        model.addAttribute("roundScore", roundScore);
         return "result";
     }
 
-    //    @PostMapping("/index")
-//    public String gameSetup(
-//            @RequestParam(name = "difficultyOptions") String difficultyOptions,
-//            @RequestParam(name = "genreOptions") String genreOptions) {
-//
-//        Game game = gameDao.getOne(3L);
-//        PlayerGame currentPlayerGame = new PlayerGame();
-//        PlayerGameRound currentGameRound = new PlayerGameRound();
-//        Genre currentGenre = new Genre();
-//
-//        currentPlayerGame.setGame(game);
-//        currentPlayerGame.setScore(gameScore);
-//        currentPlayerGame.setTimeElapsed(gameTime);
-//
-//        currentGameRound.setLevel(gameLevel);
-//        currentGameRound.setPlay_time(play_time);
-//        currentGameRound.setScore(roundScore);
-//        currentGameRound.setPlayerGame(currentPlayerGame);
-//        currentGameRound.setDifficulty(difficultyOptions);
-//
-//        currentGenre.setName(genreOptions);
-//
-//        playerGameDao.save(currentPlayerGame);
-//        playerGameRoundDao.save(currentGameRound);
-//        genreDao.save(currentGenre);
-//        return "redirect:/trivia-game";
-//    }
+    @PostMapping("trivia-game/new")
+    public String submit() {
+        currentPlayerGame = new PlayerGame();
+        totalScore = 0;
+        return "redirect:/index";
+    }
+
 
 }

@@ -4,14 +4,16 @@
     <div th:include="partials/head.html :: head"></div>
     <title>Results</title>
 </head>
-<body>
+<body class="h-100">
 <section class="container-fluid w-75 text-center mt-2">
     <h2 class="text-light">USER</h2>
-    <input type="hidden" id="score" th:value="${score}">
-    <h3 class="text-light fs-1">SCORE: <span id="scoreCounter"></span></h3>
-    <div class="mb-3">
+    <input type="hidden" id="roundScore" th:value="${roundScore}">
+    <h3 class="text-light fs-1">ROUND SCORE: <span id="roundScoreCounter"></span></h3>
+    <input type="hidden" id="score" th:value="${roundsScoreTotal}">
+    <h3 class="text-light fs-1">TOTAL ROUNDS SCORE: <span id="scoreCounter"></span></h3>
+    <div class="mb-3 d-flex justify-content-center">
         <a th:href="@{/trivia-game}"><button type="button" class="mr-2 btn btn-warning">Another Round!</button></a>
-        <a th:href="@{/index}"><button type="button" class="ml-2 btn btn-warning">Start A New Game</button></a>
+        <form th:action="@{/trivia-game/new}" th:method="post"><button type="submit" class="ml-2 btn btn-warning">Start A New Game</button></form>
     </div>
     <div class="row d-flex">
         <div class="col-12 col-sm-6">
@@ -44,24 +46,44 @@
 <script type="text/javascript">
     let scoreToCount = parseInt($('#score').val())
     console.log(scoreToCount)
-    let zero = 0
+    let zeroTotal = 0
+    let zeroRound = 0
 
     function scoreCounter() {
-        var scoreCount = setInterval(function () {
-            if (zero === scoreToCount) {
+        let scoreCount = setInterval(function () {
+            if (zeroTotal === scoreToCount) {
                 console.log("done")
-                $('#scoreCounter').html(zero)
+                $('#scoreCounter').html(zeroTotal)
                 clearInterval(scoreCount)
                 $('#congrats').show()
             } else {
-                console.log(zero)
-                zero = zero + 5
-                $('#scoreCounter').html(zero)
+                console.log(zeroTotal)
+                zeroTotal = zeroTotal + 5
+                $('#scoreCounter').html(zeroTotal)
             }
         }, 10)
     }
-
     scoreCounter()
+
+    let roundScoreToCount = parseInt($('#roundScore').val())
+    console.log(roundScoreToCount)
+
+    function roundScoreCounter() {
+        let scoreCount = setInterval(function () {
+            if (zeroRound === roundScoreToCount) {
+                console.log("done")
+                $('#roundScoreCounter').html(zeroRound)
+                clearInterval(scoreCount)
+            } else {
+                console.log(zeroRound)
+                zeroRound = zeroRound + 5
+                $('#roundScoreCounter').html(zeroRound)
+            }
+        }, 10)
+    }
+    roundScoreCounter()
+
+
 </script>
 </body>
 </html>
