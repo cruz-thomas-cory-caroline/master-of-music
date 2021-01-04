@@ -13,18 +13,37 @@
             <div class="card-body">
                 <h2 class="card-title text-center">Before You Begin!</h2>
                 <div class="row">
-                    <h4 class="card-subtitle mb-2 text-muted col-6 text-center">Difficulty: <span th:text="${difficulty}"></span></h4>
-                    <h4 class="card-subtitle mb-2 text-muted col-6 text-center">Genre: <span th:text="${genre}"></span></h4>
+                    <h4 class="card-subtitle mb-2 text-muted col-6 text-left">Difficulty: <span th:text="${difficulty}"></span></h4>
+                    <h4 class="card-subtitle mb-2 text-muted col-6 text-right">Genre: <span th:text="${genre}"></span></h4>
                 </div>
                 <div class="mobile-instr hide">
-                    <h4 class="card-text">You're playing the Mobile Version!</h4>
+                    <h4>
+                        <ol>
+                            <li class="card-text">Click a word to place it on the board.</li>
+                            <li class="card-text">The word you click will go to the highlighted box.</li>
+                            <li class="card-text">You have <span th:text="${timeLimit}"></span> seconds to complete each lyric.</li>
+                            <li class="card-text">Click Start to Begin!</li>
+                        </ol>
+                    </h4>
+
                 </div>
                 <div class="web-instr">
-                    <h4 class="card-text">You're playing the Web Version!</h4>
+                    <h4>
+                        <ol>
+                            <li class="card-text">Drag and drop the words to the drop zone of your choice</li>
+                            <li class="card-text">You can drag the word out to place it back into the word bank</li>
+                            <li class="card-text">You have <span th:text="${timeLimit}"></span> seconds to complete each lyric.</li>
+                            <li class="card-text">Click Start to Begin!</li>
+                        </ol>
+                    </h4>
+
                 </div>
             </div>
+            <div class="card-footer text-center">
+                <button type="button" id="startButton" class="btn btn-primary btn-lg" style="height: 100px; width: 200px;">Start</button>
+            </div>
         </div>
-        <button type="button" id="startButton" class="btn btn-primary btn-lg" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); height: 100px; width: 200px;">Start</button>
+
     </div>
 
     <form th:action="@{/unscramble/results}" method="post">
@@ -52,18 +71,13 @@
                             <source class="track-source" type="audio/mpeg">
                         </audio>
                     </div>
-                    <div class="row justify-content-center">
+                    <div class="row justify-content-center all-words">
                         <div th:each="word : ${lyricSet}">
                             <div class="drop-zone m-1 unoccupied text-center">
                                 <a href="#" class="m-auto hide btn btn-primary mobile-word"></a>
-                                <input class="droppedWord" type="hidden" th:id="'word'+${lyricSet.indexOf(word)}">
+                                <a href="#" class="m-1 btn btn-primary words" th:text="${word}"></a>
+                                <input class="droppedWord" type="hidden" th:id="'word'+${lyricSet.indexOf(word)}" th:value="${word}">
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="row justify-content-center">
-                        <div th:each="word : ${lyricSet}">
-                            <a href="#" class="m-1 btn btn-primary words" th:text="${word}"></a>
                         </div>
                     </div>
                 </div>
@@ -72,8 +86,11 @@
                         <p><span th:text="${scrambledLyricsSet.indexOf(lyricSet)+1}"></span>/<span th:text="${scrambledLyricsSet.size()}"></span></p>
                     </div>
                     <input type="hidden" class="fullAnswer" th:name="'song'+${scrambledLyricsSet.indexOf(lyricSet)}">
-                    <div class="undo-button-class">
-                        <button type="button" class="btn btn-warning undo-button"><i class="fas fa-undo"></i></button>
+<!--                    <div class="undo-button-class">-->
+<!--                        <button type="button" class="btn btn-warning undo-button"><i class="fas fa-undo"></i></button>-->
+<!--                    </div>-->
+                    <div class="ml-auto">
+                        <button type="button" class="btn btn-primary check-button ml-auto">Check</button>
                     </div>
                     <div class="ml-auto" th:if="${scrambledLyricsSet.indexOf(lyricSet) == scrambledLyricsSet.size()-1}">
                         <button type="button" class="btn btn-primary last-cat-button">Lock It In!</button>
