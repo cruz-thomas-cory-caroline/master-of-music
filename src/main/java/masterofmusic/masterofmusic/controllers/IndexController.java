@@ -21,12 +21,6 @@ public class IndexController {
     private final PlayerGameRoundRepository playerGameRoundDao;
     private final GenreRepository genreDao;
 
-//    Timestamp gameTime = new Timestamp(0);
-//    int gameScore = 0;
-//    int gameLevel = 0;
-//    String play_time = "";
-//    int roundScore = 0;
-
 
     public IndexController(QuestionRepository questionDao, AnswerRepository answerDao, GameRepository gameDao, PlayerGameRepository playerGameDao, PlayerGameRoundRepository playerGameRoundDao, GenreRepository genreDao){
         this.questionDao = questionDao;
@@ -39,8 +33,7 @@ public class IndexController {
 
     @GetMapping("/index")
     public String indexPage(Model viewModel) {
-//        Game game = gameDao.getOne(3L);
-//        viewModel.addAttribute("game", game);
+
         return "index";
     }
 

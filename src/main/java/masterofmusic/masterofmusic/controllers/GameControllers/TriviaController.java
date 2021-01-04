@@ -156,6 +156,7 @@ public class TriviaController {
         playerGameDao.save(currentPlayerGame);
         currentGameRound.setDifficulty(difficultyOption);
         playerGameRoundDao.save(currentGameRound);
+        User user = currentPlayerGame.getUser();
 
 
         System.out.println(incorrectAnswers);
@@ -167,6 +168,7 @@ public class TriviaController {
         model.addAttribute("incorrectAnswers", incorrectAnswers);
         model.addAttribute("roundsScoreTotal", totalScore);
         model.addAttribute("roundScore", roundScore);
+        model.addAttribute("user", user);
         return "result";
     }
 
@@ -174,6 +176,7 @@ public class TriviaController {
     public String submit() {
         currentPlayerGame = new PlayerGame();
         totalScore = 0;
+        gameLevel = 0;
         return "redirect:/index";
     }
 

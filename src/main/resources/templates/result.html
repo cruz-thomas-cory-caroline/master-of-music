@@ -4,13 +4,13 @@
     <div th:include="partials/head.html :: head"></div>
     <title>Results</title>
 </head>
-<body class="h-100">
-<section class="container-fluid w-75 text-center mt-2">
-    <h2 class="text-light">USER</h2>
-    <input type="hidden" id="roundScore" th:value="${roundScore}">
-    <h3 class="text-light fs-1">ROUND SCORE: <span id="roundScoreCounter"></span></h3>
-    <input type="hidden" id="score" th:value="${roundsScoreTotal}">
-    <h3 class="text-light fs-1">TOTAL ROUNDS SCORE: <span id="scoreCounter"></span></h3>
+<body>
+<section id= "resultsSection" class="container-fluid w-75 text-center">
+    <h2 class="triviaResultsHeader" th:text="${user.username}"></h2>
+    <input type="hidden" id="triviaRoundScore" th:value="${roundScore}">
+    <h3 class="fs-1 triviaResultsHeader">ROUND SCORE: <span id="roundScoreTrivia"></span></h3>
+    <input type="hidden" id="triviaScore" th:value="${roundsScoreTotal}">
+    <h3 class="fs-1 triviaResultsHeader">TOTAL ROUNDS SCORE: <span id="scoreCounterTrivia"></span></h3>
     <div class="mb-3 d-flex justify-content-center">
         <a th:href="@{/trivia-game}"><button type="button" class="mr-2 btn btn-warning">Another Round!</button></a>
         <form th:action="@{/trivia-game/new}" th:method="post"><button type="submit" class="ml-2 btn btn-warning">Start A New Game</button></form>
@@ -44,7 +44,7 @@
 <div th:include="partials/footerNav.html :: footerNav"></div>
 <div th:include="partials/scripts.html :: scripts"></div>
 <script type="text/javascript">
-    let scoreToCount = parseInt($('#score').val())
+    let scoreToCount = parseInt($('#triviaScore').val())
     console.log(scoreToCount)
     let zeroTotal = 0
     let zeroRound = 0
@@ -53,31 +53,31 @@
         let scoreCount = setInterval(function () {
             if (zeroTotal === scoreToCount) {
                 console.log("done")
-                $('#scoreCounter').html(zeroTotal)
+                $('#scoreCounterTrivia').html(zeroTotal)
                 clearInterval(scoreCount)
                 $('#congrats').show()
             } else {
                 console.log(zeroTotal)
                 zeroTotal = zeroTotal + 5
-                $('#scoreCounter').html(zeroTotal)
+                $('#scoreCounterTrivia').html(zeroTotal)
             }
         }, 10)
     }
     scoreCounter()
 
-    let roundScoreToCount = parseInt($('#roundScore').val())
+    let roundScoreToCount = parseInt($('#triviaRoundScore').val())
     console.log(roundScoreToCount)
 
     function roundScoreCounter() {
         let scoreCount = setInterval(function () {
             if (zeroRound === roundScoreToCount) {
                 console.log("done")
-                $('#roundScoreCounter').html(zeroRound)
+                $('#roundScoreTrivia').html(zeroRound)
                 clearInterval(scoreCount)
             } else {
                 console.log(zeroRound)
                 zeroRound = zeroRound + 5
-                $('#roundScoreCounter').html(zeroRound)
+                $('#roundScoreTrivia').html(zeroRound)
             }
         }, 10)
     }
