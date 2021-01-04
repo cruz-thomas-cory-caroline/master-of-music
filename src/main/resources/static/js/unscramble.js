@@ -6,6 +6,11 @@
         match: function () {
             $('main').eq(0).removeClass('web')
             $('main').eq(0).addClass('mobile')
+            $('.mobile-bank').eq(0).removeClass('hide')
+            $('.web-words').each(function () {
+                $(this).addClass('hide')
+            })
+            $('.undo-button').eq(0).removeClass('hide')
             $('.web-instr').eq(0).addClass('hide')
             $('.mobile-instr').eq(0).removeClass('hide')
             checkType()
@@ -16,6 +21,8 @@
         match: function () {
             $('main').eq(0).removeClass('mobile')
             $('main').eq(0).addClass('web')
+            $('.web-words').eq(0).removeClass('hide')
+            $('.undo-button').addClass('hide')
             $('.mobile-instr').eq(0).addClass('hide')
             $('.web-instr').eq(0).removeClass('hide')
             checkType()
@@ -121,6 +128,9 @@
             }
 
         } else if ($('main').eq(0).hasClass('mobile')) {
+            $('.droppedWord').each(function () {
+                    $(this).val("")
+            })
 
             $('.all-cards').each(function () {
                 $(this).find($('.drop-zone')).eq(0).addClass('highlighted')
@@ -128,7 +138,9 @@
 
             $('.undo-button').click(function () {
                 $('.all-cards').eq(cardIndexShowing).find($('.words')).each(function () {
-                    $(this).removeClass('hide')
+                    if (!$(this).hasClass("web-words")) {
+                        $(this).removeClass('hide')
+                    }
                 })
                 $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).each(function () {
                     $(this).find('.mobile-word').addClass('hide')
@@ -149,7 +161,7 @@
                         $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(x).removeClass('unoccupied')
                         $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(x).addClass('occupied')
                         $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(x).find("input").val($(this)[0].innerHTML)
-                        $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(x).find("a").removeClass('hide')
+                        $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(x).find("a").eq(0).removeClass('hide')
                         $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(x).find("a").text($(this)[0].innerHTML)
                         $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(x).removeClass("highlighted")
                         x = 0
@@ -180,9 +192,9 @@
                 $(this).addClass('hide')
                 let wordToReshow = $(this).text()
                 let y = 0
-                while (y < $('.all-cards').eq(cardIndexShowing).find($('.words')).length) {
-                    if ($('.all-cards').eq(cardIndexShowing).find($('.words')).eq(y).text() === wordToReshow) {
-                        $('.all-cards').eq(cardIndexShowing).find($('.words')).eq(y).removeClass('hide')
+                while (y < $('.all-cards').eq(cardIndexShowing).find($('.mobile-words1')).length) {
+                    if ($('.all-cards').eq(cardIndexShowing).find($('.mobile-words1')).eq(y).text() === wordToReshow) {
+                        $('.all-cards').eq(cardIndexShowing).find($('.mobile-words1')).eq(y).removeClass('hide')
                         break;
                     } else {
                         y = y + 1
@@ -259,6 +271,10 @@
         clearInterval(interval)
         timerStart()
         $('.all-cards').eq(cardIndexShowing + 1).removeClass('hide')
+        if ($('main').eq(0).hasClass("mobile")) {
+            $('.all-cards').eq(cardIndexShowing + 1).find($(".mobile-bank").removeClass('hide'))
+        }
+
         $('audio')[cardIndexShowing].pause()
         cardIndexShowing++
 
