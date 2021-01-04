@@ -45,9 +45,6 @@ public class LyricController {
 
     String songDifficulty;
     String songGenre;
-    boolean easyOption = false;
-    long mediumOption = 10000;
-    long hardOption = 2000;
 
     @PostMapping("/lyric-master/")
     public String lyricMasterIndex(
@@ -139,7 +136,6 @@ public class LyricController {
         ArrayList<String> incorrectAnswers = new ArrayList<>();
         ArrayList<String> correctSongs = new ArrayList<>();
         ArrayList<String> incorrectSongs = new ArrayList<>();
-
         ArrayList<String> submittedAnswers = new ArrayList<>();
         ArrayList<String> songsDisplayed = new ArrayList<>();
 
@@ -151,17 +147,17 @@ public class LyricController {
             if (answerIdCorrect == Long.parseLong(request.getParameter("song_" + songId))) {
                 correctAnswers.add(lyricAnswerDao.getOne(answerIdCorrect).getLyricAnswer());
                 correctSongs.add(songDao.getOne(Long.valueOf(songId)).getLyrics());
-                submittedAnswers.add(lyricAnswerDao.getOne(answerIdCorrect).getLyricAnswer());
+                submittedAnswers.add(lyricAnswerDao.getOne(Long.parseLong(songId)).getLyricAnswer());
                 songsDisplayed.add(songDao.getOne(Long.parseLong(songId)).getLyrics());
                 score+=100;
             } else if (answerIdCorrect != Long.parseLong(request.getParameter("song_" + songId))){
                 incorrectAnswers.add(lyricAnswerDao.getOne(answerIdCorrect).getLyricAnswer());
                 incorrectSongs.add(songDao.getOne(Long.parseLong(songId)).getLyrics());
-                submittedAnswers.add(lyricAnswerDao.getOne(answerIdCorrect).getLyricAnswer());
+                submittedAnswers.add(lyricAnswerDao.getOne(Long.parseLong(songId)).getLyricAnswer());
                 songsDisplayed.add(songDao.getOne(Long.parseLong(songId)).getLyrics());
             }
 
-
+            System.out.println(submittedAnswers);
 
             request.setAttribute("score", score);
             request.setAttribute("correctAnswers", correctAnswers);

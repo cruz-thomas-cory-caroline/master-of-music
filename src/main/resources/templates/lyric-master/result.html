@@ -47,22 +47,13 @@
             <li class="list-group-item" th:each="incorrectSong, int : ${incorrectSongs}">
                 <p class="questionsResults" th:text="${incorrectSong}"></p>
                 <p class="bg-danger text-light">SUBMITTED ANSWER: <span
-                        th:text="${submittedAnswers}"></span></p>
+                        th:text="${submittedAnswer.get(int.index)}"></span></p>
                 <p class="bg-success text-light">CORRECT ANSWER: <span
                         th:text="${incorrectAnswers.get(int.index)}"></span></p>
             </li>
         </ul>
     </div>
-    <div>
-        <h4 class="text-light fs-1 bg-success">Submitted Answers</h4>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item" th:each="submittedAnswer : ${submittedAnswers}">
-                <p class="questionsResults" th:text="${submittedAnswers}"></p>
-                <p class="bg-success text-light">All Questions: <span
-                        th:text="${songsDisplayed}"></span></p>
-            </li>
-        </ul>
-    </div>
+</div>
 <div th:include="partials/footerNav.html :: footerNav"></div>
 <div th:include="partials/scripts.html :: scripts"></div>
 </body>
