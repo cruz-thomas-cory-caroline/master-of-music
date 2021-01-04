@@ -3,19 +3,19 @@
 }
 
 .drop-zone {
-    border: solid black 1px;
+    border-bottom: solid black 1px;
     width: 75px;
     height: 50px;
 }
 
 .occupied{
-    border: none;
+    border-bottom: none;
     width: 75px;
     height: 50px;
 }
 
 .unoccupied{
-    border: solid black 1px;
+    border-bottom: solid black 1px;
     width: 75px;
     height: 50px;
 }

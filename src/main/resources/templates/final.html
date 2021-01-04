@@ -22,10 +22,10 @@
                     <h5 class="card-title col-6 text-right">Artist: <span th:text="${song.getArtist()}"></span></h5>
                 </div>
                 <h6 class="card-text">Lyric: <span th:text="${song.getLyrics()}"></span></h6>
-                <div th:if="${showGreen[songs.indexOf(song)] == 1}">
+                <div th:if="${song.getLyrics() == userAnswers[songs.indexOf(song)]}">
                     <h6 class="card-text">Your Answer: <span style="color: green" th:text="${userAnswers[songs.indexOf(song)]}"></span></h6>
                 </div>
-                <div th:unless="${showGreen[songs.indexOf(song)] == 1}">
+                <div th:unless="${song.getLyrics() == userAnswers[songs.indexOf(song)]}">
                     <h6 class="card-text">Your Answer: <span style="color: red" th:text="${userAnswers[songs.indexOf(song)]}"></span></h6>
                 </div>
 

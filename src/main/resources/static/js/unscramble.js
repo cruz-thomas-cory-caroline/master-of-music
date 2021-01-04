@@ -262,6 +262,11 @@
         $('audio')[cardIndexShowing].pause()
     })
 
+    $('.check-button').click(function () {
+        //need to incorporate check on lyrics against actual lyric
+        //Can I figure out a way to check the lyrics without storing them
+    })
+
 
     $('.song-clip-button').click(function () {
         console.log($('.all-cards').eq(cardIndexShowing).find($('.title')))
