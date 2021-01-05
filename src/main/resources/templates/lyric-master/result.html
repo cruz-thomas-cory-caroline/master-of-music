@@ -15,22 +15,22 @@
     <div class="col-12 col-sm-4">
         <h4 class="text-light fs-1 bg-success">CORRECT ANSWERS</h4>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item" th:each="correctSong, int : ${correctSongs}">
-                <p class="questionsResults" th:text="${correctSong}"></p>
+            <li class="list-group-item" th:each="song, int : ${correctSongs}">
+                <p class="questionsResults" th:text="${song.getLyrics()}"></p>
                 <p class="bg-success text-light">CORRECT ANSWER: <span
-                        th:text="${correctAnswers.get(int.index)}"></span></p>
+                        th:each="la : ${song.getLyricAnswers()}" th:if="${la.isCorrect()}"><span th:text="${la.getLyricAnswer()}"></span></span></p>
             </li>
         </ul>
     </div>
     <div class="col-12 col-sm-4">
         <h4 class="text-light fs-1 bg-danger">INCORRECT ANSWERS</h4>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item" th:each="incorrectSong, int : ${incorrectSongs}">
-                <p class="questionsResults" th:text="${incorrectSong}"></p>
+            <li class="list-group-item" th:each="song, int : ${incorrectSongs}">
+                <p class="questionsResults" th:text="${song.getLyrics()}"></p>
                 <p class="bg-danger text-light">SUBMITTED ANSWER: <span
-                        th:text="${userAnswer}"></span></p>
+                        th:text="${incorrectUserAnswers.get(int.index)}"></span></p>
                 <p class="bg-success text-light">CORRECT ANSWER: <span
-                        th:text="${incorrectAnswers.get(int.index)}"></span></p>
+                        th:each="la : ${song.getLyricAnswers()}" th:if="${la.isCorrect()}"><span th:text="${la.getLyricAnswer()}"></span></span></p>
             </li>
         </ul>
     </div>

@@ -43,27 +43,30 @@ public class LyricController {
 
     String songDifficulty;
     String songGenre;
+    ArrayList<Song> chosenSongs = new ArrayList<>();
 
     @PostMapping("/lyric-master/")
     public String lyricMasterIndex(
             @RequestParam(name = "songDifficulty") String difficultySelection,
             @RequestParam(name = "songGenre") String genreSelection,
             @RequestParam(name = "round") long round
-            ) {
+    ) {
 
         songDifficulty = difficultySelection;
         songGenre = genreSelection;
 
-        if(round == 1) {
-            PlayerGame gameStart = new PlayerGame();
+        Date date = new Date();
+        PlayerGame gameStart = new PlayerGame();
+        if (round == 1) {
+            chosenSongs = new ArrayList<>();
             gameStart.setGame(gameDao.getOne(1L));
             gameStart.setScore(0);
-            Date date = new Date();
             gameStart.setTimeElapsed(new Timestamp(date.getTime()));
             gameStart.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
             PlayerGame dbGameStart = playerGameDao.save(gameStart);
             currentGameID = dbGameStart.getId();
         }
+
         return "redirect:/lyric-master";
     }
 
@@ -73,16 +76,20 @@ public class LyricController {
 
         Random rand = new Random();
 
+        int questions = 0;
         int timeLimit = 0;
         switch (songDifficulty) {
             case "easy":
                 timeLimit = 45;
+                questions = 5;
                 break;
             case "medium":
                 timeLimit = 30;
+                questions = 6;
                 break;
             case "hard":
                 timeLimit = 15;
+                questions = 9;
                 break;
         }
 
@@ -110,16 +117,18 @@ public class LyricController {
                 songsByGenre.add(song);
             }
         }
-        ArrayList<Song> chosenSongs = new ArrayList<>();
-        for (var i = 0; i < 10; i++) {
-            Song randRock = songsByGenre.get(rand.nextInt(songsByGenre.size()));
-            chosenSongs.add(randRock);
-            songsByGenre.remove(randRock);
+
+        ArrayList<Song> songsToPass = new ArrayList<>();
+
+        for (var i = 0; i < questions; i++) {
+            Song randSong = songsByGenre.get(rand.nextInt(songsByGenre.size()));
+            songsToPass.add(randSong);
+            songsByGenre.remove(randSong);
+
         }
 
-        modelMap.put("songs", songService.findAll());
         modelMap.addAttribute("songDifficulty", songDifficulty);
-        modelMap.addAttribute("chosenSongs", chosenSongs);
+        modelMap.addAttribute("chosenSongs", songsToPass);
         modelMap.addAttribute("timeLimit", timeLimit);
         modelMap.addAttribute("playerGame", currentGameID);
 
@@ -132,47 +141,44 @@ public class LyricController {
 
         PlayerGameRound newRoundCompleted = new PlayerGameRound();
         newRoundCompleted.setDifficulty(songDifficulty);
-        newRoundCompleted.setLevel(playerGameDao.getOne(Long.parseLong(request.getParameter("playerGame"))).getPlayerGameRounds().size()+1);
+        newRoundCompleted.setLevel(playerGameDao.getOne(Long.parseLong(request.getParameter("playerGame"))).getPlayerGameRounds().size() + 1);
         newRoundCompleted.setPlayerGame(playerGameDao.getOne(Long.parseLong(request.getParameter("playerGame"))));
         newRoundCompleted.setScore(0);
         newRoundCompleted.setPlay_time(String.valueOf(new Timestamp(0)));
 
-        ArrayList<String> correctAnswers = new ArrayList<>();
-        ArrayList<String> incorrectAnswers = new ArrayList<>();
-        ArrayList<String> correctSongs = new ArrayList<>();
-        ArrayList<String> incorrectSongs = new ArrayList<>();
-        ArrayList<String> userAnswers = new ArrayList<>();
+        ArrayList<String> incorrectUserAnswers = new ArrayList<>();
+        ArrayList<Song> correctSongs = new ArrayList<>();
+        ArrayList<Song> incorrectSongs = new ArrayList<>();
+        ArrayList<Song> testedSongs = new ArrayList<>();
 
-        int score = 0;
         String[] songIds = request.getParameterValues("songId");
 
         for (String songId : songIds) {
-            long answerIdCorrect = songService.findAnswerIdCorrect(Long.parseLong(songId));
+            testedSongs.add(songDao.getOne(Long.parseLong(songId)));
+        }
 
-            if (answerIdCorrect == Long.parseLong(request.getParameter("song_" + songId))) {
-                correctAnswers.add(lyricAnswerDao.getOne(answerIdCorrect).getLyricAnswer());
-                correctSongs.add(songDao.getOne(Long.valueOf(songId)).getLyrics());
+        for (Song song : testedSongs) {
+            long answerIdCorrect = songService.findAnswerIdCorrect(song.getId());
+            if (answerIdCorrect == Long.parseLong(request.getParameter("song_" + song.getId()))) {
                 newRoundCompleted.setScore(newRoundCompleted.getScore() + 100);
-//                score += 100;
+                correctSongs.add(song);
 
-            } else if (answerIdCorrect != Long.parseLong(request.getParameter("song_" + songId))) {
-                incorrectAnswers.add(lyricAnswerDao.getOne(answerIdCorrect).getLyricAnswer());
-                incorrectSongs.add(songDao.getOne(Long.parseLong(songId)).getLyrics());
-
+            } else if (answerIdCorrect != Long.parseLong(request.getParameter("song_" + song.getId()))) {
+                incorrectUserAnswers.add(lyricAnswerDao.getOne(Long.parseLong(request.getParameter("song_" + song.getId()))).getLyricAnswer());
+                incorrectSongs.add(song);
             }
         }
-        System.out.println(userAnswers);
-        playerGameDao.getOne(newRoundCompleted.getPlayerGame().getId()).setScore(newRoundCompleted.getPlayerGame().getScore()+newRoundCompleted.getScore());
+
+
+        playerGameDao.getOne(newRoundCompleted.getPlayerGame().getId()).setScore(newRoundCompleted.getPlayerGame().getScore() + newRoundCompleted.getScore());
         playerGameRoundDao.save(newRoundCompleted);
 
-        request.setAttribute("score", newRoundCompleted.getScore());
-        request.setAttribute("correctAnswers", correctAnswers);
         request.setAttribute("correctSongs", correctSongs);
-        request.setAttribute("incorrectAnswers", incorrectAnswers);
+        request.setAttribute("score", newRoundCompleted.getScore());
+        request.setAttribute("incorrectUserAnswers", incorrectUserAnswers);
         request.setAttribute("incorrectSongs", incorrectSongs);
-        request.setAttribute("userAnswer", userAnswers);
         request.setAttribute("currentLevel", newRoundCompleted.getLevel());
-        request.setAttribute("round", playerGameDao.getOne(Long.parseLong(request.getParameter("playerGame"))).getPlayerGameRounds().size()+1);
+        request.setAttribute("round", playerGameDao.getOne(Long.parseLong(request.getParameter("playerGame"))).getPlayerGameRounds().size() + 1);
 
         return "lyric-master/result";
     }
