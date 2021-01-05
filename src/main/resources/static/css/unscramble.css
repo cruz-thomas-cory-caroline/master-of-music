@@ -25,3 +25,15 @@
     width: 75px;
     height: 50px;
 }
+
+.wrong {
+    border: solid red 3px;
+    width: 75px;
+    height: 50px;
+}
+
+.right {
+    border: solid lightgreen 3px;
+    width: 75px;
+    height: 50px;
+}

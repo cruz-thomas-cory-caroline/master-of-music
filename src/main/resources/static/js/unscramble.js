@@ -84,7 +84,7 @@
 
                 out: function (event, ui) {
                     // $(this).droppable("option", "accept", '.words');
-                    $(this).find("input").val("")
+                    // $(this).find("input").val("")
                     $(this).removeClass("occupied")
                     // console.log("Removing Occupied Class...")
                     if (!$(this).hasClass('occupied')) {
@@ -108,12 +108,12 @@
                     }
                 });
 
-                // $('.drop-zone').each(function () {
-                //     $(this).removeClass('occupied')
-                //     $(this).addClass('unoccupied')
-                //     $(this).find("input").val("")
-                //     $(this).droppable("option", "accept", '.words');
-                // })
+                $('.drop-zone').each(function () {
+                    $(this).removeClass('occupied')
+                    $(this).addClass('unoccupied')
+                    $(this).find("input").val("")
+                    $(this).droppable("option", "accept", '.words');
+                })
             }
 
             $('.undo-button').click(function () {
@@ -129,7 +129,7 @@
 
         } else if ($('main').eq(0).hasClass('mobile')) {
             $('.droppedWord').each(function () {
-                    $(this).val("")
+                $(this).val("")
             })
 
             $('.all-cards').each(function () {
@@ -235,6 +235,7 @@
                 timeStart--
                 $('.unscramble-timer').html(timeStart)
             } else {
+                clearInterval(interval2)
                 clearInterval(interval)
                 $('.unscramble-timer').html('Times Up!')
                 $('.all-cards').eq(cardIndexShowing).find(".fullAnswer").val(lockAnswer())
@@ -249,6 +250,9 @@
                         $('.unscramble-timer').html('')
                         cardIndexShowing++
                         $('.all-cards').eq(cardIndexShowing).removeClass('hide')
+                        if ($('main').eq(0).hasClass('mobile')) {
+                            $('.all-cards').eq(cardIndexShowing).find($('.mobile-bank')).eq(0).removeClass('hide')
+                        }
                         timerStart()
                     }
                 }, 2000)
@@ -268,6 +272,7 @@
         $('.all-cards').eq(cardIndexShowing).find(".fullAnswer").val(lockAnswer())
         console.log($(this).parent().parent().find("input")[0].value)
         $('.all-cards').eq(cardIndexShowing).addClass('hide')
+        clearInterval(interval2)
         clearInterval(interval)
         timerStart()
         $('.all-cards').eq(cardIndexShowing + 1).removeClass('hide')
@@ -284,14 +289,71 @@
         $('.all-cards').eq(cardIndexShowing).find(".fullAnswer").val(lockAnswer())
         console.log($(this).parent().parent().find("input")[0].value)
         $('.all-cards').eq(cardIndexShowing).addClass('hide')
+        clearInterval(interval2)
         clearInterval(interval)
         $('.final-screen').removeClass('hide')
         $('audio')[cardIndexShowing].pause()
     })
 
+    let interval2
     $('.check-button').click(function () {
-        //need to incorporate check on lyrics against actual lyric
-        //Can I figure out a way to check the lyrics without storing them
+        $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).each(function () {
+            $(this).removeClass('wrong')
+            $(this).removeClass('right')
+            $(this).removeClass('highlighted')
+        })
+        let userAnswer = lockAnswer()
+        let songId = ($('.all-cards').eq(cardIndexShowing).find($('input'))[0].value)
+        $.ajax({
+            type: "GET",
+            url: "/check",
+            data: {
+                "id": songId,
+                "userAnswer": userAnswer
+            }
+        }).done(function (response) {
+            console.log(response)
+            clearInterval(interval2)
+            let index = 0
+
+            interval2 = setInterval(function () {
+                if (index === response.length) {
+                    console.log("index equals length")
+                    clearInterval(interval2)
+                    $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).each(function () {
+                        $(this).removeClass('wrong')
+                        $(this).removeClass('right')
+                        $(this).removeClass('highlighted')
+                    })
+
+                    if ($('main').eq(0).hasClass('mobile')) {
+                        let w = $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).length
+                        let z = 0
+                        console.log(w)
+                        while (z < w) {
+                            console.log("running")
+                            if ($('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(z).hasClass("unoccupied")) {
+                                $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(z).addClass("highlighted")
+                                break;
+                            } else {
+                                z = z + 1
+                            }
+                        }
+                    }
+                }
+                $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).each(function () {
+                    $(this).removeClass('wrong')
+                    $(this).removeClass('right')
+                })
+                if (response[index] === 0) {
+                    $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(index).addClass('wrong')
+                } else if (response[index] === 1) {
+                    $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(index).addClass('right')
+                }
+                index++
+            }, 400)
+
+        })
     })
 
 

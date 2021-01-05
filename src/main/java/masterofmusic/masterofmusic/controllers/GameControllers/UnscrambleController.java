@@ -65,15 +65,15 @@ public class UnscrambleController {
         switch (difficulty) {
             case "easy":
                 numberOfQuestions = 5;
-                timeLimit = 45;
+                timeLimit = 150;
                 break;
             case "medium":
                 numberOfQuestions = 10;
-                timeLimit = 30;
+                timeLimit = 100;
                 break;
             case "hard":
                 numberOfQuestions = 15;
-                timeLimit = 15;
+                timeLimit = 50;
                 break;
         }
 
@@ -125,10 +125,6 @@ public class UnscrambleController {
             int lyricLength = singleWords.size();
 
             List<String> scrambledLyric = new ArrayList<>();
-            String lyricStart = "";
-            String lyricEnd = "";
-            int wordCount = (int) (Math.random() * ((lyricLength - 1) + 1) + 1);
-            int switchChoice = (int) (Math.random() * ((4 - 1) + 1) + 1);
 
             switch (1) {
                 case 1:
@@ -140,16 +136,6 @@ public class UnscrambleController {
                             scrambledLyric.add(singleWords.get(indexToAdd));
                         }
                     } while (scrambledLyric.size() < singleWords.size());
-
-//                    THIS IS FOR SHOWING THE START OF THE LYRIC UNSCRAMBLED AND THE END SCRAMBLED
-//                    for (var i = 0; i < wordCount; i++) {
-//                        lyricStart += singleWords.get(i);
-//                        lyricStartToCombine.add(singleWords.get(i));
-//                    }
-//                    for (var i = wordCount; i < lyricLength; i++) {
-//                        lyricEnd += singleWords.get(i);
-//                        lyricStartToCombine.add(singleWords.get(i));
-//                    }
                     break;
                 default:
                     break;
@@ -211,5 +197,36 @@ public class UnscrambleController {
         return "final";
     }
 
+    @RequestMapping("/check")
+    @ResponseBody
+    public List<Integer> check(@RequestParam(name = "id") long id,
+                        @RequestParam(name = "userAnswer") String userAnswer,
+                        Model model) {
+        String lyrics = songDao.getOne(id).getLyrics();
+
+        List<Integer> rightWrong = new ArrayList<>();
+
+        List<String> lyricWordList = new ArrayList<>();
+        String str[] = lyrics.split(" ");
+         lyricWordList = new ArrayList<>(Arrays.asList(str));
+
+        List<String> userAnswerWordList = new ArrayList<>();
+        String str1[] = userAnswer.split(" ");
+        userAnswerWordList = new ArrayList<>(Arrays.asList(str1));
+
+        while (userAnswerWordList.size() < lyricWordList.size()) {
+            userAnswerWordList.add("xyz");
+        }
+
+        for (var i = 0; i < lyricWordList.size(); i++) {
+            if (lyricWordList.get(i).equals(userAnswerWordList.get(i))) {
+                rightWrong.add(1);
+            } else {
+                rightWrong.add(0);
+            }
+        }
+
+        return rightWrong;
+    }
 
 }
