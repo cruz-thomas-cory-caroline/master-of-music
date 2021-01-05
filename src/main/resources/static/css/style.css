@@ -1,11 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=New+Rocker&display=swap');
-html,
-body {
-    height: 100%;
-    background-image: url("../img/giphy.gif");
+
+body,html {
+    height: 100vh;
+    position: relative;
+    background-image: url("../img/readyPlay.gif");
     background-repeat: repeat;
     background-size: cover;
-    position: relative;
+}
+
+#gameMenuContainer {
+    z-index: 100;
+}
+
+#backgroundSplashImg {
+    width: 100%;
+    height: 100%;
 }
 
 .navbar {
@@ -30,7 +39,7 @@ body {
     top: 0;
     left: 0;
     margin: 8px;
-    z-index: 1;
+    z-index: 100;
     font-size: 2.5em;
     color: #f7ff00;
     text-shadow: 1px 1px 2px #fcc910, 0 0 25px blue, 0 0 5px #00008b;
@@ -40,7 +49,7 @@ body {
     position: absolute;
     top: 1%;
     left: 94%;
-    z-index: 3;
+    z-index: 100;
     font-size: 2.5em;
     color: #f7ff00;
     text-shadow: 1px 1px 2px #fcc910, 0 0 25px blue, 0 0 5px darkblue;
@@ -64,7 +73,7 @@ body {
     position: absolute;
     top: 78%;
     left:89%;
-    z-index: 3;
+    z-index: 100;
     font-size: 8em;
     color: #ee00ff;
     text-shadow: 1px 1px 2px blue, 0 0 25px #fcc910, 0 0 5px darkblue;
@@ -78,7 +87,7 @@ body {
     position: absolute;
     top: 91%;
     left: 88%;
-    z-index: 4;
+    z-index: 100;
     background-color: #a207e5;
     font-family: 'New Rocker', cursive;
     font-size: 3em;
@@ -97,7 +106,7 @@ body {
 #header {
     position: absolute;
     width: 100vw;
-    z-index: 1;
+    z-index: 100;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -132,7 +141,7 @@ body {
     animation: pulse 2s infinite;
     font-size: 80px;
     position: absolute;
-    z-index: 2;
+    z-index: 100;
     top: 55%;
     left: 48%;
     transform: translate(-50%, -50%);
@@ -143,7 +152,7 @@ body {
     position: absolute;
     width: 100vw;
     height: 100%;
-    z-index: 2;
+    z-index: 100;
     top: 58%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -179,8 +188,8 @@ body {
 /*TRIVIA-GAME CAROUSEL*/
 #carouselExampleIndicators {
     position: absolute;
-    width: 80vw;
-    height: 85vh;
+    width: 32em;
+    height: 40em;
     z-index: 4;
     top: 50%;
     left: 50%;
@@ -195,6 +204,14 @@ body {
 .triviaCard {
     width: 30em;
     height: 35em;
+    background: #222;
+    color: white;
+    padding: 1rem;
+}
+
+.triviaCarItem {
+    background: linear-gradient(to right, red, purple);
+    padding: 3px;
 }
 
 .questionsResults {
@@ -203,13 +220,20 @@ body {
 
 .questionLabel {
     font-family: 'New Rocker', cursive;
+    font-size: 2em;
+    text-align: center;
+    color: #d0af08;
+}
+
+.quizAnswers {
     font-size: 1.5em;
+    padding: 10px;
+    font-family: 'New Rocker', cursive;
 }
 
 #timer {
     float: right;
-    margin-top: .5em;
-    margin-right: 1em;
+    margin: 1em;
     font-size: 4em;
 }
 
@@ -233,4 +257,15 @@ body {
     color: #ee00ff;
     text-shadow: 1px 1px 2px blue, 0 0 25px #fcc910, 0 0 5px darkblue;
     font-size: 2.5em;
+}
+
+.carControls {
+    margin: 1em;
+    position: relative;
+    font-size: 1.5em;
+}
+
+#submitQuiz {
+    width: 5em;
+    margin-left: 41%;
 }
