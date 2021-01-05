@@ -19,11 +19,11 @@ import java.util.List;
 import java.util.Random;
 
 @Controller
-
 public class LyricController {
 
     @Autowired
     private SongService songService;
+    private long currentGameID;
 
     private final SongRepository songDao;
     private final LyricAnswerRepository lyricAnswerDao;
@@ -31,9 +31,6 @@ public class LyricController {
     private final PlayerGameRepository playerGameDao;
     private final PlayerGameRoundRepository playerGameRoundDao;
     private final GenreRepository genreDao;
-    private List<Long> chosenSongIDs = new ArrayList<>();
-    private List<Song> chosenSongs = new ArrayList<>();
-    private long currentGameID;
 
     public LyricController(GameRepository gameDao, PlayerGameRepository playerGameDao, PlayerGameRoundRepository playerGameRoundDoa, GenreRepository genreDao, LyricAnswerRepository lyricAnswerDao, SongRepository songDao) {
         this.gameDao = gameDao;
@@ -44,23 +41,20 @@ public class LyricController {
         this.songDao = songDao;
     }
 
-    Long round;
     String songDifficulty;
     String songGenre;
-
 
     @PostMapping("/lyric-master/")
     public String lyricMasterIndex(
             @RequestParam(name = "songDifficulty") String difficultySelection,
             @RequestParam(name = "songGenre") String genreSelection,
-            @RequestParam(name = "round") long num
+            @RequestParam(name = "round") long round
             ) {
 
         songDifficulty = difficultySelection;
         songGenre = genreSelection;
-        round = num;
 
-        if(num == 1) {
+        if(round == 1) {
             PlayerGame gameStart = new PlayerGame();
             gameStart.setGame(gameDao.getOne(1L));
             gameStart.setScore(0);
@@ -69,9 +63,7 @@ public class LyricController {
             gameStart.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
             PlayerGame dbGameStart = playerGameDao.save(gameStart);
             currentGameID = dbGameStart.getId();
-            chosenSongIDs = new ArrayList<>();
         }
-
         return "redirect:/lyric-master";
     }
 
@@ -79,12 +71,9 @@ public class LyricController {
     public String index(
             ModelMap modelMap) {
 
-
         Random rand = new Random();
 
-
         int timeLimit = 0;
-
         switch (songDifficulty) {
             case "easy":
                 timeLimit = 45;
@@ -128,18 +117,14 @@ public class LyricController {
             songsByGenre.remove(randRock);
         }
 
-
         modelMap.put("songs", songService.findAll());
         modelMap.addAttribute("songDifficulty", songDifficulty);
         modelMap.addAttribute("chosenSongs", chosenSongs);
         modelMap.addAttribute("timeLimit", timeLimit);
         modelMap.addAttribute("playerGame", currentGameID);
 
-
-//    }
         return "lyric-master/form";
     }
-
 
     @PostMapping("lyric-master/submit")
     public String submit(
@@ -150,7 +135,7 @@ public class LyricController {
         newRoundCompleted.setLevel(playerGameDao.getOne(Long.parseLong(request.getParameter("playerGame"))).getPlayerGameRounds().size()+1);
         newRoundCompleted.setPlayerGame(playerGameDao.getOne(Long.parseLong(request.getParameter("playerGame"))));
         newRoundCompleted.setScore(0);
-        newRoundCompleted.setPlay_time("here");
+        newRoundCompleted.setPlay_time(String.valueOf(new Timestamp(0)));
 
         ArrayList<String> correctAnswers = new ArrayList<>();
         ArrayList<String> incorrectAnswers = new ArrayList<>();
@@ -163,7 +148,7 @@ public class LyricController {
 
         for (String songId : songIds) {
             long answerIdCorrect = songService.findAnswerIdCorrect(Long.parseLong(songId));
-            long answerIncorrect = songService.findAnswerIdIncorrect(Long.parseLong(songId));
+
             if (answerIdCorrect == Long.parseLong(request.getParameter("song_" + songId))) {
                 correctAnswers.add(lyricAnswerDao.getOne(answerIdCorrect).getLyricAnswer());
                 correctSongs.add(songDao.getOne(Long.valueOf(songId)).getLyrics());
@@ -174,13 +159,12 @@ public class LyricController {
                 incorrectAnswers.add(lyricAnswerDao.getOne(answerIdCorrect).getLyricAnswer());
                 incorrectSongs.add(songDao.getOne(Long.parseLong(songId)).getLyrics());
 
-                System.out.println(songId);
             }
         }
+        System.out.println(userAnswers);
         playerGameDao.getOne(newRoundCompleted.getPlayerGame().getId()).setScore(newRoundCompleted.getPlayerGame().getScore()+newRoundCompleted.getScore());
         playerGameRoundDao.save(newRoundCompleted);
 
-        System.out.println(userAnswers);
         request.setAttribute("score", newRoundCompleted.getScore());
         request.setAttribute("correctAnswers", correctAnswers);
         request.setAttribute("correctSongs", correctSongs);
@@ -189,8 +173,6 @@ public class LyricController {
         request.setAttribute("userAnswer", userAnswers);
         request.setAttribute("currentLevel", newRoundCompleted.getLevel());
         request.setAttribute("round", playerGameDao.getOne(Long.parseLong(request.getParameter("playerGame"))).getPlayerGameRounds().size()+1);
-
-
 
         return "lyric-master/result";
     }
