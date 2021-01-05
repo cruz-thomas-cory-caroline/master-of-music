@@ -31,6 +31,7 @@ public class TheoryController {
 
     PlayerGame playerGame = new PlayerGame();
 
+
     @GetMapping("/music-theory/{id}")
     public String viewQuizFormat(
              @PathVariable int id,
@@ -38,7 +39,18 @@ public class TheoryController {
              Model model){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Game game = gameDao.findById(2);
+        long playerGameId = playerGame.getId();
 
+        System.out.println("game ID: " + playerGameId);
+        int timeLimit;
+        //DISPLAY TIMER
+        if(difficultySelection.equalsIgnoreCase("option one")){
+            timeLimit = 60;
+        }else if(difficultySelection.equalsIgnoreCase("option2")){
+            timeLimit = 30;
+        } else if(difficultySelection.equalsIgnoreCase("option3")){
+            timeLimit = 10;
+        }
 
         model.addAttribute("songDifficulty", difficultySelection);
         //CREATE PLAYER GAME
@@ -57,7 +69,7 @@ public class TheoryController {
 
         //REDIRECT TO PROFILE
         if(id == 6){
-            return "redirect:/profile/" + user.getId();
+            return "redirect:/round-report/" + user.getId();
         }
 
 
@@ -67,6 +79,19 @@ public class TheoryController {
         long questionId = theoryList.get(id).getId(); //return question object then get Id of that question
         model.addAttribute("answers", answerDao.getAllByQuestionId(questionId)); //get answers to that Q and pass to Front end
         return "/music-theory";
+    }
+
+    @GetMapping("/round-report/{id}")
+    public String reportScore(@PathVariable int id, Model model){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        long playerGameId = playerGame.getId();
+        
+        PlayerGame currentGame = playerGameDao.findById(playerGameId);
+        long score = currentGame.getScore();
+
+        model.addAttribute("score", score);
+
+        return "round-report";
     }
 
 
