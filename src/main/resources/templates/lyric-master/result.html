@@ -3,11 +3,38 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <div th:include="partials/head.html :: head"></div>
+    <title>Master of Music Results</title>
 </head>
-<body>
+<body text="white">
 <h3>Result</h3>
 <h3>Score</h3>
-<div th:text="${score}"></div>
+<div class="text-white" th:text="${score}"></div>
+<div class="row d-flex">
+    <div class="col-12 col-sm-4">
+        <h4 class="text-light fs-1 bg-success">CORRECT ANSWERS</h4>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" th:each="correctSong, int : ${correctSongs}">
+                <p class="questionsResults" th:text="${correctSong}"></p>
+                <p class="bg-success text-light">CORRECT ANSWER: <span
+                        th:text="${correctAnswers.get(int.index)}"></span></p>
+            </li>
+        </ul>
+    </div>
+    <div class="col-12 col-sm-4">
+        <h4 class="text-light fs-1 bg-danger">INCORRECT ANSWERS</h4>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" th:each="incorrectSong, int : ${incorrectSongs}">
+                <p class="questionsResults" th:text="${incorrectSong}"></p>
+                <p class="bg-danger text-light">SUBMITTED ANSWER: <span
+                        th:text="${userAnswer.get(int.index)}"></span></p>
+                <p class="bg-success text-light">CORRECT ANSWER: <span
+                        th:text="${incorrectAnswers.get(int.index)}"></span></p>
+            </li>
+        </ul>
+    </div>
+</div>
+<div th:include="partials/footerNav.html :: footerNav"></div>
+<div th:include="partials/scripts.html :: scripts"></div>
 </body>
 </html>
