@@ -187,25 +187,25 @@
             </section>
 
             <section id="musicTheoryOptions">
-                <form>
+                <form method="GET" th:action="@{|/music-theory/${0}|}">
                     <h5 class="text-white text-start">Difficulty:</h5>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio8"
+                        <input class="form-check-input" checked type="radio" name="theoryDifficultyOptions" id="theoryEasy"
                                value="option1">
-                        <label class="form-check-label" for="inlineRadio8">Easy</label>
+                        <label class="form-check-label" for="theoryEasy">Easy</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio9"
+                        <input class="form-check-input" type="radio" name="theoryDifficultyOptions" id="theoryMedium"
                                value="option2">
-                        <label class="form-check-label" for="inlineRadio9">Medium</label>
+                        <label class="form-check-label" for="theoryMedium">Medium</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio10"
+                        <input class="form-check-input" type="radio" name="theoryDifficultyOptions" id="theoryHard"
                                value="option3">
-                        <label class="form-check-label" for="inlineRadio10">Hard</label>
+                        <label class="form-check-label" for="theoryHard">Hard</label>
                     </div>
+                    <button class="btn btn-primary" type="submit">Play Now!</button>
                 </form>
-                <button><a th:href="@{|/music-theory/${0}|}">Play Now!</a></button>
             </section>
         </div>
 

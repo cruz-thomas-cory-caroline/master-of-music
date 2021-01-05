@@ -32,11 +32,15 @@ public class TheoryController {
     PlayerGame playerGame = new PlayerGame();
 
     @GetMapping("/music-theory/{id}")
-    public String viewQuizFormat(@PathVariable int id, Model model){
+    public String viewQuizFormat(
+             @PathVariable int id,
+             @RequestParam(name ="theoryDifficultyOptions" )String difficultySelection,
+             Model model){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Game game = gameDao.findById(2);
 
 
+        model.addAttribute("songDifficulty", difficultySelection);
         //CREATE PLAYER GAME
         if(id == 0){
             //tie user id to playerGame
@@ -67,7 +71,10 @@ public class TheoryController {
 
 
     @PostMapping("/music-theory/{id}")
-    public String submitAnswer(@RequestParam(name = "answers")String userAnswer, @PathVariable int id, Model model){
+    public String submitAnswer(
+            @RequestParam(name = "answers")String userAnswer,
+            @RequestParam(name = "theoryDifficultyOptions") String difficultySelection,
+            @PathVariable int id, Model model){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ArrayList<PlayerGame> theoryGameList = playerGameDao.findAllByGameId(2L);
 
@@ -83,30 +90,44 @@ public class TheoryController {
             }
         }
 //        comparing user answer to correct answer/good ending
-        if(userAnswer.equalsIgnoreCase(correctAnswer)){
-            PlayerGameRound playerGameRound = new PlayerGameRound();
-            playerGameRound.setPlayerGame(playerGame);
-            playerGameRound.setScore(playerGameRound.getScore() + 2); //increment
-            playerGameRound.setDifficulty("easy");
-            playerGameRound.setPlay_time("0");
-            PlayerGameRound dbPlayerGameRound = playerGameRoundDao.save(playerGameRound);
+        if(userAnswer.equalsIgnoreCase(correctAnswer) && difficultySelection.equalsIgnoreCase("option1")){
+            correctAnswer(10);
+            System.out.println(difficultySelection);
             model.addAttribute("correct", "Great Job!");
-
-            //save score to player game
-
-            playerGame.setScore(playerGame.getScore() + 2); //increment
-            PlayerGame dbWinner = playerGameDao.save(playerGame); //save
+        }else if(userAnswer.equalsIgnoreCase(correctAnswer) && difficultySelection.equalsIgnoreCase("option2")){
+            correctAnswer(45);
+            System.out.println(difficultySelection);
+            model.addAttribute("correct", "Great Job!");
+        }else if(userAnswer.equalsIgnoreCase(correctAnswer) && difficultySelection.equalsIgnoreCase("option3")){
+                correctAnswer(100);
+                System.out.println(difficultySelection);
+                model.addAttribute("correct", "Great Job!");
         }
+
+        model.addAttribute("songDifficulty", difficultySelection);
+
+
 
 //        comparing user answer to correct answer/bad ending
         if(!userAnswer.equalsIgnoreCase(correctAnswer)){
-//            PlayerGameRound playerGameRound = playerGameRoundDao.findByPlayerGameId(playerGameDao.findByGameIdAndUserId(2L, user.getId()).getId());// see line 105
-//            playerGameRound.setScore(0); //reset score to zero
-//            PlayerGameRound dbPlayerGameRound = playerGameRoundDao.save(playerGameRound);
             model.addAttribute("wrong", "Sorry");
         }
 
         return "music-theory";
+    }
+
+    public void correctAnswer(int score){
+        PlayerGameRound playerGameRound = new PlayerGameRound();
+        playerGameRound.setPlayerGame(playerGame);
+        playerGameRound.setScore(playerGameRound.getScore() + score); //increment
+        playerGameRound.setDifficulty("easy");
+        playerGameRound.setPlay_time("0");
+        PlayerGameRound dbPlayerGameRound = playerGameRoundDao.save(playerGameRound);
+
+        //save score to player game
+
+        playerGame.setScore(playerGame.getScore() + score); //increment
+        PlayerGame dbWinner = playerGameDao.save(playerGame); //save
     }
 
 }

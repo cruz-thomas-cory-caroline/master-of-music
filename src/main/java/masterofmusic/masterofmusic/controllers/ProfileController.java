@@ -34,7 +34,7 @@ public class ProfileController {
             long score = game.getScore();
             counter += score;
         }
-        System.out.println(counter);
+//        System.out.println(counter);
 
         model.addAttribute("stats", counter);
         return "/profile";
