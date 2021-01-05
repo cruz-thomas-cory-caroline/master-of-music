@@ -11,6 +11,8 @@
 <h3>Lyric Master</h3>
 
 <form th:method="post" th:action="@{/lyric-master/submit}">
+    <input name="playerGame" type="hidden" th:value="${playerGame}">
+    <input name="level" type="hidden" th:value="${round}">
     <input type="hidden" id="difficultySelected" name="songDifficulty" th:value="${songDifficulty}">
     <ol type="1">
         <div class="card-body">
