@@ -393,6 +393,10 @@
             $('audio').get(cardIndexShowing).volume = .2
             $('audio').get(cardIndexShowing).load();
             $('audio').get(cardIndexShowing).play();
+            setTimeout(function () {
+                $('audio')[cardIndexShowing].pause()
+            }, 6500)
+
         });
     })
 
