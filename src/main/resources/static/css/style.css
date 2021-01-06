@@ -269,3 +269,18 @@ body,html {
     width: 5em;
     margin-left: 41%;
 }
+
+#profileAvatar {
+    width: 100px;
+    height: 100px;
+}
+
+.avatarOptions {
+    width: 75px;
+    height: 75px;
+}
+
+#avatarOptionContainer {
+    text-align: center;
+    width: 35em;
+}

@@ -12,7 +12,71 @@
         <div class="col-12 col-md-4">
             <div>
                 <h3 class="text-light">WELCOME PLAYER <span th:text="${user.username.toUpperCase()}"></span></h3>
-                <img src="img/profile" id="backgroundSplashImg"/>
+                <img id="profileAvatar" th:src="${user.images}" alt="profile-icon">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#staticBackdrop">
+                    Change Avatar
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+                     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog" id="avatarOptionContainer">
+                        <div class="modal-content">
+                            <form th:action="@{/trivia-game/submit}" th:method="post">
+                                <div class="modal-header">
+                                    <h5 class="modal-title m-auto" id="staticBackdropLabel">Pick Your Avatar</h5>
+                                </div>
+                                <div class="modal-body p-1">
+                                    <div class="container-flex">
+                                        <div class="row d-flex">
+                                            <div class="flex-wrap justify-content-between justify-content-center">
+                                                <img th:src="@{/img/femaleIcon1.jpg}" alt="avatar-icon"
+                                                     class="avatarOptions">
+                                                <img th:src="@{/img/femaleIcon2.jpg}" alt="avatar-icon"
+                                                     class="avatarOptions">
+                                                <img th:src="@{/img/femaleIcon3.jpg}" alt="avatar-icon"
+                                                     class="avatarOptions">
+                                                <img th:src="@{/img/femaleIcon4.jpg}" alt="avatar-icon"
+                                                     class="avatarOptions">
+                                                <img th:src="@{/img/femaleIcon5.jpg}" alt="avatar-icon"
+                                                     class="avatarOptions">
+                                                <img th:src="@{/img/femaleIcon6.jpg}" alt="avatar-icon"
+                                                     class="avatarOptions">
+                                                <img th:src="@{/img/femaleIcon7.jpg}" alt="avatar-icon"
+                                                     class="avatarOptions">
+                                                <img th:src="@{/img/femaleIcon8.jpg}" alt="avatar-icon"
+                                                     class="avatarOptions">
+                                                <img th:src="@{/img/maleIcon1.jpg}" alt="avatar-icon"
+                                                     class="avatarOptions">
+                                                <img th:src="@{/img/maleIcon2.jpg}" alt="avatar-icon"
+                                                     class="avatarOptions">
+                                                <img th:src="@{/img/maleIcon3.jpg}" alt="avatar-icon"
+                                                     class="avatarOptions">
+                                                <img th:src="@{/img/maleIcon4.jpg}" alt="avatar-icon"
+                                                     class="avatarOptions">
+                                                <img th:src="@{/img/maleIcon5.jpg}" alt="avatar-icon"
+                                                     class="avatarOptions">
+                                                <img th:src="@{/img/maleIcon6.jpg}" alt="avatar-icon"
+                                                     class="avatarOptions">
+                                                <img th:src="@{/img/maleIcon7.jpg}" alt="avatar-icon"
+                                                     class="avatarOptions">
+                                                <img th:src="@{/img/maleIcon8.jpg}" alt="avatar-icon"
+                                                     class="avatarOptions">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
         <div class="col-12 col-md-8">
