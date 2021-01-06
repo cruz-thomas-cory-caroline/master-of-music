@@ -11,8 +11,8 @@
 <body>
 <h3 id="headerLM">Lyric Master</h3>
 <div>
-    <span class='video-game-button'></span>
-    <span class='video-game-button'></span>
+    <span class='video-game-button'> </span>
+    <span class='video-game-button'> </span>
 
 </div>
 <form th:method="post" th:action="@{/lyric-master/submit}">
@@ -25,32 +25,33 @@
             <div th:each="song : ${chosenSongs}">
                 <input type="hidden" name="songId" th:value="${song.id}">
                 <ol class='video-game-button'>
-                    <div class="card m-auto">
+                    <div class="card m-auto LMcard">
                         <p>
                         <h3 class="card-title questionLabel" th:text="${song.lyrics}"></h3>
                         <h5>Title: <span th:text="${song.title}"></span></h5>
                         <h5>Artist: <span th:text="${song.artist}"></span></h5>
 
                         <h6>Time Remaining: <span class="lyricMaster-timer" th:text="${timeLimit}"></span></h6>
-                        <div class="card-body form-check form-check-inline quizAnswers"
-                             th:each="lyricAnswer : ${song.lyricAnswers}">
+                        <div class="card-body form-check form-check-inline quizAnswers" th:each="lyricAnswer : ${song.lyricAnswers}">
+
                             <li class='video-game-button'>
-                                <label for="showAnswer"></label>
                                 <input class="form-check-input solutions highlight" id="showAnswer"
                                        type="radio" th:name="song_+${song.id}"
-                                       th:value="${lyricAnswer.id}"
-                                       th:text="${lyricAnswer.lyricAnswer}">
+                                       th:value="${lyricAnswer.id}">
+                                <label th:for="${lyricAnswer.id}" th:text="${lyricAnswer.lyricAnswer}"></label>
                             </li>
+
                             <input class="hide form-check-input solutions" type="radio" th:value="1"
                                    th:name="song_+${song.id}" checked/>
                         </div>
                         <span class='start-btn'>SELECT</span>
-                        <button type="submit" value="Submit">Submit</button>
+
                     </div>
                 </ol>
             </div>
         </div>
     </ol>
+    <button type="submit" value="Submit">Submit</button>
 </form>
 <!--<form th:method="post" th:action="@{/lyric-master/submit}">-->
 <!--        <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">-->

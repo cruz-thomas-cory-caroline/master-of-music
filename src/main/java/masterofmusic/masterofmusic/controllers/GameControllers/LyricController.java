@@ -124,7 +124,6 @@ public class LyricController {
             Song randSong = songsByGenre.get(rand.nextInt(songsByGenre.size()));
             songsToPass.add(randSong);
             songsByGenre.remove(randSong);
-
         }
 
         modelMap.addAttribute("songDifficulty", songDifficulty);
