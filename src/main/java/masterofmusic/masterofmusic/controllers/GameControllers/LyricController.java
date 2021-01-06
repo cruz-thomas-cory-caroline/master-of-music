@@ -44,7 +44,6 @@ public class LyricController {
     Long round;
     String songDifficulty;
     String songGenre;
-//    ArrayList<Song> chosenSongs = new ArrayList<>();
 
     @PostMapping("/lyric-master/")
     public String lyricMasterIndex(
@@ -56,16 +55,16 @@ public class LyricController {
         songDifficulty = difficultySelection;
         songGenre = genreSelection;
         round = roundNumber;
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        PlayerGame playerGame = new PlayerGame();
 
-        if(roundNumber == 1) {
-            PlayerGame gameStart = new PlayerGame();
-            gameStart.setGame(gameDao.getOne(1L));
-            gameStart.setScore(0);
-            Date date = new Date();
-            gameStart.setTimeElapsed(new Timestamp(date.getTime()));
-            gameStart.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-//            PlayerGame dbGameStart = playerGameDao.save(gameStart);
-//            currentGameID = dbGameStart.getId();
+        if (roundNumber == 1) {
+            playerGame.setGame(gameDao.getOne(1L));
+            playerGame.setUser(user);
+            playerGame.setScore(0);
+            playerGame.setTimeElapsed(new Timestamp(0));
+            playerGameDao.save(playerGame);
+            currentGameID = playerGameDao.save(playerGame).getId();
         }
 
         return "redirect:/lyric-master";
@@ -81,7 +80,7 @@ public class LyricController {
         int timeLimit = 0;
         switch (songDifficulty) {
             case "easy":
-                timeLimit = 45;
+                timeLimit = 180;
                 questions = 5;
                 break;
             case "medium":
@@ -138,16 +137,19 @@ public class LyricController {
 
     @PostMapping("lyric-master/submit")
     public String submit(
-            HttpServletRequest request) {
+            HttpServletRequest request,
+            @RequestParam (value = "playerGame") long playerGameId) {
         int gameLevel = 0;
         gameLevel += 1;
         PlayerGameRound newPlayerGameRound = new PlayerGameRound();
-        PlayerGame currentPlayerGame = new PlayerGame();
+        PlayerGame currentPlayerGame = playerGameDao.getOne(playerGameId);
         newPlayerGameRound.setDifficulty(songDifficulty);
         newPlayerGameRound.setLevel(gameLevel);
         newPlayerGameRound.setScore(0);
         newPlayerGameRound.setPlay_time(String.valueOf(new Timestamp(0)));
         newPlayerGameRound.setPlayerGame(currentPlayerGame);
+
+
         ArrayList<String> incorrectUserAnswers = new ArrayList<>();
         ArrayList<Song> correctSongs = new ArrayList<>();
         ArrayList<Song> incorrectSongs = new ArrayList<>();
@@ -156,7 +158,7 @@ public class LyricController {
 
         String[] songIds = request.getParameterValues("songId");
 
-int score = 0;
+        int score = 0;
         for (String songId : songIds) {
             testedSongs.add(songDao.getOne(Long.parseLong(songId)));
         }
@@ -174,16 +176,16 @@ int score = 0;
             }
         }
 
-//        playerGameDao.getOne(newPlayerGameRound.getPlayerGame().getId()).setScore(newPlayerGameRound.getPlayerGame().getScore() + newPlayerGameRound.getScore());
-//        playerGameRoundDao.save(newPlayerGameRound);
-
+        PlayerGameRound playerGameRoundDB = playerGameRoundDao.save(newPlayerGameRound);
+        currentPlayerGame.setScore(playerGameRoundDB.getPlayerGame().getScore() + playerGameRoundDB.getScore());
+        playerGameDao.save(currentPlayerGame);
 
         request.setAttribute("correctSongs", correctSongs);
         request.setAttribute("score", newPlayerGameRound.getScore());
         request.setAttribute("incorrectUserAnswers", incorrectUserAnswers);
         request.setAttribute("incorrectSongs", incorrectSongs);
         request.setAttribute("currentLevel", newPlayerGameRound.getLevel());
-//        request.setAttribute("round", playerGameDao.getOne(Long.parseLong(request.getParameter("playerGame"))).getPlayerGameRounds().size() + 1);
+        request.setAttribute("round", playerGameDao.getOne(Long.parseLong(request.getParameter("playerGame"))).getPlayerGameRounds().size() + 1);
 
         return "lyric-master/result";
     }

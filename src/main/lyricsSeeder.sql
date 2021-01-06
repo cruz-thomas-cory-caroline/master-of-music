@@ -1,4 +1,7 @@
 USE master_of_music_db;
+INSERT INTO games(name) VALUES
+('Lyric Master');
+
 
 #Hip-Hop
 INSERT INTO songs(id, title, artist, lyrics)
