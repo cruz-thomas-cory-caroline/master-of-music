@@ -13,6 +13,7 @@
         </div>
         <div class="card-body">
             <form METHOD="POST" th:action="@{|/music-theory/${id}|}">
+                <input type="hidden" id="theoryDifficultySelected" name="difficultySelected" th:value="${songDifficulty}">
                 <div th:each="answer : ${answers}">
                     <label th:for="${answer.id}" th:text="${answer.answer}"></label>
                     <input type="radio" th:id="${answer.id}" name="answers" th:value="${answer.answer}">
@@ -20,7 +21,7 @@
                 <input name="theoryDifficultyOptions" type="hidden" th:value="${songDifficulty}">
                 <button type="submit">Submit your answer!</button>
             </form>
-            <p id="timer"></p>
+            <p style="color: #1b0230" id="timer"></p>
         </div>
     </div>
     <span th:case="${true}"></span>
@@ -59,5 +60,6 @@
 
 <div th:replace="partials/footerNav.html :: footerNav"></div>
 <div th:replace="partials/scripts.html :: scripts"></div>
+<script th:src="@{/js/theory.js}"></script>
 </body>
 </html>

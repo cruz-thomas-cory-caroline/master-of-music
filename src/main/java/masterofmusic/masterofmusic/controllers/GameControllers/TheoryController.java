@@ -42,17 +42,12 @@ public class TheoryController {
         long playerGameId = playerGame.getId();
 
         System.out.println("game ID: " + playerGameId);
-        int timeLimit;
-        //DISPLAY TIMER
-        if(difficultySelection.equalsIgnoreCase("option one")){
-            timeLimit = 60;
-        }else if(difficultySelection.equalsIgnoreCase("option2")){
-            timeLimit = 30;
-        } else if(difficultySelection.equalsIgnoreCase("option3")){
-            timeLimit = 10;
-        }
 
+
+        //TIMER
         model.addAttribute("songDifficulty", difficultySelection);
+
+
         //CREATE PLAYER GAME
         if(id == 0){
             //tie user id to playerGame
