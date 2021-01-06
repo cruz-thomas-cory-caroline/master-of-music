@@ -21,56 +21,133 @@
                 <!-- Modal -->
                 <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
                      aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog" id="avatarOptionContainer">
-                        <div class="modal-content">
-                            <form th:action="@{/trivia-game/submit}" th:method="post">
+                    <div class="modal-dialog avatarOptionContainer avatarBorderCont">
+                        <div class="modal-content avatarOptionContainer">
+                            <form th:action="@{/profile/avatar/{id}(id=${user.getId()})}" th:method="post">
                                 <div class="modal-header">
                                     <h5 class="modal-title m-auto" id="staticBackdropLabel">Pick Your Avatar</h5>
                                 </div>
                                 <div class="modal-body p-1">
-                                    <div class="container-flex">
+                                    <div class="container-fluid">
                                         <div class="row d-flex">
-                                            <div class="flex-wrap justify-content-between justify-content-center">
-                                                <img th:src="@{/img/femaleIcon1.jpg}" alt="avatar-icon"
-                                                     class="avatarOptions">
-                                                <img th:src="@{/img/femaleIcon2.jpg}" alt="avatar-icon"
-                                                     class="avatarOptions">
-                                                <img th:src="@{/img/femaleIcon3.jpg}" alt="avatar-icon"
-                                                     class="avatarOptions">
-                                                <img th:src="@{/img/femaleIcon4.jpg}" alt="avatar-icon"
-                                                     class="avatarOptions">
-                                                <img th:src="@{/img/femaleIcon5.jpg}" alt="avatar-icon"
-                                                     class="avatarOptions">
-                                                <img th:src="@{/img/femaleIcon6.jpg}" alt="avatar-icon"
-                                                     class="avatarOptions">
-                                                <img th:src="@{/img/femaleIcon7.jpg}" alt="avatar-icon"
-                                                     class="avatarOptions">
-                                                <img th:src="@{/img/femaleIcon8.jpg}" alt="avatar-icon"
-                                                     class="avatarOptions">
-                                                <img th:src="@{/img/maleIcon1.jpg}" alt="avatar-icon"
-                                                     class="avatarOptions">
-                                                <img th:src="@{/img/maleIcon2.jpg}" alt="avatar-icon"
-                                                     class="avatarOptions">
-                                                <img th:src="@{/img/maleIcon3.jpg}" alt="avatar-icon"
-                                                     class="avatarOptions">
-                                                <img th:src="@{/img/maleIcon4.jpg}" alt="avatar-icon"
-                                                     class="avatarOptions">
-                                                <img th:src="@{/img/maleIcon5.jpg}" alt="avatar-icon"
-                                                     class="avatarOptions">
-                                                <img th:src="@{/img/maleIcon6.jpg}" alt="avatar-icon"
-                                                     class="avatarOptions">
-                                                <img th:src="@{/img/maleIcon7.jpg}" alt="avatar-icon"
-                                                     class="avatarOptions">
-                                                <img th:src="@{/img/maleIcon8.jpg}" alt="avatar-icon"
-                                                     class="avatarOptions">
-
+                                            <div class="flex-wrap justify-content-center m-auto">
+                                                <input type="radio" name="avatarSelection" value="/img/femaleIcon1.jpg"
+                                                       class="sr-only" id="femaleIcon1">
+                                                <label class="avatarLabel" for="femaleIcon1">
+                                                    <img th:src="@{/img/femaleIcon1.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/femaleIcon2.jpg"
+                                                       class="sr-only" id="femaleIcon2">
+                                                <label class="avatarLabel" for="femaleIcon2">
+                                                    <img th:src="@{/img/femaleIcon2.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/femaleIcon3.jpg"
+                                                       class="sr-only"
+                                                       id="femaleIcon3">
+                                                <label class="avatarLabel" for="femaleIcon3">
+                                                    <img th:src="@{/img/femaleIcon3.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/femaleIcon4.jpg"
+                                                       class="sr-only"
+                                                       id="femaleIcon4">
+                                                <label class="avatarLabel" for="femaleIcon4">
+                                                    <img th:src="@{/img/femaleIcon4.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/femaleIcon5.jpg"
+                                                       class="sr-only"
+                                                       id="femaleIcon5">
+                                                <label class="avatarLabel" for="femaleIcon5">
+                                                    <img th:src="@{/img/femaleIcon5.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/femaleIcon6.jpg"
+                                                       class="sr-only"
+                                                       id="femaleIcon6">
+                                                <label class="avatarLabel" for="femaleIcon6">
+                                                    <img th:src="@{/img/femaleIcon6.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/femaleIcon7.jpg"
+                                                       class="sr-only"
+                                                       id="femaleIcon7">
+                                                <label class="avatarLabel" for="femaleIcon7">
+                                                    <img th:src="@{/img/femaleIcon7.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/femaleIcon8.jpg"
+                                                       class="sr-only"
+                                                       id="femaleIcon8">
+                                                <label class="avatarLabel" for="femaleIcon8">
+                                                    <img th:src="@{/img/femaleIcon8.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/maleIcon1.jpg"
+                                                       class="sr-only"
+                                                       id="maleIcon1">
+                                                <label class="avatarLabel" for="maleIcon1">
+                                                    <img th:src="@{/img/maleIcon1.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/maleIcon2.jpg"
+                                                       class="sr-only"
+                                                       id="maleIcon2">
+                                                <label class="avatarLabel" for="maleIcon2">
+                                                    <img th:src="@{/img/maleIcon2.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/maleIcon3.jpg"
+                                                       class="sr-only"
+                                                       id="maleIcon3">
+                                                <label class="avatarLabel" for="maleIcon3">
+                                                    <img th:src="@{/img/maleIcon3.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/maleIcon4.jpg"
+                                                       class="sr-only"
+                                                       id="maleIcon4">
+                                                <label class="avatarLabel" for="maleIcon4">
+                                                    <img th:src="@{/img/maleIcon4.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/maleIcon5.jpg"
+                                                       class="sr-only"
+                                                       id="maleIcon5">
+                                                <label class="avatarLabel" for="maleIcon5">
+                                                    <img th:src="@{/img/maleIcon5.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/maleIcon6.jpg"
+                                                       class="sr-only"
+                                                       id="maleIcon6">
+                                                <label class="avatarLabel" for="maleIcon6">
+                                                    <img th:src="@{/img/maleIcon6.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/maleIcon7.jpg"
+                                                       class="sr-only"
+                                                       id="maleIcon7">
+                                                <label class="avatarLabel" for="maleIcon7">
+                                                    <img th:src="@{/img/maleIcon7.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/maleIcon8.jpg"
+                                                       class="sr-only"
+                                                       id="maleIcon8">
+                                                <label class="avatarLabel" for="maleIcon8">
+                                                    <img th:src="@{/img/maleIcon8.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-info">Submit</button>
                                 </div>
                             </form>
                         </div>

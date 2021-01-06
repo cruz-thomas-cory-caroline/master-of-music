@@ -270,17 +270,46 @@ body,html {
     margin-left: 41%;
 }
 
+/*PROFILE*/
+
 #profileAvatar {
     width: 100px;
     height: 100px;
 }
 
-.avatarOptions {
-    width: 75px;
-    height: 75px;
+.avatarBorderCont {
+    background: linear-gradient(to right, #0049ff, #9b029b);
+    padding: 3px;
 }
 
-#avatarOptionContainer {
+#staticBackdropLabel {
+    font-family: 'New Rocker', cursive;
+    color: #ee00ff;
+    text-shadow: 1px 1px 2px blue, 0 0 25px #fcc910, 0 0 5px darkblue;
+    font-size: 2.5em;
+}
+
+.avatarOptions {
+    width: 80px;
+    height: 90px;
+    margin: 10px;
+}
+
+.avatarOptionContainer {
     text-align: center;
-    width: 35em;
+    width: 40em;
+    display: flex;
+    background-color: #222;
+}
+
+.avatarLabel {
+    cursor: pointer;
+}
+
+.avatarLabel:hover {
+    border: 3px solid #ff00f2;
+}
+
+input[type="radio"]:checked + .avatarLabel {
+    border: 5px solid #00ffff;
 }

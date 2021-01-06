@@ -11,7 +11,7 @@
         <div class="container-fluid">
             <a sec:authorize="!isAuthenticated()" th:href="@{/sign-up}"><span class="badge text-dark navbar-login">Register or Login</span></a>
             <a sec:authorize="isAuthenticated()" th:href="@{/logout}"><span class="badge text-dark navbar-login">Logout</span></a>
-            <a class="navbar-profile ml-4" th:href="@{/profile/}"><i id="profileIcon" class="fas fa-user fa-3x"></i></a>
+            <a sec:authorize="isAuthenticated()" class="navbar-profile ml-4" th:href="@{/profile}"><i id="profileIcon" class="fas fa-user fa-3x"></i></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
