@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 .highlight {
     background: green;
 }
@@ -6,8 +8,8 @@
     font-family: 'Press Start 2p';
 }
 
-.LMcard {
-    background-color: black;
+.lyricCardsBG {
+    background-color: rgba(0, 0, 0, 0.34);
     font-family: 'Press Start 2p';
 }
 
@@ -89,3 +91,6 @@
     animation-iteration-count: 1, 1;
     animation-fill-mode: forwards;
 }
+
+.lyricCards .LMcard{display:none;}
+.lyricCards .LMcard.active{display:initial}

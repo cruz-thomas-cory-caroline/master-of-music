@@ -13,81 +13,47 @@
 <div>
     <span class='video-game-button'> </span>
     <span class='video-game-button'> </span>
-
+    <button type="button" class="start-btn" id="startButton">START</button>
 </div>
 <form th:method="post" th:action="@{/lyric-master/submit}">
     <input name="playerGame" type="hidden" th:value="${playerGame}">
     <input name="level" type="hidden" th:value="${round}">
     <input type="hidden" id="difficultySelected" name="songDifficulty" th:value="${songDifficulty}">
-    <ol type="A">
-        <div class="card-body">
-            <button type="button" class="start-btn">START</button>
-            <div th:each="song : ${chosenSongs}">
-                <input type="hidden" name="songId" th:value="${song.id}">
-                <ol class='video-game-button'>
-                    <div class="card m-auto LMcard">
-                        <p>
-                        <h3 class="card-title questionLabel" th:text="${song.lyrics}"></h3>
-                        <h5>Title: <span th:text="${song.title}"></span></h5>
-                        <h5>Artist: <span th:text="${song.artist}"></span></h5>
 
-                        <h6>Time Remaining: <span class="lyricMaster-timer" th:text="${timeLimit}"></span></h6>
-                        <div class="card-body form-check form-check-inline quizAnswers" th:each="lyricAnswer : ${song.lyricAnswers}">
+    <div class="card-body lyricCards lm-cards hide">
+        <div th:each="song : ${chosenSongs}" class="LMcard">
+            <input type="hidden" name="songId" th:value="${song.id}">
 
-                            <li class='video-game-button'>
-                                <input class="form-check-input solutions highlight" id="showAnswer"
-                                       type="radio" th:name="song_+${song.id}"
-                                       th:value="${lyricAnswer.id}">
-                                <label th:for="${lyricAnswer.id}" th:text="${lyricAnswer.lyricAnswer}"></label>
-                            </li>
-
-                            <input class="hide form-check-input solutions" type="radio" th:value="1"
-                                   th:name="song_+${song.id}" checked/>
-                        </div>
-                        <span class='start-btn'>SELECT</span>
-
+            <ol class='video-game-button'>
+                <div class="card m-auto lyricCardsBG">
+                    <p>
+                    <h3 class="card-title questionLabel" th:text="${song.lyrics}"></h3>
+                    <h5>Title: <span th:text="${song.title}"></span></h5>
+                    <h5>Artist: <span th:text="${song.artist}"></span></h5>
+                    <h6>Time Remaining: <span class="lyricMaster-timer" th:text="${timeLimit}"></span></h6>
+                    <div class="card-body form-check form-check-inline quizAnswers "
+                         th:each="lyricAnswer : ${song.lyricAnswers}">
+                        <li class='video-game-button'>
+                            <input class="form-check-input solutions highlight" id="showAnswer"
+                                   type="radio" th:name="song_+${song.id}"
+                                   th:value="${lyricAnswer.id}">
+                            <label th:for="${lyricAnswer.id}" th:text="${lyricAnswer.lyricAnswer}"></label>
+                        </li>
+                        <input class="hide form-check-input solutions" type="radio" th:value="1"
+                               th:name="song_+${song.id}" checked/>
                     </div>
-                </ol>
-            </div>
+                    <span>
+                    <a href="#" class="prev start-btn" id="previous">PREVIOUS</a>
+                    <a href="#" class='start-btn next' id="next">NEXT</a>
+                    </span>
+                </div>
+            </ol>
         </div>
-    </ol>
-    <button type="submit" value="Submit">Submit</button>
+        <div>
+            <button type="submit" class="start-btn hidden" id="submit" value="Submit">Submit</button>
+        </div>
+    </div>
 </form>
-<!--<form th:method="post" th:action="@{/lyric-master/submit}">-->
-<!--        <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">-->
-
-<!--            <div class="carousel-inner">-->
-<!--                <ol type="1">-->
-<!--                <div class="carousel-item active" th:each="song : ${songs}" data-bs-interval="10000">-->
-<!--                    <input type="hidden" name="songId" th:value="${song.id}">-->
-<!--                    <ol>-->
-<!--                        <div class="card m-auto">-->
-<!--                            <h3 class="card-title questionLabel" th:text="${song.lyrics}"></h3>-->
-<!--                            <div class="card-body form-check form-check-inline quizAnswers"-->
-<!--                                 th:each="lyricAnswer : ${song.lyricAnswers}">-->
-<!--                                <li>-->
-<!--                                    <input class="form-check-input solutions" type="radio" th:name="song_+${song.id}"-->
-<!--                                           th:value="${lyricAnswer.id}"-->
-<!--                                           th:text="${lyricAnswer.lyricAnswer}">-->
-<!--                                </li>-->
-<!--                            </div>-->
-<!--                            <button type="submit" value="Submit">Submit</button>-->
-<!--                        </div>-->
-<!--                    </ol>-->
-<!--                </div>-->
-<!--                </ol>-->
-<!--            </div>-->
-
-<!--     <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-bs-slide="prev">-->
-<!--                <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
-<!--                <span class="visually-hidden">Previous</span>-->
-<!--            </a>-->
-<!--            <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-bs-slide="next">-->
-<!--                <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
-<!--                <span class="visually-hidden">Next</span>-->
-<!--            </a>-->
-<!--        </div>-->
-<!--</form>-->
 
 <div th:include="partials/footerNav.html :: footerNav"></div>
 <div th:include="partials/scripts.html :: scripts"></div>
