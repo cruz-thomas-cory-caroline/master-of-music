@@ -30,7 +30,9 @@ body,html {
     margin-left: auto;
 }
 
-#profileIcon, .navbar-nav {
+#profileIcon {
+    width: 50px;
+    height: 50px;
     color: #1aeeee;
 }
 
@@ -312,4 +314,24 @@ body,html {
 
 input[type="radio"]:checked + .avatarLabel {
     border: 5px solid #00ffff;
+}
+
+#userGameStatsContainer {
+    width: 42em;
+}
+
+#triviaTabHeader {
+    background-color: #b7138a;
+}
+
+#lyricTabHeader {
+    background-color: #025899;
+}
+
+#theoryTabHeader {
+    background-color: #1a8f01;
+}
+
+#unscrambleTabHeader {
+    background-color: #baaa01;
 }
