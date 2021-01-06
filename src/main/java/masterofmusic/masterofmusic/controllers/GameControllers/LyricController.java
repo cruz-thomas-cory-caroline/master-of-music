@@ -64,8 +64,8 @@ public class LyricController {
             Date date = new Date();
             gameStart.setTimeElapsed(new Timestamp(date.getTime()));
             gameStart.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-            PlayerGame dbGameStart = playerGameDao.save(gameStart);
-            currentGameID = dbGameStart.getId();
+//            PlayerGame dbGameStart = playerGameDao.save(gameStart);
+//            currentGameID = dbGameStart.getId();
         }
 
         return "redirect:/lyric-master";
@@ -139,14 +139,15 @@ public class LyricController {
     @PostMapping("lyric-master/submit")
     public String submit(
             HttpServletRequest request) {
-
+        int gameLevel = 0;
+        gameLevel += 1;
         PlayerGameRound newPlayerGameRound = new PlayerGameRound();
+        PlayerGame currentPlayerGame = new PlayerGame();
         newPlayerGameRound.setDifficulty(songDifficulty);
-        newPlayerGameRound.setLevel(playerGameDao.getOne(Long.parseLong(request.getParameter("playerGame"))).getPlayerGameRounds().size() + 1);
-        newPlayerGameRound.setPlayerGame(playerGameDao.getOne(Long.parseLong(request.getParameter("playerGame") + 1)));
+        newPlayerGameRound.setLevel(gameLevel);
         newPlayerGameRound.setScore(0);
         newPlayerGameRound.setPlay_time(String.valueOf(new Timestamp(0)));
-
+        newPlayerGameRound.setPlayerGame(currentPlayerGame);
         ArrayList<String> incorrectUserAnswers = new ArrayList<>();
         ArrayList<Song> correctSongs = new ArrayList<>();
         ArrayList<Song> incorrectSongs = new ArrayList<>();
@@ -173,8 +174,8 @@ int score = 0;
             }
         }
 
-        playerGameDao.getOne(newPlayerGameRound.getPlayerGame().getId()).setScore(newPlayerGameRound.getPlayerGame().getScore() + newPlayerGameRound.getScore());
-        playerGameRoundDao.save(newPlayerGameRound);
+//        playerGameDao.getOne(newPlayerGameRound.getPlayerGame().getId()).setScore(newPlayerGameRound.getPlayerGame().getScore() + newPlayerGameRound.getScore());
+//        playerGameRoundDao.save(newPlayerGameRound);
 
 
         request.setAttribute("correctSongs", correctSongs);
@@ -182,7 +183,7 @@ int score = 0;
         request.setAttribute("incorrectUserAnswers", incorrectUserAnswers);
         request.setAttribute("incorrectSongs", incorrectSongs);
         request.setAttribute("currentLevel", newPlayerGameRound.getLevel());
-        request.setAttribute("round", playerGameDao.getOne(Long.parseLong(request.getParameter("playerGame"))).getPlayerGameRounds().size() + 1);
+//        request.setAttribute("round", playerGameDao.getOne(Long.parseLong(request.getParameter("playerGame"))).getPlayerGameRounds().size() + 1);
 
         return "lyric-master/result";
     }
