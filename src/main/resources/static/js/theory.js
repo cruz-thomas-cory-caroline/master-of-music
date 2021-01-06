@@ -18,7 +18,10 @@
 
     $(document).ready(function () {
         let downloadTimer = setInterval(function(){
-            if(timeLimit <= 0){
+            if(timeLimit === 1){
+                $('#questionCard').hide();
+                $('#correctCard').hide();
+                $('.d-none').removeClass();
                 clearInterval(downloadTimer);
             } else {
                 $(".carControls").show();
@@ -26,6 +29,8 @@
             }
             timeLimit -= 1;
         }, 1000);
+
+
     });
 
 

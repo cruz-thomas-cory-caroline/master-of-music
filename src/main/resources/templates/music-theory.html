@@ -6,7 +6,7 @@
     <title>Title</title>
 </head>
 <body>
-<div th:switch="${wrong != null || correct != null}" class="mt-5">
+<div th:switch="${wrong != null || correct != null}" class="mt-5" id="questionCard">
     <div th:case="${false}" class="card bg-light m-auto" style="width: 38rem;">
         <div class="card-header">
             <h1 th:text="${questions}"></h1>
@@ -29,7 +29,7 @@
 
 
 
-<div th:if="${correct != null}">
+<div th:if="${correct != null}" id="correctCard">
     <div class="card bg-light m-auto" style="max-width: 18rem;">
         <div class="card-header">
             <h1>Correct!</h1>
@@ -43,16 +43,32 @@
         </div>
     </div>
 </div>
-<div th:if="${wrong != null}">
+
+<div th:if="${wrong != null}" id="wrongCard">
     <div class="card bg-light m-auto" style="max-width: 18rem;">
         <div class="card-header">
-            <h1>Wrong</h1>
+            <h1>Sorry!</h1>
         </div>
         <div class="card-body">
             <h2>You gained 0 points</h2>
-            <form method="GET" th:action="@{|/music-theory/${id}|}">
+            <form method="GET" th:action="@{|/music-theory/${id + 1}|}">
                 <input name="theoryDifficultyOptions" type="hidden" th:value="${songDifficulty}">
-                <button name="next-round">Retry</button>
+                <button name="next-round">Next Round</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="timesUpCard" class="hide d-none">
+    <div class="card bg-light m-auto" style="max-width: 18rem;">
+        <div class="card-header">
+            <h1>Sorry!</h1>
+        </div>
+        <div class="card-body">
+            <h2>You ran out of time. You gained 0 points</h2>
+            <form method="GET" th:action="@{|/music-theory/${id + 1}|}">
+                <input name="theoryDifficultyOptions" type="hidden" th:value="${songDifficulty}">
+                <button name="next-round">Next Round</button>
             </form>
         </div>
     </div>
