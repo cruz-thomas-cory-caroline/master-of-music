@@ -7,21 +7,21 @@
 </head>
 <body>
 <div th:switch="${wrong != null || correct != null}" class="mt-5" id="questionCard">
-    <div th:case="${false}" class="card bg-light m-auto" style="width: 38rem;">
+    <div th:case="${false}" class="card bg-dark m-auto" style="width: 38rem;">
         <div class="card-header">
-            <h1 th:text="${questions}"></h1>
+            <h1 style="color: white" th:text="${questions}"></h1>
         </div>
         <div class="card-body">
             <form METHOD="POST" th:action="@{|/music-theory/${id}|}">
                 <input type="hidden" id="theoryDifficultySelected" name="difficultySelected" th:value="${songDifficulty}">
                 <div th:each="answer : ${answers}">
-                    <label th:for="${answer.id}" th:text="${answer.answer}"></label>
-                    <input type="radio" th:id="${answer.id}" name="answers" th:value="${answer.answer}">
+                    <label style="color: white" class="radioButton" th:for="${answer.id}" th:text="${answer.answer}"></label>
+                    <input style="color:white" class="radioButton" type="radio" th:id="${answer.id}" name="answers" th:value="${answer.answer}">
                 </div>
                 <input name="theoryDifficultyOptions" type="hidden" th:value="${songDifficulty}">
-                <button type="submit">Submit your answer!</button>
+                <button style="color: white" id="submitButton" class="d-none btn btn-dark" type="submit">Submit your answer!</button>
             </form>
-            <p style="color: #1b0230" id="timer"></p>
+            <p style="color: #ffffff" id="timer"></p>
         </div>
     </div>
     <span th:case="${true}"></span>
