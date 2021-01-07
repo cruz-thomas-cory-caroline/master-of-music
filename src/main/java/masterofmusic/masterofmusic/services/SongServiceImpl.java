@@ -29,6 +29,17 @@ public class SongServiceImpl implements SongService{
     }
 
     @Override
+    public long findAnswerIdIncorrect(long songId) {
+        Song song = songRepository.findById(songId).get();
+        for(LyricAnswer lyricAnswer : song.getLyricAnswers()) {
+            if(!lyricAnswer.isCorrect()) {
+                return lyricAnswer.getId();
+            }
+        }
+        return -1;
+    }
+
+    @Override
     public Song findSongIdByGenre(long genreId) {
         return songRepository.findById(genreId).get();
     }

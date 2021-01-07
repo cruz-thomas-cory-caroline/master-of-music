@@ -8,5 +8,7 @@ public interface SongService {
 
     public long findAnswerIdCorrect(long songId);
 
+    public long findAnswerIdIncorrect(long songId);
+
     public Song findSongIdByGenre(long genreId);
 }

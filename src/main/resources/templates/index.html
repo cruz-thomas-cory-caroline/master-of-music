@@ -6,6 +6,7 @@
 </head>
 
 <body>
+
 <div class="container-fluid">
     <a th:href="@{/index}"><i id="backButton" class="fas fa-backward"></i></a>
     <a href="#"><i id="audioButton" class="fas fa-volume-up mr-3"></i></a>
@@ -134,6 +135,7 @@
                     <form th:action="@{/unscramble}" method="get">
                         <input type="hidden" name="round" value="1">
                         <h5 class="text-white text-start">Difficulty:</h5>
+
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="difficulty" id="inlineRadio8"
                                    value="easy">

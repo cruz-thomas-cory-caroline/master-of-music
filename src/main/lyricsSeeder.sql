@@ -1,4 +1,7 @@
 USE master_of_music_db;
+INSERT INTO games(id, name) VALUES
+(1, 'Lyric Master');
+
 
 #Hip-Hop
 INSERT INTO songs(id, title, artist, lyrics)
@@ -80,10 +83,12 @@ With flaming locks of auburn hair'),
        (42, 'All My Ex''s Live In Texas', 'George Strait', 'Texas is the place I''d really love to be'),
        (43, 'Toes', 'Zac Brown Band', 'Not a worry in the world, a cold beer in my hand');
 
+INSERT INTO songs (id, title, artist, lyrics)
+VALUES (1000, 'title', 'artist', 'No answer selected');
 
-DROP TABLE IF EXISTS lyric_answers;
 INSERT INTO lyric_answers (is_correct, lyric_answer, song_id)
-VALUES (false, 'Put your lighters in the air', 1),
+VALUES(false, 'No answer selected', 1000),
+       (false, 'Put your lighters in the air', 1),
        (true, 'Big lights will inspire you', 1),
        (false, 'And if you only hold me tight', 1),
        (false, 'And I need you now tonight', 1),
