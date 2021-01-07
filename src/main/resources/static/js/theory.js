@@ -33,5 +33,10 @@
 
     });
 
+    $('.radioButton').click(function () {
+        $('#submitButton').removeClass('d-none');
+    })
+
+
 
 })();

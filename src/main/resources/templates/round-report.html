@@ -3,19 +3,26 @@
 <head>
     <div th:replace="partials/head.html :: head"></div>
     <title>Title</title>
+    <style>
+        #reportCard{
+            border: 10px solid;
+            border-image-slice: 1;
+            border-image-source: linear-gradient(to left, #0061f5, #07c837);
+        }
+    </style>
 </head>
 <body>
 
 
 
-<div class="mt-5" id="questionCard">
-    <div class="card bg-light m-auto" style="width: 38rem;">
+<div class="mt-5">
+    <div class="card bg-dark m-auto" id="reportCard" style="width: 38rem;">
         <div class="card-header">
-            <h1 style="color: #000000">Congratulations! Here are your results</h1>
+            <h1 style="color: #ffffff">Congratulations! Here are your results</h1>
         </div>
         <div class="card-body">
-            <h3 style="color: #000000">Score</h3><br>
-            <h4 style="color: #000000" th:text="${score}"></h4>
+            <h3 style="color: #ffffff">Score</h3><br>
+            <h4 style="color: #ffffff" th:text="${score}"></h4>
 
         </div>
     </div>

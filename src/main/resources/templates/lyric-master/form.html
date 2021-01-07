@@ -9,10 +9,10 @@
     <title>Title</title>
 </head>
 <body>
-<h4 id="headerLM">Lyric Master</h4>
-<span class='video-game-button' style="color:red">A</span>
-<span class='video-game-button' style="color:red">B</span>
-<div class="text-center card game-start lyricCards">
+<h4 id="headerLM" style="z-index: 1; position: absolute; size: 5em" >Lyric Master</h4>
+<span class='video-game-button' style="color:darkblue">*</span>
+<span class='video-game-button' style="color:darkblue">*</span>
+<div class="text-center card game-start start-menu lyricCards">
     <div class="card-body lyricCardsBG">
         <h5 class="card-title">How to Play</h5>
         <ul class='video-game-button'>
@@ -36,14 +36,14 @@
             <ol class='video-game-button'>
                 <div class="card m-auto lyricCardsBG">
                     <p>
-                    <h3 class="card-title questionLabel" th:text="${song.lyrics}"></h3>
-                    <h5>Title: <span th:text="${song.title}"></span></h5>
-                    <h5>Artist: <span th:text="${song.artist}"></span></h5>
+                    <h2 class="card-title" th:text="${song.lyrics}"></h2>
+                    <p class="text-left">Title: <span th:text="${song.title}"></span></p>
+                    <p class="text-left">Artist: <span th:text="${song.artist}"></span></p>
                     <h6>Time Remaining: <span class="lyricMaster-timer" th:text="${timeLimit}"></span></h6>
                     <div class="card-body form-check form-check-inline quizAnswers "
                          th:each="lyricAnswer : ${song.lyricAnswers}">
                         <li class='video-game-button'>
-                            <input class="form-check-input solutions highlight" id="showAnswer"
+                            <input class="form-check-input solutions highlight" th:id="${lyricAnswer.id}"
                                    type="radio" th:name="song_+${song.id}"
                                    th:value="${lyricAnswer.id}">
                             <label th:for="${lyricAnswer.id}" th:text="${lyricAnswer.lyricAnswer}"></label>

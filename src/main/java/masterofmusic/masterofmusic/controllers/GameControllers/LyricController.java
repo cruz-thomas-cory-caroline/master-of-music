@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Controller
 public class LyricController {
@@ -175,6 +172,14 @@ public class LyricController {
                 incorrectSongs.add(song);
             }
         }
+        int level = 10;
+        Map<Integer, String> levelToAchieveMap= new HashMap<>();
+        levelToAchieveMap.put(10,"Congrats you've reached level 10");
+
+        if(levelToAchieveMap.containsKey(level)){
+            System.out.println(levelToAchieveMap.get(level));
+        }
+
 
         PlayerGameRound playerGameRoundDB = playerGameRoundDao.save(newPlayerGameRound);
         currentPlayerGame.setScore(playerGameRoundDB.getPlayerGame().getScore() + playerGameRoundDB.getScore());
