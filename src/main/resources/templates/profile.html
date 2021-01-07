@@ -191,12 +191,15 @@
                                     <h5 id="triviaTabHeader" class="card-header text-white">OVERALL SCORE: <span
                                             th:text="${totalTriviaScore}"></span></h5>
                                     <div class="card-body">
-                                        <div th:each="playerGame : ${playerGamesForTrivia}" class="card"
+                                        <div th:each="playerGame : ${playerGamesForTrivia}"
+                                             class="card mb-2 gameStatsCards border-gradient-purple"
                                              style="width: 100%;">
                                             <div class="card-header">
-                                                <p th:text="${playerGame.getScore()}"></p>
+                                                <p>Total Game Score: <span th:text="${playerGame.getScore()}"></span>
+                                                </p>
                                                 <ul th:each="playerGameRound : ${playerGame.getPlayerGameRounds()}">
-                                                    <li>Player Game Round Level <span th:text="${playerGameRound.getLevel()}"></span> Score: <span
+                                                    <li>Player Game Round Level <span
+                                                            th:text="${playerGameRound.getLevel()}"></span> Score: <span
                                                             th:text="${playerGameRound.getScore()}"></span></li>
                                                     <li>Player Game Round Difficulty: <span
                                                             th:text="${playerGameRound.getDifficulty()}"></span></li>

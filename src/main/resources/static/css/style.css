@@ -318,6 +318,29 @@ input[type="radio"]:checked + .avatarLabel {
 
 #userGameStatsContainer {
     width: 42em;
+    height: 30em;
+}
+
+.gameStatsCards {
+    background-color: #514f51;
+}
+
+.border-gradient-purple {
+    border: 10px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
+}
+
+.gameStatsCards:hover {
+    border: 10px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to left, #0061f5, #07c837);
+}
+
+#myTabContent {
+    color: white;
+    height: 30em;
+    overflow-y: scroll;
 }
 
 #triviaTabHeader {
