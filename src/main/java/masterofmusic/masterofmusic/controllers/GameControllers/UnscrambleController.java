@@ -183,15 +183,19 @@ public class UnscrambleController {
 
         List<String> userAnswers = new ArrayList<>();
         List<Integer> correctAnswers = new ArrayList<>();
+        List<Integer> showGreen = new ArrayList<>();
         int countCorrect = 0;
         for (Song song : chosenSongs) {
             userAnswers.add(request.getParameter("song" + chosenSongs.indexOf(song)));
             System.out.println(request.getParameter("song" + chosenSongs.indexOf(song)));
             System.out.println(song.getLyrics());
             if (request.getParameter("song" + chosenSongs.indexOf(song)).equalsIgnoreCase(song.getLyrics())) {
+                showGreen.add(1);
                 correctAnswers.add(chosenSongs.indexOf(song));
                 newRoundCompleted.setScore(newRoundCompleted.getScore()+100);
                 countCorrect++;
+            } else {
+                showGreen.add(0);
             }
         }
         playerGameDao.getOne(newRoundCompleted.getPlayerGame().getId()).setScore(newRoundCompleted.getPlayerGame().getScore()+newRoundCompleted.getScore());
@@ -203,6 +207,7 @@ public class UnscrambleController {
             model.addAttribute("canAdvance", true);
         }
         model.addAttribute("currentLevel", newRoundCompleted.getLevel());
+        model.addAttribute("showGreen", showGreen);
         return "final";
     }
 

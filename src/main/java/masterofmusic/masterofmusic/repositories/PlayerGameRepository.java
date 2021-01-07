@@ -14,5 +14,6 @@ public interface PlayerGameRepository extends JpaRepository<PlayerGame, Long> {
     PlayerGame findById(long id);
     ArrayList<PlayerGame> findAllByGameId(long id);
     PlayerGame findByGameIdAndUserId(long gameId, long userId );
-
+    ArrayList<PlayerGame> findAllByGame_Id(long id);
+    ArrayList<PlayerGame> findAllByUserId(long id);
 }

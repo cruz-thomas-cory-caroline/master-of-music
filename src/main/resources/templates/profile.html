@@ -6,19 +6,326 @@
     <title>Profile</title>
 </head>
 <body>
-<!--<nav th:replace="partials/navbar.html :: nav"></nav>-->
 
-<div>
-    <img style="height: 12em; width: 12em" th:src="${profile.images}">
-    <h1 style="color: white" th:text="${profile.username}">Username</h1>
-    <h3 style="color: white" th:text="${profile.email}"></h3>
+<div class="container-flex m-2">
+    <div class="row">
+        <div class="col-12 col-md-4">
+            <div class="mt-5">
+                <h3 class="welcomePlayerHeader text-center">WELCOME PLAYER <span th:text="${user.username.toUpperCase()}"></span>
+                </h3>
+                <section class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                    <img class="m-2" id="profileAvatar" th:src="${user.images}" alt="profile-icon">
+                    </div>
+                    <!-- Button trigger modal -->
+                    <div class="col-12 d-flex justify-content-center">
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#staticBackdrop">
+                        Change Avatar
+                    </button>
+                    </div>
+                </section>
+
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+                     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog avatarOptionContainer avatarBorderCont">
+                        <div class="modal-content avatarOptionContainer">
+                            <form th:action="@{/profile/avatar/{id}(id=${user.getId()})}" th:method="post">
+                                <div class="modal-header">
+                                    <h5 class="modal-title m-auto" id="staticBackdropLabel">Pick Your Avatar</h5>
+                                </div>
+                                <div class="modal-body p-1">
+                                    <div class="container-fluid">
+                                        <div class="row d-flex">
+                                            <div class="flex-wrap justify-content-center m-auto">
+                                                <input type="radio" name="avatarSelection" value="/img/femaleIcon1.jpg"
+                                                       class="sr-only" id="femaleIcon1">
+                                                <label class="avatarLabel" for="femaleIcon1">
+                                                    <img th:src="@{/img/femaleIcon1.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/femaleIcon2.jpg"
+                                                       class="sr-only" id="femaleIcon2">
+                                                <label class="avatarLabel" for="femaleIcon2">
+                                                    <img th:src="@{/img/femaleIcon2.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/femaleIcon3.jpg"
+                                                       class="sr-only"
+                                                       id="femaleIcon3">
+                                                <label class="avatarLabel" for="femaleIcon3">
+                                                    <img th:src="@{/img/femaleIcon3.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/femaleIcon4.jpg"
+                                                       class="sr-only"
+                                                       id="femaleIcon4">
+                                                <label class="avatarLabel" for="femaleIcon4">
+                                                    <img th:src="@{/img/femaleIcon4.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/femaleIcon5.jpg"
+                                                       class="sr-only"
+                                                       id="femaleIcon5">
+                                                <label class="avatarLabel" for="femaleIcon5">
+                                                    <img th:src="@{/img/femaleIcon5.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/femaleIcon6.jpg"
+                                                       class="sr-only"
+                                                       id="femaleIcon6">
+                                                <label class="avatarLabel" for="femaleIcon6">
+                                                    <img th:src="@{/img/femaleIcon6.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/femaleIcon7.jpg"
+                                                       class="sr-only"
+                                                       id="femaleIcon7">
+                                                <label class="avatarLabel" for="femaleIcon7">
+                                                    <img th:src="@{/img/femaleIcon7.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/femaleIcon8.jpg"
+                                                       class="sr-only"
+                                                       id="femaleIcon8">
+                                                <label class="avatarLabel" for="femaleIcon8">
+                                                    <img th:src="@{/img/femaleIcon8.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/maleIcon1.jpg"
+                                                       class="sr-only"
+                                                       id="maleIcon1">
+                                                <label class="avatarLabel" for="maleIcon1">
+                                                    <img th:src="@{/img/maleIcon1.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/maleIcon2.jpg"
+                                                       class="sr-only"
+                                                       id="maleIcon2">
+                                                <label class="avatarLabel" for="maleIcon2">
+                                                    <img th:src="@{/img/maleIcon2.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/maleIcon3.jpg"
+                                                       class="sr-only"
+                                                       id="maleIcon3">
+                                                <label class="avatarLabel" for="maleIcon3">
+                                                    <img th:src="@{/img/maleIcon3.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/maleIcon4.jpg"
+                                                       class="sr-only"
+                                                       id="maleIcon4">
+                                                <label class="avatarLabel" for="maleIcon4">
+                                                    <img th:src="@{/img/maleIcon4.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/maleIcon5.jpg"
+                                                       class="sr-only"
+                                                       id="maleIcon5">
+                                                <label class="avatarLabel" for="maleIcon5">
+                                                    <img th:src="@{/img/maleIcon5.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/maleIcon6.jpg"
+                                                       class="sr-only"
+                                                       id="maleIcon6">
+                                                <label class="avatarLabel" for="maleIcon6">
+                                                    <img th:src="@{/img/maleIcon6.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/maleIcon7.jpg"
+                                                       class="sr-only"
+                                                       id="maleIcon7">
+                                                <label class="avatarLabel" for="maleIcon7">
+                                                    <img th:src="@{/img/maleIcon7.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                                <input type="radio" name="avatarSelection" value="/img/maleIcon8.jpg"
+                                                       class="sr-only"
+                                                       id="maleIcon8">
+                                                <label class="avatarLabel" for="maleIcon8">
+                                                    <img th:src="@{/img/maleIcon8.jpg}" alt="avatar-icon"
+                                                         class="avatarOptions">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                                    <button id="avatarFormSubmit" type="submit" class="btn btn-info">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-8">
+            <section class="container-fluid" id="userGameStatsContainer">
+                <h2 id="gameHistoryHeader" class="text-light my-4">Game History</h2>
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active text-warning fw-bolder" id="musicTrivia-tab" data-toggle="tab"
+                           href="#musicTriviaTab"
+                           role="tab"
+                           aria-controls="musicTriviaStats" aria-selected="true">TRIVIA MASTER</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-warning fw-bolder" id="lyricMaster-tab" data-toggle="tab"
+                           href="#lyricMasterTab" role="tab"
+                           aria-controls="lyricMasterStats" aria-selected="false">LYRIC MASTER</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-warning fw-bolder" id="musicTheory-tab" data-toggle="tab"
+                           href="#musicTheoryTab" role="tab"
+                           aria-controls="musicTheoryStats" aria-selected="false">THEORY MASTER</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-warning fw-bolder" id="unscramble-tab" data-toggle="tab"
+                           href="#unscrambleTab" role="tab"
+                           aria-controls="unscrambleStats" aria-selected="false">UNSCRAMBLE MASTER</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content mb-4" id="myTabContent">
+                    <!--music trivia tab-->
+                    <div class="tab-pane fade show active" id="musicTriviaTab" role="tabpanel"
+                         aria-labelledby="musicTrivia-tab">
+                        <section class="tab-content" id="myTabContent1">
+                            <div class="tab-pane fade show active h-75S" role="tabpanel"
+                                 aria-labelledby="musicTrivia-tab">
+                                <!--start music trivia tab -->
+                                <div class="card">
+                                    <h5 class="card-header text-white tabHeaders">OVERALL SCORE: <span
+                                            th:text="${totalTriviaScore}"></span></h5>
+                                    <div class="card-body cardBodyForTabs">
+                                        <div th:each="playerGame : ${playerGamesForTrivia}"
+                                             class="card mb-2 gameStatsCards border-gradient-purple"
+                                             style="width: 100%;">
+                                            <div class="card-header">
+                                                <p>Total Game Score: <span th:text="${playerGame.getScore()}"></span>
+                                                </p>
+                                                <ul th:each="playerGameRound : ${playerGame.getPlayerGameRounds()}">
+                                                    <li>Player Game Round Level <span
+                                                            th:text="${playerGameRound.getLevel()}"></span> Score: <span
+                                                            th:text="${playerGameRound.getScore()}"></span></li>
+                                                    <li>Player Game Round Difficulty: <span
+                                                            th:text="${playerGameRound.getDifficulty()}"></span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <!--end of music trivia tab-->
+
+                    <!--start of lyric master tab-->
+                    <div class="tab-pane fade" id="lyricMasterTab" role="tabpanel" aria-labelledby="lyricMaster-tab">
+                        <section class="tab-content mb-4" id="myTabContent2">
+                            <div class="tab-pane fade show active h-75S" role="tabpanel"
+                                 aria-labelledby="lyricMaster-tab">
+
+                                <!--start lyric master tabs -->
+                                <div class="card">
+                                    <h5 class="card-header text-white tabHeaders">OVERALL SCORE: <span
+                                            th:text="${totalLyricScore}"></span></h5>
+                                    <div class="card-body cardBodyForTabs">
+                                        <div th:each="playerGame : ${playerGamesForLyric}"
+                                             class="card mb-2 gameStatsCards border-gradient-purple"
+                                             style="width: 100%;">
+                                            <div class="card-header">
+                                                <p>Total Game Score: <span th:text="${playerGame.getScore()}"></span>
+                                                </p>
+                                                <ul th:each="playerGameRound : ${playerGame.getPlayerGameRounds()}">
+                                                    <li>Player Game Round Level <span
+                                                            th:text="${playerGameRound.getLevel()}"></span> Score: <span
+                                                            th:text="${playerGameRound.getScore()}"></span></li>
+                                                    <li>Player Game Round Difficulty: <span
+                                                            th:text="${playerGameRound.getDifficulty()}"></span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <!--End of lyric master tab-->
+
+                    <!--Start of music theory tab-->
+                    <div class="tab-pane fade" id="musicTheoryTab" role="tabpanel" aria-labelledby="musicTheory-tab">
+                        <section class="tab-content mb-4" id="myTabContent3">
+                            <div class="tab-pane fade show active h-75S" role="tabpanel"
+                                 aria-labelledby="musicTheory-tab">
+                                <!--start music theory tabs -->
+
+                                <div class="card">
+                                    <h5 class="card-header text-white tabHeaders">OVERALL SCORE: <span
+                                            th:text="${totalTheoryScore}"></span></h5>
+                                    <div class="card-body cardBodyForTabs">
+                                        <div th:each="playerGame : ${playerGamesForTheory}"
+                                             class="card mb-2 gameStatsCards border-gradient-purple"
+                                             style="width: 100%;">
+                                            <div class="card-header">
+                                                <p>Total Game Score: <span th:text="${playerGame.getScore()}"></span>
+                                                </p>
+                                                <ul th:each="playerGameRound : ${playerGame.getPlayerGameRounds()}">
+                                                    <li>Player Game Round Level <span
+                                                            th:text="${playerGameRound.getLevel()}"></span> Score: <span
+                                                            th:text="${playerGameRound.getScore()}"></span></li>
+                                                    <li>Player Game Round Difficulty: <span
+                                                            th:text="${playerGameRound.getDifficulty()}"></span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <!--End of music theory tab-->
+
+                    <!--Start of unscramble tab-->
+                    <div class="tab-pane fade" id="unscrambleTab" role="tabpanel" aria-labelledby="unscramble-tab">
+                        <section class="tab-content mb-4" id="myTabContent4">
+                            <div class="tab-pane fade show active h-75S" role="tabpanel"
+                                 aria-labelledby="unscramble-tab">
+                                <!--start unscramble tabs -->
+                                <div class="card">
+                                    <h5 class="card-header text-white tabHeaders">OVERALL SCORE: <span
+                                            th:text="${totalUnscrambleScore}"></span></h5>
+                                    <div class="card-body cardBodyForTabs">
+                                        <div th:each="playerGame : ${playerGamesForUnscramble}"
+                                             class="card mb-2 gameStatsCards border-gradient-purple"
+                                             style="width: 100%;">
+                                            <div class="card-header">
+                                                <p>Total Game Score: <span th:text="${playerGame.getScore()}"></span>
+                                                </p>
+                                                <ul th:each="playerGameRound : ${playerGame.getPlayerGameRounds()}">
+                                                    <li>Player Game Round Level <span
+                                                            th:text="${playerGameRound.getLevel()}"></span> Score: <span
+                                                            th:text="${playerGameRound.getScore()}"></span></li>
+                                                    <li>Player Game Round Difficulty: <span
+                                                            th:text="${playerGameRound.getDifficulty()}"></span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
 </div>
 
-<div>
-    <p style="color: white" th:text="${stats}"></p>
-</div>
-
-<a href="#">Edit Username</a>
 
 <div th:replace="partials/footerNav.html :: footerNav"></div>
 <div th:replace="partials/scripts.html :: scripts"></div>

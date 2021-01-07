@@ -25,7 +25,7 @@
     function checkType() {
         if ($('main').eq(0).hasClass('web')) {
 
-            $('.words').each(function() {
+            $('.words').each(function () {
                 $(this).unbind('click')
             })
 
@@ -37,7 +37,16 @@
                 $(this).removeClass('highlighted')
             })
 
+            let previousParent
+            let previousPosition
+            let itemToDetach
+
             $(".words").draggable({
+                start: function (event, ui) {
+                    console.log("firing")
+                    itemToDetach = $(this)
+                    previousParent = $(this)[0].parentElement
+                },
                 opacity: .4,
                 revert: function (event, ui) {
                     $(this).data("uiDraggable").originalPosition = {
@@ -52,20 +61,22 @@
                 accept: ".words",
                 drop: function (event, ui) {
                     $(".words").draggable()
-                    $(this).droppable("option", "accept", ui.draggable);
                     $(this).removeClass("unoccupied")
                     $(this).addClass('occupied')
                     $(this).find("input").val(ui.draggable[0].innerHTML)
-                    snapToMiddle(ui.draggable, $(this))
+                    $(previousParent).find($('.droppedWord')).val($(this).find("a").eq(1).text())
 
-                    if (!ui.draggable.data("originalPosition")) {
-                        ui.draggable.data("originalPosition",
-                            ui.draggable.data("uiDraggable").originalPosition);
-                    }
+                    itemToDetach.detach().appendTo($(this))
+                    $(this).find("a").eq(1).detach().appendTo(previousParent)
+                    snapToMiddle(ui.draggable, $(this))
+                    // if (!ui.draggable.data("originalPosition")) {
+                    //     ui.draggable.data("originalPosition",
+                    //         ui.draggable.data("uiDraggable").originalPosition);
+                    // }
                 },
 
                 out: function (event, ui) {
-                    $(this).droppable("option", "accept", '.words');
+                    // $(this).droppable("option", "accept", '.words');
                     $(this).find("input").val("")
                     $(this).removeClass("occupied")
                     // console.log("Removing Occupied Class...")
@@ -90,12 +101,12 @@
                     }
                 });
 
-                $('.drop-zone').each(function () {
-                    $(this).removeClass('occupied')
-                    $(this).addClass('unoccupied')
-                    $(this).find("input").val("")
-                    $(this).droppable("option", "accept", '.words');
-                })
+                // $('.drop-zone').each(function () {
+                //     $(this).removeClass('occupied')
+                //     $(this).addClass('unoccupied')
+                //     $(this).find("input").val("")
+                //     $(this).droppable("option", "accept", '.words');
+                // })
             }
 
             $('.undo-button').click(function () {
@@ -133,7 +144,6 @@
             $('.words').click(function clickJump() {
                 let dropZoneCount = $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).length
                 let x = 0
-
                 while (x < dropZoneCount) {
                     if ($('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(x).hasClass('unoccupied') && $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(x).hasClass('highlighted')) {
                         $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(x).removeClass('unoccupied')
@@ -150,9 +160,7 @@
                             } else {
                                 x = x + 1
                             }
-
                         }
-
                         $(this).addClass('hide')
                         break;
                     } else {
@@ -170,10 +178,8 @@
                 $(this).parent().removeClass('occupied')
                 $(this).parent().addClass('unoccupied')
                 $(this).addClass('hide')
-
                 let wordToReshow = $(this).text()
                 let y = 0
-
                 while (y < $('.all-cards').eq(cardIndexShowing).find($('.words')).length) {
                     if ($('.all-cards').eq(cardIndexShowing).find($('.words')).eq(y).text() === wordToReshow) {
                         $('.all-cards').eq(cardIndexShowing).find($('.words')).eq(y).removeClass('hide')
@@ -182,7 +188,6 @@
                         y = y + 1
                     }
                 }
-
                 $(this).text("")
                 $(this).parent().find("input").val("")
             })
@@ -266,6 +271,11 @@
         clearInterval(interval)
         $('.final-screen').removeClass('hide')
         $('audio')[cardIndexShowing].pause()
+    })
+
+    $('.check-button').click(function () {
+        //need to incorporate check on lyrics against actual lyric
+        //Can I figure out a way to check the lyrics without storing them
     })
 
 
