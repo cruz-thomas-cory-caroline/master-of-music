@@ -127,6 +127,7 @@ public class LyricController {
         }
 
         modelMap.addAttribute("songDifficulty", songDifficulty);
+        modelMap.addAttribute("numberOfQuestion", questions);
         modelMap.addAttribute("chosenSongs", songsToPass);
         modelMap.addAttribute("timeLimit", timeLimit);
         modelMap.addAttribute("playerGame", currentGameID);

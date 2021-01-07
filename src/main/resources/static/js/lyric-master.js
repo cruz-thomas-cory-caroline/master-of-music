@@ -1,4 +1,3 @@
-
 (function () {
     "use strict";
 
@@ -46,6 +45,7 @@ $('#startButton').click(function () {
         $("#showAnswer").addClass("highlight");
     });
 
+    //shows previous and next cards
     var prev = $('.prev');
     var next = $('.next');
     var lyricCards = $('.lyricCards .LMcard');
@@ -70,30 +70,38 @@ $('#startButton').click(function () {
         showCard(previousNode);
     });
 
-    ShowTheelement(0);
-    $("#previous").addClass('hidden');
-    $("#submit").addClass('hidden');
 
-    var dataVal = 0;
+    //hides cards and displays submit when card loop is complete
+        ShowTheelement(0);
+        $("#previous").addClass('hidden');
+        $("#submit").addClass('hidden');
 
-    $("#next").click(function () {
-        dataVal++;
-        $("#previous").removeClass('hidden');
-        dataVal === $("#difficultySelected").length-1 ? $(this).addClass('hidden') : $(this).removeClass('hidden');
-        ShowTheelement(dataVal);
-        if (dataVal === $("#difficultySelected").length-1) {
-            $("#submit").removeClass('hidden');
-        }
-    });
+        var dataVal = 0;
+        $("#next").click(function () {
+            dataVal++;
+            $("#previous").removeClass('hidden');
+            dataVal === $("#difficultySelected").length - 1 ? $(this).addClass('hidden') : $(this).removeClass('hidden');
+            ShowTheelement(dataVal);
+            if (dataVal === $("#difficultySelected").length - 1) {
+                $("#submit").removeClass('hidden');
+            }
+        });
 
-    $("#previous").click(function () {
-        dataVal--;
-        $("#next").removeClass('hidden');
-        dataVal === 0 ? $(this).addClass('hidden') : $(this).removeClass('hidden');
-        ShowTheelement(dataVal);
-        if (dataVal === $(".idrow[data-questions]").length-2) {
-            $("#submit").addClass('hidden');
-        }
-    });
+        $("#previous").click(function () {
+            dataVal--;
+            $("#next").removeClass('hidden');
+            dataVal === 0 ? $(this).addClass('hidden') : $(this).removeClass('hidden');
+            ShowTheelement(dataVal);
+            if (dataVal === $(".idrow[data-questions]").length - 2) {
+                $("#submit").addClass('hidden');
+            }
+        });
+
+
+        setTimeout(function () {
+            $(".game-start").show('slow');
+        }, 7000)
+
+
 
 })();

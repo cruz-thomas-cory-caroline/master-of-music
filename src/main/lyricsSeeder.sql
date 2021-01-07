@@ -1,6 +1,6 @@
 USE master_of_music_db;
-INSERT INTO games(name) VALUES
-('Lyric Master');
+INSERT INTO games(id, name) VALUES
+(1, 'Lyric Master');
 
 
 #Hip-Hop

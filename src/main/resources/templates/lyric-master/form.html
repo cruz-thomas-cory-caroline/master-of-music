@@ -9,11 +9,20 @@
     <title>Title</title>
 </head>
 <body>
-<h3 id="headerLM">Lyric Master</h3>
-<div>
-    <span class='video-game-button'> </span>
-    <span class='video-game-button'> </span>
-    <button type="button" class="start-btn" id="startButton">START</button>
+<h4 id="headerLM">Lyric Master</h4>
+<span class='video-game-button' style="color:transparent">A</span>
+<span class='video-game-button' style="color:transparent">B</span>
+<div class="text-center card game-start lyricCards">
+    <div class="card-body lyricCardsBG">
+        <h5 class="card-title">How to Play</h5>
+        <ul class='video-game-button'>
+            <li>You will be given <span th:text="${songDifficulty}"></span> incomplete song lyrics.</li>
+            <li>Select the correct verse to complete the displayed lyrics.</li>
+            <li>Complete the game before time runs out! You have <span th:text="${timeLimit}"></span> seconds!</li>
+            <li>Have fun!</li>
+        </ul>
+        <button type="button" class="start-btn" id="startButton">START</button>
+    </div>
 </div>
 <form th:method="post" th:action="@{/lyric-master/submit}">
     <input name="playerGame" type="hidden" th:value="${playerGame}">
@@ -49,8 +58,12 @@
                 </div>
             </ol>
         </div>
-        <div>
-            <button type="submit" class="start-btn hidden" id="submit" value="Submit">Submit</button>
+
+    </div>
+    <div class="card video-game-button hidden">
+        <div class="card-body">
+            <p class="card-text">Submit to View Results!</p>
+            <button type="submit" class="start-btn" id="submit" value="Submit">Submit</button>
         </div>
     </div>
 </form>
