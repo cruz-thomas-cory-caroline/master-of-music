@@ -12,4 +12,5 @@ import java.util.ArrayList;
 public interface PlayerGameRepository extends JpaRepository<PlayerGame, Long> {
     PlayerGame findByUserId(long id);
     ArrayList<PlayerGame> findAllByGame_Id(long id);
+    ArrayList<PlayerGame> findAllByUserId(long id);
 }

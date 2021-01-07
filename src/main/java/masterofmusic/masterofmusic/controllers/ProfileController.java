@@ -32,20 +32,44 @@ public class ProfileController {
     ){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        ArrayList<PlayerGame> playerGamesForTrivia = playerGameDao.findAllByGame_Id(3L);
-        long totalTriviaScore = 0;
+        ArrayList<PlayerGame> playerGamesForUser = playerGameDao.findAllByUserId(user.getId());
+        ArrayList<PlayerGame> playerGamesForTrivia = new ArrayList<>();
+        ArrayList<PlayerGame> playerGamesForLyric = new ArrayList<>();
+        ArrayList<PlayerGame> playerGamesForTheory = new ArrayList<>();
+        ArrayList<PlayerGame> playerGamesForUnscramble = new ArrayList<>();
 
-        for (PlayerGame playerGame : playerGamesForTrivia) {
-            if (playerGame.getUser().getId() == user.getId()) {
+        long totalTriviaScore = 0;
+        long totalLyricScore = 0;
+        long totalTheoryScore = 0;
+        long totalUnscrambleScore = 0;
+
+
+        for (PlayerGame playerGame : playerGamesForUser) {
+            if (playerGame.getGame().getId() == 3) {
                 totalTriviaScore += playerGame.getScore();
+                playerGamesForTrivia.add(playerGame);
+            } else if (playerGame.getGame().getId() == 2) {
+                totalTheoryScore += playerGame.getScore();
+                playerGamesForTheory.add(playerGame);
+            } else if (playerGame.getGame().getId() == 1) {
+                totalLyricScore += playerGame.getScore();
+                playerGamesForLyric.add(playerGame);
+            } else if (playerGame.getGame().getId() == 4) {
+                totalUnscrambleScore += playerGame.getScore();
+                playerGamesForUnscramble.add(playerGame);
             }
         }
 
-        System.out.println("totalTriviaScore = " + totalTriviaScore);
 
         model.addAttribute("user", userDao.getOne(user.getId()));
         model.addAttribute("totalTriviaScore", totalTriviaScore);
         model.addAttribute("playerGamesForTrivia", playerGamesForTrivia);
+        model.addAttribute("totalLyricScore", totalLyricScore);
+        model.addAttribute("playerGamesForLyric", playerGamesForLyric);
+        model.addAttribute("totalTheoryScore", totalTheoryScore);
+        model.addAttribute("playerGamesForTheory", playerGamesForTheory);
+        model.addAttribute("totalUnscrambleScore", totalUnscrambleScore);
+        model.addAttribute("playerGamesForUnscramble", playerGamesForUnscramble);
         return "profile";
     }
 

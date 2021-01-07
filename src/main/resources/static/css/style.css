@@ -220,7 +220,7 @@ body,html {
     font-weight: bold;
 }
 
-.questionLabel {
+.questionLabel, #gameHistoryHeader {
     font-family: 'New Rocker', cursive;
     font-size: 2em;
     text-align: center;
@@ -284,7 +284,7 @@ body,html {
     padding: 3px;
 }
 
-#staticBackdropLabel {
+#staticBackdropLabel, .welcomePlayerHeader {
     font-family: 'New Rocker', cursive;
     color: #ee00ff;
     text-shadow: 1px 1px 2px blue, 0 0 25px #fcc910, 0 0 5px darkblue;
@@ -317,7 +317,7 @@ input[type="radio"]:checked + .avatarLabel {
 }
 
 #userGameStatsContainer {
-    width: 42em;
+    width: 44em;
     height: 30em;
 }
 
@@ -343,18 +343,14 @@ input[type="radio"]:checked + .avatarLabel {
     overflow-y: scroll;
 }
 
-#triviaTabHeader {
+.cardBodyForTabs {
+    background-color: #370337;
+}
+
+.tabHeaders {
     background-color: #b7138a;
 }
 
-#lyricTabHeader {
-    background-color: #025899;
-}
-
-#theoryTabHeader {
-    background-color: #1a8f01;
-}
-
-#unscrambleTabHeader {
-    background-color: #baaa01;
+.navTabs:active {
+    background-color: darkblue;
 }
