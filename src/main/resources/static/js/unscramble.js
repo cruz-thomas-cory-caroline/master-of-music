@@ -6,6 +6,11 @@
         match: function () {
             $('main').eq(0).removeClass('web')
             $('main').eq(0).addClass('mobile')
+            $('.mobile-bank').eq(0).removeClass('hide')
+            $('.web-words').each(function () {
+                $(this).addClass('hide')
+            })
+            $('.undo-button').eq(0).removeClass('hide')
             $('.web-instr').eq(0).addClass('hide')
             $('.mobile-instr').eq(0).removeClass('hide')
             checkType()
@@ -16,6 +21,8 @@
         match: function () {
             $('main').eq(0).removeClass('mobile')
             $('main').eq(0).addClass('web')
+            $('.web-words').eq(0).removeClass('hide')
+            $('.undo-button').addClass('hide')
             $('.mobile-instr').eq(0).addClass('hide')
             $('.web-instr').eq(0).removeClass('hide')
             checkType()
@@ -25,7 +32,7 @@
     function checkType() {
         if ($('main').eq(0).hasClass('web')) {
 
-            $('.words').each(function() {
+            $('.words').each(function () {
                 $(this).unbind('click')
             })
 
@@ -37,7 +44,16 @@
                 $(this).removeClass('highlighted')
             })
 
+            let previousParent
+            let previousPosition
+            let itemToDetach
+
             $(".words").draggable({
+                start: function (event, ui) {
+                    console.log("firing")
+                    itemToDetach = $(this)
+                    previousParent = $(this)[0].parentElement
+                },
                 opacity: .4,
                 revert: function (event, ui) {
                     $(this).data("uiDraggable").originalPosition = {
@@ -52,21 +68,23 @@
                 accept: ".words",
                 drop: function (event, ui) {
                     $(".words").draggable()
-                    $(this).droppable("option", "accept", ui.draggable);
                     $(this).removeClass("unoccupied")
                     $(this).addClass('occupied')
                     $(this).find("input").val(ui.draggable[0].innerHTML)
-                    snapToMiddle(ui.draggable, $(this))
+                    $(previousParent).find($('.droppedWord')).val($(this).find("a").eq(1).text())
 
-                    if (!ui.draggable.data("originalPosition")) {
-                        ui.draggable.data("originalPosition",
-                            ui.draggable.data("uiDraggable").originalPosition);
-                    }
+                    itemToDetach.detach().appendTo($(this))
+                    $(this).find("a").eq(1).detach().appendTo(previousParent)
+                    snapToMiddle(ui.draggable, $(this))
+                    // if (!ui.draggable.data("originalPosition")) {
+                    //     ui.draggable.data("originalPosition",
+                    //         ui.draggable.data("uiDraggable").originalPosition);
+                    // }
                 },
 
                 out: function (event, ui) {
-                    $(this).droppable("option", "accept", '.words');
-                    $(this).find("input").val("")
+                    // $(this).droppable("option", "accept", '.words');
+                    // $(this).find("input").val("")
                     $(this).removeClass("occupied")
                     // console.log("Removing Occupied Class...")
                     if (!$(this).hasClass('occupied')) {
@@ -110,6 +128,9 @@
             }
 
         } else if ($('main').eq(0).hasClass('mobile')) {
+            $('.droppedWord').each(function () {
+                $(this).val("")
+            })
 
             $('.all-cards').each(function () {
                 $(this).find($('.drop-zone')).eq(0).addClass('highlighted')
@@ -117,7 +138,9 @@
 
             $('.undo-button').click(function () {
                 $('.all-cards').eq(cardIndexShowing).find($('.words')).each(function () {
-                    $(this).removeClass('hide')
+                    if (!$(this).hasClass("web-words")) {
+                        $(this).removeClass('hide')
+                    }
                 })
                 $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).each(function () {
                     $(this).find('.mobile-word').addClass('hide')
@@ -133,13 +156,12 @@
             $('.words').click(function clickJump() {
                 let dropZoneCount = $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).length
                 let x = 0
-
                 while (x < dropZoneCount) {
                     if ($('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(x).hasClass('unoccupied') && $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(x).hasClass('highlighted')) {
                         $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(x).removeClass('unoccupied')
                         $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(x).addClass('occupied')
                         $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(x).find("input").val($(this)[0].innerHTML)
-                        $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(x).find("a").removeClass('hide')
+                        $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(x).find("a").eq(0).removeClass('hide')
                         $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(x).find("a").text($(this)[0].innerHTML)
                         $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(x).removeClass("highlighted")
                         x = 0
@@ -150,9 +172,7 @@
                             } else {
                                 x = x + 1
                             }
-
                         }
-
                         $(this).addClass('hide')
                         break;
                     } else {
@@ -170,19 +190,16 @@
                 $(this).parent().removeClass('occupied')
                 $(this).parent().addClass('unoccupied')
                 $(this).addClass('hide')
-
                 let wordToReshow = $(this).text()
                 let y = 0
-
-                while (y < $('.all-cards').eq(cardIndexShowing).find($('.words')).length) {
-                    if ($('.all-cards').eq(cardIndexShowing).find($('.words')).eq(y).text() === wordToReshow) {
-                        $('.all-cards').eq(cardIndexShowing).find($('.words')).eq(y).removeClass('hide')
+                while (y < $('.all-cards').eq(cardIndexShowing).find($('.mobile-words1')).length) {
+                    if ($('.all-cards').eq(cardIndexShowing).find($('.mobile-words1')).eq(y).text() === wordToReshow) {
+                        $('.all-cards').eq(cardIndexShowing).find($('.mobile-words1')).eq(y).removeClass('hide')
                         break;
                     } else {
                         y = y + 1
                     }
                 }
-
                 $(this).text("")
                 $(this).parent().find("input").val("")
             })
@@ -218,6 +235,7 @@
                 timeStart--
                 $('.unscramble-timer').html(timeStart)
             } else {
+                clearInterval(interval2)
                 clearInterval(interval)
                 $('.unscramble-timer').html('Times Up!')
                 $('.all-cards').eq(cardIndexShowing).find(".fullAnswer").val(lockAnswer())
@@ -227,11 +245,16 @@
                         $('.unscramble-timer').html('')
                         $('.final-screen').removeClass('hide')
                     } else {
+                        clearTimeout(songTimeout)
                         $('audio')[cardIndexShowing].pause()
                         $('.all-cards').eq(cardIndexShowing).addClass('hide')
                         $('.unscramble-timer').html('')
                         cardIndexShowing++
+                        progress(startTime, startTime, $('.progressBar').eq(cardIndexShowing));
                         $('.all-cards').eq(cardIndexShowing).removeClass('hide')
+                        if ($('main').eq(0).hasClass('mobile')) {
+                            $('.all-cards').eq(cardIndexShowing).find($('.mobile-bank')).eq(0).removeClass('hide')
+                        }
                         timerStart()
                     }
                 }, 2000)
@@ -245,29 +268,98 @@
         startTime = $('.unscramble-timer')[0].innerHTML
         console.log(startTime)
         timerStart()
+        progress(startTime, startTime, $('.progressBar').eq(cardIndexShowing));
     })
 
     $(".cat-button").click(function () {
         $('.all-cards').eq(cardIndexShowing).find(".fullAnswer").val(lockAnswer())
         console.log($(this).parent().parent().find("input")[0].value)
         $('.all-cards').eq(cardIndexShowing).addClass('hide')
+        clearInterval(interval2)
         clearInterval(interval)
+        clearTimeout(songTimeout)
         timerStart()
         $('.all-cards').eq(cardIndexShowing + 1).removeClass('hide')
+        if ($('main').eq(0).hasClass("mobile")) {
+            $('.all-cards').eq(cardIndexShowing + 1).find($(".mobile-bank").removeClass('hide'))
+        }
+
         $('audio')[cardIndexShowing].pause()
         cardIndexShowing++
-
+        progress(startTime, startTime, $('.progressBar').eq(cardIndexShowing));
     })
 
     $('.last-cat-button').click(function () {
         $('.all-cards').eq(cardIndexShowing).find(".fullAnswer").val(lockAnswer())
         console.log($(this).parent().parent().find("input")[0].value)
         $('.all-cards').eq(cardIndexShowing).addClass('hide')
+        clearInterval(interval2)
         clearInterval(interval)
         $('.final-screen').removeClass('hide')
         $('audio')[cardIndexShowing].pause()
     })
 
+    let interval2
+    $('.check-button').click(function () {
+        $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).each(function () {
+            $(this).removeClass('wrong')
+            $(this).removeClass('right')
+            $(this).removeClass('highlighted')
+        })
+        let userAnswer = lockAnswer()
+        let songId = ($('.all-cards').eq(cardIndexShowing).find($('input'))[0].value)
+        $.ajax({
+            type: "GET",
+            url: "/check",
+            data: {
+                "id": songId,
+                "userAnswer": userAnswer
+            }
+        }).done(function (response) {
+            console.log(response)
+            clearInterval(interval2)
+            let index = 0
+
+            interval2 = setInterval(function () {
+                if (index === response.length) {
+                    console.log("index equals length")
+                    clearInterval(interval2)
+                    $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).each(function () {
+                        $(this).removeClass('wrong')
+                        $(this).removeClass('right')
+                        $(this).removeClass('highlighted')
+                    })
+
+                    if ($('main').eq(0).hasClass('mobile')) {
+                        let w = $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).length
+                        let z = 0
+                        console.log(w)
+                        while (z < w) {
+                            console.log("running")
+                            if ($('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(z).hasClass("unoccupied")) {
+                                $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(z).addClass("highlighted")
+                                break;
+                            } else {
+                                z = z + 1
+                            }
+                        }
+                    }
+                }
+                $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).each(function () {
+                    $(this).removeClass('wrong')
+                    $(this).removeClass('right')
+                })
+                if (response[index] === 0) {
+                    $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(index).addClass('wrong')
+                } else if (response[index] === 1) {
+                    $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(index).addClass('right')
+                }
+                index++
+            }, 320)
+        })
+    })
+
+    let songTimeout;
 
     $('.song-clip-button').click(function () {
         console.log($('.all-cards').eq(cardIndexShowing).find($('.title')))
@@ -304,8 +396,45 @@
             $('.audio-controls').eq(cardIndexShowing).removeClass('hide')
             $('audio').get(cardIndexShowing).volume = .2
             $('audio').get(cardIndexShowing).load();
-            $('audio').get(cardIndexShowing).play();
+            var playPromise = $('audio').get(cardIndexShowing).play()
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    songTimeout = setTimeout(function () {
+                        $('audio')[cardIndexShowing].pause()
+                        $('audio')[cardIndexShowing].currentTime = 0;
+                        $('.play-button-2').eq(cardIndexShowing).removeClass('hide')
+                    }, 6500)
+                }).catch((error => {
+                    console.log("Play not promised...")
+                }))
+            }
         });
     })
 
-})();
+    $('.play-button-2').click(function () {
+        $(this).addClass('hide')
+        $('audio').get(cardIndexShowing).volume = .2
+        $('audio').get(cardIndexShowing).load();
+        $('audio').get(cardIndexShowing).play()
+        console.log("playing")
+        songTimeout = setTimeout(function () {
+            console.log("pausing")
+            $('audio')[cardIndexShowing].pause()
+            $('audio')[cardIndexShowing].currentTime = 0;
+            $('.play-button-2').eq(cardIndexShowing).removeClass('hide')
+        }, 6500)
+    })
+
+    function progress(timeleft, timetotal, $element) {
+        var progressBarWidth = timeleft * $element.width() / timetotal;
+        $element.find('div').animate({width: progressBarWidth}, 500);
+        if (timeleft > 0) {
+            setTimeout(function () {
+                progress(timeleft - 1, timetotal, $element);
+            }, 1000);
+        }
+    };
+
+
+})
+();

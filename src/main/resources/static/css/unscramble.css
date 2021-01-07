@@ -3,19 +3,19 @@
 }
 
 .drop-zone {
-    border: solid black 1px;
+    border-bottom: solid black 1px;
     width: 75px;
     height: 50px;
 }
 
 .occupied{
-    border: none;
+    border-bottom: solid black 1px;
     width: 75px;
     height: 50px;
 }
 
 .unoccupied{
-    border: solid black 1px;
+    border-bottom: solid black 1px;
     width: 75px;
     height: 50px;
 }
@@ -24,4 +24,33 @@
     border: solid lightgreen 3px;
     width: 75px;
     height: 50px;
+}
+
+.wrong {
+    border: solid red 3px;
+    width: 75px;
+    height: 50px;
+}
+
+.right {
+    border: solid lightgreen 3px;
+    width: 75px;
+    height: 50px;
+}
+
+.progressBar {
+    width: 90%;
+    margin: 10px auto;
+    height: 22px;
+    background-color: transparent;
+}
+
+.progressBar div {
+    height: 100%;
+    text-align: right;
+    padding: 0 10px;
+    line-height: 22px; /* same as #progressBar height if we want text middle aligned */
+    width: 0;
+    background-color: green;
+    box-sizing: border-box;
 }

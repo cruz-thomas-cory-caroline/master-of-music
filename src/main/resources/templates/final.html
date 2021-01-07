@@ -16,13 +16,20 @@
                 <p>You successfully answered enough to proceed to the next round!</p>
                 <hr>
             </div>
-            <div th:each="song : ${songs}">
+            <div th:each="song, int : ${songs}">
                 <div class="row">
                     <h5 class="card-title col-6 text-left">Title: <span th:text="${song.getTitle()}"></span></h5>
                     <h5 class="card-title col-6 text-right">Artist: <span th:text="${song.getArtist()}"></span></h5>
                 </div>
                 <h6 class="card-text">Lyric: <span th:text="${song.getLyrics()}"></span></h6>
-                <h6 class="card-text">Your Answer: <span th:text="${userAnswers[songs.indexOf(song)]}"></span></h6>
+                <h6 class="card-text">Your Answer:
+                    <span th:each="word, int2 : ${songLyrics.get(int.index)}">
+                    <span th:if="${word} == ${userAnswers.get(int.index).get(int2.index)}" style="color: green"
+                          th:text="${word} "></span>
+                    <span th:if="(${userAnswers.get(int.index).get(int2.index)} != 'xyz') and (${word} != ${userAnswers.get(int.index).get(int2.index)})"
+                          style="color: red" th:text="${userAnswers.get(int.index).get(int2.index)} "></span>
+                </span>
+                </h6>
                 <br>
                 <hr>
             </div>
@@ -68,7 +75,7 @@
                         <label class="form-check-label" for="inlineRadio14">Country</label>
                     </div>
                     <div>
-                        <input name= round type="hidden" th:value="${currentLevel+1}">
+                        <input name=round type="hidden" th:value="${currentLevel+1}">
                         <button type="submit">Next Round</button>
                     </div>
                 </form>
@@ -90,6 +97,7 @@
     let scoreToCount = parseInt($('#score').val())
     console.log(scoreToCount)
     let zero = 0
+
     function scoreCounter() {
         var scoreCount = setInterval(function () {
             if (zero === scoreToCount) {
@@ -104,6 +112,7 @@
             }
         }, 10)
     }
+
     scoreCounter()
 </script>
 

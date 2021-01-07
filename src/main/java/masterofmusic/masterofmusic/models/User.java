@@ -20,6 +20,9 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
+
     @Column(nullable = false)
     private boolean isAdmin;
 
@@ -41,6 +44,7 @@ public class User {
         this.isAdmin = isAdmin;
         this.images = images;
         this.games = games;
+
     }
 
     public User(String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games) {
@@ -61,6 +65,9 @@ public class User {
         isAdmin = copy.isAdmin;
         images = copy.images;
         games = copy.games;
+    }
+
+    public <T> User(String name, List<T> asList) {
     }
 
     public long getId() {
@@ -119,4 +126,6 @@ public class User {
     public void setGames(List<PlayerGame> games) {
         this.games = games;
     }
+
+
 }

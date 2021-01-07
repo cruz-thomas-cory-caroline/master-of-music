@@ -6,235 +6,215 @@
 </head>
 
 <body>
-<!--<img src="img/giphy.gif" id="backgroundSplashImg"/>-->
-<!--<audio id="my_audio" src="synthwaveLoop.wav" loop="loop" controls></audio>-->
-<a th:href="@{/index}"><i id="backButton" class="fas fa-backward"></i></a>
-<a href="#"><i id="audioButton" class="fas fa-volume-up mr-3"></i></a>
-<a href="#"><i id="audioButtonOff" class="fas fa-volume-mute mr-3"></i></a>
 
-<section id="pickGame" class="container">
-    <div id="gameOptions" class="row d-flex justify-space-around">
+<div class="container-fluid">
+    <a th:href="@{/index}"><i id="backButton" class="fas fa-backward"></i></a>
+    <a href="#"><i id="audioButton" class="fas fa-volume-up mr-3"></i></a>
+    <a href="#"><i id="audioButtonOff" class="fas fa-volume-mute mr-3"></i></a>
 
-        <div class="col-sm-12 col-md-6 text-center divMoveDown">
+    <section id="pickGame" class="container">
+        <div id="gameOptions" class="row d-flex justify-space-around">
+            <div class="col-sm-12 col-md-6 text-center divMoveDown">
 
-            <section id="triviaSection">
-                <i id="triviaIcon" class="fas fa-music"></i>
-                <a href="#"><p id="triviaSelection" class="gameTitles">MUSIC TRIVIA MASTER</p></a>
-            </section>
-
-            <section id="lyricOptions">
+                <section id="triviaSection">
+                    <i id="triviaIcon" class="fas fa-music"></i>
+                    <a href="#"><p id="triviaSelection" class="gameTitles">MUSIC TRIVIA MASTER</p></a>
+                </section>
+                <section id="lyricOptions">
                     <form th:action="@{/lyric-master/}" method="post">
+                        <input type="hidden" name="round" value="1">
                         <section>
+                            <h5 class="text-white text-start difficultyLabel">Difficulty:</h5>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="songDifficulty" id="easySong"
+                                       value="easy" checked>
+                                <label class="form-check-label difficultyLabel" for="easySong">Easy</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="songDifficulty" id="mediumSong"
+                                       value="medium">
+                                <label class="form-check-label difficultyLabel" for="mediumSong">Medium</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="songDifficulty" id="hardSong"
+                                       value="hard">
+                                <label class="form-check-label difficultyLabel" for="hardSong">Hard</label>
+                            </div>
+                        </section>
+                        <section>
+                            <h5 class="text-white text-start genreLabel">Genre:</h5>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="songGenre" id="rockSong"
+                                       value="Rock" checked>
+                                <label class="form-check-label genreLabel" for="rockSong">Rock</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input genreLabel" type="radio" name="songGenre" id="popSong"
+                                       value="Pop">
+                                <label class="form-check-label genreLabel" for="popSong">Pop</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="songGenre" id="hiphopSong"
+                                       value="Hip-Hop">
+                                <label class="form-check-label genreLabel" for="hiphopSong">Hip-Hop</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="songGenre" id="countrySong"
+                                       value="Country">
+                                <label class="form-check-label genreLabel" for="countrySong">Country</label>
+                            </div>
+                        </section>
+                        <button type="submit">Play</button>
+                    </form>
+                </section>
+            </div>
+
+            <div class="col-sm-12 col-md-6 text-center divMoveDown">
+
+                <section id="lyricSection">
+                    <i id="lyricIcon" class="fas fa-microphone-alt"></i>
+                    <a href=#><p id="lyricSelection" class="gameTitles">LYRIC MASTER</p></a>
+                </section>
+
+                <section id="triviaOptions">
+                    <form id="gameSetupForm" th:action="@{/trivia-game/3}" method="post">
+                        <section>
+                            <h5 class="text-white text-start difficultyLabel">Difficulty:</h5>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="difficultyOptions" id="easyChoice"
+                                       value="easy">
+                                <label class="form-check-label difficultyLabel" for="easyChoice">Easy</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="difficultyOptions" id="mediumChoice"
+                                       value="medium">
+                                <label class="form-check-label difficultyLabel" for="mediumChoice">Medium</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="difficultyOptions" id="hardChoice"
+                                       value="hard">
+                                <label class="form-check-label difficultyLabel" for="hardChoice">Hard</label>
+                            </div>
+                        </section>
+                        <section>
+                            <h5 class="text-white text-start genreLabel">Genre:</h5>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="genreOptions" id="rockChoice"
+                                       value="Rock">
+                                <label class="form-check-label genreLabel" for="rockChoice">Rock</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="genreOptions" id="popChoice"
+                                       value="Pop">
+                                <label class="form-check-label genreLabel" for="popChoice">Pop</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="genreOptions" id="hiphopChoice"
+                                       value="Hip-Hop">
+                                <label class="form-check-label genreLabel" for="hiphopChoice">Hip-Hop</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="genreOptions" id="countryChoice"
+                                       value="Country">
+                                <label class="form-check-label genreLabel" for="countryChoice">Country</label>
+                            </div>
+                        </section>
+                        <button type="submit" class="btn btn-warning">Play</button>
+                    </form>
+                </section>
+            </div>
+
+            <div class="col-sm-12 col-md-6 text-center">
+
+                <section id="musicTheorySection">
+                    <i id="musicTheoryIcon" class="fas fa-guitar"></i>
+                    <a href="#"><p id="musicTheorySelection" class="gameTitles">MUSIC THEORY MASTER</p></a>
+                </section>
+
+                <section id="unscrambleOptions">
+                    <form th:action="@{/unscramble}" method="get">
+                        <input type="hidden" name="round" value="1">
+                        <h5 class="text-white text-start">Difficulty:</h5>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="difficulty" id="inlineRadio8"
+                                   value="easy">
+                            <label class="form-check-label" for="inlineRadio8">Easy</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="difficulty" id="inlineRadio9"
+                                   value="medium">
+                            <label class="form-check-label" for="inlineRadio9">Medium</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="difficulty" id="inlineRadio10"
+                                   value="hard">
+                            <label class="form-check-label" for="inlineRadio10">Hard</label>
+                        </div>
+
+
+                        <h5 class="text-white text-start">Genre:</h5>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="genre" id="inlineRadio11"
+                                   value="rock">
+                            <label class="form-check-label" for="inlineRadio11">Rock</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="genre" id="inlineRadio12"
+                                   value="hip-hop">
+                            <label class="form-check-label" for="inlineRadio12">Hip-Hop</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="genre" id="inlineRadio13"
+                                   value="pop">
+                            <label class="form-check-label" for="inlineRadio13">Pop</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="genre" id="inlineRadio14"
+                                   value="country">
+                            <label class="form-check-label" for="inlineRadio14">Country</label>
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-primary">Play</button>
+                    </form>
+                </section>
+            </div>
+
+            <div class="col-sm-12 col-md-6 text-center">
+
+                <section id="unscrambleLyricSection" class="w-100 h-100">
+                    <i id="unscrambleLyricIcon" class="fas fa-compact-disc"></i>
+                    <a href="#"><p id="unscrambleLyricSelection" class="gameTitles">UNSCRAMBLE MASTER</p></a>
+                </section>
+
+                <section id="musicTheoryOptions">
+                    <form method="GET" th:action="@{|/music-theory/${0}|}">
                         <h5 class="text-white text-start">Difficulty:</h5>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="difficultyOptions" id="inlineRadio1"
+                            <input class="form-check-input" checked type="radio" name="theoryDifficultyOptions"
+                                   id="theoryEasy"
                                    value="option1">
-                            <label class="form-check-label" for="inlineRadio1">Easy</label>
+                            <label class="form-check-label" for="theoryEasy">Easy</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="difficultyOptions" id="inlineRadio2"
+                            <input class="form-check-input" type="radio" name="theoryDifficultyOptions"
+                                   id="theoryMedium"
                                    value="option2">
-                            <label class="form-check-label" for="inlineRadio2">Medium</label>
+                            <label class="form-check-label" for="theoryMedium">Medium</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="difficultyOptions" id="inlineRadio3"
+                            <input class="form-check-input" type="radio" name="theoryDifficultyOptions" id="theoryHard"
                                    value="option3">
-                            <label class="form-check-label" for="inlineRadio3">Hard</label>
+                            <label class="form-check-label" for="theoryHard">Hard</label>
                         </div>
+                        <button class="btn btn-primary" type="submit">Play Now!</button>
+                    </form>
                 </section>
-                <section>
-                    <h5 class="text-white text-start">Genre:</h5>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="genreOptions" id="inlineRadio4"
-                               value="option4">
-                        <label class="form-check-label" for="inlineRadio4">Rock</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="genreOptions" id="inlineRadio5"
-                               value="option5">
-                        <label class="form-check-label" for="inlineRadio5">Pop</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="genreOptions" id="inlineRadio6"
-                               value="option6">
-                        <label class="form-check-label" for="inlineRadio6">Hip-Hop</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="genreOptions" id="inlineRadio7"
-                               value="option7">
-                        <label class="form-check-label" for="inlineRadio7">Country</label>
-                    </div>
-                </section>
-                <button type="submit">Play</button>
-                </form>
-            </section>
+            </div>
         </div>
+    </section>
+</div>
 
-        <div class="col-sm-12 col-md-6 text-center divMoveDown">
-
-            <section id="lyricSection">
-                <i id="lyricIcon" class="fas fa-microphone-alt"></i>
-                <a href="#"><p id="lyricSelection" class="gameTitles">LYRIC MASTER</p></a>
-            </section>
-
-            <section id="triviaOptions">
-                <form id="gameSetupForm" th:action="@{/trivia-game/3}" method="post">
-                    <section>
-                        <h5 class="text-white text-start difficultyLabel">Difficulty:</h5>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="difficultyOptions" id="easyChoice"
-                                   value="easy">
-                            <label class="form-check-label difficultyLabel" for="easyChoice">Easy</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="difficultyOptions" id="mediumChoice"
-                                   value="medium">
-                            <label class="form-check-label difficultyLabel" for="mediumChoice">Medium</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="difficultyOptions" id="hardChoice"
-                                   value="hard">
-                            <label class="form-check-label difficultyLabel" for="hardChoice">Hard</label>
-                        </div>
-                    </section>
-                    <section>
-                        <h5 class="text-white text-start genreLabel">Genre:</h5>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="genreOptions" id="rockChoice"
-                                   value="Rock">
-                            <label class="form-check-label genreLabel" for="rockChoice">Rock</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="genreOptions" id="popChoice" value="Pop">
-                            <label class="form-check-label genreLabel" for="popChoice">Pop</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="genreOptions" id="hiphopChoice"
-                                   value="Hip-Hop">
-                            <label class="form-check-label genreLabel" for="hiphopChoice">Hip-Hop</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="genreOptions" id="countryChoice"
-                                   value="Country">
-                            <label class="form-check-label genreLabel" for="countryChoice">Country</label>
-                        </div>
-                    </section>
-                    <button type="submit">Play</button>
-                </form>
-            </section>
-        </div>
-
-        <div class="col-sm-12 col-md-6 text-center">
-
-            <section id="musicTheorySection">
-                <i id="musicTheoryIcon" class="fas fa-guitar"></i>
-                <a href="#"><p id="musicTheorySelection" class="gameTitles">MUSIC THEORY MASTER</p></a>
-            </section>
-
-            <section id="unscrambleOptions">
-                <form th:action="@{/unscramble}" method="get">
-                    <input type="hidden" name="round" value="1">
-                    <h5 class="text-white text-start">Difficulty:</h5>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="difficulty" id="inlineRadio8"
-                               value="easy">
-                        <label class="form-check-label" for="inlineRadio8">Easy</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="difficulty" id="inlineRadio9"
-                               value="medium">
-                        <label class="form-check-label" for="inlineRadio9">Medium</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="difficulty" id="inlineRadio10"
-                               value="hard">
-                        <label class="form-check-label" for="inlineRadio10">Hard</label>
-                    </div>
-
-
-                    <h5 class="text-white text-start">Genre:</h5>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="genre" id="inlineRadio11"
-                               value="rock">
-                        <label class="form-check-label" for="inlineRadio11">Rock</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="genre" id="inlineRadio12"
-                               value="pop">
-                        <label class="form-check-label" for="inlineRadio12">Pop</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="genre" id="inlineRadio13"
-                               value="hip-hop">
-                        <label class="form-check-label" for="inlineRadio13">Hip-Hop</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="genre" id="inlineRadio14"
-                               value="country">
-                        <label class="form-check-label" for="inlineRadio14">Country</label>
-                    </div>
-                    <br>
-                    <button type="submit" class="btn btn-primary">Play</button>
-                </form>
-            </section>
-        </div>
-
-        <div class="col-sm-12 col-md-6 text-center">
-
-            <section id="unscrambleLyricSection" class="w-100 h-100">
-                <i id="unscrambleLyricIcon" class="fas fa-compact-disc"></i>
-                <a href="#"><p id="unscrambleLyricSelection" class="gameTitles">UNSCRAMBLE MASTER</p></a>
-            </section>
-
-            <section id="musicTheoryOptions">
-                <form>
-                    <h5 class="text-white text-start">Difficulty:</h5>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio8"
-                               value="option1">
-                        <label class="form-check-label" for="inlineRadio8">Easy</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio9"
-                               value="option2">
-                        <label class="form-check-label" for="inlineRadio9">Medium</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio10"
-                               value="option3">
-                        <label class="form-check-label" for="inlineRadio10">Hard</label>
-                    </div>
-                    <h5 class="text-white text-start">Genre:</h5>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio11"
-                               value="option4">
-                        <label class="form-check-label" for="inlineRadio11">Rock</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio12"
-                               value="option5">
-                        <label class="form-check-label" for="inlineRadio12">Pop</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio13"
-                               value="option6">
-                        <label class="form-check-label" for="inlineRadio13">Hip-Hop</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio14"
-                               value="option7">
-                        <label class="form-check-label" for="inlineRadio14">Country</label>
-                    </div>
-                </form>
-                <button><a th:href="@{|/music-theory/${0}|}">Play Now!</a></button>
-            </section>
-        </div>
-
-    </div>
-</section>
-
-<!--<a href="#" id="clickMenu"> <i id="menuRecord" class="fas fa-compact-disc"></i>-->
-<!--<h4 id="wordMenu" class="text-white text-start">MENU</h4></a>-->
 
 <div th:include="partials/footerNav.html :: footerNav"></div>
 <div th:include="partials/scripts.html :: scripts"></div>

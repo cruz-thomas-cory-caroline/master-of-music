@@ -2,72 +2,74 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
+
     <div th:include="partials/head.html :: head"></div>
+    <link th:href="@{/css/lyric-master.css}" rel="stylesheet"/>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<h3>Lyric Master</h3>
-<form th:method="post" th:action="@{/lyric-master/submit}">
-    <ol type="1">
-        <div class="card-body">
-            <div th:each="song : ${songs}">
-                <input type="hidden" name="songId" th:value="${song.id}">
-                <ol>
-                    <div class="card m-auto">
-                        <h3 class="card-title questionLabel" th:text="${song.lyrics}"></h3>
-                        <div class="card-body form-check form-check-inline quizAnswers"
-                             th:each="lyricAnswer : ${song.lyricAnswers}">
-                            <li>
-                                <input class="form-check-input solutions" type="radio" th:name="song_+${song.id}"
-                                       th:value="${lyricAnswer.id}"
-                                       th:text="${lyricAnswer.lyricAnswer}">
-                            </li>
-                        </div>
-                        <button type="submit" value="Submit">Submit</button>
+<h4 id="headerLM" style="z-index: 1; position: absolute; size: 5em" >Lyric Master</h4>
+<span class='video-game-button' style="color:darkblue">*</span>
+<span class='video-game-button' style="color:darkblue">*</span>
+<div class="text-center card game-start start-menu lyricCards">
+    <div class="card-body lyricCardsBG">
+        <h5 class="card-title">How to Play</h5>
+        <ul class='video-game-button'>
+            <li>You will be given <span th:text="${questions}"></span> incomplete song lyrics.</li>
+            <li>Select the correct verse to complete the displayed lyrics.</li>
+            <li>Complete the game before time runs out! You have <span th:text="${timeLimit}"></span> seconds!</li>
+            <li>Have fun!</li>
+        </ul>
+        <button type="button" class="start-btn" id="startButton">START</button>
+    </div>
+</div>
+<form th:method="post" th:action="@{/lyric-master/submit}" id="lyricMasterQuizForm">
+    <input name="playerGame" type="hidden" th:value="${playerGame}">
+    <input name="level" type="hidden" th:value="${round}">
+    <input type="hidden" id="difficultySelected" name="songDifficulty" th:value="${songDifficulty}">
+
+    <div class="card-body lyricCards lm-cards hide">
+        <div th:each="song : ${chosenSongs}" class="LMcard">
+            <input type="hidden" name="songId" th:value="${song.id}">
+
+            <ol class='video-game-button'>
+                <div class="card m-auto lyricCardsBG">
+                    <p>
+                    <h2 class="card-title" th:text="${song.lyrics}"></h2>
+                    <p class="text-left">Title: <span th:text="${song.title}"></span></p>
+                    <p class="text-left">Artist: <span th:text="${song.artist}"></span></p>
+                    <h6>Time Remaining: <span class="lyricMaster-timer" th:text="${timeLimit}"></span></h6>
+                    <div class="card-body form-check form-check-inline quizAnswers "
+                         th:each="lyricAnswer : ${song.lyricAnswers}">
+                        <li class='video-game-button'>
+                            <input class="form-check-input solutions highlight" th:id="${lyricAnswer.id}"
+                                   type="radio" th:name="song_+${song.id}"
+                                   th:value="${lyricAnswer.id}">
+                            <label th:for="${lyricAnswer.id}" th:text="${lyricAnswer.lyricAnswer}"></label>
+                        </li>
+                        <input class="hide form-check-input solutions" type="radio" th:value="1"
+                               th:name="song_+${song.id}" checked/>
                     </div>
-                </ol>
+                    <span>
+                    <a href="#" class="prev start-btn" id="previous">PREVIOUS</a>
+                    <a href="#" class='start-btn next' id="next">NEXT</a>
+                    </span>
+                </div>
+            </ol>
+        </div>
+        <div class="card video-game-button hidden" id="submit">
+            <div class="card-body">
+                <p class="card-text">Submit to View Results!</p>
+                <button type="submit" class="start-btn" value="Submit">Submit</button>
             </div>
         </div>
-    </ol>
+    </div>
 </form>
-<!--<form th:method="post" th:action="@{/lyric-master/submit}">-->
-<!--        <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">-->
 
-<!--            <div class="carousel-inner">-->
-<!--                <ol type="1">-->
-<!--                <div class="carousel-item active" th:each="song : ${songs}" data-bs-interval="10000">-->
-<!--                    <input type="hidden" name="songId" th:value="${song.id}">-->
-<!--                    <ol>-->
-<!--                        <div class="card m-auto">-->
-<!--                            <h3 class="card-title questionLabel" th:text="${song.lyrics}"></h3>-->
-<!--                            <div class="card-body form-check form-check-inline quizAnswers"-->
-<!--                                 th:each="lyricAnswer : ${song.lyricAnswers}">-->
-<!--                                <li>-->
-<!--                                    <input class="form-check-input solutions" type="radio" th:name="song_+${song.id}"-->
-<!--                                           th:value="${lyricAnswer.id}"-->
-<!--                                           th:text="${lyricAnswer.lyricAnswer}">-->
-<!--                                </li>-->
-<!--                            </div>-->
-<!--                            <button type="submit" value="Submit">Submit</button>-->
-<!--                        </div>-->
-<!--                    </ol>-->
-<!--                </div>-->
-<!--                </ol>-->
-<!--            </div>-->
-
-<!--     <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-bs-slide="prev">-->
-<!--                <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
-<!--                <span class="visually-hidden">Previous</span>-->
-<!--            </a>-->
-<!--            <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-bs-slide="next">-->
-<!--                <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
-<!--                <span class="visually-hidden">Next</span>-->
-<!--            </a>-->
-<!--        </div>-->
-<!--</form>-->
-
-</body>
 <div th:include="partials/footerNav.html :: footerNav"></div>
 <div th:include="partials/scripts.html :: scripts"></div>
+<script th:src="@{/js/lyric-master.js}"></script>
+</body>
+
 </html>

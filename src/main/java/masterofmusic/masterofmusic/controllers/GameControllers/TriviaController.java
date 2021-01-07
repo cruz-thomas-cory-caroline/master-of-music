@@ -34,18 +34,28 @@ public class TriviaController {
 
     String difficultyOption;
     String genreOption;
-    boolean easyOption = false;
-    long mediumOption = 10000;
-    long hardOption = 2000;
+    PlayerGame currentPlayerGame = new PlayerGame();
+    int totalScore = 0;
+    Genre currentGenre = new Genre();
+    Timestamp gameTime = new Timestamp(0);
+    int gameLevel = 0;
+    String play_time = "";
+
 
     @PostMapping("/trivia-game/3")
     public String triviaGameSetup(
             @RequestParam(name = "difficultyOptions") String difficultySelection,
-            @RequestParam(name = "genreOptions") String genreSelection,
-            Model viewModel
+            @RequestParam(name = "genreOptions") String genreSelection
     ) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         difficultyOption = difficultySelection;
         genreOption = genreSelection;
+        Game game = gameDao.getOne(3L);
+        currentPlayerGame.setUser(user);
+        currentPlayerGame.setGame(game);
+        currentPlayerGame.setScore(totalScore);
+        currentPlayerGame.setTimeElapsed(gameTime);
+        playerGameDao.save(currentPlayerGame);
         return "redirect:/trivia-game";
     }
 
@@ -56,32 +66,71 @@ public class TriviaController {
         System.out.println(difficultyOption);
         System.out.println(genreOption);
         Random rand = new Random();
-        Genre genre = genreDao.getOne(1L);
+        Genre genre = genreDao.findByName(genreOption.toLowerCase());
+        ArrayList<Question> questions = questionDao.findAllByGameId(3L);
 
         if (genreOption.equals("Rock")) {
-
-            ArrayList<Question> questions = questionDao.findAllByGameId(3L);
             ArrayList<Question> rockQuestions = new ArrayList<>();
-
             for (Question question : questions) {
                 if (question.getQuestion_genres().contains(genre)) {
                     rockQuestions.add(question);
                 }
             }
-
             ArrayList<Question> randomQs = new ArrayList<>();
             for (var i = 0; i < 5; i++) {
                 Question randRockQ = rockQuestions.get(rand.nextInt(rockQuestions.size()));
                 randomQs.add(randRockQ);
                 rockQuestions.remove(randRockQ);
             }
-            viewModel.addAttribute("difficultyOption", difficultyOption);
+            viewModel.addAttribute("questions", randomQs);
+
+        } else if (genreOption.equals("Pop")) {
+            ArrayList<Question> popQuestions = new ArrayList<>();
+            for (Question question : questions) {
+                if (question.getQuestion_genres().contains(genre)) {
+                    popQuestions.add(question);
+                }
+            }
+            ArrayList<Question> randomQs = new ArrayList<>();
+            for (var i = 0; i < 5; i++) {
+                Question randPopQ = popQuestions.get(rand.nextInt(popQuestions.size()));
+                randomQs.add(randPopQ);
+                popQuestions.remove(randPopQ);
+            }
+            viewModel.addAttribute("questions", randomQs);
+        } else if (genreOption.equals("Hip-Hop")) {
+            ArrayList<Question> hipHopQuestions = new ArrayList<>();
+            for (Question question : questions) {
+                if (question.getQuestion_genres().contains(genre)) {
+                    hipHopQuestions.add(question);
+                }
+            }
+            ArrayList<Question> randomQs = new ArrayList<>();
+            for (var i = 0; i < 5; i++) {
+                Question randHipHopQ = hipHopQuestions.get(rand.nextInt(hipHopQuestions.size()));
+                randomQs.add(randHipHopQ);
+                hipHopQuestions.remove(randHipHopQ);
+            }
+            viewModel.addAttribute("questions", randomQs);
+        } else if (genreOption.equals("Country")) {
+            ArrayList<Question> countryQuestions = new ArrayList<>();
+            for (Question question : questions) {
+                if (question.getQuestion_genres().contains(genre)) {
+                    countryQuestions.add(question);
+                }
+            }
+            ArrayList<Question> randomQs = new ArrayList<>();
+            for (var i = 0; i < 5; i++) {
+                Question randCountryQ = countryQuestions.get(rand.nextInt(countryQuestions.size()));
+                randomQs.add(randCountryQ);
+                countryQuestions.remove(randCountryQ);
+            }
             viewModel.addAttribute("questions", randomQs);
         }
+
+        viewModel.addAttribute("difficultyOption", difficultyOption);
         return "trivia-game";
     }
-
-    int score = 0;
 
     @PostMapping("trivia-game/submit")
     public String submit(
@@ -107,18 +156,22 @@ public class TriviaController {
             }
         }
 
+        int roundScore = 0;
         for (String questionId : questionIds) {
                 long answerIsCorrect = questionDao.findAnswerIdCorrect(Long.parseLong(questionId));
 
                 if (answerIsCorrect == checkSubAnsForNull.get(questionIds.indexOf(questionId))) {
                     correctAnswers.add(answerDao.getOne(answerIsCorrect).getAnswer());
                     correctQs.add(questionDao.getOne(Long.parseLong(questionId)));
-                    score += 100;
-
+                    roundScore += 100;
                 } else if (checkSubAnsForNull.get(questionIds.indexOf(questionId)) == -1) {
                         submittedAnswersIds.add(checkSubAnsForNull.get(questionIds.indexOf(questionId)));
                         incorrectAnswers.add(answerDao.getOne(answerIsCorrect).getAnswer());
                         incorrectQs.add(questionDao.getOne(Long.parseLong(questionId)));
+                } else if (answerIsCorrect != checkSubAnsForNull.get(questionIds.indexOf(questionId))) {
+                    submittedAnswersIds.add(checkSubAnsForNull.get(questionIds.indexOf(questionId)));
+                    incorrectAnswers.add(answerDao.getOne(answerIsCorrect).getAnswer());
+                    incorrectQs.add(questionDao.getOne(Long.parseLong(questionId)));
                 }
             }
 
@@ -132,6 +185,20 @@ public class TriviaController {
             }
         }
 
+        gameLevel += 1;
+        totalScore += roundScore;
+        PlayerGameRound currentGameRound = new PlayerGameRound();
+        currentGameRound.setLevel(gameLevel);
+        currentGameRound.setPlay_time(play_time);
+        currentGameRound.setScore(roundScore);
+        currentGameRound.setPlayerGame(currentPlayerGame);
+        currentPlayerGame.setScore(totalScore);
+        playerGameDao.save(currentPlayerGame);
+        currentGameRound.setDifficulty(difficultyOption);
+        playerGameRoundDao.save(currentGameRound);
+        User user = currentPlayerGame.getUser();
+
+
         System.out.println(incorrectAnswers);
         System.out.println(correctAnswers);
         model.addAttribute("submittedAnswers", submittedAnswers);
@@ -139,8 +206,19 @@ public class TriviaController {
         model.addAttribute("incorrectQs", incorrectQs);
         model.addAttribute("correctAnswers", correctAnswers);
         model.addAttribute("incorrectAnswers", incorrectAnswers);
-        model.addAttribute("score", score);
+        model.addAttribute("roundsScoreTotal", totalScore);
+        model.addAttribute("roundScore", roundScore);
+        model.addAttribute("user", user);
         return "result";
     }
+
+    @PostMapping("trivia-game/new")
+    public String submit() {
+        currentPlayerGame = new PlayerGame();
+        totalScore = 0;
+        gameLevel = 0;
+        return "redirect:/index";
+    }
+
 
 }

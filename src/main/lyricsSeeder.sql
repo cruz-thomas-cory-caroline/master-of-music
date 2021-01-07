@@ -1,32 +1,12 @@
 USE master_of_music_db;
 
-INSERT INTO games (id, name)
-VALUES (1, 'Finish the Lyrics');
-
-DROP TABLE IF EXISTS songs;
-
-#Hip-Hop
-INSERT INTO songs(id, title, artist, lyrics)
-VALUES (4, 'In My Feelings', 'Drake', 'Gotta be real with it, yup Kiki, do you love me
-Are you riding'),
-       (1, 'New York', 'Alica Keys',
-        'There''s nothing you can''t do, now you''re in New York! These streets will make you feel brand new'),
-       (28, 'Lose Yourself', 'Eminem', 'His palms are sweaty, knees weak, arms are heavy'),
-       (29, 'American Boy', 'Estelle ft. Kanye West',
-        'Sneaker''s looking ''fresh to def'' I''m lovin'' those shell toes'),
-       (30, 'Crazy', 'Gnarles Barkley', 'And I hope that you are having the time of your life'),
-       (31, 'Lucid Dreams', 'Juice WRLD', 'And I cannot change you, so I must replace you, oh'),
-       (32, 'Wings', 'Mac Miller', 'Water my seeds ''til the flower just grow, yeah'),
-       (33, 'In Da Club (It''s Your Birthday)', '50 Cent', 'I''m fully focused man, my money on my mind
-'),
-       (34, 'The Real Slim Shady', 'Eminem', '''Cause I''m Slim Shady, yes I''m the real Shady');
-
 
 #Rock
 INSERT INTO songs (id, title, artist, lyrics)
 VALUES (6, 'Teenage Dirtbag', 'Wheatus', 'Yeah, I''m just a teenage dirtbag, baby Listen to Iron Maiden'),
        (7, 'All Star', 'Smash Mouth', 'Hey now, you''re an all star Get your game on, go play'),
-       (8, 'Under Pressure', 'David Bowie & Freddy Mercury','Pressure pushing down on me Pressing down on you, no man ask for'),
+       (8, 'Under Pressure', 'Queen',
+        'Pressure pushing down on me Pressing down on you, no man ask for'),
        (9, 'Start Me Up', 'The Rolling Stones',
         'You make a grown man cry Spread out the oil, the gasoline I walk smooth'),
        (10, 'Proud Mary', 'Creedence Clearwater Revival',
@@ -42,6 +22,20 @@ VALUES (6, 'Teenage Dirtbag', 'Wheatus', 'Yeah, I''m just a teenage dirtbag, bab
         'In the misty morning fog with Our hearts a thumpin'' and you My brown-eyed girl'),
        (17, '(Don''t Fear) The Reaper', 'Blue Öyster Cult',
         'All our times have come Here, but now they''re gone Seasons don''t fear the reaper');
+
+Insert into songs_genres(song_id, genre_id)
+values (6, 1),
+       (7, 1),
+       (8, 1),
+       (9, 1),
+       (10, 1),
+       (11, 1),
+       (12, 1),
+       (13, 1),
+       (14, 1),
+       (15, 1),
+       (16, 1),
+       (17, 1);
 
 # Pop
 INSERT INTO songs (id, title, artist, lyrics)
@@ -67,6 +61,46 @@ VALUES (18, 'Don''t Stop Believin''', 'Journey', 'Just a small-town girl Livin''
 I may be crazy, don''t mind me'),
        (2, 'Total Eclipse Of The Heart Lyrics', 'Bonnie Tyler', 'Every now and then I get a little bit terrified');
 
+Insert into songs_genres(song_id, genre_id)
+values (18, 3),
+       (19, 3),
+       (20, 3),
+       (21, 3),
+       (22, 3),
+       (23, 3),
+       (24, 3),
+       (25, 3),
+       (26, 3),
+       (27, 3);
+
+#Hip-Hop
+INSERT INTO songs(id, title, artist, lyrics)
+VALUES (4, 'In My Feelings', 'Drake', 'Gotta be real with it, yup Kiki, do you love me Are you riding'),
+       (1, 'New York', 'Alica Keys',
+        'There''s nothing you can''t do, now you''re in New York! These streets will make you feel brand new'),
+       (28, 'Lose Yourself', 'Eminem', 'His palms are sweaty, knees weak, arms are heavy'),
+       (29, 'American Boy', 'Estelle',
+        'Sneaker''s looking ''fresh to def'' I''m lovin'' those shell toes'),
+       (30, 'Crazy', 'Gnarles Barkley', 'And I hope that you are having the time of your life'),
+       (31, 'Lucid Dreams', 'Juice WRLD', 'And I cannot change you, so I must replace you, oh'),
+       (32, 'Wings', 'Mac Miller', 'Water my seeds ''til the flower just grow, yeah'),
+       (33, 'In Da Club It''s Your Birthday', '50 Cent', 'I''m fully focused man, my money on my mind'),
+       (34, 'The Real Slim Shady', 'Eminem', '''Cause I''m Slim Shady, yes I''m the real Shady'),
+       (44, 'Whatever You Like', 'T.I.', 'Maybe I can treat you so special so nice'),
+       (45, 'Killing Me Softly', 'Fugees', 'I heard he sang a good song, I heard he had a style');
+
+Insert into songs_genres(song_id, genre_id)
+values (4, 2),
+       (1, 2),
+       (28, 2),
+       (29, 2),
+       (30, 2),
+       (31, 2),
+       (32, 2),
+       (33, 2),
+       (34, 2),
+       (44, 2),
+       (45, 2);
 
 #Country
 INSERT INTO songs (id, title, artist, lyrics)
@@ -82,10 +116,23 @@ With flaming locks of auburn hair'),
        (42, 'All My Ex''s Live In Texas', 'George Strait', 'Texas is the place I''d really love to be'),
        (43, 'Toes', 'Zac Brown Band', 'Not a worry in the world, a cold beer in my hand');
 
+Insert into songs_genres(song_id, genre_id)
+values (35, 4),
+       (36, 4),
+       (37, 4),
+       (38, 4),
+       (39, 4),
+       (40, 4),
+       (41, 4),
+       (42, 4),
+       (43, 4);
 
-DROP TABLE IF EXISTS lyric_answers;
+INSERT INTO songs (id, title, artist, lyrics)
+VALUES (1000, 'title', 'artist', 'No answer selected');
+
 INSERT INTO lyric_answers (is_correct, lyric_answer, song_id)
-VALUES (false, 'Put your lighters in the air', 1),
+VALUES(false, 'No answer selected', 1000),
+       (false, 'Put your lighters in the air', 1),
        (true, 'Big lights will inspire you', 1),
        (false, 'And if you only hold me tight', 1),
        (false, 'And I need you now tonight', 1),
@@ -256,4 +303,15 @@ VALUES (false, 'Put your lighters in the air', 1),
        (false, 'I''m worse at what I do best', 27),
        (true, 'I feel stupid and contagious', 27),
        (false, 'I found it hard, it''s hard to find', 27),
-       (false, 'Hello, hello, hello, how low', 27);
+       (false, 'Hello, hello, hello, how low', 27),
+       (false, 'My chick can have what she want', 44),
+       (false, 'My chick can have what she want', 44),
+       (false, 'You know it ain''t nothin'' drop a couple stacks on you', 44),
+       (true, 'I gas up the jet for you tonight', 44),
+       (false, 'Telling my whole life with his words', 45),
+       (true, 'And so I came to see him, to listen for a while', 45),
+       (false, 'I found it hard, it''s hard to find', 45),
+       (false, 'I felt all flushed with fever', 45);
+
+
+
