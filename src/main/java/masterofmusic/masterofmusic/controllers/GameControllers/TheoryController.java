@@ -111,15 +111,15 @@ public class TheoryController {
         }
 //        comparing user answer to correct answer/good ending
         if(userAnswer.equalsIgnoreCase(correctAnswer) && difficultySelection.equalsIgnoreCase("option1")){
-            correctAnswer(10);
+            correctAnswer(10,"easy");
             System.out.println(difficultySelection);
             model.addAttribute("correct", "Great Job!");
         }else if(userAnswer.equalsIgnoreCase(correctAnswer) && difficultySelection.equalsIgnoreCase("option2")){
-            correctAnswer(45);
+            correctAnswer(45,"medium");
             System.out.println(difficultySelection);
             model.addAttribute("correct", "Great Job!");
         }else if(userAnswer.equalsIgnoreCase(correctAnswer) && difficultySelection.equalsIgnoreCase("option3")){
-                correctAnswer(100);
+                correctAnswer(100,"hard");
                 System.out.println(difficultySelection);
                 model.addAttribute("correct", "Great Job!");
         }
@@ -136,11 +136,11 @@ public class TheoryController {
         return "music-theory";
     }
 
-    public void correctAnswer(int score){
+    public void correctAnswer(int score, String difficulty){
         PlayerGameRound playerGameRound = new PlayerGameRound();
         playerGameRound.setPlayerGame(playerGame);
         playerGameRound.setScore(playerGameRound.getScore() + score); //increment
-        playerGameRound.setDifficulty("easy");
+        playerGameRound.setDifficulty(difficulty);
         playerGameRound.setPlay_time("0");
         PlayerGameRound dbPlayerGameRound = playerGameRoundDao.save(playerGameRound);
 

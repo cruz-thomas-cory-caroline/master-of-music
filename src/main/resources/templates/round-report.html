@@ -6,10 +6,24 @@
 </head>
 <body>
 
-<h1 style="color: white">Congratulations! Here are your results</h1>
 
-<h3 style="color: white">Score</h3><br>
-<h4 style="color: white" th:text="${score}"></h4>
+
+<div class="mt-5" id="questionCard">
+    <div class="card bg-light m-auto" style="width: 38rem;">
+        <div class="card-header">
+            <h1 style="color: #000000">Congratulations! Here are your results</h1>
+        </div>
+        <div class="card-body">
+            <h3 style="color: #000000">Score</h3><br>
+            <h4 style="color: #000000" th:text="${score}"></h4>
+
+        </div>
+    </div>
+</div>
+
+
+
+
 
 <div th:replace="partials/footerNav.html :: footerNav"></div>
 <div th:replace="partials/scripts.html :: scripts"></div>
