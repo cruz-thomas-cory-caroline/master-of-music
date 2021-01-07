@@ -249,6 +249,7 @@
                         $('.all-cards').eq(cardIndexShowing).addClass('hide')
                         $('.unscramble-timer').html('')
                         cardIndexShowing++
+                        progress(startTime, startTime, $('.progressBar').eq(cardIndexShowing));
                         $('.all-cards').eq(cardIndexShowing).removeClass('hide')
                         if ($('main').eq(0).hasClass('mobile')) {
                             $('.all-cards').eq(cardIndexShowing).find($('.mobile-bank')).eq(0).removeClass('hide')
@@ -266,6 +267,7 @@
         startTime = $('.unscramble-timer')[0].innerHTML
         console.log(startTime)
         timerStart()
+        progress(startTime, startTime, $('.progressBar').eq(cardIndexShowing));
     })
 
     $(".cat-button").click(function () {
@@ -282,7 +284,7 @@
 
         $('audio')[cardIndexShowing].pause()
         cardIndexShowing++
-
+        progress(startTime, startTime, $('.progressBar').eq(cardIndexShowing));
     })
 
     $('.last-cat-button').click(function () {
@@ -352,10 +354,8 @@
                 }
                 index++
             }, 400)
-
         })
     })
-
 
     $('.song-clip-button').click(function () {
         console.log($('.all-cards').eq(cardIndexShowing).find($('.title')))
@@ -395,9 +395,35 @@
             $('audio').get(cardIndexShowing).play();
             setTimeout(function () {
                 $('audio')[cardIndexShowing].pause()
+                $('audio')[cardIndexShowing].currentTime = 0;
+                $('.play-button-2').eq(cardIndexShowing).removeClass('hide')
             }, 6500)
 
         });
     })
+
+    $('.play-button-2').click(function () {
+        $(this).addClass('hide')
+        $('audio').get(cardIndexShowing).volume = .2
+        $('audio').get(cardIndexShowing).load();
+        $('audio').get(cardIndexShowing).play();
+        setTimeout(function () {
+            $('audio')[cardIndexShowing].pause()
+            $('audio')[cardIndexShowing].currentTime = 0;
+            $('.play-button-2').eq(cardIndexShowing).removeClass('hide')
+        }, 6500)
+    })
+
+    function progress(timeleft, timetotal, $element) {
+        var progressBarWidth = timeleft * $element.width() / timetotal;
+        $element.find('div').animate({ width: progressBarWidth }, 500).html(timeleft);
+        if(timeleft > 0) {
+            setTimeout(function() {
+                progress(timeleft - 1, timetotal, $element);
+            }, 1000);
+        }
+    };
+
+
 
 })();

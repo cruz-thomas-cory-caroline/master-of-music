@@ -71,6 +71,9 @@
                         <h5 class="artist" th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getArtist()}"></h5>
                         <h6>Round: <span th:text="${round}"></span></h6>
                     </div>
+                    <div class="progressBar">
+                        <div class="bar"></div>
+                    </div>
                     <div class="ml-auto">
                         <h6><span class="unscramble-timer" th:text="${timeLimit}"></span></h6>
                     </div>
@@ -80,9 +83,10 @@
                         <button type="button" class="btn btn-success song-clip-button"><i class="fas fa-play"></i></button>
                     </div>
                     <div class="hide audio-controls text-center my-2">
-                        <audio controls>
+                        <audio>
                             <source class="track-source" type="audio/mpeg">
                         </audio>
+                        <button type="button" class="btn btn-success play-button-2 hide"><i class="fas fa-play"></i>Replay</button>
                     </div>
                     <div class="row justify-content-center all-words my-4">
                         <div th:each="word : ${lyricSet}">

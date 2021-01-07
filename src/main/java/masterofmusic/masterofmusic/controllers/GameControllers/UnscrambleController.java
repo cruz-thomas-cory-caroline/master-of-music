@@ -66,15 +66,15 @@ public class UnscrambleController {
         switch (difficulty) {
             case "easy":
                 numberOfQuestions = 5;
-                timeLimit = 150;
+                timeLimit = 90;
                 break;
             case "medium":
-                numberOfQuestions = 10;
-                timeLimit = 100;
+                numberOfQuestions = 7;
+                timeLimit = 60;
                 break;
             case "hard":
-                numberOfQuestions = 15;
-                timeLimit = 50;
+                numberOfQuestions = 10;
+                timeLimit = 30;
                 break;
         }
 
@@ -199,8 +199,23 @@ public class UnscrambleController {
             }
         }
 
-        int totalPossScore = wordTotal * 10;
-        int finalScore = wordsCorrect * 10;
+        int totalPossScore = 0;
+        int finalScore = 0;
+        switch(difficulty) {
+            case "easy":
+                totalPossScore = wordTotal * 10;
+                finalScore = wordsCorrect * 10;
+                break;
+            case "medium":
+                totalPossScore = wordTotal * 15;
+                finalScore = wordsCorrect * 15;
+                break;
+            case "hard":
+                totalPossScore = wordTotal * 20;
+                finalScore = wordsCorrect * 20;
+                break;
+        }
+
 
         newRoundCompleted.setScore(finalScore);
         playerGameDao.getOne(newRoundCompleted.getPlayerGame().getId()).setScore(newRoundCompleted.getPlayerGame().getScore()+newRoundCompleted.getScore());
