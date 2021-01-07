@@ -151,7 +151,7 @@ public class LyricController {
         ArrayList<Song> correctSongs = new ArrayList<>();
         ArrayList<Song> incorrectSongs = new ArrayList<>();
         ArrayList<Song> testedSongs = new ArrayList<>();
-
+        ArrayList<String> scoreAchievements = new ArrayList<>();
 
         String[] songIds = request.getParameterValues("songId");
 
@@ -172,19 +172,18 @@ public class LyricController {
                 incorrectSongs.add(song);
             }
         }
-        int level = 10;
-        Map<Integer, String> levelToAchieveMap= new HashMap<>();
-        levelToAchieveMap.put(10,"Congrats you've reached level 10");
-
-        if(levelToAchieveMap.containsKey(level)){
-            System.out.println(levelToAchieveMap.get(level));
-        }
 
 
         PlayerGameRound playerGameRoundDB = playerGameRoundDao.save(newPlayerGameRound);
         currentPlayerGame.setScore(playerGameRoundDB.getPlayerGame().getScore() + playerGameRoundDB.getScore());
         playerGameDao.save(currentPlayerGame);
 
+
+//        if(newPlayerGameRound.getScore() == 100){
+//            scoreAchievements.add();
+//        }
+
+        request.setAttribute("scoreAchievement", scoreAchievements);
         request.setAttribute("correctSongs", correctSongs);
         request.setAttribute("score", newPlayerGameRound.getScore());
         request.setAttribute("incorrectUserAnswers", incorrectUserAnswers);
