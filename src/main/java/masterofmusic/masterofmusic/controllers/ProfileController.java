@@ -45,6 +45,7 @@ public class ProfileController {
 
         model.addAttribute("user", userDao.getOne(user.getId()));
         model.addAttribute("totalTriviaScore", totalTriviaScore);
+        model.addAttribute("playerGamesForTrivia", playerGamesForTrivia);
         return "profile";
     }
 

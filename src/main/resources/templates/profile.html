@@ -188,11 +188,19 @@
                                  aria-labelledby="musicTrivia-tab">
                                 <!--start music trivia tab -->
                                 <div class="card">
-                                    <h5 id="triviaTabHeader" class="card-header text-white">OVERALL SCORE: </h5>
+                                    <h5 id="triviaTabHeader" class="card-header text-white">OVERALL SCORE: <span
+                                            th:text="${totalTriviaScore}"></span></h5>
                                     <div class="card-body">
-                                        <div class="card" style="width: 100%;">
+                                        <div th:each="playerGame : ${playerGamesForTrivia}" class="card"
+                                             style="width: 100%;">
                                             <div class="card-header">
-                                                Hand Tossed
+                                                <p th:text="${playerGame.getScore()}"></p>
+                                                <ul th:each="playerGameRound : ${playerGame.getPlayerGameRounds()}">
+                                                    <li>Player Game Round Level <span th:text="${playerGameRound.getLevel()}"></span> Score: <span
+                                                            th:text="${playerGameRound.getScore()}"></span></li>
+                                                    <li>Player Game Round Difficulty: <span
+                                                            th:text="${playerGameRound.getDifficulty()}"></span></li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
