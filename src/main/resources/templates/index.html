@@ -20,26 +20,25 @@
                     <i id="triviaIcon" class="fas fa-music"></i>
                     <a href="#"><p id="triviaSelection" class="gameTitles">MUSIC TRIVIA MASTER</p></a>
                 </section>
-
                 <section id="lyricOptions">
                     <form th:action="@{/lyric-master/}" method="post">
                         <input type="hidden" name="round" value="1">
                         <section>
-                            <h5 class="text-white text-start">Difficulty:</h5>
+                            <h5 class="text-white text-start difficultyLabel">Difficulty:</h5>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="songDifficulty" id="easySong"
                                        value="easy" checked>
-                                <label class="form-check-label" for="easySong">Easy</label>
+                                <label class="form-check-label difficultyLabel" for="easySong">Easy</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="songDifficulty" id="mediumSong"
                                        value="medium">
-                                <label class="form-check-label" for="mediumSong">Medium</label>
+                                <label class="form-check-label difficultyLabel" for="mediumSong">Medium</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="songDifficulty" id="hardSong"
                                        value="hard">
-                                <label class="form-check-label" for="hardSong">Hard</label>
+                                <label class="form-check-label difficultyLabel" for="hardSong">Hard</label>
                             </div>
                         </section>
                         <section>
@@ -47,22 +46,22 @@
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="songGenre" id="rockSong"
                                        value="Rock" checked>
-                                <label class="form-check-label" for="rockSong">Rock</label>
+                                <label class="form-check-label genreLabel" for="rockSong">Rock</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="songGenre" id="popSong"
+                                <input class="form-check-input genreLabel" type="radio" name="songGenre" id="popSong"
                                        value="Pop">
-                                <label class="form-check-label" for="popSong">Pop</label>
+                                <label class="form-check-label genreLabel" for="popSong">Pop</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="songGenre" id="hiphopSong"
                                        value="Hip-Hop">
-                                <label class="form-check-label" for="hiphopSong">Hip-Hop</label>
+                                <label class="form-check-label genreLabel" for="hiphopSong">Hip-Hop</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="songGenre" id="countrySong"
                                        value="Country">
-                                <label class="form-check-label" for="countrySong">Country</label>
+                                <label class="form-check-label genreLabel" for="countrySong">Country</label>
                             </div>
                         </section>
                         <button type="submit">Play</button>
