@@ -1,4 +1,4 @@
-package masterofmusic.masterofmusic.controllers.GameControllers;
+package masterofmusic.masterofmusic.Controllers.GameControllers;
 
 import masterofmusic.masterofmusic.models.*;
 
@@ -85,7 +85,6 @@ public class TheoryController {
         long score = currentGame.getScore();
 
         model.addAttribute("score", score);
-
         return "round-report";
     }
 
