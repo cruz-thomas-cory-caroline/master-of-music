@@ -13,26 +13,33 @@ function timerStart() {
             timeStart--
             $('.lyricMaster-timer').html(timeStart)
         } else {
+            redirect();
             clearInterval(interval)
-            $('.lyricMaster-timer').html('Times Up!')
-            $('.all-cards').eq(cardIndexShowing).find(".fullAnswer").val(lockAnswer())
-            setTimeout(function () {
-                if (cardIndexShowing + 1 === totalCardCount) {
-                    $('.all-cards').eq(cardIndexShowing).addClass('hide')
-                    $('.lyricMaster-timer').html('')
-                    $('.final-screen').removeClass('hide')
-                } else {
-                    $('audio')[cardIndexShowing].pause()
-                    $('.all-cards').eq(cardIndexShowing).addClass('hide')
-                    $('.lyricMaster-timer').html('')
-                    cardIndexShowing++
-                    $('.all-cards').eq(cardIndexShowing).removeClass('hide')
-                    timerStart()
-                }
-            }, 2000)
+            $('.lyricMaster-timer').html('Times Up!');
+
+            // $('.all-cards').eq(cardIndexShowing).find(".fullAnswer").val(lockAnswer())
+            // setTimeout(function () {
+            //     if (cardIndexShowing + 1 === totalCardCount) {
+            //         $('.all-cards').eq(cardIndexShowing).addClass('hide')
+            //         $('.lyricMaster-timer').html('')
+            //         $('.final-screen').removeClass('hide')
+            //     } else {
+            //         $('audio')[cardIndexShowing].pause()
+            //         $('.all-cards').eq(cardIndexShowing).addClass('hide')
+            //         $('.lyricMaster-timer').html('')
+            //         cardIndexShowing++
+            //         $('.all-cards').eq(cardIndexShowing).removeClass('hide')
+            //         timerStart()
+            //     }
+            // }, 2000)
         }
     }, 1000)
 }
+
+    let lyricMasterQuizForm = $("#lyricMasterQuizForm");
+    function redirect() {
+        lyricMasterQuizForm.submit();
+    }
 
 $('#startButton').click(function () {
     $(".game-start").addClass("hide")
@@ -96,12 +103,5 @@ $('#startButton').click(function () {
                 $("#submit").addClass('hidden');
             }
         });
-
-
-        setTimeout(function () {
-            $(".game-start").show('slow');
-        }, 7000)
-
-
 
 })();
