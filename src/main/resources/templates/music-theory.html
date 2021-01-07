@@ -6,20 +6,22 @@
     <title>Title</title>
 </head>
 <body>
-<div th:switch="${wrong != null || correct != null}" class="mt-5">
+<div th:switch="${wrong != null || correct != null}" class="mt-5" id="questionCard">
     <div th:case="${false}" class="card bg-light m-auto" style="width: 38rem;">
         <div class="card-header">
             <h1 th:text="${questions}"></h1>
         </div>
         <div class="card-body">
             <form METHOD="POST" th:action="@{|/music-theory/${id}|}">
+                <input type="hidden" id="theoryDifficultySelected" name="difficultySelected" th:value="${songDifficulty}">
                 <div th:each="answer : ${answers}">
                     <label th:for="${answer.id}" th:text="${answer.answer}"></label>
                     <input type="radio" th:id="${answer.id}" name="answers" th:value="${answer.answer}">
                 </div>
+                <input name="theoryDifficultyOptions" type="hidden" th:value="${songDifficulty}">
                 <button type="submit">Submit your answer!</button>
             </form>
-            <p id="timer"></p>
+            <p style="color: #1b0230" id="timer"></p>
         </div>
     </div>
     <span th:case="${true}"></span>
@@ -27,7 +29,7 @@
 
 
 
-<div th:if="${correct != null}">
+<div th:if="${correct != null}" id="correctCard">
     <div class="card bg-light m-auto" style="max-width: 18rem;">
         <div class="card-header">
             <h1>Correct!</h1>
@@ -35,20 +37,38 @@
         <div class="card-body">
             <h2>You gained x points!</h2>
             <form method="GET" th:action="@{|/music-theory/${id + 1}|}">
-                <button name="next-round">Next!</button>
+                <input name="theoryDifficultyOptions" type="hidden" th:value="${songDifficulty}">
+                <button name="next-round">Next Round!</button>
             </form>
         </div>
     </div>
 </div>
-<div th:if="${wrong != null}">
+
+<div th:if="${wrong != null}" id="wrongCard">
     <div class="card bg-light m-auto" style="max-width: 18rem;">
         <div class="card-header">
-            <h1>Wrong</h1>
+            <h1>Sorry!</h1>
         </div>
         <div class="card-body">
             <h2>You gained 0 points</h2>
-            <form method="GET" th:action="@{|/music-theory/${id}|}">
-                <button name="next-round">Retry</button>
+            <form method="GET" th:action="@{|/music-theory/${id + 1}|}">
+                <input name="theoryDifficultyOptions" type="hidden" th:value="${songDifficulty}">
+                <button name="next-round">Next Round</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="timesUpCard" class="hide d-none">
+    <div class="card bg-light m-auto" style="max-width: 18rem;">
+        <div class="card-header">
+            <h1>Sorry!</h1>
+        </div>
+        <div class="card-body">
+            <h2>You ran out of time. You gained 0 points</h2>
+            <form method="GET" th:action="@{|/music-theory/${id + 1}|}">
+                <input name="theoryDifficultyOptions" type="hidden" th:value="${songDifficulty}">
+                <button name="next-round">Next Round</button>
             </form>
         </div>
     </div>
@@ -56,5 +76,6 @@
 
 <div th:replace="partials/footerNav.html :: footerNav"></div>
 <div th:replace="partials/scripts.html :: scripts"></div>
+<script th:src="@{/js/theory.js}"></script>
 </body>
 </html>
