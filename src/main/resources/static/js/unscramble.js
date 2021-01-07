@@ -245,6 +245,7 @@
                         $('.unscramble-timer').html('')
                         $('.final-screen').removeClass('hide')
                     } else {
+                        clearTimeout(songTimeout)
                         $('audio')[cardIndexShowing].pause()
                         $('.all-cards').eq(cardIndexShowing).addClass('hide')
                         $('.unscramble-timer').html('')
@@ -276,6 +277,7 @@
         $('.all-cards').eq(cardIndexShowing).addClass('hide')
         clearInterval(interval2)
         clearInterval(interval)
+        clearTimeout(songTimeout)
         timerStart()
         $('.all-cards').eq(cardIndexShowing + 1).removeClass('hide')
         if ($('main').eq(0).hasClass("mobile")) {
@@ -357,6 +359,8 @@
         })
     })
 
+    let songTimeout;
+
     $('.song-clip-button').click(function () {
         console.log($('.all-cards').eq(cardIndexShowing).find($('.title')))
         let songToSearch = $('.all-cards').eq(cardIndexShowing).find($('.title'))[0].innerHTML
@@ -392,13 +396,18 @@
             $('.audio-controls').eq(cardIndexShowing).removeClass('hide')
             $('audio').get(cardIndexShowing).volume = .2
             $('audio').get(cardIndexShowing).load();
-            $('audio').get(cardIndexShowing).play();
-            setTimeout(function () {
-                $('audio')[cardIndexShowing].pause()
-                $('audio')[cardIndexShowing].currentTime = 0;
-                $('.play-button-2').eq(cardIndexShowing).removeClass('hide')
-            }, 6500)
-
+            var playPromise = $('audio').get(cardIndexShowing).play()
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    songTimeout = setTimeout(function () {
+                        $('audio')[cardIndexShowing].pause()
+                        $('audio')[cardIndexShowing].currentTime = 0;
+                        $('.play-button-2').eq(cardIndexShowing).removeClass('hide')
+                    }, 6500)
+                }).catch((error => {
+                    console.log("Play not promised...")
+                }))
+            }
         });
     })
 
@@ -406,8 +415,10 @@
         $(this).addClass('hide')
         $('audio').get(cardIndexShowing).volume = .2
         $('audio').get(cardIndexShowing).load();
-        $('audio').get(cardIndexShowing).play();
-        setTimeout(function () {
+        $('audio').get(cardIndexShowing).play()
+        console.log("playing")
+        songTimeout = setTimeout(function () {
+            console.log("pausing")
             $('audio')[cardIndexShowing].pause()
             $('audio')[cardIndexShowing].currentTime = 0;
             $('.play-button-2').eq(cardIndexShowing).removeClass('hide')
@@ -416,14 +427,14 @@
 
     function progress(timeleft, timetotal, $element) {
         var progressBarWidth = timeleft * $element.width() / timetotal;
-        $element.find('div').animate({ width: progressBarWidth }, 500);
-        if(timeleft > 0) {
-            setTimeout(function() {
+        $element.find('div').animate({width: progressBarWidth}, 500);
+        if (timeleft > 0) {
+            setTimeout(function () {
                 progress(timeleft - 1, timetotal, $element);
             }, 1000);
         }
     };
 
 
-
-})();
+})
+();

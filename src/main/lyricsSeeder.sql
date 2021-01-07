@@ -5,8 +5,7 @@ INSERT INTO games(id, name) VALUES
 
 #Hip-Hop
 INSERT INTO songs(id, title, artist, lyrics)
-VALUES (4, 'In My Feelings', 'Drake', 'Gotta be real with it, yup Kiki, do you love me
-Are you riding'),
+VALUES (4, 'In My Feelings', 'Drake', 'Gotta be real with it, yup Kiki, do you love me Are you riding'),
        (1, 'New York', 'Alica Keys',
         'There''s nothing you can''t do, now you''re in New York! These streets will make you feel brand new'),
        (28, 'Lose Yourself', 'Eminem', 'His palms are sweaty, knees weak, arms are heavy'),
@@ -15,11 +14,23 @@ Are you riding'),
        (30, 'Crazy', 'Gnarles Barkley', 'And I hope that you are having the time of your life'),
        (31, 'Lucid Dreams', 'Juice WRLD', 'And I cannot change you, so I must replace you, oh'),
        (32, 'Wings', 'Mac Miller', 'Water my seeds ''til the flower just grow, yeah'),
-       (33, 'In Da Club (It''s Your Birthday)', '50 Cent', 'I''m fully focused man, my money on my mind
-'),
+       (33, 'In Da Club (It''s Your Birthday)', '50 Cent', 'I''m fully focused man, my money on my mind'),
        (34, 'The Real Slim Shady', 'Eminem', '''Cause I''m Slim Shady, yes I''m the real Shady'),
        (44, 'Whatever You Like', 'T.I.', 'Maybe I can treat you so special so nice'),
        (45, 'Killing Me Softly', 'Fugees', 'I heard he sang a good song, I heard he had a style');
+
+Insert into songs_genres(song_id, genre_id)
+values (4, 2),
+       (1, 2),
+       (28, 2),
+       (29, 2),
+       (30, 2),
+       (31, 2),
+       (32, 2),
+       (33, 2),
+       (34, 2),
+       (44, 2),
+       (45, 2);
 
 
 #Rock
@@ -43,6 +54,20 @@ VALUES (6, 'Teenage Dirtbag', 'Wheatus', 'Yeah, I''m just a teenage dirtbag, bab
         'In the misty morning fog with Our hearts a thumpin'' and you My brown-eyed girl'),
        (17, '(Don''t Fear) The Reaper', 'Blue Öyster Cult',
         'All our times have come Here, but now they''re gone Seasons don''t fear the reaper');
+
+Insert into songs_genres(song_id, genre_id)
+values (6, 1),
+       (7, 1),
+       (8, 1),
+       (9, 1),
+       (10, 1),
+       (11, 1),
+       (12, 1),
+       (13, 1),
+       (14, 1),
+       (15, 1),
+       (16, 1),
+       (17, 1);
 
 # Pop
 INSERT INTO songs (id, title, artist, lyrics)
@@ -68,6 +93,18 @@ VALUES (18, 'Don''t Stop Believin''', 'Journey', 'Just a small-town girl Livin''
 I may be crazy, don''t mind me'),
        (2, 'Total Eclipse Of The Heart Lyrics', 'Bonnie Tyler', 'Every now and then I get a little bit terrified');
 
+Insert into songs_genres(song_id, genre_id)
+values (18, 3),
+       (19, 3),
+       (20, 3),
+       (21, 3),
+       (22, 3),
+       (23, 3),
+       (24, 3),
+       (25, 3),
+       (26, 3),
+       (27, 3);
+
 
 #Country
 INSERT INTO songs (id, title, artist, lyrics)
@@ -82,6 +119,17 @@ With flaming locks of auburn hair'),
        (41, 'Hey, Good Lookin''', 'Hank Williams', 'So if you wanna have fun come along with me.'),
        (42, 'All My Ex''s Live In Texas', 'George Strait', 'Texas is the place I''d really love to be'),
        (43, 'Toes', 'Zac Brown Band', 'Not a worry in the world, a cold beer in my hand');
+
+Insert into songs_genres(song_id, genre_id)
+values (35, 4),
+       (36, 4),
+       (37, 4),
+       (38, 4),
+       (39, 4),
+       (40, 4),
+       (41, 4),
+       (42, 4),
+       (43, 4);
 
 INSERT INTO songs (id, title, artist, lyrics)
 VALUES (1000, 'title', 'artist', 'No answer selected');
