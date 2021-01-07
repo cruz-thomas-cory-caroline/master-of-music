@@ -81,10 +81,10 @@ public class ProfileController {
     ) {
         User user = userDao.findById(id);
         user.setImages(avatarSelected);
-        User dbUser = userDao.save(user);
+        userDao.save(user);
         System.out.println(avatarSelected);
-        model.addAttribute("user", dbUser);
-        return "profile";
+        model.addAttribute("user", user);
+        return "redirect:/profile";
     }
 
 
