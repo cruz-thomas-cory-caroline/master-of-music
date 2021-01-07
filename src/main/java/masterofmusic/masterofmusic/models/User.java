@@ -20,6 +20,9 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
+
     @Column(nullable = false)
     private boolean isAdmin;
 
@@ -33,7 +36,7 @@ public class User {
     public User() {
     }
 
-    public User(long id, String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games) {
+    public User(long id, String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games, String resetPasswordToken) {
         this.id = id;
         this.email = email;
         this.username = username;
@@ -41,16 +44,17 @@ public class User {
         this.isAdmin = isAdmin;
         this.images = images;
         this.games = games;
+        this.resetPasswordToken = resetPasswordToken;
     }
 
-    public User(String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games) {
+    public User(String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games, String resetPasswordToken) {
         this.email = email;
         this.username = username;
         this.password = password;
         this.isAdmin = isAdmin;
         this.images = images;
         this.games = games;
-
+        this.resetPasswordToken = resetPasswordToken;
     }
 
     public User(User copy) {
@@ -121,5 +125,14 @@ public class User {
 
     public void setGames(List<PlayerGame> games) {
         this.games = games;
+    }
+
+
+    public String getResetPasswordToken() {
+        return resetPasswordToken;
+    }
+
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
     }
 }
