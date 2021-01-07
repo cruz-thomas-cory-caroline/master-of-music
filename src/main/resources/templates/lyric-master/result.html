@@ -4,87 +4,94 @@
 <head>
     <meta charset="UTF-8">
     <div th:include="partials/head.html :: head"></div>
+    <link th:href="@{/css/lyric-master.css}" rel="stylesheet"/>
     <title>Master of Music Results</title>
 </head>
-<body text="white">
-<h3>Result</h3>
-
-<input type="hidden" id="score" th:value="${score}">
-<h5 >Score <span id="scoreCounter"></span></h5>
-<div class="row d-flex">
-    <div class="col-12 col-sm-4">
-        <h4 class="text-light fs-1 bg-success">CORRECT ANSWERS</h4>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item" th:each="song, int : ${correctSongs}">
-                <p class="questionsResults" th:text="${song.getLyrics()}"></p>
-                <p class="bg-success text-light">CORRECT ANSWER: <span
-                        th:each="la : ${song.getLyricAnswers()}" th:if="${la.isCorrect()}"><span th:text="${la.getLyricAnswer()}"></span></span></p>
-            </li>
-        </ul>
-    </div>
-    <div class="col-12 col-sm-4">
-        <h4 class="text-light fs-1 bg-danger">INCORRECT ANSWERS</h4>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item" th:each="song, int : ${incorrectSongs}">
-                <p class="questionsResults" th:text="${song.getLyrics()}"></p>
-                <p class="bg-danger text-light">SUBMITTED ANSWER: <span
-                        th:text="${incorrectUserAnswers.get(int.index)}"></span></p>
-                <p class="bg-success text-light">CORRECT ANSWER: <span
-                        th:each="la : ${song.getLyricAnswers()}" th:if="${la.isCorrect()}"><span th:text="${la.getLyricAnswer()}"></span></span></p>
-            </li>
-        </ul>
-    </div>
-</div>
-
 <div>
-    <form th:action="@{/lyric-master/}" method="post">
-        <section>
-            <h5 class="text-white text-start">Difficulty:</h5>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="songDifficulty" id="easySong"
-                       value="easy" checked>
-                <label class="form-check-label" for="easySong">Easy</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="songDifficulty" id="mediumSong"
-                       value="medium">
-                <label class="form-check-label" for="mediumSong">Medium</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="songDifficulty" id="hardSong"
-                       value="hard">
-                <label class="form-check-label" for="hardSong">Hard</label>
-            </div>
-        </section>
-        <section>
-            <h5 class="text-white text-start genreLabel">Genre:</h5>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="songGenre" id="rockSong"
-                       value="Rock" checked>
-                <label class="form-check-label" for="rockSong">Rock</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="songGenre" id="popSong"
-                       value="Pop">
-                <label class="form-check-label" for="popSong">Pop</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="songGenre" id="hiphopSong"
-                       value="Hip-Hop">
-                <label class="form-check-label" for="hiphopSong">Hip-Hop</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="songGenre" id="countrySong"
-                       value="Country">
-                <label class="form-check-label" for="countrySong">Country</label>
-            </div>
-        </section>
-        <div>
-            <input name= round type="hidden" th:value="${currentLevel+1}">
-            <button type="submit">Next Round</button>
-        </div>
-    </form>
+    <h3 id="headerLM">Result</h3>
+</div>
+<input type="hidden" id="score" th:value="${score}">
+<h5 id="headerLM">Score <span id="scoreCounter"></span></h5>
+<body text="white">
+<div class="container">
+    <div class="row video-game-button">
+        <div class="col-sm">
 
+            <div class="video-game-button">
+                <form th:action="@{/lyric-master/}" method="post">
+                    <section>
+                        <h5 class="text-white text-start">Difficulty:</h5>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="songDifficulty" id="easySong"
+                                   value="easy" checked>
+                            <label class="form-check-label" for="easySong">Easy</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="songDifficulty" id="mediumSong"
+                                   value="medium">
+                            <label class="form-check-label" for="mediumSong">Medium</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="songDifficulty" id="hardSong"
+                                   value="hard">
+                            <label class="form-check-label" for="hardSong">Hard</label>
+                        </div>
+                    </section>
+                    <section>
+                        <h5 class="text-white text-start">Genre:</h5>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="songGenre" id="rockSong"
+                                   value="Rock" checked>
+                            <label class="form-check-label" for="rockSong">Rock</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="songGenre" id="popSong"
+                                   value="Pop">
+                            <label class="form-check-label" for="popSong">Pop</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="songGenre" id="hiphopSong"
+                                   value="Hip-Hop">
+                            <label class="form-check-label" for="hiphopSong">Hip-Hop</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="songGenre" id="countrySong"
+                                   value="Country">
+                            <label class="form-check-label" for="countrySong">Country</label>
+                        </div>
+                    </section>
+                    <div>
+                        <input name=round type="hidden" th:value="${currentLevel+1}">
+                        <button type="submit">Next Round</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-sm video-game-button">
+            <h4 class="text-light fs-1 bg-success">CORRECT ANSWERS</h4>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item start-btn" th:each="song, int : ${correctSongs}">
+                    <h4 class="questionsResults" th:text="${song.getLyrics()}"></h4>
+                    <p class="bg-success text-light">CORRECT ANSWER: <span
+                            th:each="la : ${song.getLyricAnswers()}" th:if="${la.isCorrect()}"><span
+                            th:text="${la.getLyricAnswer()}"></span></span></p>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm video-game-button mt-5">
+            <h4 class="text-light fs-1 bg-danger">INCORRECT ANSWERS</h4>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item start-btn" th:each="song, int : ${incorrectSongs}">
+                    <h4 class="questionsResults" th:text="${song.getLyrics()}"></h4>
+                    <p class="bg-danger text-light">SUBMITTED ANSWER: <span
+                            th:text="${incorrectUserAnswers.get(int.index)}"></span></p>
+                    <p class="bg-success text-light">CORRECT ANSWER: <span
+                            th:each="la : ${song.getLyricAnswers()}" th:if="${la.isCorrect()}"><span
+                            th:text="${la.getLyricAnswer()}"></span></span></p>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 <div>
     <a href="/index" class="btn btn-primary">Home</a>
@@ -97,6 +104,7 @@
     let scoreToCount = parseInt($('#score').val())
     console.log(scoreToCount)
     let zero = 0
+
     function scoreCounter() {
         var scoreCount = setInterval(function () {
             if (zero === scoreToCount) {
@@ -111,6 +119,7 @@
             }
         }, 10)
     }
+
     scoreCounter()
 </script>
 </html>

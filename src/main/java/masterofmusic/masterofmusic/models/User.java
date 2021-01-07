@@ -36,7 +36,7 @@ public class User {
     public User() {
     }
 
-    public User(long id, String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games, String resetPasswordToken) {
+    public User(long id, String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games) {
         this.id = id;
         this.email = email;
         this.username = username;
@@ -44,17 +44,17 @@ public class User {
         this.isAdmin = isAdmin;
         this.images = images;
         this.games = games;
-        this.resetPasswordToken = resetPasswordToken;
+
     }
 
-    public User(String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games, String resetPasswordToken) {
+    public User(String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games) {
         this.email = email;
         this.username = username;
         this.password = password;
         this.isAdmin = isAdmin;
         this.images = images;
         this.games = games;
-        this.resetPasswordToken = resetPasswordToken;
+
     }
 
     public User(User copy) {
@@ -128,11 +128,4 @@ public class User {
     }
 
 
-    public String getResetPasswordToken() {
-        return resetPasswordToken;
-    }
-
-    public void setResetPasswordToken(String resetPasswordToken) {
-        this.resetPasswordToken = resetPasswordToken;
-    }
 }
