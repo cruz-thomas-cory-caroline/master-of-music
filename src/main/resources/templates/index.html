@@ -22,9 +22,10 @@
             </section>
 
             <section id="lyricOptions">
-                    <form th:action="@{/lyric-master/}" method="post">
+                <form th:action="@{/lyric-master/}" method="post">
+                    <input type="hidden" name="round" value="1">
                         <section>
-                        <h5 class="text-white text-start">Difficulty:</h5>
+                        <h5 class="text-white text-start genreLabel">Difficulty:</h5>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="songDifficulty" id="easySong"
                                    value="easy" checked>
