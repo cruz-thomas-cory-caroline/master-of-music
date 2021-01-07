@@ -66,11 +66,11 @@ public class TriviaController {
         System.out.println(difficultyOption);
         System.out.println(genreOption);
         Random rand = new Random();
-        Genre genre = genreDao.getOne(1L);
+        Genre genre = genreDao.findByName(genreOption.toLowerCase());
+        ArrayList<Question> questions = questionDao.findAllByGameId(3L);
 
         if (genreOption.equals("Rock")) {
 
-            ArrayList<Question> questions = questionDao.findAllByGameId(3L);
             ArrayList<Question> rockQuestions = new ArrayList<>();
 
             for (Question question : questions) {
@@ -84,6 +84,25 @@ public class TriviaController {
                 Question randRockQ = rockQuestions.get(rand.nextInt(rockQuestions.size()));
                 randomQs.add(randRockQ);
                 rockQuestions.remove(randRockQ);
+            }
+            viewModel.addAttribute("difficultyOption", difficultyOption);
+            viewModel.addAttribute("questions", randomQs);
+
+        } else if (genreOption.equals("Pop")) {
+
+            ArrayList<Question> popQuestions = new ArrayList<>();
+
+            for (Question question : questions) {
+                if (question.getQuestion_genres().contains(genre)) {
+                    popQuestions.add(question);
+                }
+            }
+
+            ArrayList<Question> randomQs = new ArrayList<>();
+            for (var i = 0; i < 5; i++) {
+                Question randPopQ = popQuestions.get(rand.nextInt(popQuestions.size()));
+                randomQs.add(randPopQ);
+                popQuestions.remove(randPopQ);
             }
             viewModel.addAttribute("difficultyOption", difficultyOption);
             viewModel.addAttribute("questions", randomQs);
