@@ -1,43 +1,11 @@
 USE master_of_music_db;
-INSERT INTO games(id, name) VALUES
-(1, 'Lyric Master');
-
-
-#Hip-Hop
-INSERT INTO songs(id, title, artist, lyrics)
-VALUES (4, 'In My Feelings', 'Drake', 'Gotta be real with it, yup Kiki, do you love me Are you riding'),
-       (1, 'New York', 'Alica Keys',
-        'There''s nothing you can''t do, now you''re in New York! These streets will make you feel brand new'),
-       (28, 'Lose Yourself', 'Eminem', 'His palms are sweaty, knees weak, arms are heavy'),
-       (29, 'American Boy', 'Estelle ft. Kanye West',
-        'Sneaker''s looking ''fresh to def'' I''m lovin'' those shell toes'),
-       (30, 'Crazy', 'Gnarles Barkley', 'And I hope that you are having the time of your life'),
-       (31, 'Lucid Dreams', 'Juice WRLD', 'And I cannot change you, so I must replace you, oh'),
-       (32, 'Wings', 'Mac Miller', 'Water my seeds ''til the flower just grow, yeah'),
-       (33, 'In Da Club (It''s Your Birthday)', '50 Cent', 'I''m fully focused man, my money on my mind'),
-       (34, 'The Real Slim Shady', 'Eminem', '''Cause I''m Slim Shady, yes I''m the real Shady'),
-       (44, 'Whatever You Like', 'T.I.', 'Maybe I can treat you so special so nice'),
-       (45, 'Killing Me Softly', 'Fugees', 'I heard he sang a good song, I heard he had a style');
-
-Insert into songs_genres(song_id, genre_id)
-values (4, 2),
-       (1, 2),
-       (28, 2),
-       (29, 2),
-       (30, 2),
-       (31, 2),
-       (32, 2),
-       (33, 2),
-       (34, 2),
-       (44, 2),
-       (45, 2);
 
 
 #Rock
 INSERT INTO songs (id, title, artist, lyrics)
 VALUES (6, 'Teenage Dirtbag', 'Wheatus', 'Yeah, I''m just a teenage dirtbag, baby Listen to Iron Maiden'),
        (7, 'All Star', 'Smash Mouth', 'Hey now, you''re an all star Get your game on, go play'),
-       (8, 'Under Pressure', 'David Bowie & Freddy Mercury',
+       (8, 'Under Pressure', 'Queen',
         'Pressure pushing down on me Pressing down on you, no man ask for'),
        (9, 'Start Me Up', 'The Rolling Stones',
         'You make a grown man cry Spread out the oil, the gasoline I walk smooth'),
@@ -105,6 +73,34 @@ values (18, 3),
        (26, 3),
        (27, 3);
 
+#Hip-Hop
+INSERT INTO songs(id, title, artist, lyrics)
+VALUES (4, 'In My Feelings', 'Drake', 'Gotta be real with it, yup Kiki, do you love me Are you riding'),
+       (1, 'New York', 'Alica Keys',
+        'There''s nothing you can''t do, now you''re in New York! These streets will make you feel brand new'),
+       (28, 'Lose Yourself', 'Eminem', 'His palms are sweaty, knees weak, arms are heavy'),
+       (29, 'American Boy', 'Estelle',
+        'Sneaker''s looking ''fresh to def'' I''m lovin'' those shell toes'),
+       (30, 'Crazy', 'Gnarles Barkley', 'And I hope that you are having the time of your life'),
+       (31, 'Lucid Dreams', 'Juice WRLD', 'And I cannot change you, so I must replace you, oh'),
+       (32, 'Wings', 'Mac Miller', 'Water my seeds ''til the flower just grow, yeah'),
+       (33, 'In Da Club It''s Your Birthday', '50 Cent', 'I''m fully focused man, my money on my mind'),
+       (34, 'The Real Slim Shady', 'Eminem', '''Cause I''m Slim Shady, yes I''m the real Shady'),
+       (44, 'Whatever You Like', 'T.I.', 'Maybe I can treat you so special so nice'),
+       (45, 'Killing Me Softly', 'Fugees', 'I heard he sang a good song, I heard he had a style');
+
+Insert into songs_genres(song_id, genre_id)
+values (4, 2),
+       (1, 2),
+       (28, 2),
+       (29, 2),
+       (30, 2),
+       (31, 2),
+       (32, 2),
+       (33, 2),
+       (34, 2),
+       (44, 2),
+       (45, 2);
 
 #Country
 INSERT INTO songs (id, title, artist, lyrics)
@@ -317,52 +313,5 @@ VALUES(false, 'No answer selected', 1000),
        (false, 'I found it hard, it''s hard to find', 45),
        (false, 'I felt all flushed with fever', 45);
 
-
-INSERT INTO songs_genres(song_id, genre_id)
-VALUES (1, 2),
-       (4, 2),
-       (28,2),
-       (29, 2),
-       (30,2),
-       (31,2),
-       (32,2),
-       (33,2),
-       (34,2),
-       (44, 2),
-       (45,2),
-       (6,1),
-       (7,1),
-       (8,1),
-       (9,1),
-       (10, 1),
-       (11,1),
-       (12,1),
-       (13,1),
-       (14,1),
-       (15,1),
-       (16, 1),
-       (17,1),
-       (18,3),
-       (19,3),
-       (20,3),
-       (21,3),
-       (22, 3),
-       (23,3),
-       (24,3),
-       (25,3),
-       (26,3),
-       (27,3),
-       (3, 3),
-       (2,3),
-       (5,4),
-       (35,4),
-       (36,4),
-       (37,4),
-       (38,4),
-       (39,4),
-       (40,4),
-       (41,4),
-       (42,4),
-       (43,4);
 
 
