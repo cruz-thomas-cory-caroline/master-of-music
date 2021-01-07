@@ -45,7 +45,7 @@ VALUES (18, 'Don''t Stop Believin''', 'Journey', 'Just a small-town girl Livin''
         'Is this the real life? Is this just fantasy? Caught in a landslide, no escape from reality'),
        (21, 'All I Want for Christmas Is You ', 'Mariah Carey',
         'I don''t want a lot for Christmas There is just one thing I need'),
-       (22, 'September', 'Earth, Wind, and Fire',
+       (22, 'September', 'Earth, Wind, & Fire',
         'Do you remember the 21st night of September? Love was changin'' the minds of pretenders'),
        (23, 'I Want It That Way', 'Backstreet Boys',
         'You are my fire The one desire Believe when I say I want it that way'),
@@ -57,12 +57,14 @@ VALUES (18, 'Don''t Stop Believin''', 'Journey', 'Just a small-town girl Livin''
         'Billie Jean is not my lover She''s just a girl who claims that I am the one'),
        (27, 'Smells Like Teen Spirit', 'Nirvana',
         'With the lights out, it''s less dangerous Here we are now, entertain us'),
-       (3, 'Shape of You Lyrics', 'Ed Sheeran', 'Come on now, follow my lead
+       (3, 'Shape of You', 'Ed Sheeran', 'Come on now, follow my lead
 I may be crazy, don''t mind me'),
-       (2, 'Total Eclipse Of The Heart Lyrics', 'Bonnie Tyler', 'Every now and then I get a little bit terrified');
+       (2, 'Total Eclipse Of The Heart', 'Bonnie Tyler', 'Every now and then I get a little bit terrified');
 
 Insert into songs_genres(song_id, genre_id)
-values (18, 3),
+values (3, 3),
+       (2, 3),
+       (18, 3),
        (19, 3),
        (20, 3),
        (21, 3),
@@ -76,15 +78,15 @@ values (18, 3),
 #Hip-Hop
 INSERT INTO songs(id, title, artist, lyrics)
 VALUES (4, 'In My Feelings', 'Drake', 'Gotta be real with it, yup Kiki, do you love me Are you riding'),
-       (1, 'New York', 'Alica Keys',
+       (1, 'Empire State of Mind', 'Jay-Z',
         'There''s nothing you can''t do, now you''re in New York! These streets will make you feel brand new'),
        (28, 'Lose Yourself', 'Eminem', 'His palms are sweaty, knees weak, arms are heavy'),
        (29, 'American Boy', 'Estelle',
         'Sneaker''s looking ''fresh to def'' I''m lovin'' those shell toes'),
-       (30, 'Crazy', 'Gnarles Barkley', 'And I hope that you are having the time of your life'),
+       (30, 'Crazy', 'Gnarls Barkley', 'And I hope that you are having the time of your life'),
        (31, 'Lucid Dreams', 'Juice WRLD', 'And I cannot change you, so I must replace you, oh'),
        (32, 'Wings', 'Mac Miller', 'Water my seeds ''til the flower just grow, yeah'),
-       (33, 'In Da Club It''s Your Birthday', '50 Cent', 'I''m fully focused man, my money on my mind'),
+       (33, 'In Da Club', '50 Cent', 'I''m fully focused man, my money on my mind'),
        (34, 'The Real Slim Shady', 'Eminem', '''Cause I''m Slim Shady, yes I''m the real Shady'),
        (44, 'Whatever You Like', 'T.I.', 'Maybe I can treat you so special so nice'),
        (45, 'Killing Me Softly', 'Fugees', 'I heard he sang a good song, I heard he had a style');
@@ -105,14 +107,13 @@ values (4, 2),
 #Country
 INSERT INTO songs (id, title, artist, lyrics)
 VALUES (5, 'Mercy', 'Brett Young', 'Why you hanging on so tight if this ain''t working '),
-       (35, 'Need You Now', 'Lady Antebellum', 'Picture-perfect memories scattered all around the floor'),
+       (35, 'Need You Now', 'Lady A', 'Picture-perfect memories scattered all around the floor'),
        (36, 'My Wish', 'Rascal Flatts', 'Your dreams stay big, your worries stay small'),
        (37, 'Friends In Low Places', 'Garth Brooks', 'Blame it all on my roots, I showed up in boots'),
-       (38, 'Jolene', 'Dolly Parton', 'Your beauty is beyond compare
-With flaming locks of auburn hair'),
+       (38, 'Jolene', 'Dolly Parton', 'Your beauty is beyond compare With flaming locks of auburn hair'),
        (39, 'On the Road Again', 'Willie Nelson', 'The life I love is making music with my friends'),
        (40, 'You''re Still The One', 'Shania Twain', 'We mighta took the long way We knew we''d get there someday'),
-       (41, 'Hey, Good Lookin''', 'Hank Williams', 'So if you wanna have fun come along with me.'),
+        (41, 'I Walk The Line', 'Johnny Cash', 'Yes, I''ll admit that I''m a fool for you'),
        (42, 'All My Ex''s Live In Texas', 'George Strait', 'Texas is the place I''d really love to be'),
        (43, 'Toes', 'Zac Brown Band', 'Not a worry in the world, a cold beer in my hand');
 
