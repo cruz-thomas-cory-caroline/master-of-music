@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Array;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
@@ -65,15 +66,15 @@ public class UnscrambleController {
         switch (difficulty) {
             case "easy":
                 numberOfQuestions = 5;
-                timeLimit = 45;
+                timeLimit = 90;
                 break;
             case "medium":
-                numberOfQuestions = 10;
-                timeLimit = 30;
+                numberOfQuestions = 7;
+                timeLimit = 60;
                 break;
             case "hard":
-                numberOfQuestions = 15;
-                timeLimit = 15;
+                numberOfQuestions = 10;
+                timeLimit = 30;
                 break;
         }
 
@@ -117,7 +118,6 @@ public class UnscrambleController {
         }
 
         for (String lyric : lyricsToScramble) {
-
             List<String> singleWords = new ArrayList<>();
             String str[] = lyric.split(" ");
             singleWords = Arrays.asList(str);
@@ -125,10 +125,6 @@ public class UnscrambleController {
             int lyricLength = singleWords.size();
 
             List<String> scrambledLyric = new ArrayList<>();
-            String lyricStart = "";
-            String lyricEnd = "";
-            int wordCount = (int) (Math.random() * ((lyricLength - 1) + 1) + 1);
-            int switchChoice = (int) (Math.random() * ((4 - 1) + 1) + 1);
 
             switch (1) {
                 case 1:
@@ -140,22 +136,13 @@ public class UnscrambleController {
                             scrambledLyric.add(singleWords.get(indexToAdd));
                         }
                     } while (scrambledLyric.size() < singleWords.size());
-
-//                    THIS IS FOR SHOWING THE START OF THE LYRIC UNSCRAMBLED AND THE END SCRAMBLED
-//                    for (var i = 0; i < wordCount; i++) {
-//                        lyricStart += singleWords.get(i);
-//                        lyricStartToCombine.add(singleWords.get(i));
-//                    }
-//                    for (var i = wordCount; i < lyricLength; i++) {
-//                        lyricEnd += singleWords.get(i);
-//                        lyricStartToCombine.add(singleWords.get(i));
-//                    }
                     break;
                 default:
                     break;
             }
             scrambledLyricsList.add(scrambledLyric);
         }
+
         model.addAttribute("scrambledLyricsSet", scrambledLyricsList);
         model.addAttribute("originalLyrics", lyricsToScramble);
         model.addAttribute("songs", chosenSongs);
@@ -174,6 +161,7 @@ public class UnscrambleController {
                                 HttpServletRequest request,
                                 Model model) {
 
+        System.out.println("BREAK BREAK BREAK");
         PlayerGameRound newRoundCompleted = new PlayerGameRound();
         newRoundCompleted.setDifficulty(difficulty);
         newRoundCompleted.setLevel(playerGameDao.getOne(num).getPlayerGameRounds().size()+1);
@@ -181,35 +169,100 @@ public class UnscrambleController {
         newRoundCompleted.setPlay_time("here");
         newRoundCompleted.setScore(0);
 
-        List<String> userAnswers = new ArrayList<>();
-        List<Integer> correctAnswers = new ArrayList<>();
-        List<Integer> showGreen = new ArrayList<>();
-        int countCorrect = 0;
+        List<List<String>> splitSongLyrics = new ArrayList<>();
+        List<String> splitLyricSet = new ArrayList<>();
+
+        List<List<String>> splitUserLyrics = new ArrayList<>();
+        List<String> splitUserSet = new ArrayList<>();
+        int wordTotal = 0;
+        int wordsCorrect = 0;
+
         for (Song song : chosenSongs) {
-            userAnswers.add(request.getParameter("song" + chosenSongs.indexOf(song)));
-            System.out.println(request.getParameter("song" + chosenSongs.indexOf(song)));
-            System.out.println(song.getLyrics());
-            if (request.getParameter("song" + chosenSongs.indexOf(song)).equalsIgnoreCase(song.getLyrics())) {
-                showGreen.add(1);
-                correctAnswers.add(chosenSongs.indexOf(song));
-                newRoundCompleted.setScore(newRoundCompleted.getScore()+100);
-                countCorrect++;
-            } else {
-                showGreen.add(0);
+            splitLyricSet = new ArrayList<>(Arrays.asList(song.getLyrics().split(" ")));
+            wordTotal += splitLyricSet.size();
+            splitSongLyrics.add(splitLyricSet);
+
+            String userLyric = request.getParameter("song" + chosenSongs.indexOf(song));
+            System.out.println(userLyric);
+            splitUserSet = new ArrayList<>(Arrays.asList(userLyric.split(" ")));
+            while (splitUserSet.size() < splitLyricSet.size()) {
+                splitUserSet.add("xyz");
+            }
+            splitUserLyrics.add(splitUserSet);
+
+            for (var i = 0; i < splitLyricSet.size(); i++) {
+                System.out.println(splitLyricSet.get(i) + " / " + splitUserSet.get(i));
+                if (splitLyricSet.get(i).equals(splitUserSet.get(i))) {
+                    wordsCorrect += 1;
+                    System.out.println(splitLyricSet.get(i));
+                }
             }
         }
+
+        int totalPossScore = 0;
+        int finalScore = 0;
+        switch(difficulty) {
+            case "easy":
+                totalPossScore = wordTotal * 10;
+                finalScore = wordsCorrect * 10;
+                break;
+            case "medium":
+                totalPossScore = wordTotal * 15;
+                finalScore = wordsCorrect * 15;
+                break;
+            case "hard":
+                totalPossScore = wordTotal * 20;
+                finalScore = wordsCorrect * 20;
+                break;
+        }
+
+
+        newRoundCompleted.setScore(finalScore);
         playerGameDao.getOne(newRoundCompleted.getPlayerGame().getId()).setScore(newRoundCompleted.getPlayerGame().getScore()+newRoundCompleted.getScore());
-        playerGameRoundDoa.save(newRoundCompleted);
-        model.addAttribute("score", newRoundCompleted.getScore());
+        PlayerGameRound savedRound = playerGameRoundDoa.save(newRoundCompleted);
+
+        model.addAttribute("score", savedRound.getScore());
         model.addAttribute("songs", chosenSongs);
-        model.addAttribute("userAnswers", userAnswers);
-        if (countCorrect >= chosenSongs.size()/2) {
+        if (finalScore >= totalPossScore/2) {
             model.addAttribute("canAdvance", true);
         }
         model.addAttribute("currentLevel", newRoundCompleted.getLevel());
-        model.addAttribute("showGreen", showGreen);
+        model.addAttribute("userAnswers", splitUserLyrics);
+        model.addAttribute("songLyrics", splitSongLyrics);
         return "final";
     }
 
+    @RequestMapping("/check")
+    @ResponseBody
+    public List<Integer> check(@RequestParam(name = "id") long id,
+                        @RequestParam(name = "userAnswer") String userAnswer,
+                        Model model) {
+
+        String lyrics = songDao.getOne(id).getLyrics();
+
+        List<Integer> rightWrong = new ArrayList<>();
+
+        List<String> lyricWordList = new ArrayList<>();
+        String str[] = lyrics.split(" ");
+         lyricWordList = new ArrayList<>(Arrays.asList(str));
+
+        List<String> userAnswerWordList = new ArrayList<>();
+        String str1[] = userAnswer.split(" ");
+        userAnswerWordList = new ArrayList<>(Arrays.asList(str1));
+
+        while (userAnswerWordList.size() < lyricWordList.size()) {
+            userAnswerWordList.add("xyz");
+        }
+
+        for (var i = 0; i < lyricWordList.size(); i++) {
+            if (lyricWordList.get(i).equals(userAnswerWordList.get(i))) {
+                rightWrong.add(1);
+            } else {
+                rightWrong.add(0);
+            }
+        }
+
+        return rightWrong;
+    }
 
 }
