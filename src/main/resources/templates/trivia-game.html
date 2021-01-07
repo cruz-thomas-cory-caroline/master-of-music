@@ -19,6 +19,7 @@
         </ol>
         <div id="carousel-inner" class="carousel-inner">
             <div class="carousel-item active">
+                <div class="triviaCarItem">
                 <div class="card m-auto triviaCard">
                     <div class="card-body d-flex row">
                         <h4 id="timerInfoHeader" class="col-12 text-center m-auto text-wrap">Timer Starts When You Press
@@ -27,36 +28,45 @@
                                 id="startGameButton" class="fas fa-play-circle"></i></a>
                     </div>
                 </div>
+                </div>
             </div>
             <form th:action="@{/trivia-game/submit}" th:method="post" id="quizForm">
                 <input type="hidden" id="difficultySelected" name="difficultySelected" th:value="${difficultyOption}">
-                <div class="carousel-item questionCount" th:each="question : ${questions}">
-                    <div class="card m-auto triviaCard">
-                        <h3 class="card-header questionLabel" th:text="${question.question}"></h3>
-                        <input type="hidden" name="questionId" th:value="${question.id}"/>
-                        <div class="card-body form-check form-check-inline quizAnswers"
-                             th:each="answer : ${question.getAnswers()}">
-                            <input class="form-check-input solutions" type="radio" th:name="question_+${question.id}"
-                                   th:value="${answer.id}" id="triviaGame">
-                            <label class="form-check-label" for="triviaGame" th:text="${answer.answer}"></label>
+                <div class="carousel-item triviaCarItem" th:each="question : ${questions}">
+                    <div class="triviaCarItem">
+                        <div class="card m-auto triviaCard">
+                            <h3 class="card-header questionLabel" th:text="${question.question}"></h3>
+                            <input type="hidden" name="questionId" th:value="${question.id}"/>
+                            <div class="card-body form-check form-check-inline quizAnswers"
+                                 th:each="answer : ${question.getAnswers()}">
+                                <input class="form-check-input solutions" type="radio"
+                                       th:name="question_+${question.id}"
+                                       th:value="${answer.id}" id="triviaGame">
+                                <label class="form-check-label" for="triviaGame" th:text="${answer.answer}"></label>
+                            </div>
+                            <section class="d-flex row justify-content-center">
+                                <a class="carousel-control-prev carControls" href="#carouselExampleIndicators"
+                                   role="button"
+                                   data-slide="prev">
+                                    <span class="visually-hidden">Previous</span>
+                                </a>
+                                <a class="carousel-control-next carControls" href="#carouselExampleIndicators"
+                                   role="button"
+                                   data-slide="next">
+                                    <span class="visually-hidden">Next</span>
+                                </a>
+                            </section>
+                            <button id="submitQuiz" type="submit" class="btn btn-warning">Submit</button>
                         </div>
-                        <button id="submitQuiz" type="submit">Submit</button>
                     </div>
                 </div>
             </form>
         </div>
-        <a class="carousel-control-prev carControls" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </a>
-        <a class="carousel-control-next carControls" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </a>
     </div>
 </div>
 
 <div th:include="partials/footerNav.html :: footerNav"></div>
 <div th:include="partials/scripts.html :: scripts"></div>
+<script th:src="@{/js/trivia-game.js}"></script>
 </body>
 </html>
