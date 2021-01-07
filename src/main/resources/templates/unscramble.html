@@ -12,7 +12,7 @@
 <body>
 <main class="container web">
     <div class="game-start">
-        <div class="card mx-auto" style="width: 18rem;">
+        <div class="card mx-auto">
             <div class="card-body">
                 <h2 class="card-title text-center">Before You Begin!</h2>
                 <div class="row">
@@ -24,8 +24,10 @@
                 <div class="mobile-instr hide">
                     <h4>
                         <ol>
-                            <li class="card-text">Click a word to place it on the board.</li>
-                            <li class="card-text">The word you click will go to the highlighted box.</li>
+                            <li class="card-text">Click a word to place it inside the highlighted box.</li>
+                            <li class="card-text">You can click a word on the board to put it back in the word bank.</li>
+                            <li class="card-text">Click <i class="fas fa-undo"></i> to fully reset the board.</li>
+                            <li class="card-text">Click <i class="fas fa-binoculars"></i> to catch a glimpse of what words are in the right position.</li>
                             <li class="card-text">You have <span th:text="${timeLimit}"></span> seconds to complete each
                                 lyric.
                             </li>
@@ -37,11 +39,9 @@
                 <div class="web-instr">
                     <h4>
                         <ol>
-                            <li class="card-text">Drag and drop the words to the drop zone of your choice</li>
-                            <li class="card-text">You can drag the word out to place it back into the word bank</li>
-                            <li class="card-text">You have <span th:text="${timeLimit}"></span> seconds to complete each
-                                lyric.
-                            </li>
+                            <li class="card-text">Drag and drop the words to have them swap positions</li>
+                            <li class="card-text">Click <i class="fas fa-binoculars"></i> to catch a glimpse of what words are in the right position.</li>
+                            <li class="card-text">You have <span th:text="${timeLimit}"></span> seconds to complete each lyric.</li>
                             <li class="card-text">Click Start to Begin!</li>
                         </ol>
                     </h4>
