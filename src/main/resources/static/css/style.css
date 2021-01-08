@@ -8,6 +8,10 @@ body,html {
     background-size: cover;
 }
 
+.rockFont {
+    font-family: 'New Rocker', cursive;
+}
+
 #gameMenuContainer {
     z-index: 100;
 }
@@ -190,7 +194,7 @@ body,html {
 /*TRIVIA-GAME CAROUSEL*/
 #carouselExampleIndicators {
     position: absolute;
-    width: 32em;
+    width: 34em;
     height: 40em;
     z-index: 4;
     top: 50%;
@@ -204,7 +208,7 @@ body,html {
 }
 
 .triviaCard {
-    width: 30em;
+    width: 32em;
     height: 35em;
     background: #222;
     color: white;
@@ -224,7 +228,7 @@ body,html {
     font-family: 'New Rocker', cursive;
     font-size: 2em;
     text-align: center;
-    color: #d0af08;
+    color: #fad100;
 }
 
 .quizAnswers {
@@ -256,7 +260,7 @@ body,html {
     overflow-y: scroll;
 }
 
-.triviaResultsHeader {
+.triviaResultsHeader, #achievementHeader {
     font-family: 'New Rocker', cursive;
     color: #ee00ff;
     text-shadow: 1px 1px 2px blue, 0 0 25px #fcc910, 0 0 5px darkblue;
@@ -267,11 +271,18 @@ body,html {
     margin: 1em;
     position: relative;
     font-size: 1.5em;
+    color: #ddd903 !important;
+    opacity: unset;
+    width: 8em !important;
 }
 
 #submitQuiz {
-    width: 5em;
-    margin-left: 41%;
+    width: 6em;
+    margin-left: auto;
+}
+
+.controlQ {
+    width: 8em !important;
 }
 
 /*PROFILE*/
@@ -362,4 +373,55 @@ input[type="radio"]:checked + .avatarLabel {
     color: #ee00ff;
     text-shadow: 1px 1px 2px blue, 0 0 25px #fcc910, 0 0 5px darkblue;
     font-size: 2em;
+}
+
+/*achievements*/
+.badge1-gradient {
+    background: -webkit-gradient(linear, left top, left bottom, from(#54a703), to(#00b9d0));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.badge2-gradient {
+    background: -webkit-gradient(linear, left top, left bottom, from(#8402f6), to(#ef0083));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.badge3-gradient {
+    background: -webkit-gradient(linear, left top, left bottom, from(#fce303), to(#0042c6));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.badge4-gradient {
+    background: -webkit-gradient(linear, left top, left bottom, from(#ea7e00), to(#4300bf));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#achieveContainer {
+    background-color: rgba(35, 1, 78, 0.7);
+    height: 39em;
+    overflow-y: scroll;
+    border-radius: 10px;
+    margin: 0px auto;
+}
+
+.hrLine2 {
+    border-top: 5px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to left, #0061f5, #07c837);
+}
+
+.hrLine1 {
+    border-top: 5px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to left, #f500cc, #f5f104);
+}
+
+.hrLine3 {
+    border-top: 5px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to left, #00f5a7, #f56c04);
 }

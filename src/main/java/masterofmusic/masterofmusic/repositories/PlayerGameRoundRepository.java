@@ -5,10 +5,12 @@ import masterofmusic.masterofmusic.models.PlayerGameRound;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+
 @Repository
 public interface PlayerGameRoundRepository extends JpaRepository<PlayerGameRound, Long> {
     PlayerGameRound findByPlayerGameId(long id);
     PlayerGameRound findById(long id);
     PlayerGameRound findByScore(long score);
-
+    ArrayList<PlayerGameRound> findAllByPlayerGameId(long id);
 }
