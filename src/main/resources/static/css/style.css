@@ -190,7 +190,7 @@ body,html {
 /*TRIVIA-GAME CAROUSEL*/
 #carouselExampleIndicators {
     position: absolute;
-    width: 32em;
+    width: 34em;
     height: 40em;
     z-index: 4;
     top: 50%;
@@ -204,7 +204,7 @@ body,html {
 }
 
 .triviaCard {
-    width: 30em;
+    width: 32em;
     height: 35em;
     background: #222;
     color: white;
@@ -224,7 +224,7 @@ body,html {
     font-family: 'New Rocker', cursive;
     font-size: 2em;
     text-align: center;
-    color: #d0af08;
+    color: #fad100;
 }
 
 .quizAnswers {
@@ -267,11 +267,18 @@ body,html {
     margin: 1em;
     position: relative;
     font-size: 1.5em;
+    color: #ddd903 !important;
+    opacity: unset;
+    width: 8em !important;
 }
 
 #submitQuiz {
-    width: 5em;
-    margin-left: 41%;
+    width: 6em;
+    margin-left: auto;
+}
+
+.controlQ {
+    width: 8em !important;
 }
 
 /*PROFILE*/

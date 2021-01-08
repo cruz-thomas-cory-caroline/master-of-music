@@ -1,3 +1,4 @@
+CREATE DATABASE IF NOT EXISTS master_of_music_db;
 USE master_of_music_db;
 
 

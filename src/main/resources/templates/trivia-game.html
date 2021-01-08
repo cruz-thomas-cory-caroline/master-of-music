@@ -44,19 +44,19 @@
                                        th:value="${answer.id}" id="triviaGame">
                                 <label class="form-check-label" for="triviaGame" th:text="${answer.answer}"></label>
                             </div>
-                            <section class="d-flex row justify-content-center">
+                            <section id="quizDirectionControl" class="d-flex row justify-content-center">
                                 <a class="carousel-control-prev carControls" href="#carouselExampleIndicators"
                                    role="button"
                                    data-slide="prev">
-                                    <span class="visually-hidden">Previous</span>
+                                    <span class="visually-hidden controlQ">Previous Question</span>
                                 </a>
                                 <a class="carousel-control-next carControls" href="#carouselExampleIndicators"
                                    role="button"
                                    data-slide="next">
-                                    <span class="visually-hidden">Next</span>
+                                    <span class="visually-hidden controlQ">Next Question</span>
                                 </a>
                             </section>
-                            <button id="submitQuiz" type="submit" class="btn btn-warning">Submit</button>
+                            <button id="submitQuiz" type="submit" class="btn btn-warning">Finished the Quiz!</button>
                         </div>
                     </div>
                 </div>
