@@ -227,6 +227,9 @@ public class UnscrambleController {
         model.addAttribute("currentLevel", newRoundCompleted.getLevel());
         model.addAttribute("userAnswers", splitUserLyrics);
         model.addAttribute("songLyrics", splitSongLyrics);
+
+//        if (finalScore > 700)
+
         return "final";
     }
 
