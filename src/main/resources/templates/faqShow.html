@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="partials/head.html :: head"></div>
+    <meta charset="UTF-8">
+    <title>Your Creator</title>
+</head>
+<body>
+<main>
+    <div class="card">
+        <h2 th:text="${user.username}"></h2>
+        <p th:text="${user.description}"></p>
+<!--        <div th:src="${user.uploadPath}"></div>-->
+        <div th:each="image: ${user.images}">
+            <img th:src="${user.images}" alt="">
+        </div>
+        <p>Contact: <span th:text="${user.email}"></span></p>
+    </div>
+</main>
+</body>
+</html>
