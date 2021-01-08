@@ -82,7 +82,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/music-theory/{id}",
                         "/trivia-game/3",
                         "/unscramble",
-                        "/lyric-master/"
+                        "/lyric-master/",
+                        "/profile/{id}"
                 )
                 .authenticated()
         ;
