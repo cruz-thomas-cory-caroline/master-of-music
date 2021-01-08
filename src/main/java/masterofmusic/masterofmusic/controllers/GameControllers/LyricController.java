@@ -7,7 +7,6 @@ import masterofmusic.masterofmusic.services.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -151,7 +150,7 @@ public class LyricController {
         ArrayList<Song> correctSongs = new ArrayList<>();
         ArrayList<Song> incorrectSongs = new ArrayList<>();
         ArrayList<Song> testedSongs = new ArrayList<>();
-        ArrayList<String> scoreAchievements = new ArrayList<>();
+        ArrayList<Integer> scoreAchievements = new ArrayList<>();
 
         String[] songIds = request.getParameterValues("songId");
 
@@ -178,12 +177,7 @@ public class LyricController {
         currentPlayerGame.setScore(playerGameRoundDB.getPlayerGame().getScore() + playerGameRoundDB.getScore());
         playerGameDao.save(currentPlayerGame);
 
-
-//        if(newPlayerGameRound.getScore() == 100){
-//            scoreAchievements.add();
-//        }
-
-        request.setAttribute("scoreAchievement", scoreAchievements);
+        request.setAttribute("scoreAchievements", scoreAchievements);
         request.setAttribute("correctSongs", correctSongs);
         request.setAttribute("score", newPlayerGameRound.getScore());
         request.setAttribute("incorrectUserAnswers", incorrectUserAnswers);

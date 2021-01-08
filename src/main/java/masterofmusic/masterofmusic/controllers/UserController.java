@@ -69,15 +69,15 @@ public class UserController {
         }
     }
 
-    @ModelAttribute("loggedinuser")
-    public User globalUserObject(Model model) {
-        // Add all null check and authentication check before using. Because this is global
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("loggedinuser", authentication.getName());
-        model.addAttribute("roles", authentication.getAuthorities());
-        // Create User pojo class
-        User user = new User(authentication.getName(), Arrays.asList(authentication.getAuthorities()));
-        return user;
-    }
+//    @ModelAttribute("loggedinuser")
+//    public User globalUserObject(Model model) {
+//        // Add all null check and authentication check before using. Because this is global
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        model.addAttribute("loggedinuser", authentication.getName());
+//        model.addAttribute("roles", authentication.getAuthorities());
+//        // Create User pojo class
+//        User user = new User(authentication.getName(), Arrays.asList(authentication.getAuthorities()));
+//        return user;
+//    }
 }
 
