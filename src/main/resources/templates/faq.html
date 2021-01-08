@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <div th:include="partials/head.html :: head"></div>
+    <meta charset="UTF-8">
+    <title>FAQ</title>
 </head>
 <body>
-$END$
+
+<main>
+    <div class="card mb-3" th:each="user : ${users}">
+        <a th:href="@{|/faq/${user.id}|}" >
+            <h2 th:text="${user.username}"></h2>
+        </a>
+        <p th:text="${user.description}"></p>
+        <div th:each="image: ${user.images}">
+<!--            <img th:src="${image.path}" alt="">-->
+        </div>
+        <p>Contact: <span th:text="${user.email}"></span></p>
+        <a th:href="@{|/faq/${user.id}/edit|}">
+            <button>Edit Post</button>
+        </a>
+<!--        <form th:action="@{|/posts/${post.id}/delete|}" th:method="POST" style="display:inline">-->
+<!--            <button>Delete Post</button>-->
+<!--        </form>-->
+    </div>
+</main>
+
+<div th:include="partials/footerNav.html :: footerNav"></div>
+<div th:include="partials/scripts.html :: scripts"></div>
 </body>
 </html>
