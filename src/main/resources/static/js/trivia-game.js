@@ -10,11 +10,11 @@
 
         let timeLeft;
         if (difficultyLevel === "easy") {
-            timeLeft = 60;
+            timeLeft = 75;
         } else if (difficultyLevel === "medium") {
-            timeLeft = 45;
+            timeLeft = 60;
         } else if (difficultyLevel === "hard") {
-            timeLeft = 30;
+            timeLeft = 45;
         }
 
         $("#startGameButton").click(function() {

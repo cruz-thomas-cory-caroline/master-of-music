@@ -33,6 +33,14 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<PlayerGame> games;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "users_achievements",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "achievement_id")}
+    )
+    private List<Achievement> users_achievements;
+
     public User() {
     }
 
@@ -44,7 +52,6 @@ public class User {
         this.isAdmin = isAdmin;
         this.images = images;
         this.games = games;
-
     }
 
     public User(String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games) {
@@ -54,7 +61,6 @@ public class User {
         this.isAdmin = isAdmin;
         this.images = images;
         this.games = games;
-
     }
 
     public User(User copy) {
@@ -127,5 +133,11 @@ public class User {
         this.games = games;
     }
 
+    public List<Achievement> getUsers_achievements() {
+        return users_achievements;
+    }
 
+    public void setUsers_achievements(List<Achievement> users_achievements) {
+        this.users_achievements = users_achievements;
+    }
 }
