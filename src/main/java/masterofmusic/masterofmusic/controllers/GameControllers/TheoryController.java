@@ -51,7 +51,11 @@ public class TheoryController {
         //CREATE PLAYER GAME
         if(id == 0){
             //tie user id to playerGame
-            playerGame.setUser(user);
+            if(user == null){
+                return "redirect:/login";
+            }else{
+                playerGame.setUser(user);
+            }
             //tie game id to playerGame
             playerGame.setGame(game);
             //save player game to database
