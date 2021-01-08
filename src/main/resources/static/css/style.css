@@ -8,6 +8,10 @@ body,html {
     background-size: cover;
 }
 
+.rockFont {
+    font-family: 'New Rocker', cursive;
+}
+
 #gameMenuContainer {
     z-index: 100;
 }
