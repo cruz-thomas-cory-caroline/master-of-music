@@ -82,15 +82,14 @@ public class ProfileController {
             @RequestParam(name = "avatarSelection") String avatarSelected,
             Model model
     ) {
-        User user = userDao.findById(id);
+//        User user = userDao.findById(id);
+        User user = userDao.getOne(id);
         user.setImages(avatarSelected);
-        userDao.save(user);
+        User dbUser = userDao.save(user);
         System.out.println(avatarSelected);
-        model.addAttribute("user", user);
+        model.addAttribute("user", userDao.getOne(dbUser.getId()));
         return "redirect:/profile";
     }
-
-
 
 
 }

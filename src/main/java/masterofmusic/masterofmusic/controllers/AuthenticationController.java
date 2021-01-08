@@ -1,6 +1,7 @@
 package masterofmusic.masterofmusic.controllers;
 
 import masterofmusic.masterofmusic.models.User;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,5 @@ public class AuthenticationController {
     public String showLoginForm() {
         return "login";
     }
-
 
 }

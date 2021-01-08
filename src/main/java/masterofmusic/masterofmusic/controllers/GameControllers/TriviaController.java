@@ -66,29 +66,69 @@ public class TriviaController {
         System.out.println(difficultyOption);
         System.out.println(genreOption);
         Random rand = new Random();
-        Genre genre = genreDao.getOne(1L);
+        Genre genre = genreDao.findByName(genreOption.toLowerCase());
+        ArrayList<Question> questions = questionDao.findAllByGameId(3L);
 
         if (genreOption.equals("Rock")) {
-
-            ArrayList<Question> questions = questionDao.findAllByGameId(3L);
             ArrayList<Question> rockQuestions = new ArrayList<>();
-
             for (Question question : questions) {
                 if (question.getQuestion_genres().contains(genre)) {
                     rockQuestions.add(question);
                 }
             }
-
             ArrayList<Question> randomQs = new ArrayList<>();
             for (var i = 0; i < 5; i++) {
                 Question randRockQ = rockQuestions.get(rand.nextInt(rockQuestions.size()));
                 randomQs.add(randRockQ);
                 rockQuestions.remove(randRockQ);
             }
-            viewModel.addAttribute("difficultyOption", difficultyOption);
+            viewModel.addAttribute("questions", randomQs);
+
+        } else if (genreOption.equals("Pop")) {
+            ArrayList<Question> popQuestions = new ArrayList<>();
+            for (Question question : questions) {
+                if (question.getQuestion_genres().contains(genre)) {
+                    popQuestions.add(question);
+                }
+            }
+            ArrayList<Question> randomQs = new ArrayList<>();
+            for (var i = 0; i < 5; i++) {
+                Question randPopQ = popQuestions.get(rand.nextInt(popQuestions.size()));
+                randomQs.add(randPopQ);
+                popQuestions.remove(randPopQ);
+            }
+            viewModel.addAttribute("questions", randomQs);
+        } else if (genreOption.equals("Hip-Hop")) {
+            ArrayList<Question> hipHopQuestions = new ArrayList<>();
+            for (Question question : questions) {
+                if (question.getQuestion_genres().contains(genre)) {
+                    hipHopQuestions.add(question);
+                }
+            }
+            ArrayList<Question> randomQs = new ArrayList<>();
+            for (var i = 0; i < 5; i++) {
+                Question randHipHopQ = hipHopQuestions.get(rand.nextInt(hipHopQuestions.size()));
+                randomQs.add(randHipHopQ);
+                hipHopQuestions.remove(randHipHopQ);
+            }
+            viewModel.addAttribute("questions", randomQs);
+        } else if (genreOption.equals("Country")) {
+            ArrayList<Question> countryQuestions = new ArrayList<>();
+            for (Question question : questions) {
+                if (question.getQuestion_genres().contains(genre)) {
+                    countryQuestions.add(question);
+                }
+            }
+            ArrayList<Question> randomQs = new ArrayList<>();
+            for (var i = 0; i < 5; i++) {
+                Question randCountryQ = countryQuestions.get(rand.nextInt(countryQuestions.size()));
+                randomQs.add(randCountryQ);
+                countryQuestions.remove(randCountryQ);
+            }
             viewModel.addAttribute("questions", randomQs);
         }
 
+        viewModel.addAttribute("difficultyOption", difficultyOption);
         return "trivia-game";
     }
 

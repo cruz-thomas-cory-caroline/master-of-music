@@ -161,13 +161,13 @@
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="genre" id="inlineRadio12"
-                                   value="pop">
-                            <label class="form-check-label" for="inlineRadio12">Pop</label>
+                                   value="hip-hop">
+                            <label class="form-check-label" for="inlineRadio12">Hip-Hop</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="genre" id="inlineRadio13"
-                                   value="hip-hop">
-                            <label class="form-check-label" for="inlineRadio13">Hip-Hop</label>
+                                   value="pop">
+                            <label class="form-check-label" for="inlineRadio13">Pop</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="genre" id="inlineRadio14"
@@ -188,52 +188,32 @@
                 </section>
 
                 <section id="musicTheoryOptions">
-                    <form>
+                    <form method="GET" th:action="@{|/music-theory/${0}|}">
                         <h5 class="text-white text-start">Difficulty:</h5>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio8"
+                            <input class="form-check-input" checked type="radio" name="theoryDifficultyOptions"
+                                   id="theoryEasy"
                                    value="option1">
-                            <label class="form-check-label" for="inlineRadio8">Easy</label>
+                            <label class="form-check-label" for="theoryEasy">Easy</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio9"
+                            <input class="form-check-input" type="radio" name="theoryDifficultyOptions"
+                                   id="theoryMedium"
                                    value="option2">
-                            <label class="form-check-label" for="inlineRadio9">Medium</label>
+                            <label class="form-check-label" for="theoryMedium">Medium</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio10"
+                            <input class="form-check-input" type="radio" name="theoryDifficultyOptions" id="theoryHard"
                                    value="option3">
-                            <label class="form-check-label" for="inlineRadio10">Hard</label>
+                            <label class="form-check-label" for="theoryHard">Hard</label>
                         </div>
-                        <h5 class="text-white text-start">Genre:</h5>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio11"
-                                   value="option4">
-                            <label class="form-check-label" for="inlineRadio11">Rock</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio12"
-                                   value="option5">
-                            <label class="form-check-label" for="inlineRadio12">Pop</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio13"
-                                   value="option6">
-                            <label class="form-check-label" for="inlineRadio13">Hip-Hop</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio14"
-                                   value="option7">
-                            <label class="form-check-label" for="inlineRadio14">Country</label>
-                        </div>
+                        <button class="btn btn-primary" type="submit">Play Now!</button>
                     </form>
-                    <button><a th:href="@{|/music-theory/${0}|}">Play Now!</a></button>
                 </section>
             </div>
         </div>
     </section>
 </div>
-
 
 
 <div th:include="partials/footerNav.html :: footerNav"></div>

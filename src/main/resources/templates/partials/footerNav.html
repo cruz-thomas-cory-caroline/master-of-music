@@ -10,12 +10,12 @@
     <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark">
         <div class="container-fluid">
             <a sec:authorize="!isAuthenticated()" th:href="@{/sign-up}"><span class="badge text-dark navbar-login">Register or Login</span></a>
-
-            <a sec:authorize="isAuthenticated()" th:href="@{/logout}"><span
-                    class="badge text-dark navbar-login">Logout</span></a>
-            <a sec:authorize="isAuthenticated()" class="navbar-profile ml-4 " data-bs-toggle="tooltip"
-               data-bs-placement="top" title="Go to Profile" th:href="@{/profile}"><img id="profileIcon"
-                                                                                        th:src="${#authentication.principal.images}"></a>
+            <form sec:authorize="isAuthenticated()" th:action="@{/logout}" th:method="post">
+                <button class="badge text-dark navbar-login">Logout</button>
+            </form>
+            <a sec:authorize="isAuthenticated()" class="navbar-profile ml-4 " data-bs-toggle="tooltip" data-bs-placement="top" title="Go to Profile" th:href="@{/profile}">
+                <img id="profileIcon" th:src="${#authentication.principal.images}">
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 

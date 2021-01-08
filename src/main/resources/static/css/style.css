@@ -252,6 +252,8 @@ body,html {
 
 #resultsSection {
     margin: auto;
+    height: 40em;
+    overflow-y: scroll;
 }
 
 .triviaResultsHeader {

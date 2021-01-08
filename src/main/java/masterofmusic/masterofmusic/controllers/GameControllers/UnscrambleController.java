@@ -47,6 +47,7 @@ public class UnscrambleController {
                                  Model model) {
 
         chosenSongs = new ArrayList<>();
+        chosenSongIDs = new ArrayList<>();
 
         if(num == 1) {
             PlayerGame gameStart = new PlayerGame();
@@ -85,10 +86,10 @@ public class UnscrambleController {
                 genreID = 1;
                 break;
             case "pop":
-                genreID = 2;
+                genreID = 3;
                 break;
             case "hip-hop":
-                genreID = 3;
+                genreID = 2;
                 break;
             case "country":
                 genreID = 4;

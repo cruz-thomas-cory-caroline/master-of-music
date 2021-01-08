@@ -1,10 +1,8 @@
 package masterofmusic.masterofmusic.controllers;
 
-import masterofmusic.masterofmusic.models.Game;
-import masterofmusic.masterofmusic.models.Genre;
-import masterofmusic.masterofmusic.models.PlayerGame;
-import masterofmusic.masterofmusic.models.PlayerGameRound;
+import masterofmusic.masterofmusic.models.*;
 import masterofmusic.masterofmusic.repositories.*;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,8 +30,7 @@ public class IndexController {
     }
 
     @GetMapping("/index")
-    public String indexPage(Model viewModel) {
-
+    public String indexPage(Model model) {
         return "index";
     }
 
