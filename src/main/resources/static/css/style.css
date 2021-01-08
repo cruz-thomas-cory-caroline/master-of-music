@@ -256,7 +256,7 @@ body,html {
     overflow-y: scroll;
 }
 
-.triviaResultsHeader {
+.triviaResultsHeader, #achievementHeader {
     font-family: 'New Rocker', cursive;
     color: #ee00ff;
     text-shadow: 1px 1px 2px blue, 0 0 25px #fcc910, 0 0 5px darkblue;
@@ -369,4 +369,37 @@ input[type="radio"]:checked + .avatarLabel {
     color: #ee00ff;
     text-shadow: 1px 1px 2px blue, 0 0 25px #fcc910, 0 0 5px darkblue;
     font-size: 2em;
+}
+
+/*achievements*/
+.badge1-gradient {
+    background: -webkit-gradient(linear, left top, left bottom, from(#54a703), to(#00b9d0));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.badge2-gradient {
+    background: -webkit-gradient(linear, left top, left bottom, from(#8402f6), to(#ef0083));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.badge3-gradient {
+    background: -webkit-gradient(linear, left top, left bottom, from(#fce303), to(#0042c6));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.badge4-gradient {
+    background: -webkit-gradient(linear, left top, left bottom, from(#ea7e00), to(#4300bf));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#achieveContainer {
+    background-color: rgba(35, 1, 78, 0.7);
+    height: 39em;
+    overflow-y: scroll;
+    border-radius: 10px;
+    margin: 0px auto;
 }

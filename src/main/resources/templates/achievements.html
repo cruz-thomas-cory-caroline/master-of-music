@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="partials/head.html :: head"></div>
+    <title>Achievements</title>
+</head>
+<body>
+
+<div class="container-fluid">
+    <h1 id="achievementHeader" class="text-center m-3">ACHIEVEMENTS</h1>
+    <div id="achieveContainer" class="row text-center">
+        <div class="col-md-12 d-flex flex-wrap justify-content-center my-3">
+            <i class="fas fa-award fa-8x badge1-gradient mx-5 my-3" id="awardBadge"></i>
+            <i class="fas fa-medal fa-8x badge3-gradient mx-5 my-3" id="medalBadge"></i>
+            <i class="fas fa-crown fa-8x badge2-gradient mx-5 my-3" id="crownBadge"></i>
+            <i class="fas fa-trophy fa-8x badge4-gradient mx-5 my-3" id="trophyBadge"></i>
+        </div>
+        <div class="col-12 d-flex flex-wrap justify-content-center my-3">
+            <i class="fas fa-star fa-8x badge2-gradient mx-5 my-3" id="starBadge"></i>
+            <i class="fas fa-certificate fa-8x badge4-gradient mx-5 my-3" id="certBadge"></i>
+            <i class="fab fa-battle-net fa-8x badge1-gradient mx-5 my-3" id="netBadge"></i>
+            <i class="fas fa-bolt fa-8x badge3-gradient mx-5 my-3" id="boltBadge"></i>
+        </div>
+        <div class="col-12 d-flex flex-wrap justify-content-center my-3">
+            <i class="fas fa-bomb fa-8x badge1-gradient mx-5 my-3" id="bombBadge"></i>
+            <i class="fas fa-chess-king fa-8x badge2-gradient mx-5 my-3" id="chessBadge"></i>
+            <i class="fas fa-dice-d20 fa-8x badge4-gradient mx-5 my-3" id="diceBadge"></i>
+            <i class="fas fa-fire fa-8x badge3-gradient mx-5 my-3" id="fireBadge"></i>
+        </div>
+        <div class="col-12 d-flex flex-wrap justify-content-center my-3">
+            <i class="fas fa-gem fa-8x badge2-gradient mx-5 my-3" id="gemBadge"></i>
+            <i class="fas fa-jedi fa-8x badge3-gradient mx-5 my-3" id="jediBadge"></i>
+            <i class="fab fa-phoenix-squadron fa-8x badge4-gradient mx-5 my-3" id="phoenixBadge"></i>
+            <i class="fas fa-shield-alt fa-8x badge1-gradient mx-5 my-3" id="shieldBadge"></i>
+        </div>
+    </div>
+</div>
+
+<div th:include="partials/footerNav.html :: footerNav"></div>
+<div th:include="partials/scripts.html :: scripts"></div>
+</body>
+</html>
