@@ -407,3 +407,21 @@ input[type="radio"]:checked + .avatarLabel {
     border-radius: 10px;
     margin: 0px auto;
 }
+
+.hrLine2 {
+    border-top: 5px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to left, #0061f5, #07c837);
+}
+
+.hrLine1 {
+    border-top: 5px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to left, #f500cc, #f5f104);
+}
+
+.hrLine3 {
+    border-top: 5px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to left, #00f5a7, #f56c04);
+}
