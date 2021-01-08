@@ -35,6 +35,14 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<PlayerGame> games;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "users_achievements",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "achievement_id")}
+    )
+    private List<Achievement> users_achievements;
+
     public User() {
     }
 
@@ -129,6 +137,9 @@ public class User {
         this.games = games;
     }
 
+    public List<Achievement> getUsers_achievements() {
+        return users_achievements;
+    }
 
     public String getResetPasswordToken() {
         return resetPasswordToken;
@@ -144,5 +155,9 @@ public class User {
 
     public void setDescription(String description) {
         this.description = description;
+
+    public void setUsers_achievements(List<Achievement> users_achievements) {
+        this.users_achievements = users_achievements;
+
     }
 }

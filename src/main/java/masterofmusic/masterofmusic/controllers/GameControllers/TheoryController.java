@@ -1,4 +1,4 @@
-package masterofmusic.masterofmusic.Controllers.GameControllers;
+package masterofmusic.masterofmusic.controllers.GameControllers;
 
 import masterofmusic.masterofmusic.models.*;
 
@@ -51,7 +51,11 @@ public class TheoryController {
         //CREATE PLAYER GAME
         if(id == 0){
             //tie user id to playerGame
-            playerGame.setUser(user);
+            if(user == null){
+                return "redirect:/login";
+            }else{
+                playerGame.setUser(user);
+            }
             //tie game id to playerGame
             playerGame.setGame(game);
             //save player game to database
@@ -113,14 +117,17 @@ public class TheoryController {
             correctAnswer(10,"easy");
             System.out.println(difficultySelection);
             model.addAttribute("correct", "Great Job!");
+            model.addAttribute("score",10);
         }else if(userAnswer.equalsIgnoreCase(correctAnswer) && difficultySelection.equalsIgnoreCase("option2")){
             correctAnswer(45,"medium");
             System.out.println(difficultySelection);
             model.addAttribute("correct", "Great Job!");
+            model.addAttribute("score",45);
         }else if(userAnswer.equalsIgnoreCase(correctAnswer) && difficultySelection.equalsIgnoreCase("option3")){
                 correctAnswer(100,"hard");
                 System.out.println(difficultySelection);
                 model.addAttribute("correct", "Great Job!");
+            model.addAttribute("score",100);
         }
 
         model.addAttribute("songDifficulty", difficultySelection);

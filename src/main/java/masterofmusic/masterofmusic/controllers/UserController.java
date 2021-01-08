@@ -1,5 +1,6 @@
 package masterofmusic.masterofmusic.controllers;
 import masterofmusic.masterofmusic.SecurityConfiguration;
+import masterofmusic.masterofmusic.models.Achievement;
 import masterofmusic.masterofmusic.models.User;
 import masterofmusic.masterofmusic.repositories.UserRepository;
 import org.hibernate.exception.ConstraintViolationException;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
