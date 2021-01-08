@@ -97,9 +97,6 @@ public class UnscrambleController {
         }
 
         List<Song> allSongsOfGenre = genreDao.getOne(genreID).getSongs();
-        System.out.println(allSongsOfGenre.size());
-        System.out.println(genreID);
-        System.out.println(timeLimit);
 
         while (chosenSongs.size() < numberOfQuestions) {
             int indexToAdd = ThreadLocalRandom.current().nextInt(0, allSongsOfGenre.size());
