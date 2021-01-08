@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class FaqController {
@@ -27,16 +28,17 @@ public class FaqController {
 
     @GetMapping("/faq")
     public String viewFaq(Model model) {
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//
-//        ArrayList<User> userIsAdmin = new ArrayList<>();
-//
-//        for(User user1 : userDao.findAll())
-//            if(user1.isAdmin())
-//                userIsAdmin.add(user);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        model.addAttribute("users", userDao.findAll());
-        System.out.println(userDao.findAll());
+        ArrayList<User> userIsAdmin = new ArrayList<>();
+
+        for (User user1 : userDao.findAll()) {
+            if (user1.isAdmin()) {
+                userIsAdmin.add(user1);
+            }
+        }
+        model.addAttribute("users", userIsAdmin);
+        System.out.println(user.isAdmin());
         return "faq";
 
     }

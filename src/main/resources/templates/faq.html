@@ -8,21 +8,24 @@
 <body>
 
 <main>
-    <div class="card mb-3" th:each="user : ${users}">
-        <a th:href="@{|/faq/${user.id}|}" >
-            <h2 th:text="${user.username}"></h2>
-        </a>
-        <p th:text="${user.description}"></p>
-        <div th:each="image: ${user.images}">
-<!--            <img th:src="${image.path}" alt="">-->
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <div class="card mb-3" th:each="user : ${users}">
+                    <a th:href="@{|/faq/${user.id}|}">
+                        <h2 th:text="${user.username}"></h2>
+                    </a>
+                    <p th:text="${user.description}"></p>
+                    <div th:each="image: ${user.images}">
+                        <!--            <img th:src="${image.path}" alt="">-->
+                    </div>
+                    <p>Contact: <span th:text="${user.email}"></span></p>
+                    <a th:href="@{|/faq/${user.id}/edit|}">
+                        <button>Edit Post</button>
+                    </a>
+                </div>
+            </div>
         </div>
-        <p>Contact: <span th:text="${user.email}"></span></p>
-        <a th:href="@{|/faq/${user.id}/edit|}">
-            <button>Edit Post</button>
-        </a>
-<!--        <form th:action="@{|/posts/${post.id}/delete|}" th:method="POST" style="display:inline">-->
-<!--            <button>Delete Post</button>-->
-<!--        </form>-->
     </div>
 </main>
 
