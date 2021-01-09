@@ -426,6 +426,3 @@ input[type="radio"]:checked + .avatarLabel {
     border-image-source: linear-gradient(to left, #00f5a7, #f56c04);
 }
 
-.notEarned {
-        color: grey;
-}
