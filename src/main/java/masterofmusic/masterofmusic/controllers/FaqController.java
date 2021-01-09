@@ -1,5 +1,6 @@
 package masterofmusic.masterofmusic.controllers;
 
+import masterofmusic.masterofmusic.SecurityConfiguration;
 import masterofmusic.masterofmusic.models.PlayerGame;
 import masterofmusic.masterofmusic.models.User;
 import masterofmusic.masterofmusic.repositories.PlayerGameRepository;
@@ -9,22 +10,21 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class FaqController {
     private final UserRepository userDao;
+    private PasswordEncoder passwordEncoder;
 
-    public FaqController(UserRepository userDao) {
+    public FaqController(UserRepository userDao, PasswordEncoder passwordEncoder) {
         this.userDao = userDao;
+        this.passwordEncoder = passwordEncoder;
     }
-
 
     @GetMapping("/faq")
     public String viewFaq(Model model) {
@@ -45,7 +45,7 @@ public class FaqController {
 
     @GetMapping("/faq/{id}")
     public String viewPost(@PathVariable long id, Model model) {
-        model.addAttribute("user", userDao.getOne(id).isAdmin());
+        model.addAttribute("user", userDao.getOne(id));
         return "faqShow";
     }
 
@@ -56,16 +56,31 @@ public class FaqController {
     }
 
     @PostMapping("/faq/{id}/edit")
-    public String editAd(
+    public String editAd(HttpServletRequest request,
             @PathVariable long id,
-            @RequestParam(name = "username") String username,
-            @RequestParam(name = "description") String desc
+//                         @RequestParam(name = "username") String username,
+                         @RequestParam(name = "description") String desc,
+//                         @RequestParam(name = "email") String email,
+                         @RequestParam(name = "password") String password,
+                         @RequestParam(name = "confirmPassword") String confirmPassword,
+                         @ModelAttribute User user
     ){
+        User current = (User) request.getSession().getAttribute("user");
+        List<User> usersList = userDao.findAll();
+        boolean passwordRequirements = (SecurityConfiguration.isValidPassword(password));
+        if (!password.equals(confirmPassword)) {
+            return "redirect:/faq/{id}/edit?invalidpw";
+        } else if (!passwordRequirements) {
+            return "redirect:/faq/{id}/edit?invalidpwRequirements";
+        }else {
+            User dbUser = userDao.getOne(id);
+//            dbUser.setUsername(username);
+            dbUser.setDescription(desc);
+//            dbUser.setEmail(email);
+            dbUser.setPassword(password);
 
-        User dbUser = userDao.getOne(id);
-        dbUser.setUsername(username);
-        dbUser.setDescription(desc);
-        userDao.save(dbUser);
-        return "redirect:/faq/" + dbUser.getId();
+            userDao.save(dbUser);
+            return "redirect:/faq/" + dbUser.getId();
+        }
     }
 }

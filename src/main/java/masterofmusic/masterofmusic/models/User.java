@@ -155,9 +155,11 @@ public class User {
 
     public void setDescription(String description) {
         this.description = description;
+    }
 
     public void setUsers_achievements(List<Achievement> users_achievements) {
         this.users_achievements = users_achievements;
 
     }
+
 }

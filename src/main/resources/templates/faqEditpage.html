@@ -7,12 +7,62 @@
 </head>
 <body>
 <h1>Edit FAQ</h1>
+<div th:if="${param.error}" class="text-center">
+    <p class="text-danger">Invalid Username or Password.</p>
+</div>
+<div th:if="${param.logout}" class="text-center">
+    <p class="text-success">You have successfully logged out.</p>
+</div>
+<div th:if="${param.emailNotAvailable}" class="text-center">
+    <p class="text-danger">Email already in use.</p>
+</div>
+<div th:if="${param.invalidpw}" class="text-center">
+    <p class="text-danger">Passwords do not match.</p>
+</div>
+<div th:if="${param.invalidEmail}" class="text-center">
+    <p class="text-danger">Invalid Email.</p>
+</div>
+<div th:if="${param.usernameNotAvailable}" class="text-center">
+    <p class="text-danger">Username not available.</p>
+</div>
+<div th:if="${param.invalidpwRequirements}">
+    <p class="text-danger">Password does not meet requirements.</p>
+</div>
+<ul id="pwRequirementsList" class="text-danger"><h6>Password Requirements:</h6>
+    <li>It contains at least 8 characters and at most 20 characters.</li>
+    <li>It contains at least one digit.</li>
+    <li>It contains at least one upper case alphabet.</li>
+    <li>It contains at least one lower case alphabet.</li>
+    <li>It contains at least one special character which includes:</li>
+    <ul>!@#$%&*()-+=^.</ul>
+    <li>No spaces.</li>
+</ul>
 <form th:action="@{'/faq/' + ${user.id} + '/edit'}" th:method="POST" th:object="${user}">
-   <label for="username">Title</label>
-    <input id="username" type="text" name="username" th:value="${user.username}" placeholder="Enter New Username">
-    <label for="description">Body</label>
+<!--   <label for="username">Edit Username</label>-->
+<!--    <input id="username" type="text" name="username" th:value="${user.username}" placeholder="Enter New Username">-->
+    <label for="description">Edit Description</label>
     <textarea id="description" name="description" th:text="${user.description}" placeholder="Enter body"></textarea>
+<!--    <label for="email">Update E-mail</label>-->
+<!--    <input id="email" type="text" name="email" th:placeholder="${user.email}" placeholder="Enter New Username">-->
+
+
+
+    <input class="form-control" ng-model="password" ng-change="analyze(password)"
+           placeholder="Enter password" type="password" id="passwordEntered" name="password"
+           th:field="*{password}">
+    <div id="passwordStrength" ng-style="passwordStrength">
+    </div>
+    <a id = "pwRequirements" href="#">Password Requirements</a>
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fas fa-key"></i> </span>
+            </div>
+            <input class="form-control" placeholder="Confirm password" type="password"
+                   name="confirmPassword">
+        </div>
     <button>Update FAQ</button>
+    </div>
 </form>
 </body>
 <div th:include="partials/footerNav.html :: footerNav"></div>
