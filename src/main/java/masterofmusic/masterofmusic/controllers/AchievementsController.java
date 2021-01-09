@@ -33,7 +33,7 @@ public class AchievementsController {
             @PathVariable long id,
             Model model
     ) {
-        User user = userDao.findById(1L);
+        User user = userDao.findById(3L);
 
         return "achievements";
     }
