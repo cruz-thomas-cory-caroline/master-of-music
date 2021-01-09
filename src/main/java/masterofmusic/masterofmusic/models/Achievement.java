@@ -14,6 +14,12 @@ public class Achievement {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
+    private String classString;
+
+    @Column(nullable = false)
+    private String description;
+
     @ManyToMany(mappedBy = "users_achievements")
     private List<User> users;
 
@@ -62,5 +68,21 @@ public class Achievement {
 
     public void setGame(Game game) {
         this.game = game;
+    }
+
+    public String getClassString() {
+        return classString;
+    }
+
+    public void setClassString(String classString) {
+        this.classString = classString;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
