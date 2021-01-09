@@ -63,8 +63,6 @@ public class TriviaController {
     public String viewTriviaGame(
             Model viewModel
     ) {
-        System.out.println(difficultyOption);
-        System.out.println(genreOption);
         Random rand = new Random();
         Genre genre = genreDao.findByName(genreOption.toLowerCase());
         ArrayList<Question> questions = questionDao.findAllByGameId(3L);
@@ -138,6 +136,8 @@ public class TriviaController {
             HttpServletRequest request,
             Model model
     ) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         ArrayList<String> correctAnswers = new ArrayList<>();
         ArrayList<String> incorrectAnswers = new ArrayList<>();
         ArrayList<Question> correctQs = new ArrayList<>();
@@ -146,6 +146,7 @@ public class TriviaController {
         ArrayList<Question> incorrectQs = new ArrayList<>();
         ArrayList<Long> checkSubAnsForNull = new ArrayList<>();
 
+//        CHECK FOR NULL ANSWERS
         for (String questionId : questionIds) {
             String subAns = request.getParameter("question_" + questionId);
             if (subAns == null) {
@@ -156,6 +157,7 @@ public class TriviaController {
             }
         }
 
+//        CHECK FOR CORRECT AND INCORRECT ANSWERS
         int roundScore = 0;
         for (String questionId : questionIds) {
                 long answerIsCorrect = questionDao.findAnswerIdCorrect(Long.parseLong(questionId));
@@ -185,6 +187,67 @@ public class TriviaController {
             }
         }
 
+        //  CHECK FOR ACHIEVEMENTS
+        ArrayList<PlayerGame> playerGamesForUser = playerGameDao.findAllByUserId(user.getId());
+        ArrayList<List<PlayerGameRound>> playerGameRoundsForTrivia = new ArrayList<>();
+        var gameCount = 0;
+        var scoreCount = 0;
+        boolean triviaGemAward;
+        boolean easyPerfect = false;
+        boolean mediumPerfect = false;
+        boolean hardPerfect = false;
+
+        for (PlayerGame playerGame : playerGamesForUser) {
+            if (playerGame.getGame().getId() == 3) {
+                playerGameRoundsForTrivia.add(playerGame.getPlayerGameRounds());
+                gameCount += 1;
+                scoreCount += playerGame.getScore();
+            }
+        }
+
+        // CHECK FOR GEM - PERFECT SCORE IN ALL DIFFICULTIES (13)
+//        for (List<PlayerGameRound> playerGameRound : playerGameRoundsForTrivia) {
+//            for (PlayerGameRound playerGameRound1 : playerGameRound) {
+//                if (playerGameRound1.getDifficulty().equals("easy") && playerGameRound1.getScore() == 500) {
+//                    easyPerfect = true;
+//                    if (playerGameRound1.getDifficulty().equals("medium") && playerGameRound1.getScore() == 500) {
+//                        mediumPerfect = true;
+//                        if (playerGameRound1.getDifficulty().equals("hard") && playerGameRound1.getScore() == 500) {
+//                            hardPerfect = true;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//
+//        if (easyPerfect && mediumPerfect && hardPerfect) {
+//
+//        }
+
+        // CHECK FOR JEDI - PLAYED AT LEAST 10 GAMES (14)
+//        if (gameCount == 10) {
+//
+//        }
+
+        // CHECK FOR PHOENIX - TOTAL SCORE OF 5,000 (15)
+//        if (scoreCount == 5000) {
+//
+//        }
+
+        // CHECK FOR SHIELD - PERFECT SCORE STREAK ON 5 GAMES (16)
+        for (PlayerGame playerGame : playerGamesForUser) {
+            if (playerGame.getGame().getId() == 3) {
+                playerGameRoundsForTrivia.add(playerGame.getPlayerGameRounds());
+                gameCount += 1;
+                scoreCount += playerGame.getScore();
+            }
+        }
+
+
+//        System.out.println(easyPerfect);
+//        System.out.println(mediumPerfect);
+//        System.out.println(hardPerfect);
+
         gameLevel += 1;
         totalScore += roundScore;
         PlayerGameRound currentGameRound = new PlayerGameRound();
@@ -196,11 +259,8 @@ public class TriviaController {
         playerGameDao.save(currentPlayerGame);
         currentGameRound.setDifficulty(difficultyOption);
         playerGameRoundDao.save(currentGameRound);
-        User user = currentPlayerGame.getUser();
+        User user_db = currentPlayerGame.getUser();
 
-
-        System.out.println(incorrectAnswers);
-        System.out.println(correctAnswers);
         model.addAttribute("submittedAnswers", submittedAnswers);
         model.addAttribute("correctQs", correctQs);
         model.addAttribute("incorrectQs", incorrectQs);
@@ -208,7 +268,7 @@ public class TriviaController {
         model.addAttribute("incorrectAnswers", incorrectAnswers);
         model.addAttribute("roundsScoreTotal", totalScore);
         model.addAttribute("roundScore", roundScore);
-        model.addAttribute("user", user);
+        model.addAttribute("user", user_db);
         return "result";
     }
 

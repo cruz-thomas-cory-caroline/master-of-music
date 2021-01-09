@@ -35,37 +35,6 @@ public class AchievementsController {
     ) {
         User user = userDao.findById(1L);
 
-        ArrayList<PlayerGame> playerGamesForUser = playerGameDao.findAllByUserId(user.getId());
-        ArrayList<List<PlayerGameRound>> playerGameRoundsForTrivia = new ArrayList<>();
-        boolean triviaGemAward;
-        boolean easyPerfect = false;
-        boolean mediumPerfect = false;
-        boolean hardPerfect = false;
-
-        for (PlayerGame playerGame : playerGamesForUser) {
-            if (playerGame.getGame().getId() == 3) {
-                playerGameRoundsForTrivia.add(playerGame.getPlayerGameRounds());
-            }
-        }
-
-        for (List<PlayerGameRound> playerGameRound : playerGameRoundsForTrivia) {
-            for (PlayerGameRound playerGameRound1 : playerGameRound) {
-                if (playerGameRound1.getDifficulty().equals("easy") && playerGameRound1.getScore() == 500) {
-                    easyPerfect = true;
-                    if (playerGameRound1.getDifficulty().equals("medium") && playerGameRound1.getScore() == 500) {
-                        mediumPerfect = true;
-                        if (playerGameRound1.getDifficulty().equals("hard") && playerGameRound1.getScore() == 500) {
-                            hardPerfect = true;
-                        }
-                    }
-                }
-            }
-        }
-
-        System.out.println(easyPerfect);
-        System.out.println(mediumPerfect);
-        System.out.println(hardPerfect);
-
         return "achievements";
     }
 
