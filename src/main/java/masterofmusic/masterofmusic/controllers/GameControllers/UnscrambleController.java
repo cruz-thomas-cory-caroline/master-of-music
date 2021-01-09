@@ -1,9 +1,6 @@
 package masterofmusic.masterofmusic.controllers.GameControllers;
 
-import masterofmusic.masterofmusic.models.PlayerGame;
-import masterofmusic.masterofmusic.models.PlayerGameRound;
-import masterofmusic.masterofmusic.models.Song;
-import masterofmusic.masterofmusic.models.User;
+import masterofmusic.masterofmusic.models.*;
 import masterofmusic.masterofmusic.repositories.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -11,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.Array;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
@@ -27,16 +23,21 @@ public class UnscrambleController {
     private final PlayerGameRepository playerGameDao;
     private final PlayerGameRoundRepository playerGameRoundDoa;
     private final GenreRepository genreDao;
+    private final AchievementRepository achievementDao;
+    private final UserRepository userDao;
     private List<Long> chosenSongIDs = new ArrayList<>();
     private List<Song> chosenSongs = new ArrayList<>();
     private long currentGameID;
+    boolean usedCheckFeature;
 
-    public UnscrambleController(SongRepository songDao, GameRepository gameDao, PlayerGameRepository playerGameDao, PlayerGameRoundRepository playerGameRoundDoa, GenreRepository genreDao) {
+    public UnscrambleController(SongRepository songDao, GameRepository gameDao, PlayerGameRepository playerGameDao, PlayerGameRoundRepository playerGameRoundDoa, GenreRepository genreDao, AchievementRepository achievementDao, UserRepository userDao) {
         this.songDao = songDao;
         this.gameDao = gameDao;
         this.playerGameDao = playerGameDao;
         this.playerGameRoundDoa = playerGameRoundDoa;
         this.genreDao = genreDao;
+        this.achievementDao = achievementDao;
+        this.userDao = userDao;
     }
 
 
@@ -45,7 +46,7 @@ public class UnscrambleController {
                                  @RequestParam(name = "genre") String genre,
                                  @RequestParam(name = "round") long num,
                                  Model model) {
-
+        usedCheckFeature = false;
         chosenSongs = new ArrayList<>();
         chosenSongIDs = new ArrayList<>();
 
@@ -158,8 +159,8 @@ public class UnscrambleController {
                                 @RequestParam(name = "playerGame") long num,
                                 HttpServletRequest request,
                                 Model model) {
-
-        System.out.println("BREAK BREAK BREAK");
+        usedCheckFeature = true;
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         PlayerGameRound newRoundCompleted = new PlayerGameRound();
         newRoundCompleted.setDifficulty(difficulty);
         newRoundCompleted.setLevel(playerGameDao.getOne(num).getPlayerGameRounds().size()+1);
@@ -199,6 +200,7 @@ public class UnscrambleController {
 
         int totalPossScore = 0;
         int finalScore = 0;
+
         switch(difficulty) {
             case "easy":
                 totalPossScore = wordTotal * 10;
@@ -219,6 +221,7 @@ public class UnscrambleController {
         playerGameDao.getOne(newRoundCompleted.getPlayerGame().getId()).setScore(newRoundCompleted.getPlayerGame().getScore()+newRoundCompleted.getScore());
         PlayerGameRound savedRound = playerGameRoundDoa.save(newRoundCompleted);
 
+
         model.addAttribute("score", savedRound.getScore());
         model.addAttribute("songs", chosenSongs);
         if (finalScore >= totalPossScore/2) {
@@ -228,7 +231,43 @@ public class UnscrambleController {
         model.addAttribute("userAnswers", splitUserLyrics);
         model.addAttribute("songLyrics", splitSongLyrics);
 
-//        if (finalScore > 700)
+
+        List<Achievement> gameAchievements = achievementDao.findAllByGameId(4);
+        List<Achievement> userAchievements = user.getUsers_achievements();
+
+        if (userAchievements == null) {
+            userAchievements = new ArrayList<Achievement>();
+        }
+
+        System.out.println(userAchievements);
+        for (Achievement ach : userAchievements) {
+            System.out.println(ach.getName());
+        }
+
+        if (finalScore > 500 && !userAchievements.contains(gameAchievements.get(0))) {
+            model.addAttribute("starAward", true);
+            userAchievements.add(gameAchievements.get(0));
+        }
+
+        if (playerGameDao.getOne(newRoundCompleted.getPlayerGame().getId()).getScore() > 1500 && !userAchievements.contains(gameAchievements.get(1))) {
+            model.addAttribute("certificateAward", true);
+            userAchievements.add(gameAchievements.get(1));
+        }
+
+        if (finalScore > 700 && !usedCheckFeature && !userAchievements.contains(gameAchievements.get(2))) {
+            model.addAttribute("battleAward", true);
+            userAchievements.add(gameAchievements.get(2));
+        }
+
+        if (difficulty.equalsIgnoreCase("hard") && finalScore == totalPossScore && !userAchievements.contains(gameAchievements.get(3))) {
+            model.addAttribute("boltAward", true);
+            userAchievements.add(gameAchievements.get(3));
+        }
+
+        User userToSave = userDao.getOne(user.getId());
+        userToSave.setUsers_achievements(userAchievements);
+        userDao.save(userToSave);
+
 
         return "final";
     }

@@ -33,14 +33,17 @@ public class AchievementsController {
             @PathVariable long id,
             Model model
     ) {
-        User user = userDao.findById(1L);
+        User user = userDao.findById(3L);
 
         ArrayList<PlayerGame> playerGamesForUser = playerGameDao.findAllByUserId(user.getId());
         ArrayList<List<PlayerGameRound>> playerGameRoundsForTrivia = new ArrayList<>();
+
         boolean triviaGemAward;
         boolean easyPerfect = false;
         boolean mediumPerfect = false;
         boolean hardPerfect = false;
+
+
 
         for (PlayerGame playerGame : playerGamesForUser) {
             if (playerGame.getGame().getId() == 3) {
