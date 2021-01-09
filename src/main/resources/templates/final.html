@@ -16,6 +16,10 @@
                 <p>You successfully answered enough to proceed to the next round!</p>
                 <hr>
             </div>
+            <div th:if="${awardEarned}" id="badgeEarned" class="hide">
+                <h3>NEW <span th:if="${newAwards.size() > 1}">BADGES</span><span th:unless="${newAwards.size() > 1}">BADGE</span> EARNED!</h3>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">See Award</button>
+            </div>
             <div th:each="song, int : ${songs}">
                 <div class="row">
                     <h5 class="card-title col-6 text-left">Title: <span th:text="${song.getTitle()}"></span></h5>
@@ -52,7 +56,6 @@
                         <label class="form-check-label" for="inlineRadio10">Hard</label>
                     </div>
 
-
                     <h5 class="text-white text-start">Genre:</h5>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="genre" id="inlineRadio11"
@@ -76,15 +79,36 @@
                     </div>
                     <div>
                         <input name=round type="hidden" th:value="${currentLevel+1}">
-                        <button type="submit">Next Round</button>
+                        <button type="submit" class="btn btn-primart">Next Round</button>
                     </div>
                 </form>
-
+                <a href="/index" class="btn btn-danger">Quit</a>
             </div>
             <div th:unless="${canAdvance}">
                 <a href="/index" class="btn btn-primary">Home</a>
             </div>
 
+        </div>
+    </div>
+
+    <div th:if="${awardEarned}" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header justify-content-center">
+                    <h2 class="modal-title" id="exampleModalLabel"><i class="fas fa-award"></i> Your New <span th:if="${newAwards.size() > 1}">Awards!</span><span th:unless="${newAwards.size() > 1}">Award!</span> <i class="fas fa-award"></i></h2>
+                </div>
+                <div class="modal-body row justify-content-center">
+                    <div th:each="award : ${newAwards}" class="text-center">
+                        <div class="text-center">
+                            <i th:class="${award.getClassString()}"></i>
+                            <h4 th:text="${award.getDescription()}"></h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer text-center">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -105,12 +129,13 @@
                 $('#scoreCounter').html(zero)
                 clearInterval(scoreCount)
                 $('#congrats').show()
+                $('#badgeEarned').show()
             } else {
                 console.log(zero)
                 zero = zero + 1
                 $('#scoreCounter').html(zero)
             }
-        }, 10)
+        }, 5)
     }
 
     scoreCounter()
