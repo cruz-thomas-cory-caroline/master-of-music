@@ -1,7 +1,7 @@
 use master_of_music_db;
 
 insert into achievement(id, name)
-values (1, 'Award'),
+values (1, 'Award', ),
 (2, 'Medal'),
 (3, 'Crown'),
 (4, 'Trophy'),

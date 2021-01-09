@@ -159,7 +159,6 @@ public class UnscrambleController {
                                 @RequestParam(name = "playerGame") long num,
                                 HttpServletRequest request,
                                 Model model) {
-        usedCheckFeature = true;
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         PlayerGameRound newRoundCompleted = new PlayerGameRound();
         newRoundCompleted.setDifficulty(difficulty);
@@ -182,7 +181,6 @@ public class UnscrambleController {
             splitSongLyrics.add(splitLyricSet);
 
             String userLyric = request.getParameter("song" + chosenSongs.indexOf(song));
-            System.out.println(userLyric);
             splitUserSet = new ArrayList<>(Arrays.asList(userLyric.split(" ")));
             while (splitUserSet.size() < splitLyricSet.size()) {
                 splitUserSet.add("xyz");
@@ -190,10 +188,8 @@ public class UnscrambleController {
             splitUserLyrics.add(splitUserSet);
 
             for (var i = 0; i < splitLyricSet.size(); i++) {
-                System.out.println(splitLyricSet.get(i) + " / " + splitUserSet.get(i));
                 if (splitLyricSet.get(i).equals(splitUserSet.get(i))) {
                     wordsCorrect += 1;
-                    System.out.println(splitLyricSet.get(i));
                 }
             }
         }
@@ -236,39 +232,103 @@ public class UnscrambleController {
         List<Achievement> userAchievements = user.getUsers_achievements();
 
         if (userAchievements == null) {
-            userAchievements = new ArrayList<Achievement>();
+            System.out.println("Nothing has been Earned");
+            userAchievements = new ArrayList<>();
+        } else {
+            for (Achievement ach : userAchievements) {
+                System.out.println("You've earned: " + ach.getName());
+            }
         }
 
-        System.out.println(userAchievements);
-        for (Achievement ach : userAchievements) {
-            System.out.println(ach.getName());
+        boolean awardEarned = false;
+        List<Achievement> newAwards = new ArrayList<>();
+
+        if(finalScore >= 300 && !userAchievements.contains(gameAchievements.get(0))) {
+            Achievement achToChange = achievementDao.getOne(gameAchievements.get(0).getId());
+            List<User> usersWhoHaveBadge = achToChange.getUsers();
+            if (usersWhoHaveBadge == null) {
+                usersWhoHaveBadge = new ArrayList<>();
+            }
+            if (!usersWhoHaveBadge.contains(userDao.getOne(user.getId()))) {
+                usersWhoHaveBadge.add(user);
+                achToChange.setUsers(usersWhoHaveBadge);
+                achievementDao.save(achToChange);
+
+                userAchievements.add(achToChange);
+                User userToSave = userDao.getOne(user.getId());
+                userToSave.setUsers_achievements(userAchievements);
+                userDao.save(userToSave);
+
+                awardEarned = true;
+                newAwards.add(achToChange);
+            }
         }
 
-        if (finalScore > 500 && !userAchievements.contains(gameAchievements.get(0))) {
-            model.addAttribute("starAward", true);
-            userAchievements.add(gameAchievements.get(0));
+        if (playerGameDao.getOne(newRoundCompleted.getPlayerGame().getId()).getScore() >= 1000 && !userAchievements.contains(gameAchievements.get(1))) {
+            Achievement achToChange = achievementDao.getOne(gameAchievements.get(1).getId());
+            List<User> usersWhoHaveBadge = achToChange.getUsers();
+            if (usersWhoHaveBadge == null) {
+                usersWhoHaveBadge = new ArrayList<>();
+            }
+            if (!usersWhoHaveBadge.contains(userDao.getOne(user.getId()))) {
+                usersWhoHaveBadge.add(user);
+                achToChange.setUsers(usersWhoHaveBadge);
+                achievementDao.save(achToChange);
+
+                userAchievements.add(achToChange);
+                User userToSave = userDao.getOne(user.getId());
+                userToSave.setUsers_achievements(userAchievements);
+                userDao.save(userToSave);
+
+                awardEarned = true;
+                newAwards.add(achToChange);
+            }
         }
 
-        if (playerGameDao.getOne(newRoundCompleted.getPlayerGame().getId()).getScore() > 1500 && !userAchievements.contains(gameAchievements.get(1))) {
-            model.addAttribute("certificateAward", true);
-            userAchievements.add(gameAchievements.get(1));
-        }
+        if (finalScore >= 500 && !usedCheckFeature && !userAchievements.contains(gameAchievements.get(2))) {
+            Achievement achToChange = achievementDao.getOne(gameAchievements.get(2).getId());
+            List<User> usersWhoHaveBadge = achToChange.getUsers();
+            if (usersWhoHaveBadge == null) {
+                usersWhoHaveBadge = new ArrayList<>();
+            }
+            if (!usersWhoHaveBadge.contains(userDao.getOne(user.getId()))) {
+                usersWhoHaveBadge.add(user);
+                achToChange.setUsers(usersWhoHaveBadge);
+                achievementDao.save(achToChange);
 
-        if (finalScore > 700 && !usedCheckFeature && !userAchievements.contains(gameAchievements.get(2))) {
-            model.addAttribute("battleAward", true);
-            userAchievements.add(gameAchievements.get(2));
+                userAchievements.add(achToChange);
+                User userToSave = userDao.getOne(user.getId());
+                userToSave.setUsers_achievements(userAchievements);
+                userDao.save(userToSave);
+
+                awardEarned = true;
+                newAwards.add(achToChange);
+            }
         }
 
         if (difficulty.equalsIgnoreCase("hard") && finalScore == totalPossScore && !userAchievements.contains(gameAchievements.get(3))) {
-            model.addAttribute("boltAward", true);
-            userAchievements.add(gameAchievements.get(3));
+            Achievement achToChange = achievementDao.getOne(gameAchievements.get(3).getId());
+            List<User> usersWhoHaveBadge = achToChange.getUsers();
+            if (usersWhoHaveBadge == null) {
+                usersWhoHaveBadge = new ArrayList<>();
+            }
+            if (!usersWhoHaveBadge.contains(userDao.getOne(user.getId()))) {
+                usersWhoHaveBadge.add(user);
+                achToChange.setUsers(usersWhoHaveBadge);
+                achievementDao.save(achToChange);
+
+                userAchievements.add(achToChange);
+                User userToSave = userDao.getOne(user.getId());
+                userToSave.setUsers_achievements(userAchievements);
+                userDao.save(userToSave);
+
+                awardEarned = true;
+                newAwards.add(achToChange);
+            }
         }
 
-        User userToSave = userDao.getOne(user.getId());
-        userToSave.setUsers_achievements(userAchievements);
-        userDao.save(userToSave);
-
-
+        model.addAttribute("awardEarned", awardEarned);
+        model.addAttribute("newAwards", newAwards);
         return "final";
     }
 
@@ -278,6 +338,7 @@ public class UnscrambleController {
                         @RequestParam(name = "userAnswer") String userAnswer,
                         Model model) {
 
+        usedCheckFeature = true;
         String lyrics = songDao.getOne(id).getLyrics();
 
         List<Integer> rightWrong = new ArrayList<>();
