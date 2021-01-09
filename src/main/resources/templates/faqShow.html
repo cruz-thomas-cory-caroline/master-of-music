@@ -10,12 +10,14 @@
     <div class="card">
         <h2 th:text="${user.username}"></h2>
         <p th:text="${user.description}"></p>
-<!--        <div th:src="${user.uploadPath}"></div>-->
         <div th:each="image: ${user.images}">
-            <img th:src="${https://ca.slack-edge.com/T029BRGN0-U0176QVNQ9L-118d27dc6f76-512}" alt="">
+            <img th:src="${user.images}" alt="">
         </div>
         <p>Contact: <span th:text="${user.email}"></span></p>
     </div>
+    <a th:href="@{/faq}">
+        <button>Back to FAQ</button>
+    </a>
 </main>
 </body>
 </html>
