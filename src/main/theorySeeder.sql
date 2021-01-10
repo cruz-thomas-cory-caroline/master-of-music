@@ -7,7 +7,7 @@ INSERT INTO questions (id, question, game_id)VALUES
 (4,'Assuming a guitar is in standard tuning, what note is on the 5th fret of the low E string?',2),
 (5,'Which of the following can be played over a b phrygian chord progression?',2),
 (6,'What notes are in the E minor scale?',2);
-INSERT INTO answers (answer, is_correct, question_id)
+INSERT INTO answers (id, answer, is_correct, question_id)
 VALUES (1,'Harmonic Minor',true,1),
 (2,'Diminished',false,1),
 (3,'Pentatonic',false,1),
