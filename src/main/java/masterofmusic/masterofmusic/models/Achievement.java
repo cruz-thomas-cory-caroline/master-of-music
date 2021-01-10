@@ -14,18 +14,26 @@ public class Achievement {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
+    private String classString;
+
+    @Column(nullable = false)
+    private String description;
+
     @ManyToMany(mappedBy = "users_achievements")
     private List<User> users;
 
-    public Achievement(String name, List<User> users) {
+    @ManyToOne
+    @JoinColumn (name = "game_id")
+    private Game game;
+
+    public Achievement(String name) {
         this.name = name;
-        this.users = users;
     }
 
-    public Achievement(long id, List<User> users, String name) {
+    public Achievement(long id, String name) {
         this.id = id;
         this.name = name;
-        this.users = users;
     }
 
     public Achievement() {}
@@ -52,5 +60,29 @@ public class Achievement {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public String getClassString() {
+        return classString;
+    }
+
+    public void setClassString(String classString) {
+        this.classString = classString;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -35,18 +35,31 @@ public class IndexController {
 
     @GetMapping("/index")
     public String indexPage(Model model) {
+//        boolean loggedIn = false;
+//        if(!SecurityContextHolder.getContext().getAuthentication().getName().equalsIgnoreCase("anonymousUser")){
+//            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//            loggedIn = true;
+//            model.addAttribute("user", user.getImages());
+//        }else{
+//
+//            model.addAttribute("genericPfp","../../resources/static/img/unnamed.png" );
+//        }
+        return "index";
+    }
+
+    @GetMapping("/footerNav")
+    public String footerNav(Model model){
         boolean loggedIn = false;
         if(!SecurityContextHolder.getContext().getAuthentication().getName().equalsIgnoreCase("anonymousUser")){
             User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             loggedIn = true;
             model.addAttribute("user", user.getImages());
         }else{
-
             model.addAttribute("genericPfp","../../resources/static/img/unnamed.png" );
         }
-        return "index";
-    }
 
+        return "../../resources/templates/partials/footerNav.html";
+    }
 
 }
 
