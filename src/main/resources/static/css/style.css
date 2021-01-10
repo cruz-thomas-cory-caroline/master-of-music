@@ -285,6 +285,28 @@ body,html {
     width: 8em !important;
 }
 
+#triviaBadgeAlert {
+    position: absolute;
+    z-index: 100;
+    width: 30rem;
+    height: 20rem;
+    top: 10%;
+    left: 34%;
+    background-color: #222;
+    border: 10px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to left, #7cf300, #d53a9d);
+}
+
+#badgeAlertControls {
+    margin-top: auto;
+}
+
+#newTriviaAwardsEarned {
+    margin: 5px 5px;
+    font-weight: bold;
+}
+
 /*PROFILE*/
 
 #profileAvatar {
