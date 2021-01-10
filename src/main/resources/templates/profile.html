@@ -24,7 +24,7 @@
                             Change Avatar
                         </button>
                     </div>
-                    <h3 class="text-white rockFont w-100 text-center mt-4">Achievements:</h3>
+                    <a th:href="@{/achievements}" class="w-100 text-center mt-4"> <h3 class="text-white rockFont">Achievements:</h3></a>
                     <div class="col-12 d-flex flex-wrap justify-content-center">
                         <div th:each="achievement : ${userAchievements}" class="mx-2 mt-3 justify-content-center">
                             <div>

@@ -8,7 +8,8 @@
 <main class="container-flex">
     <div class="row justify-content-center">
 
-        <div th:if="${loggedIn}" class="col-12 col-md-4 card align-self-center" style="background-color: transparent; color: white">
+        <div th:if="${loggedIn}" class="col-12 col-md-4 card align-self-center"
+             style="background-color: transparent; color: white">
             <div class="card-body text-center">
                 <h2>Your Global Rank: <span th:text="${globalRank}"></span></h2>
                 <h3>Total Score: <span th:text="${playerScore}"></span></h3>
