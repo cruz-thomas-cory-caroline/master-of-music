@@ -178,12 +178,16 @@ public class LyricController {
             }
         }
         int playerGameRound = playerGameDao.getOne(Long.parseLong(request.getParameter("playerGame"))).getPlayerGameRounds().size() + 1;
+        PlayerGameRound playerGameRoundDB = playerGameRoundDao.save(newPlayerGameRound);
+        currentPlayerGame.setScore(playerGameRoundDB.getPlayerGame().getScore() + playerGameRoundDB.getScore());
+        playerGameDao.save(currentPlayerGame);
 
         //  CHECK FOR ACHIEVEMENTS
         ArrayList<PlayerGame> playerGamesForUser = playerGameDao.findAllByUserId(user.getId());
         ArrayList<List<PlayerGameRound>> playerGameRoundsForLM = new ArrayList<>();
         List<Achievement> gameAchievements = achievementDao.findAllByGameId(1);
         List<Achievement> userAchievements = user_db.getUsers_achievements();
+        ArrayList<PlayerGameRound> allDifficulties = new ArrayList<>();
 
         if (userAchievements == null) {
             System.out.println("Nothing has been Earned");
@@ -194,24 +198,11 @@ public class LyricController {
             }
         }
 
-        int finalScore = 0;
-
-        switch (songDifficulty) {
-            case "easy":
-                finalScore = 600;
-                break;
-            case "medium":
-                finalScore = 800;
-                break;
-            case "hard":
-                finalScore = 1000;
-                break;
-        }
-
         boolean awardEarned = false;
         List<Achievement> newAwards = new ArrayList<>();
 
-        if (finalScore >= 100 && !userAchievements.contains(gameAchievements.get(0))) {
+//        award (play two rounds with a final score of 1500)
+        if (playerGameRound==2 && currentPlayerGame.getScore()>=1500 && !userAchievements.contains(gameAchievements.get(0))) {
             Achievement achToChange = achievementDao.getOne(gameAchievements.get(0).getId());
             List<User> usersWhoHaveBadge = achToChange.getUsers();
             if (usersWhoHaveBadge == null) {
@@ -232,7 +223,8 @@ public class LyricController {
             }
         }
 
-        if (finalScore >= 500 && !userAchievements.contains(gameAchievements.get(1))) {
+//        medal(score 500 or higher)
+        if (playerGameDao.getOne(currentPlayerGame.getId()).getScore() >= 500 && !userAchievements.contains(gameAchievements.get(1))) {
             Achievement achToChange = achievementDao.getOne(gameAchievements.get(1).getId());
             List<User> usersWhoHaveBadge = achToChange.getUsers();
             if (usersWhoHaveBadge == null) {
@@ -253,7 +245,30 @@ public class LyricController {
             }
         }
 
-        if (difficulty.equalsIgnoreCase("hard") && finalScore == 1000 && !userAchievements.contains(gameAchievements.get(2))) {
+//        crown(2000 on hard)
+        if (difficulty.equalsIgnoreCase("hard")  && playerGameDao.getOne(currentPlayerGame.getId()).getScore() >= 2000 && !userAchievements.contains(gameAchievements.get(2))) {
+            Achievement achToChange = achievementDao.getOne(gameAchievements.get(2).getId());
+            List<User> usersWhoHaveBadge = achToChange.getUsers();
+            if (usersWhoHaveBadge == null) {
+                usersWhoHaveBadge = new ArrayList<>();
+            }
+            if (!usersWhoHaveBadge.contains(userDao.getOne(user.getId()))) {
+                usersWhoHaveBadge.add(user);
+                achToChange.setUsers(usersWhoHaveBadge);
+                achievementDao.save(achToChange);
+
+                userAchievements.add(achToChange);
+                User userToSave = userDao.getOne(user.getId());
+                userToSave.setUsers_achievements(userAchievements);
+                userDao.save(userToSave);
+
+                awardEarned = true;
+                newAwards.add(achToChange);
+            }
+        }
+
+//      trophy
+        if (playerGameRound == 5  && !userAchievements.contains(gameAchievements.get(3))) {
             Achievement achToChange = achievementDao.getOne(gameAchievements.get(3).getId());
             List<User> usersWhoHaveBadge = achToChange.getUsers();
             if (usersWhoHaveBadge == null) {
@@ -275,33 +290,8 @@ public class LyricController {
         }
 
 
-        if (playerGameRound == 2  && !userAchievements.contains(gameAchievements.get(3))) {
-            Achievement achToChange = achievementDao.getOne(gameAchievements.get(3).getId());
-            List<User> usersWhoHaveBadge = achToChange.getUsers();
-            if (usersWhoHaveBadge == null) {
-                usersWhoHaveBadge = new ArrayList<>();
-            }
-            if (!usersWhoHaveBadge.contains(userDao.getOne(user.getId()))) {
-                usersWhoHaveBadge.add(user);
-                achToChange.setUsers(usersWhoHaveBadge);
-                achievementDao.save(achToChange);
-
-                userAchievements.add(achToChange);
-                User userToSave = userDao.getOne(user.getId());
-                userToSave.setUsers_achievements(userAchievements);
-                userDao.save(userToSave);
-
-                awardEarned = true;
-                newAwards.add(achToChange);
-            }
-        }
 
 
-
-
-        PlayerGameRound playerGameRoundDB = playerGameRoundDao.save(newPlayerGameRound);
-        currentPlayerGame.setScore(playerGameRoundDB.getPlayerGame().getScore() + playerGameRoundDB.getScore());
-        playerGameDao.save(currentPlayerGame);
 
         System.out.println(playerGameRound);
         System.out.println(round);
