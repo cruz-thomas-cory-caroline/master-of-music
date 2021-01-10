@@ -26,7 +26,7 @@ public class ProfileController {
     private final UserRepository userDao;
     private final PlayerGameRepository playerGameDao;
 
-    public ProfileController(UserRepository userDao, PlayerGameRepository playerGameDao){
+    public ProfileController(UserRepository userDao, PlayerGameRepository playerGameDao) {
         this.userDao = userDao;
         this.playerGameDao = playerGameDao;
     }
@@ -34,7 +34,7 @@ public class ProfileController {
     @GetMapping("/profile")
     public String viewProfile(
             Model model
-    ){
+    ) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         ArrayList<PlayerGame> playerGamesForUser = playerGameDao.findAllByUserId(user.getId());
@@ -65,17 +65,10 @@ public class ProfileController {
             }
         }
 
-        if (!SecurityContextHolder.getContext().getAuthentication().getName().equalsIgnoreCase("anonymousUser")) {
-            User thisUser = userDao.getOne(user.getId());
-            List<Achievement> userAchievements = thisUser.getUsers_achievements();
-            if (userAchievements == null) {
-                System.out.println("I'm Empty");
-                userAchievements = new ArrayList<>();
-            }
-            model.addAttribute("loggedIn", true);
-            model.addAttribute("userAchievements", userAchievements);
-        }
+        User thisUser = userDao.getOne(user.getId());
+        List<Achievement> userAchievements = thisUser.getUsers_achievements();
 
+        model.addAttribute("userAchievements", userAchievements);
         model.addAttribute("user", userDao.getOne(user.getId()));
         model.addAttribute("totalTriviaScore", totalTriviaScore);
         model.addAttribute("playerGamesForTrivia", playerGamesForTrivia);

@@ -14,7 +14,7 @@
             <div th:each="achievement : ${allAchievements}" th:if="${achievement.getGame().getId() == 1}" class="mx-5">
                 <div th:if="${loggedIn}">
                     <div th:if="${userAchievements.contains(achievement)}">
-                        <i th:class="${achievement.getClassString()}    + ' fa-8x'"></i>
+                        <i th:class="${achievement.getClassString()} + ' fa-8x'"></i>
                         <p class="badgeDescription text-white fw-bolder bg-dark d-flex flex-wrap mt-3"
                            th:text="${achievement.getDescription()}"></p>
                     </div>
@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div th:unless="${loggedIn}">
-                    <i th:class="${achievement.getClassString()}    + ' fa-8x'"></i>
+                    <i th:class="${achievement.getClassString()} + ' fa-8x'"></i>
                     <p class="badgeDescription text-white fw-bolder bg-dark d-flex flex-wrap mt-3"
                        th:text="${achievement.getDescription()}"></p>
                 </div>
@@ -36,7 +36,7 @@
             <div th:each="achievement : ${allAchievements}" th:if="${achievement.getGame().getId() == 4}" class="mx-5">
                 <div th:if="${loggedIn}">
                     <div th:if="${userAchievements.contains(achievement)}">
-                        <i th:class="${achievement.getClassString()}    + ' fa-8x'"></i>
+                        <i th:class="${achievement.getClassString()} + ' fa-8x'"></i>
                         <p class="badgeDescription text-white fw-bolder bg-dark d-flex flex-wrap mt-3"
                            th:text="${achievement.getDescription()}"></p>
                     </div>
@@ -47,7 +47,7 @@
                     </div>
                 </div>
                 <div th:unless="${loggedIn}">
-                    <i th:class="${achievement.getClassString()}    + ' fa-8x'"></i>
+                    <i th:class="${achievement.getClassString()} + ' fa-8x'"></i>
                     <p class="badgeDescription text-white fw-bolder bg-dark d-flex flex-wrap mt-3"
                        th:text="${achievement.getDescription()}"></p>
                 </div>
@@ -58,7 +58,7 @@
             <div th:each="achievement : ${allAchievements}" th:if="${achievement.getGame().getId() == 2}" class="mx-5">
                 <div th:if="${loggedIn}">
                     <div th:if="${userAchievements.contains(achievement)}">
-                        <i th:class="${achievement.getClassString()}   + ' fa-8x'"></i>
+                        <i th:class="${achievement.getClassString()} + ' fa-8x'"></i>
                         <p class="badgeDescription text-white fw-bolder bg-dark d-flex flex-wrap mt-3"
                            th:text="${achievement.getDescription()}"></p>
                     </div>
@@ -69,7 +69,7 @@
                     </div>
                 </div>
                 <div th:unless="${loggedIn}">
-                    <i th:class="${achievement.getClassString()}   + ' fa-8x'"></i>
+                    <i th:class="${achievement.getClassString()} + ' fa-8x'"></i>
                     <p class="badgeDescription text-white fw-bolder bg-dark d-flex flex-wrap mt-3"
                        th:text="${achievement.getDescription()}"></p>
                 </div>
@@ -91,7 +91,7 @@
                     </div>
                 </div>
                 <div th:unless="${loggedIn}">
-                    <i th:class="${achievement.getClassString()}   + ' fa-8x'"></i>
+                    <i th:class="${achievement.getClassString()} + ' fa-8x'"></i>
                     <p class="badgeDescription text-white fw-bolder bg-dark d-flex flex-wrap mt-3"
                        th:text="${achievement.getDescription()}"></p>
                 </div>

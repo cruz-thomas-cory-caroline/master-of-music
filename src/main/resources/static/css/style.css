@@ -375,10 +375,6 @@ input[type="radio"]:checked + .avatarLabel {
     font-size: 2em;
 }
 
-#profileBadges {
-    width: 50px !important;
-    height: 50px !important;
-}
 
 /*achievements*/
 .badge1-gradient {
