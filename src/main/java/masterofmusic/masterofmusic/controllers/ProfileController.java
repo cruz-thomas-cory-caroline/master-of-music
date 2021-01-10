@@ -1,5 +1,6 @@
 package masterofmusic.masterofmusic.controllers;
 
+import masterofmusic.masterofmusic.models.Achievement;
 import masterofmusic.masterofmusic.models.PlayerGame;
 import masterofmusic.masterofmusic.models.User;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class ProfileController {
@@ -63,6 +65,16 @@ public class ProfileController {
             }
         }
 
+        if (!SecurityContextHolder.getContext().getAuthentication().getName().equalsIgnoreCase("anonymousUser")) {
+            User thisUser = userDao.getOne(user.getId());
+            List<Achievement> userAchievements = thisUser.getUsers_achievements();
+            if (userAchievements == null) {
+                System.out.println("I'm Empty");
+                userAchievements = new ArrayList<>();
+            }
+            model.addAttribute("loggedIn", true);
+            model.addAttribute("userAchievements", userAchievements);
+        }
 
         model.addAttribute("user", userDao.getOne(user.getId()));
         model.addAttribute("totalTriviaScore", totalTriviaScore);

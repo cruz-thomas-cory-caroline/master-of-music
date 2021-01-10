@@ -11,17 +11,25 @@
     <div class="row">
         <div class="col-12 col-md-4">
             <div class="mt-5">
-                <h3 class="welcomePlayerHeader text-center">WELCOME PLAYER <span th:text="${user.username.toUpperCase()}"></span>
+                <h3 class="welcomePlayerHeader text-center">WELCOME PLAYER <span
+                        th:text="${user.username.toUpperCase()}"></span>
                 </h3>
                 <section class="row">
                     <div class="col-12 d-flex justify-content-center">
-                    <img class="m-2" id="profileAvatar" th:src="${user.images}" alt="profile-icon">
+                        <img class="m-2" id="profileAvatar" th:src="${user.images}" alt="profile-icon">
                     </div>
                     <!-- Button trigger modal -->
                     <div class="col-12 d-flex justify-content-center">
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#staticBackdrop">
-                        Change Avatar
-                    </button>
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#staticBackdrop">
+                            Change Avatar
+                        </button>
+                    </div>
+                    <div class="col-12 d-flex justify-content-center">
+                        <div th:each="achievement : ${userAchievements}" class="mx-5">
+                            <div th:if="${loggedIn}">
+                                    <i id="profileBadges" th:class="${achievement.getClassString()}"></i>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
