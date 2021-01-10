@@ -244,6 +244,7 @@ public class TriviaController {
         boolean jediAwardEarned = false;
         boolean phoenixAwardEarned = false;
         boolean shieldAwardEarned = false;
+        boolean triviaAwardEarned = false;
 
         List<Achievement> newAwards = new ArrayList<>();
         List<Achievement> userAchievements = user_db.getUsers_achievements();
@@ -348,6 +349,10 @@ public class TriviaController {
             }
         }
 
+        if (gemAwardEarned  || jediAwardEarned  || phoenixAwardEarned  || shieldAwardEarned) {
+            triviaAwardEarned = true;
+        }
+
 
         System.out.println(easyPerfect);
         System.out.println(mediumPerfect);
@@ -366,6 +371,8 @@ public class TriviaController {
         currentGameRound.setDifficulty(difficultyOption);
         playerGameRoundDao.save(currentGameRound);
 
+        model.addAttribute("newAwards", newAwards);
+        model.addAttribute("triviaAwardEarned", triviaAwardEarned);
         model.addAttribute("submittedAnswers", submittedAnswers);
         model.addAttribute("correctQs", correctQs);
         model.addAttribute("incorrectQs", incorrectQs);
