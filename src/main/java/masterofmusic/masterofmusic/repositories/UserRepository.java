@@ -38,5 +38,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select sum(pg.score) from PlayerGame pg where pg.game.id = ?1 group by pg.user.id order by sum(pg.score) desc")
     public List<Integer> getRankedListOfUsersScoreByGameId(long id);
 
+    public List<User> findByOrderByUsernameAsc();
+
 }
 
