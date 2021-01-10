@@ -7,104 +7,139 @@
 </head>
 <body>
 
-<!--<main>-->
-<!--    <div class="container">-->
-<!--        <div class="row">-->
-<!--            <div class="col-3">-->
-<!--                <div class="card mb-3" th:each="user : ${users}">-->
-<!--                    <a th:href="@{|/faq/${user.id}|}">-->
-<!--                        <h2 th:text="${user.username}"></h2>-->
-<!--                    </a>-->
-<!--                    <p th:text="${user.description}"></p>-->
-<!--                    <div th:each="image: ${user.images}">-->
-<!--                                    <img th:src="${user.images}" alt="">-->
-<!--                    </div>-->
-<!--                    <p>Contact: <span th:text="${user.email}"></span></p>-->
-<!--                    <a th:href="@{|/faq/${user.id}/edit|}">-->
-<!--                        <button>Edit Post</button>-->
-<!--                    </a>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</main>-->
-
 <main>
     <div class="container">
         <div class="card-group">
-            <div class="card h-100" th:each="user : ${caroline}">
-                <img th:src="${user.images}" class="card-img-top" alt="...">
+            <div class="card h-100">
+                <img th:src="@{/img/caroline.jpeg}" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <a th:href="@{|/faq/${user.id}|}">
                         <h2 class="card-title">Caroline</h2>
-                    </a>
-                    <p class="card-text" th:text="${user.description}"></p>
+                    <p class="card-text">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquid amet architecto asperiores error et eveniet facilis id, ipsa laudantium maxime molestiae nam nihil quo quos recusandae saepe similique tenetur? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi at aut commodi cumque debitis deserunt doloribus enim itaque iusto, magnam, nobis non, nostrum qui ratione sapiente soluta voluptates voluptatum!
+                    </p>
                     <div class="card-footer">
-                        <p>Contact:
-                            <link th:href="@{user.email}">
-                            <span th:text="${user.email}"></span></link></p>
+                        <p>Contact: <link> </link></p>
                     </div>
-                    <div th:if="${user.isAdmin()}">
-                        <a th:href="@{|/faq/${user.id}/edit|}">
-                            <button>Edit Post</button>
-                        </a>
                     </div>
                 </div>
             </div>
-            <div class="card h-100" th:each="user : ${cory}">
+            <div class="card h-100">
                 <img class="card-img-top" th:src="@{/img/cory.jpeg}" alt="">
                 <div class="card-body">
-                    <a th:href="@{|/faq/${user.id}|}">
                         <h2 class="card-title">Cory</h2>
-                    </a>
-                    <p class="card-text" th:text="${user.description}"></p>
+                    <p class="card-text">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquid amet architecto asperiores error et eveniet facilis id, ipsa laudantium maxime molestiae nam nihil quo quos recusandae saepe similique tenetur? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi at aut commodi cumque debitis deserunt doloribus enim itaque iusto, magnam, nobis non, nostrum qui ratione sapiente soluta voluptates voluptatum!
+                    </p>
                     <div class="card-footer">
-                        <p>Contact: <span th:text="${user.email}"></span></p>
+                        <p>Contact:</p>
                     </div>
-                    <div th:if="${user.isAdmin()}">
-                        <a th:href="@{|/faq/${user.id}/edit|}">
-                            <button>Edit Post</button>
-                        </a>
-                    </div>
+
                 </div>
             </div>
-            <div class="card h-100" th:each="user : ${cruz}">
+            <div class="card h-100">
                 <img class="card-img-top" th:src="@{/img/cruz.jpeg}" alt="">
                 <div class="card-body">
-                    <a th:href="@{|/faq/${user.id}|}">
                         <h2 class="card-title">Cruzanio</h2>
-                    </a>
-                    <p class="card-text" th:text="${user.description}"></p>
+                    <p class="card-text">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquid amet architecto asperiores error et eveniet facilis id, ipsa laudantium maxime molestiae nam nihil quo quos recusandae saepe similique tenetur? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi at aut commodi cumque debitis deserunt doloribus enim itaque iusto, magnam, nobis non, nostrum qui ratione sapiente soluta voluptates voluptatum!
+                    </p>
                     <div class="card-footer">
-                        <p>Contact: <span th:text="${user.email}"></span></p>
-                    </div>
-                    <div th:if="${user.isAdmin()}">
-                        <a th:href="@{|/faq/${user.id}/edit|}">
-                            <button>Edit Post</button>
-                        </a>
+                        <p>Contact: </p>
                     </div>
                 </div>
             </div>
-            <div class="card h-100" th:each="user : ${thomas}">
+            <div class="card h-100">
                 <img class="card-img-top" th:src="@{/img/thomas.png}" alt="">
                 <div class="card-body">
-                    <a th:href="@{|/faq/${user.id}|}">
-                        <h2 class="card-title">Thomas</h2>
-                    </a>
-                    <p class="card-text" th:text="${user.description}"></p>
+                    <h2 class="card-title">Thomas</h2>
+                    <p class="card-text">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquid amet architecto asperiores error et eveniet facilis id, ipsa laudantium maxime molestiae nam nihil quo quos recusandae saepe similique tenetur? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi at aut commodi cumque debitis deserunt doloribus enim itaque iusto, magnam, nobis non, nostrum qui ratione sapiente soluta voluptates voluptatum!
+                    </p>
                     <div class="card-footer">
-                        <p>Contact: <span th:text="${user.email}"></span></p>
-                    </div>
-                    <div th:if="${user.isAdmin()}">
-                        <a th:href="@{|/faq/${user.id}/edit|}">
-                            <button>Edit Post</button>
-                        </a>
+                        <p>Contact: </p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </main>
+
+<!--<main>-->
+<!--    <div class="container">-->
+<!--        <div class="card-group">-->
+<!--            <div class="card h-100" th:each="user : ${caroline}">-->
+<!--                <img th:src="${user.images}" class="card-img-top" alt="...">-->
+<!--                <div class="card-body">-->
+<!--                    <a th:href="@{|/faq/${user.id}|}">-->
+<!--                        <h2 class="card-title">Caroline</h2>-->
+<!--                    </a>-->
+<!--                    <p class="card-text" th:text="${user.description}"></p>-->
+<!--                    <div class="card-footer">-->
+<!--                        <p>Contact:-->
+<!--                            <link th:href="@{user.email}">-->
+<!--                            <span th:text="${user.email}"></span></link></p>-->
+<!--                    </div>-->
+<!--                    <div th:if="${user.isAdmin()}">-->
+<!--                        <a th:href="@{|/faq/${user.id}/edit|}">-->
+<!--                            <button>Edit Post</button>-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="card h-100" th:each="user : ${cory}">-->
+<!--                <img class="card-img-top" th:src="@{/img/cory.jpeg}" alt="">-->
+<!--                <div class="card-body">-->
+<!--                    <a th:href="@{|/faq/${user.id}|}">-->
+<!--                        <h2 class="card-title">Cory</h2>-->
+<!--                    </a>-->
+<!--                    <p class="card-text" th:text="${user.description}"></p>-->
+<!--                    <div class="card-footer">-->
+<!--                        <p>Contact: <span th:text="${user.email}"></span></p>-->
+<!--                    </div>-->
+<!--                    <div th:if="${user.isAdmin()}">-->
+<!--                        <a th:href="@{|/faq/${user.id}/edit|}">-->
+<!--                            <button>Edit Post</button>-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="card h-100" th:each="user : ${cruz}">-->
+<!--                <img class="card-img-top" th:src="@{/img/cruz.jpeg}" alt="">-->
+<!--                <div class="card-body">-->
+<!--                    <a th:href="@{|/faq/${user.id}|}">-->
+<!--                        <h2 class="card-title">Cruzanio</h2>-->
+<!--                    </a>-->
+<!--                    <p class="card-text" th:text="${user.description}"></p>-->
+<!--                    <div class="card-footer">-->
+<!--                        <p>Contact: <span th:text="${user.email}"></span></p>-->
+<!--                    </div>-->
+<!--                    <div th:if="${user.isAdmin()}">-->
+<!--                        <a th:href="@{|/faq/${user.id}/edit|}">-->
+<!--                            <button>Edit Post</button>-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="card h-100" th:each="user : ${thomas}">-->
+<!--                <img class="card-img-top" th:src="@{/img/thomas.png}" alt="">-->
+<!--                <div class="card-body">-->
+<!--                    <a th:href="@{|/faq/${user.id}|}">-->
+<!--                        <h2 class="card-title">Thomas</h2>-->
+<!--                    </a>-->
+<!--                    <p class="card-text" th:text="${user.description}"></p>-->
+<!--                    <div class="card-footer">-->
+<!--                        <p>Contact: <span th:text="${user.email}"></span></p>-->
+<!--                    </div>-->
+<!--                    <div th:if="${user.isAdmin()}">-->
+<!--                        <a th:href="@{|/faq/${user.id}/edit|}">-->
+<!--                            <button>Edit Post</button>-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</main>-->
 
 <!--<div th:include="partials/footerNav.html :: footerNav"></div>-->
 <div th:include="partials/scripts.html :: scripts"></div>
