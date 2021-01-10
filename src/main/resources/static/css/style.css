@@ -432,3 +432,4 @@ input[type="radio"]:checked + .avatarLabel {
     border-image-slice: 1;
     border-image-source: linear-gradient(to left, #00f5a7, #f56c04);
 }
+

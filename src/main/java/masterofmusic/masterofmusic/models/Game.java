@@ -18,6 +18,10 @@ public class Game {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "game")
     private List<Song> songs;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "game")
+    private List<Achievement> achievements;
+
+
     public Game() {
     }
 
@@ -60,5 +64,13 @@ public class Game {
 
     public List<Song> getSongs() {
         return songs;
+    }
+
+    public List<Achievement> getAchievements() {
+        return achievements;
+    }
+
+    public void setAchievements(List<Achievement> achievements) {
+        this.achievements = achievements;
     }
 }
