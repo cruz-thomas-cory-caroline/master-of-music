@@ -29,9 +29,6 @@ public class User {
     @Column(nullable = true, columnDefinition = "varchar(255) default 'https://i.pinimg.com/originals/c3/e1/0a/c3e10aeb8ecc1f529d592146eb599ddf.jpg'")
     private String images;
 
-    @Column()
-    private String description;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<PlayerGame> games;
 
@@ -46,7 +43,7 @@ public class User {
     public User() {
     }
 
-    public User(long id, String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games, String description) {
+    public User(long id, String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games) {
         this.id = id;
         this.email = email;
         this.username = username;
@@ -54,17 +51,17 @@ public class User {
         this.isAdmin = isAdmin;
         this.images = images;
         this.games = games;
-        this.description = description;
+
     }
 
-    public User(String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games, String description) {
+    public User(String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games) {
         this.email = email;
         this.username = username;
         this.password = password;
         this.isAdmin = isAdmin;
         this.images = images;
         this.games = games;
-        this.description = description;
+
     }
 
     public User(User copy) {
@@ -147,14 +144,6 @@ public class User {
 
     public void setResetPasswordToken(String resetPasswordToken) {
         this.resetPasswordToken = resetPasswordToken;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public void setUsers_achievements(List<Achievement> users_achievements) {
