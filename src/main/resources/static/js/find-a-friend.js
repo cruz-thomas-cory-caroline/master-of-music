@@ -1,9 +1,11 @@
 (function () {
     "use strict";
 
-    $('#find-button').click(function () {
+    $('#find-button').click(userSearch)
+    $('#find-friend').on('keyup change', userSearch)
+
+    function userSearch() {
         let userSearch = $('#find-friend')[0].value.toLowerCase()
-        console.log(userSearch)
 
         if (userSearch === "") {
             console.log("String is Empty")
@@ -21,9 +23,7 @@
                 }
             })
         }
-
-
-    })
+    }
 
 
 

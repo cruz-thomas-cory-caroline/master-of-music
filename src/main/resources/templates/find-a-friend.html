@@ -18,7 +18,7 @@
     <div class="card-body row">
         <h5 class="card-title col-6 mb-0" th:text="${user.getUsername()}"></h5>
         <div class="col-6 text-right">
-            <a href="#" class="btn btn-primary">Profile</a>
+            <a th:href="@{/view/profile/{id}(id=${user.getId()})}" class="btn btn-primary">Profile</a>
         </div>
     </div>
 </div>
