@@ -375,6 +375,7 @@ input[type="radio"]:checked + .avatarLabel {
     font-size: 2em;
 }
 
+
 /*achievements*/
 .badge1-gradient {
     background: -webkit-gradient(linear, left top, left bottom, from(#54a703), to(#00b9d0));
@@ -402,10 +403,10 @@ input[type="radio"]:checked + .avatarLabel {
 
 #achieveContainer {
     background-color: rgba(35, 1, 78, 0.7);
-    height: 39em;
+    height: 40rem;
     overflow-y: scroll;
     border-radius: 10px;
-    margin: 0px auto;
+    margin: 10px auto;
 }
 
 .hrLine2 {
@@ -424,5 +425,10 @@ input[type="radio"]:checked + .avatarLabel {
     border-top: 5px solid;
     border-image-slice: 1;
     border-image-source: linear-gradient(to left, #00f5a7, #f56c04);
+}
+
+.badgeDescription {
+    width: 14em;
+    padding: 0 8px;
 }
 

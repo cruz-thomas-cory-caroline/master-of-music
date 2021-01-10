@@ -1,5 +1,6 @@
 package masterofmusic.masterofmusic.controllers;
 
+import masterofmusic.masterofmusic.models.Achievement;
 import masterofmusic.masterofmusic.models.PlayerGame;
 import masterofmusic.masterofmusic.models.User;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class ProfileController {
@@ -24,7 +26,7 @@ public class ProfileController {
     private final UserRepository userDao;
     private final PlayerGameRepository playerGameDao;
 
-    public ProfileController(UserRepository userDao, PlayerGameRepository playerGameDao){
+    public ProfileController(UserRepository userDao, PlayerGameRepository playerGameDao) {
         this.userDao = userDao;
         this.playerGameDao = playerGameDao;
     }
@@ -32,7 +34,7 @@ public class ProfileController {
     @GetMapping("/profile")
     public String viewProfile(
             Model model
-    ){
+    ) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         ArrayList<PlayerGame> playerGamesForUser = playerGameDao.findAllByUserId(user.getId());
@@ -63,7 +65,10 @@ public class ProfileController {
             }
         }
 
+        User thisUser = userDao.getOne(user.getId());
+        List<Achievement> userAchievements = thisUser.getUsers_achievements();
 
+        model.addAttribute("userAchievements", userAchievements);
         model.addAttribute("user", userDao.getOne(user.getId()));
         model.addAttribute("totalTriviaScore", totalTriviaScore);
         model.addAttribute("playerGamesForTrivia", playerGamesForTrivia);
