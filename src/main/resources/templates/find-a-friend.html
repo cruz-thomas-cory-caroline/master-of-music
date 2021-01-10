@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="partials/head.html :: head"></div>
+    <title>Find A Friend</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.js"
+            integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container text-center">
+    <h3 style="color: white">Find A Friend</h3>
+    <div class="row justify-content-center">
+        <input type="text" placeholder="Enter Player Name..." id="find-friend">
+        <button class="btn btn-primary" id="find-button">Search</button>
+    </div>
+</div>
+<div class="card container my-2 user" th:each="user : ${allUsers}" style="max-width: 18em">
+    <div class="card-body row">
+        <h5 class="card-title col-6 mb-0" th:text="${user.getUsername()}"></h5>
+        <div class="col-6 text-right">
+            <a href="#" class="btn btn-primary">Profile</a>
+        </div>
+    </div>
+</div>
+
+<div th:include="partials/footerNav.html :: footerNav"></div>
+<div th:include="partials/scripts.html :: scripts"></div>
+<script th:src="@{/js/find-a-friend.js}"></script>
+</body>
+</html>
