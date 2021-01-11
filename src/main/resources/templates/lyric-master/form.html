@@ -35,7 +35,6 @@
 
             <ol class='video-game-button'>
                 <div class="card m-auto lyricCardsBG">
-                    <p>
                     <h2 class="card-title" th:text="${song.lyrics}"></h2>
                     <p class="text-left">Title: <span th:text="${song.title}"></span></p>
                     <p class="text-left">Artist: <span th:text="${song.artist}"></span></p>
@@ -52,6 +51,7 @@
                                th:name="song_+${song.id}" checked/>
                     </div>
                     <span>
+
                     <a href="#" class="prev start-btn" id="previous">PREVIOUS</a>
                     <a href="#" class='start-btn next' id="next">NEXT</a>
                     </span>
