@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="partials/head.html :: head"></div>
+    <title>Leaderboard</title>
+</head>
+<body>
+<main class="container-flex">
+    <div id="rankingsContainer" class="row">
+
+        <div th:if="${loggedIn}" class="col-12 col-md-4 text-white card m-auto" style="background-color: transparent">
+            <div class="card-body text-center pt-0 mb-4 mt-2">
+                <img class="m-2" id="leadershipBoardAvatar" th:src="${userToFind.getImages()}">
+                <h2 class="rockFont my-2 pinkShadowFont">Your Global Rank:</h2>
+                <h1 class="rockFont m-2 "><span th:if="${globalRank}" th:text="${globalRank}"></span><span
+                        th:unless="${globalRank}">No Rank</span></h1>
+                <h2 class="rockFont m-2 pinkShadowFont">Total Score:</h2>
+                <h1 class="rockFont"><span id="playerScore" th:if="${playerScore}" th:text="${playerScore}"></span><span
+                        th:unless="${playerScore}">0</span></h1>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-8 justify-content-center">
+            <section class="container-fluid">
+                <div class="card mx-auto mt-5" id="globalRankingContainer">
+                    <h2 class="gameHistoryHeader text-white my-4 rockFont text-center w-100"
+                        style="background-color: #060285">
+                        Global Rankings</h2>
+                    <ul class="list-group list-group-flush" style="max-height: 200px; overflow-y: auto"
+                        th:each="user, int : ${rankedUsers}">
+                        <li class="list-group-item d-flex flex-wrap justify-content-center">
+                            <p><span th:text="${int.index+1}+'.'"></span>
+                                <span th:text="${user.getUsername()}"></span>
+                                <i th:if="${user.getUsers_achievements()}"
+                                   th:each="achievement : ${user.getUsers_achievements()}"
+                                   th:class="${achievement.getClassString()} + ' ml-1'"></i>
+                                <span>  --  Score:</span>
+                                <span id="globalUserRatingLine" th:text="${rankedScores.get(int.index)}"></span>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <div class="mt-5">
+                <section class="container-fluid" id="userGameStatsContainer">
+                    <h2 class="gameHistoryHeader text-white my-4 rockFont text-center"
+                        style="background-color: #440148">Global Rankings By Game</h2>
+                    <ul class="nav nav-tabs fw-bolder" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active text-warning" id="musicTrivia-tab" data-toggle="tab"
+                               href="#musicTriviaTab" role="tab" aria-controls="musicTriviaStats" aria-selected="true">TRIVIA
+                                MASTER</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-warning fw-bolder" id="lyricMaster-tab" data-toggle="tab"
+                               href="#lyricMasterTab" role="tab" aria-controls="lyricMasterStats" aria-selected="false">LYRIC
+                                MASTER</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-warning fw-bolder" id="musicTheory-tab" data-toggle="tab"
+                               href="#musicTheoryTab" role="tab" aria-controls="musicTheoryStats" aria-selected="false">THEORY
+                                MASTER</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-warning fw-bolder" id="unscramble-tab" data-toggle="tab"
+                               href="#unscrambleTab" role="tab" aria-controls="unscrambleStats" aria-selected="false">UNSCRAMBLE
+                                MASTER</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content mb-4" id="myTabContent">
+                        <!--music trivia tab-->
+                        <div class="tab-pane fade show active" id="musicTriviaTab" role="tabpanel"
+                             aria-labelledby="musicTrivia-tab">
+                            <section class="tab-content" id="myTabContent1">
+                                <div class="tab-pane fade show active h-75S" role="tabpanel"
+                                     aria-labelledby="musicTrivia-tab">
+                                    <!--start music trivia tab -->
+                                    <div class="card">
+                                        <h5 th:if="${game3Standing}" class="card-header text-white tabHeaders">You Rank:
+                                            <span th:text="${game3Standing}"></span>
+                                        </h5>
+                                        <h5 th:unless="${game3Standing}" class="card-header text-white tabHeaders"><span
+                                                th:text="${game3Standing}"></span>
+                                        </h5>
+                                        <div class="card-body cardBodyForTabs">
+                                            <div th:each="user, int : ${game3Players}"
+                                                 class="card mb-2 gameStatsCards border-gradient-purple" style="width: 100%;">
+                                                <p><span th:text="${int.index+1}+'.'"></span>
+                                                    <span th:text="${user.getUsername()}"></span>
+                                                    <i th:if="${user.getUsers_achievements()}"
+                                                       th:each="achievement : ${user.getUsers_achievements()}"
+                                                       th:class="${achievement.getClassString()} + ' ml-1'"></i>
+                                                    <span>  --  Score:</span>
+                                                    <span th:text="${game3Scores.get(int.index)}"></span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <!--end of music trivia tab-->
+
+                        <!--start of lyric master tab-->
+                        <div class="tab-pane fade" id="lyricMasterTab" role="tabpanel"
+                             aria-labelledby="lyricMaster-tab">
+                            <section class="tab-content mb-4" id="myTabContent2">
+                                <div class="tab-pane fade show active h-75S" role="tabpanel"
+                                     aria-labelledby="lyricMaster-tab">
+
+                                    <!--start lyric master tabs -->
+                                    <div class="card">
+                                        <h5 th:if="${game1Standing}" class="card-header text-white tabHeaders">Your
+                                            Rank:
+                                            <span th:text="${game1Standing}"></span></h5>
+                                        <div class="card-body cardBodyForTabs">
+                                            <div th:each="user, int : ${game1Players}"
+                                                 class="card mb-2 gameStatsCards border-gradient-purple"
+                                                 style="width: 100%;">
+                                                <p><span th:text="${int.index+1}+'.'"></span>
+                                                    <span th:text="${user.getUsername()}"></span>
+                                                    <i th:if="${user.getUsers_achievements()}"
+                                                       th:each="achievement : ${user.getUsers_achievements()}"
+                                                       th:class="${achievement.getClassString()} + ' ml-1'"></i>
+                                                    <span>  --  Score:</span>
+                                                    <span th:text="${game1Scores.get(int.index)}"></span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <!--End of lyric master tab-->
+
+                        <!--Start of music theory tab-->
+                        <div class="tab-pane fade" id="musicTheoryTab" role="tabpanel"
+                             aria-labelledby="musicTheory-tab">
+                            <section class="tab-content mb-4" id="myTabContent3">
+                                <div class="tab-pane fade show active h-75S" role="tabpanel"
+                                     aria-labelledby="musicTheory-tab">
+                                    <!--start music theory tabs -->
+
+                                    <div class="card">
+                                        <h5 th:if="${game2Standing}" class="card-header text-white tabHeaders">Your
+                                            Rank:
+                                            <span th:text="${game2Standing}"></span></h5>
+                                        <div class="card-body cardBodyForTabs">
+                                            <div th:each="user, int : ${game2Players}"
+                                                 class="card mb-2 gameStatsCards border-gradient-purple"
+                                                 style="width: 100%;">
+                                                <p><span th:text="${int.index+1}+'.'"></span>
+                                                    <span th:text="${user.getUsername()}"></span>
+                                                    <i th:if="${user.getUsers_achievements()}"
+                                                       th:each="achievement : ${user.getUsers_achievements()}"
+                                                       th:class="${achievement.getClassString()} + ' ml-1'"></i>
+                                                    <span>  --  Score:</span>
+                                                    <span th:text="${game2Scores.get(int.index)}"></span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <!--End of music theory tab-->
+
+                        <!--Start of unscramble tab-->
+                        <div class="tab-pane fade" id="unscrambleTab" role="tabpanel" aria-labelledby="unscramble-tab">
+                            <section class="tab-content mb-4" id="myTabContent4">
+                                <div class="tab-pane fade show active h-75S" role="tabpanel"
+                                     aria-labelledby="unscramble-tab">
+                                    <!--start unscramble tabs -->
+                                    <div class="card">
+                                        <h5 th:if="${game4Standing}" class="card-header text-white tabHeaders">Your
+                                            Rank:
+                                            <span
+                                                    th:text="${game4Standing}"></span></h5>
+                                        <div class="card-body cardBodyForTabs container justify-content-center">
+                                            <div th:each="user, int : ${game4Players}"
+                                                 class="card mb-2 gameStatsCards border-gradient-purple row"
+                                                 style="width: 100%;">
+                                                <p><span th:text="${int.index+1}+'.'"></span>
+                                                    <span th:text="${user.getUsername()}"></span>
+                                                    <i th:if="${user.getUsers_achievements()}"
+                                                       th:each="achievement : ${user.getUsers_achievements()}"
+                                                       th:class="${achievement.getClassString()} + ' ml-1'"></i>
+                                                    <span>  --  Score:</span>
+                                                    <span th:text="${game4Scores.get(int.index)}"></span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</main>
+<div th:replace="partials/footerNav.html :: footerNav"></div>
+<div th:replace="partials/scripts.html :: scripts"></div>
+<script type="text/javascript">
+    // let scoreToCount = parseInt($('#playerScore').text())
+    // console.log(scoreToCount)
+    // let zeroTotal = 0
+    //
+    // function scoreCounter() {
+    //     let scoreCount = setInterval(function () {
+    //         if (zeroTotal === scoreToCount) {
+    //             $('#playerScore').html(zeroTotal)
+    //             clearInterval(scoreCount)
+    //         } else {
+    //             zeroTotal = zeroTotal + 100
+    //             $('#playerScore').html(zeroTotal)
+    //         }
+    //     }, 10)
+    // }
+    //
+    // scoreCounter()
+
+</script>
+</body>
+</html>

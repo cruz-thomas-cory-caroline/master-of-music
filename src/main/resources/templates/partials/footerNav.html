@@ -9,13 +9,13 @@
 <footer th:fragment="footerNav">
     <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark">
         <div class="container-fluid">
-            <a sec:authorize="!isAuthenticated()" th:href="@{/sign-up}"><span class="badge text-dark navbar-login">Register or Login</span></a>
+            <a sec:authorize="!isAuthenticated()" th:href="@{/sign-up}"><span class="badge text-dark navbar-login mr-2">Register or Login</span></a>
             <form sec:authorize="isAuthenticated()" th:action="@{/logout}" th:method="post">
-                <button class="badge text-dark navbar-login">Logout</button>
+                <button class="badge text-dark navbar-login mr-2">Logout</button>
             </form>
-            <a sec:authorize="isAuthenticated()" class="navbar-profile ml-4 " data-bs-toggle="tooltip" data-bs-placement="top" title="Go to Profile" th:href="@{/profile}">
-                <img id="profileIcon" th:src="${#authentication.principal.images}">
-            </a>
+
+            <img th:if="${user}" style="max-height: 50px;max-width: 50px"  th:src="${user.images}">
+            <img  th:unless="${user}" style="max-height: 50px;max-width: 50px"  src="/img/unnamed.png">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 
@@ -27,19 +27,19 @@
                         <a class="nav-link" aria-current="page" th:href="@{/index}">Games</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Leaderboard</a>
+                        <a class="nav-link" th:href="@{/leaderboard}">Leaderboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Challenges</a>
+                        <a class="nav-link" href="/findafriend">Find A Friend</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Achievements</a>
+                        <a class="nav-link" href="/achievements">Achievements</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/forum}">Forum</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">FAQ</a>
+                        <a class="nav-link" th:href="@{/faq}">FAQ</a>
                     </li>
                 </ul>
             </div>

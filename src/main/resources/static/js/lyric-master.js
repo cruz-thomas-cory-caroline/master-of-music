@@ -3,7 +3,9 @@
 
 var interval;
 var startTime;
-var timeEnd = 0
+var timeEnd = 0;
+var cardIndexShowing = -1;
+var dataVal = 0;
 
 function timerStart() {
     var timeStart = startTime
@@ -50,6 +52,7 @@ $('#startButton').click(function () {
 
         var nextNode = lyricCards.filter('.active').next();
         showCard(nextNode);
+        cardIndexShowing++;
     });
 
     $('.lyricCards .LMcard:first').addClass('active');
@@ -59,33 +62,42 @@ $('#startButton').click(function () {
 
         var previousNode = lyricCards.filter('.active').prev();
         showCard(previousNode);
+        cardIndexShowing--;
     });
 
 
     //hides cards and displays submit when card loop is complete
-        ShowTheelement(0);
-        $("#previous").addClass('hidden');
-        $("#submit").addClass('hidden');
+    //     ShowTheelement(0);
+    //     $("#previous").addClass('hidden');
+    //     $("#submit").addClass('hidden');
+    //
+    //
+    //     $("#next").click(function () {
+    //         dataVal++;
+    //         $("#previous").removeClass('hidden');
+    //         dataVal === $("#difficultySelected").length - 1 ? $(this).addClass('hidden') : $(this).removeClass('hidden');
+    //         ShowTheelement(dataVal);
+    //         if (dataVal === $("#difficultySelected").length - 1) {
+    //             $("#submit").removeClass('hidden');
+    //         }
+    //     });
+    //
+    //     $("#previous").click(function () {
+    //         dataVal--;
+    //         $("#next").removeClass('hidden');
+    //         dataVal === 0 ? $(this).addClass('hidden') : $(this).removeClass('hidden');
+    //         ShowTheelement(dataVal);
+    //         if (dataVal === $(".idrow[data-questions]").length - 2) {
+    //             $("#submit").addClass('hidden');
+    //         }
+    //     });
 
-        var dataVal = 0;
-        $("#next").click(function () {
-            dataVal++;
-            $("#previous").removeClass('hidden');
-            dataVal === $("#difficultySelected").length - 1 ? $(this).addClass('hidden') : $(this).removeClass('hidden');
-            ShowTheelement(dataVal);
-            if (dataVal === $("#difficultySelected").length - 1) {
-                $("#submit").removeClass('hidden');
-            }
-        });
+    $('#hint').click(function () {
+        console.log($('#title'));
+        // console.log($("#title").eq(cardIndexShowing));
+        $(this).find($('#title'));
+        $('#title').eq(cardIndexShowing).show('slow');
 
-        $("#previous").click(function () {
-            dataVal--;
-            $("#next").removeClass('hidden');
-            dataVal === 0 ? $(this).addClass('hidden') : $(this).removeClass('hidden');
-            ShowTheelement(dataVal);
-            if (dataVal === $(".idrow[data-questions]").length - 2) {
-                $("#submit").addClass('hidden');
-            }
-        });
+    });
 
 })();
