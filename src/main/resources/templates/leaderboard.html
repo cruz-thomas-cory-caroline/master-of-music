@@ -34,7 +34,7 @@
                                 <i th:if="${user.getUsers_achievements()}"
                                    th:each="achievement : ${user.getUsers_achievements()}"
                                    th:class="${achievement.getClassString()} + ' ml-1'"></i>
-                                <span> ----- Score:</span>
+                                <span>  --  Score:</span>
                                 <span id="globalUserRatingLine" th:text="${rankedScores.get(int.index)}"></span>
                             </p>
                         </li>
@@ -79,17 +79,22 @@
                                     <!--start music trivia tab -->
                                     <div class="card">
                                         <h5 th:if="${game3Standing}" class="card-header text-white tabHeaders">You Rank:
-                                            <span
-                                                    th:text="${game3Standing}"></span>
+                                            <span th:text="${game3Standing}"></span>
                                         </h5>
                                         <h5 th:unless="${game3Standing}" class="card-header text-white tabHeaders"><span
                                                 th:text="${game3Standing}"></span>
                                         </h5>
                                         <div class="card-body cardBodyForTabs">
                                             <div th:each="user, int : ${game3Players}"
-                                                 class="card mb-2 gameStatsCards border-gradient-purple"
-                                                 style="width: 100%;">
-                                                <p th:text="' '+${int.index+1}+'. '+${user.getUsername()}+' '+${game3Scores.get(int.index)}"></p>
+                                                 class="card mb-2 gameStatsCards border-gradient-purple" style="width: 100%;">
+                                                <p><span th:text="${int.index+1}+'.'"></span>
+                                                    <span th:text="${user.getUsername()}"></span>
+                                                    <i th:if="${user.getUsers_achievements()}"
+                                                       th:each="achievement : ${user.getUsers_achievements()}"
+                                                       th:class="${achievement.getClassString()} + ' ml-1'"></i>
+                                                    <span>  --  Score:</span>
+                                                    <span th:text="${game3Scores.get(int.index)}"></span>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -109,13 +114,19 @@
                                     <div class="card">
                                         <h5 th:if="${game1Standing}" class="card-header text-white tabHeaders">Your
                                             Rank:
-                                            <span
-                                                    th:text="${game1Standing}"></span></h5>
+                                            <span th:text="${game1Standing}"></span></h5>
                                         <div class="card-body cardBodyForTabs">
                                             <div th:each="user, int : ${game1Players}"
                                                  class="card mb-2 gameStatsCards border-gradient-purple"
                                                  style="width: 100%;">
-                                                <p th:text="' '+${int.index+1}+'. '+${user.getUsername()}+' '+${game1Scores.get(int.index)}"></p>
+                                                <p><span th:text="${int.index+1}+'.'"></span>
+                                                    <span th:text="${user.getUsername()}"></span>
+                                                    <i th:if="${user.getUsers_achievements()}"
+                                                       th:each="achievement : ${user.getUsers_achievements()}"
+                                                       th:class="${achievement.getClassString()} + ' ml-1'"></i>
+                                                    <span>  --  Score:</span>
+                                                    <span th:text="${game1Scores.get(int.index)}"></span>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -135,13 +146,19 @@
                                     <div class="card">
                                         <h5 th:if="${game2Standing}" class="card-header text-white tabHeaders">Your
                                             Rank:
-                                            <span
-                                                    th:text="${game2Standing}"></span></h5>
+                                            <span th:text="${game2Standing}"></span></h5>
                                         <div class="card-body cardBodyForTabs">
                                             <div th:each="user, int : ${game2Players}"
                                                  class="card mb-2 gameStatsCards border-gradient-purple"
                                                  style="width: 100%;">
-                                                <p th:text="' '+${int.index+1}+'. '+${user.getUsername()}+' '+${game2Scores.get(int.index)}"></p>
+                                                <p><span th:text="${int.index+1}+'.'"></span>
+                                                    <span th:text="${user.getUsername()}"></span>
+                                                    <i th:if="${user.getUsers_achievements()}"
+                                                       th:each="achievement : ${user.getUsers_achievements()}"
+                                                       th:class="${achievement.getClassString()} + ' ml-1'"></i>
+                                                    <span>  --  Score:</span>
+                                                    <span th:text="${game2Scores.get(int.index)}"></span>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -165,7 +182,14 @@
                                             <div th:each="user, int : ${game4Players}"
                                                  class="card mb-2 gameStatsCards border-gradient-purple row"
                                                  style="width: 100%;">
-                                                <p th:text="' '+${int.index+1}+'. '+${user.getUsername()}+' '+${game4Scores.get(int.index)}"></p>
+                                                <p><span th:text="${int.index+1}+'.'"></span>
+                                                    <span th:text="${user.getUsername()}"></span>
+                                                    <i th:if="${user.getUsers_achievements()}"
+                                                       th:each="achievement : ${user.getUsers_achievements()}"
+                                                       th:class="${achievement.getClassString()} + ' ml-1'"></i>
+                                                    <span>  --  Score:</span>
+                                                    <span th:text="${game4Scores.get(int.index)}"></span>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
