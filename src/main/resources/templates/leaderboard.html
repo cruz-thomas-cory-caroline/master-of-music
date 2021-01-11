@@ -26,7 +26,7 @@
                     <h2 class="gameHistoryHeader text-white my-4 rockFont text-center w-100"
                         style="background-color: #060285">
                         Global Rankings</h2>
-                    <ul class="list-group list-group-flush" style="max-height: 200px; overflow-y: auto"
+                    <ul class="list-group list-group-flush" style="max-height: 200px; overflow-y: scroll"
                         th:each="user, int : ${rankedUsers}">
                         <li class="list-group-item d-flex flex-wrap justify-content-center">
                             <p><span th:text="${int.index+1}+'.'"></span>
