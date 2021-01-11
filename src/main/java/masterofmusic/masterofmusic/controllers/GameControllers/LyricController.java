@@ -27,14 +27,18 @@ public class LyricController {
     private final PlayerGameRepository playerGameDao;
     private final PlayerGameRoundRepository playerGameRoundDao;
     private final GenreRepository genreDao;
+    private final UserRepository userDao;
+    private final AchievementRepository achievementDao;
 
-    public LyricController(GameRepository gameDao, PlayerGameRepository playerGameDao, PlayerGameRoundRepository playerGameRoundDoa, GenreRepository genreDao, LyricAnswerRepository lyricAnswerDao, SongRepository songDao) {
+    public LyricController(GameRepository gameDao, PlayerGameRepository playerGameDao, PlayerGameRoundRepository playerGameRoundDoa, GenreRepository genreDao, LyricAnswerRepository lyricAnswerDao, SongRepository songDao, UserRepository userDao, AchievementRepository achievementDao) {
         this.gameDao = gameDao;
         this.playerGameDao = playerGameDao;
         this.playerGameRoundDao = playerGameRoundDoa;
         this.genreDao = genreDao;
         this.lyricAnswerDao = lyricAnswerDao;
         this.songDao = songDao;
+        this.userDao = userDao;
+        this.achievementDao = achievementDao;
     }
 
     Long round;
@@ -76,16 +80,16 @@ public class LyricController {
         int timeLimit = 0;
         switch (songDifficulty) {
             case "easy":
-                timeLimit = 180;
-                questions = 5;
-                break;
-            case "medium":
-                timeLimit = 30;
+                timeLimit = 400;
                 questions = 6;
                 break;
+            case "medium":
+                timeLimit = 360;
+                questions = 8;
+                break;
             case "hard":
-                timeLimit = 15;
-                questions = 9;
+                timeLimit = 300;
+                questions = 10;
                 break;
         }
 
@@ -115,12 +119,32 @@ public class LyricController {
         }
 
         ArrayList<Song> songsToPass = new ArrayList<>();
-
         for (var i = 0; i < questions; i++) {
             Song randSong = songsByGenre.get(rand.nextInt(songsByGenre.size()));
             songsToPass.add(randSong);
             songsByGenre.remove(randSong);
         }
+
+        ArrayList<Song> hints = new ArrayList<>();
+        for (Song song : songsToPass) {
+            long answerIdCorrect = songService.findAnswerIdCorrect(song.getId());
+            if(answerIdCorrect != song.getId());
+            hints.add(song);
+        }
+
+        ArrayList<LyricAnswer> lyricAnswerArrayList= new ArrayList<>();
+        for (LyricAnswer lyricAnswer1 : lyricAnswerDao.findAll()) {
+            if (!lyricAnswer1.isCorrect()) {
+                lyricAnswerArrayList.add(lyricAnswer1);
+            }
+        }
+
+
+        for (var i = 0; i < 2; i++){
+
+        }
+
+
 
         modelMap.addAttribute("songDifficulty", songDifficulty);
         modelMap.addAttribute("numberOfQuestion", questions);
@@ -132,9 +156,12 @@ public class LyricController {
     }
 
     @PostMapping("lyric-master/submit")
-    public String submit(
-            HttpServletRequest request,
-            @RequestParam (value = "playerGame") long playerGameId) {
+    public String submit(@RequestParam(name = "songDifficulty") String difficulty,
+                         @RequestParam(value = "playerGame") long playerGameId,
+                         HttpServletRequest request
+    ) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user_db = userDao.findById(user.getId());
         int gameLevel = 0;
         gameLevel += 1;
         PlayerGameRound newPlayerGameRound = new PlayerGameRound();
@@ -150,11 +177,9 @@ public class LyricController {
         ArrayList<Song> correctSongs = new ArrayList<>();
         ArrayList<Song> incorrectSongs = new ArrayList<>();
         ArrayList<Song> testedSongs = new ArrayList<>();
-        ArrayList<Integer> scoreAchievements = new ArrayList<>();
 
         String[] songIds = request.getParameterValues("songId");
 
-        int score = 0;
         for (String songId : songIds) {
             testedSongs.add(songDao.getOne(Long.parseLong(songId)));
         }
@@ -164,7 +189,6 @@ public class LyricController {
             if (answerIdCorrect == Long.parseLong(request.getParameter("song_" + song.getId()))) {
                 newPlayerGameRound.setScore(newPlayerGameRound.getScore() + 100);
                 correctSongs.add(song);
-//                score += 100;
 
             } else if (answerIdCorrect != Long.parseLong(request.getParameter("song_" + song.getId()))) {
                 incorrectUserAnswers.add(lyricAnswerDao.getOne(Long.parseLong(request.getParameter("song_" + song.getId()))).getLyricAnswer());
@@ -173,17 +197,128 @@ public class LyricController {
         }
 
 
+        int playerGameRound = playerGameDao.getOne(Long.parseLong(request.getParameter("playerGame"))).getPlayerGameRounds().size() + 1;
         PlayerGameRound playerGameRoundDB = playerGameRoundDao.save(newPlayerGameRound);
         currentPlayerGame.setScore(playerGameRoundDB.getPlayerGame().getScore() + playerGameRoundDB.getScore());
         playerGameDao.save(currentPlayerGame);
 
-        request.setAttribute("scoreAchievements", scoreAchievements);
+        //  CHECK FOR ACHIEVEMENTS
+        List<Achievement> userAchievements = user_db.getUsers_achievements();
+        List<Achievement> gameAchievements = achievementDao.findAllByGameId(1);
+
+        if (userAchievements == null) {
+            userAchievements = new ArrayList<>();
+        } else {
+            for (Achievement achievement : userAchievements) {
+                System.out.println("You've earned: " + achievement.getName());
+            }
+        }
+
+        boolean awardEarned = false;
+        List<Achievement> newAwards = new ArrayList<>();
+
+//        award (play two rounds with a final score of 1500)
+        if (playerGameRound == 3 && currentPlayerGame.getScore() >= 1500 && !userAchievements.contains(gameAchievements.get(0))) {
+            Achievement achToChange = achievementDao.getOne(gameAchievements.get(0).getId());
+            List<User> usersWhoHaveBadge = achToChange.getUsers();
+            if (usersWhoHaveBadge == null) {
+                usersWhoHaveBadge = new ArrayList<>();
+            }
+            if (!usersWhoHaveBadge.contains(userDao.getOne(user.getId()))) {
+                usersWhoHaveBadge.add(user);
+                achToChange.setUsers(usersWhoHaveBadge);
+                achievementDao.save(achToChange);
+
+                userAchievements.add(achToChange);
+                User userToSave = userDao.getOne(user.getId());
+                userToSave.setUsers_achievements(userAchievements);
+                userDao.save(userToSave);
+
+                awardEarned = true;
+                newAwards.add(achToChange);
+            }
+        }
+
+//        medal(score 500 or higher)
+        if (playerGameDao.getOne(currentPlayerGame.getId()).getScore() >= 500 && !userAchievements.contains(gameAchievements.get(1))) {
+            Achievement achToChange = achievementDao.getOne(gameAchievements.get(1).getId());
+            List<User> usersWhoHaveBadge = achToChange.getUsers();
+            if (usersWhoHaveBadge == null) {
+                usersWhoHaveBadge = new ArrayList<>();
+            }
+            if (!usersWhoHaveBadge.contains(userDao.getOne(user.getId()))) {
+                usersWhoHaveBadge.add(user);
+                achToChange.setUsers(usersWhoHaveBadge);
+                achievementDao.save(achToChange);
+
+                userAchievements.add(achToChange);
+                User userToSave = userDao.getOne(user.getId());
+                userToSave.setUsers_achievements(userAchievements);
+                userDao.save(userToSave);
+
+                awardEarned = true;
+                newAwards.add(achToChange);
+            }
+        }
+
+//        crown(2000 on hard)
+        if (playerGameRound == 2 && difficulty.equalsIgnoreCase("hard") && playerGameDao.getOne(currentPlayerGame.getId()).getScore() >= 2000 && !userAchievements.contains(gameAchievements.get(2))) {
+            Achievement achToChange = achievementDao.getOne(gameAchievements.get(2).getId());
+            List<User> usersWhoHaveBadge = achToChange.getUsers();
+            if (usersWhoHaveBadge == null) {
+                usersWhoHaveBadge = new ArrayList<>();
+            }
+            if (!usersWhoHaveBadge.contains(userDao.getOne(user.getId()))) {
+                usersWhoHaveBadge.add(user);
+                achToChange.setUsers(usersWhoHaveBadge);
+                achievementDao.save(achToChange);
+
+                userAchievements.add(achToChange);
+                User userToSave = userDao.getOne(user.getId());
+                userToSave.setUsers_achievements(userAchievements);
+                userDao.save(userToSave);
+
+                awardEarned = true;
+                newAwards.add(achToChange);
+            }
+        }
+
+//      trophy
+        if (playerGameRound == 5 && !userAchievements.contains(gameAchievements.get(3))) {
+            Achievement achToChange = achievementDao.getOne(gameAchievements.get(3).getId());
+            List<User> usersWhoHaveBadge = achToChange.getUsers();
+            if (usersWhoHaveBadge == null) {
+                usersWhoHaveBadge = new ArrayList<>();
+            }
+            if (!usersWhoHaveBadge.contains(userDao.getOne(user.getId()))) {
+                usersWhoHaveBadge.add(user);
+                achToChange.setUsers(usersWhoHaveBadge);
+                achievementDao.save(achToChange);
+
+                userAchievements.add(achToChange);
+                User userToSave = userDao.getOne(user.getId());
+                userToSave.setUsers_achievements(userAchievements);
+                userDao.save(userToSave);
+
+                awardEarned = true;
+                newAwards.add(achToChange);
+            }
+        }
+
+
+        System.out.println(playerGameRound);
+        System.out.println(round);
+        System.out.println(awardEarned);
+        System.out.println(newAwards);
+        request.setAttribute("awardEarned", awardEarned);
+        request.setAttribute("newAwards", newAwards);
         request.setAttribute("correctSongs", correctSongs);
         request.setAttribute("score", newPlayerGameRound.getScore());
+        request.setAttribute("totalRoundsScore", currentPlayerGame.getScore());
         request.setAttribute("incorrectUserAnswers", incorrectUserAnswers);
         request.setAttribute("incorrectSongs", incorrectSongs);
         request.setAttribute("currentLevel", newPlayerGameRound.getLevel());
-        request.setAttribute("round", playerGameDao.getOne(Long.parseLong(request.getParameter("playerGame"))).getPlayerGameRounds().size() + 1);
+        request.setAttribute("round", playerGameRound);
 
         return "lyric-master/result";
     }

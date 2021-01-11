@@ -88,4 +88,8 @@ $('#startButton').click(function () {
             }
         });
 
+        $("#hint").click()(function () {
+            $("#title").show("slow");
+        });
+
 })();

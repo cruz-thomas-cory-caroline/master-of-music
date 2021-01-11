@@ -7,6 +7,7 @@ import masterofmusic.masterofmusic.models.PlayerGame;
 import masterofmusic.masterofmusic.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -38,7 +39,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select sum(pg.score) from PlayerGame pg where pg.game.id = ?1 group by pg.user.id order by sum(pg.score) desc")
     public List<Integer> getRankedListOfUsersScoreByGameId(long id);
 
-    public List<User> findByOrderByUsernameAsc();
 
+    public List<User> findByOrderByUsernameAsc();
 }
 

