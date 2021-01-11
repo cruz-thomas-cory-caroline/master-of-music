@@ -14,7 +14,10 @@
                 <button class="badge text-dark navbar-login">Logout</button>
             </form>
 
-            <img class="shadowed" style="max-height:90px;max-width:90px;" th:src="${user}" onerror="this.onerror=null;this.src='/img/unnamed.png';">
+            <img style="max-height: 90px;max-width: 90px" sec:authorize="isAnonymous()" src="/img/unnamed.png">
+            <img style="max-height: 90px;max-width: 90px" sec:authorize="isAuthenticated()" th:src="${userPic}">
+
+<!--            <img class="shadowed" style="max-height:90px;max-width:90px;" th:src="${user}" onerror="this.onerror=null;this.src='/img/unnamed.png';">-->
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
