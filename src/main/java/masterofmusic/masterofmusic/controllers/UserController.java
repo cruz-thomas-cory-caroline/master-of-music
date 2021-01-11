@@ -68,11 +68,14 @@ public class UserController {
             user.setAdmin(true);
             String hash = passwordEncoder.encode(user.getPassword());
             user.setPassword(hash);
+            //Default Image
+            user.setImages("/img/maleIcon1.jpg");
             users.save(user);
             return "redirect:/login";
         } else {
             String hash = passwordEncoder.encode(user.getPassword());
             user.setPassword(hash);
+            user.setImages("/img/maleIcon1.jpg");
             users.save(user);
             return "redirect:/login";
         }
