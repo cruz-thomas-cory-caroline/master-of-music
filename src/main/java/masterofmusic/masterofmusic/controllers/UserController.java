@@ -94,7 +94,7 @@ public class UserController {
 
             emailSenderService.sendEmail(mailMessage);
 
-            return "redirect:/login";
+            return "successfulRegisteration";
         }
     }
 
@@ -167,6 +167,41 @@ public class UserController {
 
         } else {
             modelAndView.addObject("message", "This email address does not exist!");
+            modelAndView.setViewName("error");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value="/confirm-reset", method= {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView validateResetToken(ModelAndView modelAndView, @RequestParam("token")String confirmationToken) {
+        ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
+
+        if (token != null) {
+            User user = users.findByEmailIgnoreCase(token.getUser().getEmailId());
+            user.setEnabled(true);
+            users.save(user);
+            modelAndView.addObject("user", user);
+            modelAndView.addObject("emailId", user.getEmailId());
+            modelAndView.setViewName("resetPassword");
+        } else {
+            modelAndView.addObject("message", "The link is invalid or broken!");
+            modelAndView.setViewName("error");
+        }
+        return modelAndView;
+    }
+
+    // Endpoint to update a user's password
+    @RequestMapping(value = "/reset-password", method = RequestMethod.POST)
+    public ModelAndView resetUserPassword(ModelAndView modelAndView, User user) {
+        if (user.getEmailId() != null) {
+            // Use email to find user
+            User tokenUser = users.findByEmailIgnoreCase(user.getEmailId());
+            tokenUser.setPassword(passwordEncoder.encode(user.getPassword()));
+            users.save(tokenUser);
+            modelAndView.addObject("message", "Password successfully reset. You can now log in with the new credentials.");
+            modelAndView.setViewName("successResetPassword");
+        } else {
+            modelAndView.addObject("message","The link is invalid or broken!");
             modelAndView.setViewName("error");
         }
         return modelAndView;
