@@ -1,10 +1,10 @@
 use master_of_music_db;
 
 insert into achievement(id, name, game_id, class_string, description)
-values (1, 'Award', 1, 'fas fa-award fa-8x badge1-gradient', 'a'),
-(2, 'Medal',1, 'fas fa-medal fa-8x badge3-gradient', 'b'),
-(3, 'Crown',1, 'fas fa-crown fa-7x badge2-gradient', 'c'),
-(4, 'Trophy',1, 'fas fa-trophy fa-7x badge4-gradient', 'd'),
+values (1, 'Award', 1, 'fas fa-award fa-8x badge1-gradient', 'Score 1500 Points In 3 Rounds'),
+(2, 'Medal',1, 'fas fa-medal fa-8x badge3-gradient', 'Score 500 Points'),
+(3, 'Crown',1, 'fas fa-crown fa-7x badge2-gradient', 'Play 2 Perfect Games on Hard'),
+(4, 'Trophy',1, 'fas fa-trophy fa-7x badge4-gradient', 'Play 5 Game Rounds'),
 (5, 'Star',4, 'fas fa-star fa-8x badge2-gradient', 'Earn 300 Points In One Round'),
 (6, 'Certificate',4, 'fas fa-certificate fa-8x badge4-gradient', 'Earn 1000 Points In One Game'),
 (7, 'Battle',4, 'fab fa-battle-net fa-8x badge1-gradient', 'Earn 500 Points In One Round Without Using The "Check" Feature'),

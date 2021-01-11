@@ -11,13 +11,8 @@
 <div class="container">
     <div class="row justify-content-start">
         <div class="col">
-            <input type="hidden" id="totalRoundsScore" th:value="${totalRoundsScore}">
-            <h5 id="headerLM">Total Score <span id="scoreCounter"></span></h5>
-        </div>
-        <div class="col">
-            <input type="hidden" id="score" th:value="${score}">
             <h5 id="headerLM">Score <span id="scoreCounter"></span></h5>
-        </div>
+            <input type="hidden" id="score" th:value="${score}">
     </div>
 </div>
 <div th:if="${awardEarned}" id="badgeEarned" class="hide">
