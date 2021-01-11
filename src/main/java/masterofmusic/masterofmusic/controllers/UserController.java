@@ -51,8 +51,7 @@ public class UserController {
                            @RequestParam(name = "confirmPassword") String confirmPassword,
                            @RequestParam(name = "email") String email,
                            @RequestParam(name = "isAdmin", defaultValue = "false") boolean isAdmin,
-                           @ModelAttribute User user,
-                           Model model) {
+                           @ModelAttribute User user) {
         boolean passwordRequirements = (SecurityConfiguration.isValidPassword(password));
         boolean emailRequirements = (SecurityConfiguration.emailMeetsRequirements(email));
         List<User> usersList = users.findAll();
@@ -106,7 +105,7 @@ public class UserController {
 
         if(token != null)
         {
-            User user = users.findByEmailIdIgnoreCase(token.getUser().getEmail());
+            User user = users.findByEmailIgnoreCase(token.getUser().getEmail());
             user.setEnabled(true);
             users.save(user);
             modelAndView.setViewName("accountVerified");
@@ -144,7 +143,7 @@ public class UserController {
     // Receive the address and send an email
     @RequestMapping(value="/forgotPassword", method=RequestMethod.POST)
     public ModelAndView forgotUserPassword(ModelAndView modelAndView, User user) {
-        User existingUser = users.findByEmailIdIgnoreCase(user.getEmail());
+        User existingUser = users.findByEmailIgnoreCase(user.getEmail());
         if (existingUser != null) {
             // Create token
             ConfirmationToken confirmationToken = new ConfirmationToken(existingUser);
@@ -158,7 +157,7 @@ public class UserController {
             mailMessage.setSubject("Complete Password Reset!");
             mailMessage.setFrom("test-email@gmail.com");
             mailMessage.setText("To complete the password reset process, please click here: "
-                    + "http://localhost:8082/confirm-reset?token="+confirmationToken.getConfirmationToken());
+                    + "http://localhost:8080/confirm-reset?token="+confirmationToken.getConfirmationToken());
 
             // Send the email
             emailSenderService.sendEmail(mailMessage);
