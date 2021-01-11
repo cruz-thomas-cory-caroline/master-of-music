@@ -40,5 +40,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     public List<Integer> getRankedListOfUsersScoreByGameId(long id);
 
 
+    public List<User> findByOrderByUsernameAsc();
 }
 
