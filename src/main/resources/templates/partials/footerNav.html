@@ -14,8 +14,6 @@
                 <button class="badge text-dark navbar-login">Logout</button>
             </form>
 
-<!--            <img style="max-height: 90px;max-width: 90px" sec:authorize="!isAuthenticated()" src="/img/unnamed.png">-->
-
 
             <img th:if="${user}" style="max-height: 50px;max-width: 50px"  th:src="${user.images}">
 
