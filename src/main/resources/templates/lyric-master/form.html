@@ -32,11 +32,11 @@
     <div class="card-body lyricCards lm-cards hide">
         <div th:each="song : ${chosenSongs}" class="LMcard">
             <input type="hidden" name="songId" th:value="${song.id}">
-
+            <button  class="start-btn" id="hint">Submit</button>
             <ol class='video-game-button'>
                 <div class="card m-auto lyricCardsBG">
                     <h2 class="card-title" th:text="${song.lyrics}"></h2>
-                    <p class="text-left">Title: <span th:text="${song.title}"></span></p>
+                    <p class="text-left" id="title">Title: <span th:text="${song.title}"></span></p>
                     <p class="text-left">Artist: <span th:text="${song.artist}"></span></p>
                     <h6>Time Remaining: <span class="lyricMaster-timer" th:text="${timeLimit}"></span></h6>
                     <div class="card-body form-check form-check-inline quizAnswers "
