@@ -87,7 +87,7 @@ public class TheoryController {
         model.addAttribute("questions", theoryList.get(id).getQuestion()); //pass to Front end .get(id) is determined by path variable
         long questionId = theoryList.get(id).getId(); //return question object then get Id of that question
         model.addAttribute("answers", answerDao.getAllByQuestionId(questionId)); //get answers to that Q and pass to Front end
-        return "/music-theory";
+        return "music-theory";
     }
 
     @GetMapping("/round-report/{id}")
@@ -198,7 +198,7 @@ public class TheoryController {
             }
         }
 
-        if(difficultySelection.equalsIgnoreCase("easy") && finalScore == 60 && !userAchievements.contains(gameAchievements.get(1))) {
+        if(finalScore == 60 && !userAchievements.contains(gameAchievements.get(1))) {
             System.out.println(finalScore);
             Achievement achToChange = achievementDao.getOne(gameAchievements.get(1).getId());
             List<User> usersWhoHaveBadge = achToChange.getUsers();
@@ -220,7 +220,7 @@ public class TheoryController {
             }
         }
 
-        if(difficultySelection.equalsIgnoreCase("medium") && finalScore == 270 && !userAchievements.contains(gameAchievements.get(1))) {
+        if(finalScore == 270 && !userAchievements.contains(gameAchievements.get(1))) {
             Achievement achToChange = achievementDao.getOne(gameAchievements.get(1).getId());
             List<User> usersWhoHaveBadge = achToChange.getUsers();
             if (usersWhoHaveBadge == null) {
@@ -269,7 +269,7 @@ public class TheoryController {
             }
         }
 
-        if(difficultySelection.equalsIgnoreCase("medium")&& finalScore == 135 && !userAchievements.contains(gameAchievements.get(3))) {
+        if(finalScore == 135 && !userAchievements.contains(gameAchievements.get(3))) {
             Achievement achToChange = achievementDao.getOne(gameAchievements.get(3).getId());
             List<User> usersWhoHaveBadge = achToChange.getUsers();
             if (usersWhoHaveBadge == null) {
