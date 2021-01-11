@@ -12,6 +12,11 @@ body,html {
     font-family: 'New Rocker', cursive;
 }
 
+.pinkShadowFont {
+    color: #ee00ff;
+    text-shadow: 0px 0px 8px darkblue;
+}
+
 #gameMenuContainer {
     z-index: 100;
 }
@@ -309,7 +314,7 @@ body,html {
 
 /*PROFILE*/
 
-#profileAvatar {
+#profileAvatar, #leadershipBoardAvatar {
     width: 125px;
     height: 125px;
 }
@@ -354,6 +359,12 @@ input[type="radio"]:checked + .avatarLabel {
 #userGameStatsContainer {
     max-width: 44em;
     min-height: 30em;
+    overflow-y: scroll;
+}
+
+#globalRankingContainer {
+    max-width: 30em;
+    min-height: 10em;
     overflow-y: scroll;
 }
 
@@ -461,4 +472,6 @@ input[type="radio"]:checked + .avatarLabel {
     width: 14em;
     padding: 0 8px;
 }
+
+/*LEADERSHIP*/
 
