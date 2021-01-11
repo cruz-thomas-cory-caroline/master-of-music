@@ -42,6 +42,7 @@ public class UserController {
                            @RequestParam(name = "confirmPassword") String confirmPassword,
                            @RequestParam(name = "email") String email,
                            @RequestParam(name = "isAdmin", defaultValue = "false") boolean isAdmin,
+                           @RequestParam(name = "resetPasswordToken") String resetPasswordToken,
                            @ModelAttribute User user) {
         boolean passwordRequirements = (SecurityConfiguration.isValidPassword(password));
         boolean emailRequirements = (SecurityConfiguration.emailMeetsRequirements(email));
@@ -63,6 +64,7 @@ public class UserController {
         } else if (!emailRequirements) {
             return "redirect:/sign-up?invalidEmail";
         } else if (password.equalsIgnoreCase("Admin@123")) {
+            user.getResetPasswordToken();
             user.setAdmin(true);
             String hash = passwordEncoder.encode(user.getPassword());
             user.setPassword(hash);
