@@ -1,7 +1,6 @@
 (function () {
     "use strict";
 
-    $('#find-button').click(userSearch)
     $('#find-friend').on('keyup change', userSearch)
 
     function userSearch() {
@@ -14,7 +13,7 @@
             })
         } else {
             $('.user').each(function () {
-                if ($(this).find('h5')[0].innerHTML.toLowerCase().startsWith(userSearch)) {
+                if ($(this).find('h1')[0].innerHTML.toLowerCase().startsWith(userSearch)) {
                     $(this).removeClass('d-none');
                 } else {
                     if (!$(this).hasClass('d-none')) {
@@ -24,6 +23,10 @@
             })
         }
     }
+
+    $('.search-button').click(function(){
+        $(this).parent().toggleClass('open');
+    });
 
 
 
