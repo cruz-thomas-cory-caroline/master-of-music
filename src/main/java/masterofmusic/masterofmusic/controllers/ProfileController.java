@@ -1,5 +1,6 @@
 package masterofmusic.masterofmusic.controllers;
 
+import masterofmusic.masterofmusic.models.Achievement;
 import masterofmusic.masterofmusic.models.PlayerGame;
 import masterofmusic.masterofmusic.models.User;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class ProfileController {
@@ -24,7 +26,7 @@ public class ProfileController {
     private final UserRepository userDao;
     private final PlayerGameRepository playerGameDao;
 
-    public ProfileController(UserRepository userDao, PlayerGameRepository playerGameDao){
+    public ProfileController(UserRepository userDao, PlayerGameRepository playerGameDao) {
         this.userDao = userDao;
         this.playerGameDao = playerGameDao;
     }
@@ -32,7 +34,7 @@ public class ProfileController {
     @GetMapping("/profile")
     public String viewProfile(
             Model model
-    ){
+    ) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         ArrayList<PlayerGame> playerGamesForUser = playerGameDao.findAllByUserId(user.getId());
@@ -63,7 +65,11 @@ public class ProfileController {
             }
         }
 
+        User thisUser = userDao.getOne(user.getId());
+        List<Achievement> userAchievements = thisUser.getUsers_achievements();
 
+        model.addAttribute("loggedIn", true);
+        model.addAttribute("userAchievements", userAchievements);
         model.addAttribute("user", userDao.getOne(user.getId()));
         model.addAttribute("totalTriviaScore", totalTriviaScore);
         model.addAttribute("playerGamesForTrivia", playerGamesForTrivia);
@@ -89,6 +95,56 @@ public class ProfileController {
         System.out.println(avatarSelected);
         model.addAttribute("user", userDao.getOne(dbUser.getId()));
         return "redirect:/profile";
+    }
+
+    @GetMapping("/view/profile/{id}")
+    public String viewProfileOfUser(@PathVariable long id,
+            Model model
+    ) {
+        User user = userDao.getOne(id);
+
+        ArrayList<PlayerGame> playerGamesForUser = playerGameDao.findAllByUserId(user.getId());
+        ArrayList<PlayerGame> playerGamesForTrivia = new ArrayList<>();
+        ArrayList<PlayerGame> playerGamesForLyric = new ArrayList<>();
+        ArrayList<PlayerGame> playerGamesForTheory = new ArrayList<>();
+        ArrayList<PlayerGame> playerGamesForUnscramble = new ArrayList<>();
+
+        long totalTriviaScore = 0;
+        long totalLyricScore = 0;
+        long totalTheoryScore = 0;
+        long totalUnscrambleScore = 0;
+
+
+        for (PlayerGame playerGame : playerGamesForUser) {
+            if (playerGame.getGame().getId() == 3) {
+                totalTriviaScore += playerGame.getScore();
+                playerGamesForTrivia.add(playerGame);
+            } else if (playerGame.getGame().getId() == 2) {
+                totalTheoryScore += playerGame.getScore();
+                playerGamesForTheory.add(playerGame);
+            } else if (playerGame.getGame().getId() == 1) {
+                totalLyricScore += playerGame.getScore();
+                playerGamesForLyric.add(playerGame);
+            } else if (playerGame.getGame().getId() == 4) {
+                totalUnscrambleScore += playerGame.getScore();
+                playerGamesForUnscramble.add(playerGame);
+            }
+        }
+
+        User thisUser = userDao.getOne(user.getId());
+        List<Achievement> userAchievements = thisUser.getUsers_achievements();
+
+        model.addAttribute("userAchievements", userAchievements);
+        model.addAttribute("user", userDao.getOne(user.getId()));
+        model.addAttribute("totalTriviaScore", totalTriviaScore);
+        model.addAttribute("playerGamesForTrivia", playerGamesForTrivia);
+        model.addAttribute("totalLyricScore", totalLyricScore);
+        model.addAttribute("playerGamesForLyric", playerGamesForLyric);
+        model.addAttribute("totalTheoryScore", totalTheoryScore);
+        model.addAttribute("playerGamesForTheory", playerGamesForTheory);
+        model.addAttribute("totalUnscrambleScore", totalUnscrambleScore);
+        model.addAttribute("playerGamesForUnscramble", playerGamesForUnscramble);
+        return "profile";
     }
 
 

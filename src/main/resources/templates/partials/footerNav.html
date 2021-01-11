@@ -13,8 +13,12 @@
             <form sec:authorize="isAuthenticated()" th:action="@{/logout}" th:method="post">
                 <button class="badge text-dark navbar-login">Logout</button>
             </form>
-<!--            <img th:src="${user}">-->
-<!--            <img class="shadowed" style="max-height:20px;max-width:20px;" th:src="${user}" onerror="this.onerror=null;this.src='/img/unnamed.png';">-->
+
+            <img style="max-height: 90px;max-width: 90px" sec:authorize="isAnonymous()" src="/img/unnamed.png">
+            <img style="max-height: 90px;max-width: 90px" sec:authorize="isAuthenticated()" th:src="${userPic}">
+
+<!--            <img class="shadowed" style="max-height:90px;max-width:90px;" th:src="${user}" onerror="this.onerror=null;this.src='/img/unnamed.png';">-->
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 
@@ -29,7 +33,7 @@
                         <a class="nav-link" th:href="@{/leaderboard}">Leaderboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Challenges</a>
+                        <a class="nav-link" href="/findafriend">Find A Friend</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/achievements">Achievements</a>
