@@ -1,19 +1,22 @@
 package masterofmusic.masterofmusic.controllers;
 import masterofmusic.masterofmusic.SecurityConfiguration;
 import masterofmusic.masterofmusic.models.Achievement;
+import masterofmusic.masterofmusic.models.ConfirmationToken;
 import masterofmusic.masterofmusic.models.User;
 import masterofmusic.masterofmusic.repositories.UserRepository;
+import masterofmusic.masterofmusic.services.ConfirmationTokenRepository;
+import masterofmusic.masterofmusic.services.EmailSenderService;
 import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -24,10 +27,16 @@ import java.util.List;
 public class UserController {
     private UserRepository users;
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private ConfirmationTokenRepository confirmationTokenRepository;
+
+    @Autowired
+    private EmailSenderService emailSenderService;
 
     public UserController(UserRepository users, PasswordEncoder passwordEncoder) {
         this.users = users;
         this.passwordEncoder = passwordEncoder;
+
     }
 
     @GetMapping("/sign-up")
@@ -42,7 +51,8 @@ public class UserController {
                            @RequestParam(name = "confirmPassword") String confirmPassword,
                            @RequestParam(name = "email") String email,
                            @RequestParam(name = "isAdmin", defaultValue = "false") boolean isAdmin,
-                           @ModelAttribute User user) {
+                           @ModelAttribute User user,
+                           Model model) {
         boolean passwordRequirements = (SecurityConfiguration.isValidPassword(password));
         boolean emailRequirements = (SecurityConfiguration.emailMeetsRequirements(email));
         List<User> usersList = users.findAll();
@@ -72,9 +82,47 @@ public class UserController {
             String hash = passwordEncoder.encode(user.getPassword());
             user.setPassword(hash);
             users.save(user);
+            ConfirmationToken confirmationToken = new ConfirmationToken(user);
+
+            confirmationTokenRepository.save(confirmationToken);
+
+            SimpleMailMessage mailMessage = new SimpleMailMessage();
+            mailMessage.setTo(user.getEmailId());
+            mailMessage.setSubject("Complete Registration!");
+            mailMessage.setFrom("masterofmusic@codeup.com");
+            mailMessage.setText("To confirm your account, please click here : "
+                    +"http://localhost:8080/confirm-account?token="+confirmationToken.getConfirmationToken());
+
+            emailSenderService.sendEmail(mailMessage);
+
+//            model.addAttribute("email", user.getEmail());
             return "redirect:/login";
         }
     }
+
+    @RequestMapping(value="/confirm-account", method= {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView confirmUserAccount(ModelAndView modelAndView, @RequestParam("token")String confirmationToken)
+    {
+        ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
+
+        if(token != null)
+        {
+            User user = users.findByEmailIdIgnoreCase(token.getUser().getEmailId());
+            user.setEnabled(true);
+            users.save(user);
+            modelAndView.setViewName("accountVerified");
+        }
+        else
+        {
+            modelAndView.addObject("message","The link is invalid or broken!");
+            modelAndView.setViewName("error");
+        }
+
+        return modelAndView;
+    }
+    // getters and setters
+
+
 
     @ModelAttribute("loggedinuser")
     public User globalUserObject(Model model) {
@@ -85,6 +133,45 @@ public class UserController {
         // Create User pojo class
         User user = new User(authentication.getName(), Arrays.asList(authentication.getAuthorities()));
         return user;
+    }
+
+    @RequestMapping(value="/forgotPassword", method=RequestMethod.GET)
+    public ModelAndView displayResetPassword(ModelAndView modelAndView, User user) {
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName("forgotPassword");
+        return modelAndView;
+    }
+
+    // Receive the address and send an email
+    @RequestMapping(value="/forgotPassword", method=RequestMethod.POST)
+    public ModelAndView forgotUserPassword(ModelAndView modelAndView, User user) {
+        User existingUser = users.findByEmailIdIgnoreCase(user.getEmailId());
+        if (existingUser != null) {
+            // Create token
+            ConfirmationToken confirmationToken = new ConfirmationToken(existingUser);
+
+            // Save it
+            confirmationTokenRepository.save(confirmationToken);
+
+            // Create the email
+            SimpleMailMessage mailMessage = new SimpleMailMessage();
+            mailMessage.setTo(existingUser.getEmailId());
+            mailMessage.setSubject("Complete Password Reset!");
+            mailMessage.setFrom("test-email@gmail.com");
+            mailMessage.setText("To complete the password reset process, please click here: "
+                    + "http://localhost:8082/confirm-reset?token="+confirmationToken.getConfirmationToken());
+
+            // Send the email
+            emailSenderService.sendEmail(mailMessage);
+
+            modelAndView.addObject("message", "Request to reset password received. Check your inbox for the reset link.");
+            modelAndView.setViewName("successForgotPassword");
+
+        } else {
+            modelAndView.addObject("message", "This email address does not exist!");
+            modelAndView.setViewName("error");
+        }
+        return modelAndView;
     }
 }
 

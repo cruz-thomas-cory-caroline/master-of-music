@@ -40,10 +40,14 @@ public class User {
     )
     private List<Achievement> users_achievements;
 
+    private String emailId;
+
+    private boolean isEnabled;
+
     public User() {
     }
 
-    public User(long id, String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games) {
+    public User(long id, String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games, String emailId, boolean isEnabled) {
         this.id = id;
         this.email = email;
         this.username = username;
@@ -51,17 +55,19 @@ public class User {
         this.isAdmin = isAdmin;
         this.images = images;
         this.games = games;
-
+        this.emailId = emailId;
+        this.isEnabled = isEnabled;
     }
 
-    public User(String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games) {
+    public User(String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games, String emailId, boolean isEnabled) {
         this.email = email;
         this.username = username;
         this.password = password;
         this.isAdmin = isAdmin;
         this.images = images;
         this.games = games;
-
+        this.emailId = emailId;
+        this.isEnabled = isEnabled;
     }
 
     public User(User copy) {
@@ -151,4 +157,20 @@ public class User {
 
     }
 
+    public String getEmailId() {
+        return emailId;
+    }
+
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
+    }
+
+
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
 }
