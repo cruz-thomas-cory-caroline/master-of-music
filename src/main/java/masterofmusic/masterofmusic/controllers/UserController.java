@@ -87,7 +87,7 @@ public class UserController {
             confirmationTokenRepository.save(confirmationToken);
 
             SimpleMailMessage mailMessage = new SimpleMailMessage();
-            mailMessage.setTo(user.getEmailId());
+            mailMessage.setTo(user.getEmail());
             mailMessage.setSubject("Complete Registration!");
             mailMessage.setFrom("masterofmusic@codeup.com");
             mailMessage.setText("To confirm your account, please click here : "
@@ -95,7 +95,6 @@ public class UserController {
 
             emailSenderService.sendEmail(mailMessage);
 
-//            model.addAttribute("email", user.getEmail());
             return "redirect:/login";
         }
     }
@@ -107,7 +106,7 @@ public class UserController {
 
         if(token != null)
         {
-            User user = users.findByEmailIdIgnoreCase(token.getUser().getEmailId());
+            User user = users.findByEmailIdIgnoreCase(token.getUser().getEmail());
             user.setEnabled(true);
             users.save(user);
             modelAndView.setViewName("accountVerified");
@@ -145,7 +144,7 @@ public class UserController {
     // Receive the address and send an email
     @RequestMapping(value="/forgotPassword", method=RequestMethod.POST)
     public ModelAndView forgotUserPassword(ModelAndView modelAndView, User user) {
-        User existingUser = users.findByEmailIdIgnoreCase(user.getEmailId());
+        User existingUser = users.findByEmailIdIgnoreCase(user.getEmail());
         if (existingUser != null) {
             // Create token
             ConfirmationToken confirmationToken = new ConfirmationToken(existingUser);
@@ -155,7 +154,7 @@ public class UserController {
 
             // Create the email
             SimpleMailMessage mailMessage = new SimpleMailMessage();
-            mailMessage.setTo(existingUser.getEmailId());
+            mailMessage.setTo(existingUser.getEmail());
             mailMessage.setSubject("Complete Password Reset!");
             mailMessage.setFrom("test-email@gmail.com");
             mailMessage.setText("To complete the password reset process, please click here: "
