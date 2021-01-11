@@ -3,7 +3,9 @@
 
 var interval;
 var startTime;
-var timeEnd = 0
+var timeEnd = 0;
+var cardIndexShowing = -1;
+var dataVal = 0;
 
 function timerStart() {
     var timeStart = startTime
@@ -50,6 +52,7 @@ $('#startButton').click(function () {
 
         var nextNode = lyricCards.filter('.active').next();
         showCard(nextNode);
+        cardIndexShowing++;
     });
 
     $('.lyricCards .LMcard:first').addClass('active');
@@ -59,6 +62,7 @@ $('#startButton').click(function () {
 
         var previousNode = lyricCards.filter('.active').prev();
         showCard(previousNode);
+        cardIndexShowing--;
     });
 
 
@@ -67,7 +71,7 @@ $('#startButton').click(function () {
         $("#previous").addClass('hidden');
         $("#submit").addClass('hidden');
 
-        var dataVal = 0;
+
         $("#next").click(function () {
             dataVal++;
             $("#previous").removeClass('hidden');
@@ -88,8 +92,11 @@ $('#startButton').click(function () {
             }
         });
 
-        $("#hint").click()(function () {
-            $("#title").show("slow");
-        });
+    $(".hint").click()(function () {
+        console.log($(".title"));
+        console.log($("#title").eq(cardIndexShowing));
+        $(".title").eq(cardIndexShowing).show("slow");
+
+    });
 
 })();
