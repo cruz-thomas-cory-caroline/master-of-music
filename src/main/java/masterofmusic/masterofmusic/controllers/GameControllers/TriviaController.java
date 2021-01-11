@@ -60,6 +60,9 @@ public class TriviaController {
         currentPlayerGame.setScore(totalScore);
         currentPlayerGame.setTimeElapsed(gameTime);
         playerGameDao.save(currentPlayerGame);
+
+        totalScore = 0;
+        gameLevel = 0;
         return "redirect:/trivia-game";
     }
 
