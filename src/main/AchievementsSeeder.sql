@@ -1,5 +1,4 @@
 use master_of_music_db;
-
 insert into achievement(id, name, game_id, class_string, description)
 values (1, 'Tweedle Deedle', 1, 'fas fa-award badge1-gradient', 'Score 1500 Points In 3 Rounds'),
 (2, 'Ballad Monster',1, 'fas fa-medal badge3-gradient', 'Score 500 Points'),
