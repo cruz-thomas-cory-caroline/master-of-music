@@ -134,48 +134,48 @@
                 <section id="unscrambleOptions">
                     <form th:action="@{/unscramble}" method="get">
                         <input type="hidden" name="round" value="1">
-                        <h5 class="text-white text-start">Difficulty:</h5>
+                        <h5 class="text-white text-start difficultyLabel">Difficulty:</h5>
 
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="difficulty" id="inlineRadio8"
                                    value="easy">
-                            <label class="form-check-label" for="inlineRadio8">Easy</label>
+                            <label class="form-check-label difficultyLabel" for="inlineRadio8">Easy</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="difficulty" id="inlineRadio9"
                                    value="medium">
-                            <label class="form-check-label" for="inlineRadio9">Medium</label>
+                            <label class="form-check-label difficultyLabel" for="inlineRadio9">Medium</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="difficulty" id="inlineRadio10"
                                    value="hard">
-                            <label class="form-check-label" for="inlineRadio10">Hard</label>
+                            <label class="form-check-label difficultyLabel" for="inlineRadio10">Hard</label>
                         </div>
 
 
-                        <h5 class="text-white text-start">Genre:</h5>
+                        <h5 class="text-white text-start genreLabel">Genre:</h5>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="genre" id="inlineRadio11"
                                    value="rock">
-                            <label class="form-check-label" for="inlineRadio11">Rock</label>
+                            <label class="form-check-label genreLabel" for="inlineRadio11">Rock</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="genre" id="inlineRadio12"
                                    value="hip-hop">
-                            <label class="form-check-label" for="inlineRadio12">Hip-Hop</label>
+                            <label class="form-check-label genreLabel" for="inlineRadio12">Hip-Hop</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="genre" id="inlineRadio13"
                                    value="pop">
-                            <label class="form-check-label" for="inlineRadio13">Pop</label>
+                            <label class="form-check-label genreLabel" for="inlineRadio13">Pop</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="genre" id="inlineRadio14"
                                    value="country">
-                            <label class="form-check-label" for="inlineRadio14">Country</label>
+                            <label class="form-check-label genreLabel" for="inlineRadio14">Country</label>
                         </div>
                         <br>
-                        <button type="submit" class="btn btn-primary">Play</button>
+                        <button type="submit" class="btn btn-warning">Play</button>
                     </form>
                 </section>
             </div>
@@ -189,25 +189,26 @@
 
                 <section id="musicTheoryOptions">
                     <form method="GET" th:action="@{|/music-theory/${0}|}">
-                        <h5 class="text-white text-start">Difficulty:</h5>
+                        <h5 class="text-white text-start difficultyLabel">Difficulty:</h5>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" checked type="radio" name="theoryDifficultyOptions"
                                    id="theoryEasy"
                                    value="option1">
-                            <label class="form-check-label" for="theoryEasy">Easy</label>
+                            <label class="form-check-label difficultyLabel" for="theoryEasy">Easy</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="theoryDifficultyOptions"
                                    id="theoryMedium"
                                    value="option2">
-                            <label class="form-check-label" for="theoryMedium">Medium</label>
+                            <label class="form-check-label difficultyLabel" for="theoryMedium">Medium</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="theoryDifficultyOptions" id="theoryHard"
                                    value="option3">
-                            <label class="form-check-label" for="theoryHard">Hard</label>
+                            <label class="form-check-label difficultyLabel" for="theoryHard">Hard</label>
                         </div>
-                        <button class="btn btn-primary" type="submit">Play Now!</button>
+                        <br>
+                        <button class="btn btn-warning" type="submit">Play Now!</button>
                     </form>
                 </section>
             </div>
