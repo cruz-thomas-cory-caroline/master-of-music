@@ -33,7 +33,7 @@
         <div th:each="song : ${chosenSongs}" class="LMcard">
             <input type="hidden" name="songId" th:value="${song.id}">
 
-            <a class="start-btn hint" id="hint">Submit</a>
+            <a class="start-btn hint" data-id=${index}>Submit</a>
             <ol class='video-game-button'>
                 <div class="card m-auto lyricCardsBG">
                     <h2 class="card-title" th:text="${song.lyrics}"></h2>
