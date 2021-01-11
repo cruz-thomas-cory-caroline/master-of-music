@@ -12,4 +12,3 @@ VALUES (1, 'rock'),
        (2, 'hip-hop'),
        (3, 'pop'),
        (4, 'country');
-

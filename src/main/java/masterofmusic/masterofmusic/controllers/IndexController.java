@@ -2,14 +2,18 @@ package masterofmusic.masterofmusic.controllers;
 
 import masterofmusic.masterofmusic.models.*;
 import masterofmusic.masterofmusic.repositories.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Timestamp;
 
+@Controller
 public class IndexController {
 
     private final QuestionRepository questionDao;
@@ -31,7 +35,21 @@ public class IndexController {
 
     @GetMapping("/index")
     public String indexPage(Model model) {
+
         return "index";
     }
 
+    @GetMapping("/footerNav")
+    public String footerNav(Model model){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+            model.addAttribute("userPic", user.getImages());
+
+            System.out.println(user.getImages());
+            model.addAttribute("genericPfp","../../resources/static/img/unnamed.png" );
+
+        return "../../resources/templates/partials/footerNav.html";
+    }
+
 }
+

@@ -384,7 +384,7 @@
             let clipIndex = 0;
 
             while (audioClipPath === "" && clipIndex < response.data.length) {
-                if (response.data[clipIndex].artist.name === artist) {
+                if (response.data[clipIndex].artist.name.toLowerCase() === artist.toLowerCase()) {
                     audioClipPath = response.data[clipIndex].preview
                 } else {
                     clipIndex++

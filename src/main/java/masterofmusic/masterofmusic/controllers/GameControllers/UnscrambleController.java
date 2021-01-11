@@ -1,9 +1,6 @@
 package masterofmusic.masterofmusic.controllers.GameControllers;
 
-import masterofmusic.masterofmusic.models.PlayerGame;
-import masterofmusic.masterofmusic.models.PlayerGameRound;
-import masterofmusic.masterofmusic.models.Song;
-import masterofmusic.masterofmusic.models.User;
+import masterofmusic.masterofmusic.models.*;
 import masterofmusic.masterofmusic.repositories.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -11,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.Array;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
@@ -27,16 +23,21 @@ public class UnscrambleController {
     private final PlayerGameRepository playerGameDao;
     private final PlayerGameRoundRepository playerGameRoundDoa;
     private final GenreRepository genreDao;
+    private final AchievementRepository achievementDao;
+    private final UserRepository userDao;
     private List<Long> chosenSongIDs = new ArrayList<>();
     private List<Song> chosenSongs = new ArrayList<>();
     private long currentGameID;
+    boolean usedCheckFeature;
 
-    public UnscrambleController(SongRepository songDao, GameRepository gameDao, PlayerGameRepository playerGameDao, PlayerGameRoundRepository playerGameRoundDoa, GenreRepository genreDao) {
+    public UnscrambleController(SongRepository songDao, GameRepository gameDao, PlayerGameRepository playerGameDao, PlayerGameRoundRepository playerGameRoundDoa, GenreRepository genreDao, AchievementRepository achievementDao, UserRepository userDao) {
         this.songDao = songDao;
         this.gameDao = gameDao;
         this.playerGameDao = playerGameDao;
         this.playerGameRoundDoa = playerGameRoundDoa;
         this.genreDao = genreDao;
+        this.achievementDao = achievementDao;
+        this.userDao = userDao;
     }
 
 
@@ -45,7 +46,7 @@ public class UnscrambleController {
                                  @RequestParam(name = "genre") String genre,
                                  @RequestParam(name = "round") long num,
                                  Model model) {
-
+        usedCheckFeature = false;
         chosenSongs = new ArrayList<>();
         chosenSongIDs = new ArrayList<>();
 
@@ -97,9 +98,6 @@ public class UnscrambleController {
         }
 
         List<Song> allSongsOfGenre = genreDao.getOne(genreID).getSongs();
-        System.out.println(allSongsOfGenre.size());
-        System.out.println(genreID);
-        System.out.println(timeLimit);
 
         while (chosenSongs.size() < numberOfQuestions) {
             int indexToAdd = ThreadLocalRandom.current().nextInt(0, allSongsOfGenre.size());
@@ -161,8 +159,7 @@ public class UnscrambleController {
                                 @RequestParam(name = "playerGame") long num,
                                 HttpServletRequest request,
                                 Model model) {
-
-        System.out.println("BREAK BREAK BREAK");
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         PlayerGameRound newRoundCompleted = new PlayerGameRound();
         newRoundCompleted.setDifficulty(difficulty);
         newRoundCompleted.setLevel(playerGameDao.getOne(num).getPlayerGameRounds().size()+1);
@@ -184,7 +181,6 @@ public class UnscrambleController {
             splitSongLyrics.add(splitLyricSet);
 
             String userLyric = request.getParameter("song" + chosenSongs.indexOf(song));
-            System.out.println(userLyric);
             splitUserSet = new ArrayList<>(Arrays.asList(userLyric.split(" ")));
             while (splitUserSet.size() < splitLyricSet.size()) {
                 splitUserSet.add("xyz");
@@ -192,16 +188,15 @@ public class UnscrambleController {
             splitUserLyrics.add(splitUserSet);
 
             for (var i = 0; i < splitLyricSet.size(); i++) {
-                System.out.println(splitLyricSet.get(i) + " / " + splitUserSet.get(i));
                 if (splitLyricSet.get(i).equals(splitUserSet.get(i))) {
                     wordsCorrect += 1;
-                    System.out.println(splitLyricSet.get(i));
                 }
             }
         }
 
         int totalPossScore = 0;
         int finalScore = 0;
+
         switch(difficulty) {
             case "easy":
                 totalPossScore = wordTotal * 10;
@@ -222,6 +217,7 @@ public class UnscrambleController {
         playerGameDao.getOne(newRoundCompleted.getPlayerGame().getId()).setScore(newRoundCompleted.getPlayerGame().getScore()+newRoundCompleted.getScore());
         PlayerGameRound savedRound = playerGameRoundDoa.save(newRoundCompleted);
 
+
         model.addAttribute("score", savedRound.getScore());
         model.addAttribute("songs", chosenSongs);
         if (finalScore >= totalPossScore/2) {
@@ -230,6 +226,109 @@ public class UnscrambleController {
         model.addAttribute("currentLevel", newRoundCompleted.getLevel());
         model.addAttribute("userAnswers", splitUserLyrics);
         model.addAttribute("songLyrics", splitSongLyrics);
+
+
+        List<Achievement> gameAchievements = achievementDao.findAllByGameId(4);
+        List<Achievement> userAchievements = user.getUsers_achievements();
+
+        if (userAchievements == null) {
+            System.out.println("Nothing has been Earned");
+            userAchievements = new ArrayList<>();
+        } else {
+            for (Achievement ach : userAchievements) {
+                System.out.println("You've earned: " + ach.getName());
+            }
+        }
+
+        boolean awardEarned = false;
+        List<Achievement> newAwards = new ArrayList<>();
+
+        if(finalScore >= 300 && !userAchievements.contains(gameAchievements.get(0))) {
+            Achievement achToChange = achievementDao.getOne(gameAchievements.get(0).getId());
+            List<User> usersWhoHaveBadge = achToChange.getUsers();
+            if (usersWhoHaveBadge == null) {
+                usersWhoHaveBadge = new ArrayList<>();
+            }
+            if (!usersWhoHaveBadge.contains(userDao.getOne(user.getId()))) {
+                usersWhoHaveBadge.add(user);
+                achToChange.setUsers(usersWhoHaveBadge);
+                achievementDao.save(achToChange);
+
+                userAchievements.add(achToChange);
+                User userToSave = userDao.getOne(user.getId());
+                userToSave.setUsers_achievements(userAchievements);
+                userDao.save(userToSave);
+
+                awardEarned = true;
+                newAwards.add(achToChange);
+            }
+        }
+
+        if (playerGameDao.getOne(newRoundCompleted.getPlayerGame().getId()).getScore() >= 1000 && !userAchievements.contains(gameAchievements.get(1))) {
+            Achievement achToChange = achievementDao.getOne(gameAchievements.get(1).getId());
+            List<User> usersWhoHaveBadge = achToChange.getUsers();
+            if (usersWhoHaveBadge == null) {
+                usersWhoHaveBadge = new ArrayList<>();
+            }
+            if (!usersWhoHaveBadge.contains(userDao.getOne(user.getId()))) {
+                usersWhoHaveBadge.add(user);
+                achToChange.setUsers(usersWhoHaveBadge);
+                achievementDao.save(achToChange);
+
+                userAchievements.add(achToChange);
+                User userToSave = userDao.getOne(user.getId());
+                userToSave.setUsers_achievements(userAchievements);
+                userDao.save(userToSave);
+
+                awardEarned = true;
+                newAwards.add(achToChange);
+            }
+        }
+
+        if (finalScore >= 500 && !usedCheckFeature && !userAchievements.contains(gameAchievements.get(2))) {
+            Achievement achToChange = achievementDao.getOne(gameAchievements.get(2).getId());
+            List<User> usersWhoHaveBadge = achToChange.getUsers();
+            if (usersWhoHaveBadge == null) {
+                usersWhoHaveBadge = new ArrayList<>();
+            }
+            if (!usersWhoHaveBadge.contains(userDao.getOne(user.getId()))) {
+                usersWhoHaveBadge.add(user);
+                achToChange.setUsers(usersWhoHaveBadge);
+                achievementDao.save(achToChange);
+
+                userAchievements.add(achToChange);
+                User userToSave = userDao.getOne(user.getId());
+                userToSave.setUsers_achievements(userAchievements);
+                userDao.save(userToSave);
+
+                awardEarned = true;
+                newAwards.add(achToChange);
+            }
+        }
+
+        if (difficulty.equalsIgnoreCase("hard") && finalScore == totalPossScore && !userAchievements.contains(gameAchievements.get(3))) {
+            Achievement achToChange = achievementDao.getOne(gameAchievements.get(3).getId());
+            List<User> usersWhoHaveBadge = achToChange.getUsers();
+            if (usersWhoHaveBadge == null) {
+                usersWhoHaveBadge = new ArrayList<>();
+            }
+            if (!usersWhoHaveBadge.contains(userDao.getOne(user.getId()))) {
+                usersWhoHaveBadge.add(user);
+                achToChange.setUsers(usersWhoHaveBadge);
+                achievementDao.save(achToChange);
+
+                userAchievements.add(achToChange);
+                User userToSave = userDao.getOne(user.getId());
+                userToSave.setUsers_achievements(userAchievements);
+                userDao.save(userToSave);
+
+                awardEarned = true;
+                newAwards.add(achToChange);
+            }
+        }
+
+        model.addAttribute("awardEarned", awardEarned);
+        model.addAttribute("newAwards", newAwards);
         return "final";
     }
 
@@ -239,6 +338,7 @@ public class UnscrambleController {
                         @RequestParam(name = "userAnswer") String userAnswer,
                         Model model) {
 
+        usedCheckFeature = true;
         String lyrics = songDao.getOne(id).getLyrics();
 
         List<Integer> rightWrong = new ArrayList<>();

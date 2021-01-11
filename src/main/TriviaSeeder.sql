@@ -1,3 +1,4 @@
+CREATE DATABASE IF NOT EXISTS master_of_music_db;
 USE master_of_music_db;
 
 INSERT INTO questions (id, question, game_id)
@@ -57,11 +58,11 @@ VALUES (1,'Which famous music group were formerly known as the New Yardbirds?', 
        (52, 'Which Loretta Lynn song inspired a 1980 biographical film of the same name?', 3),
        (53, 'Which Hank Williams song was released posthumously?', 3),
        (54, 'Which singer holds the record for largest indoor concert in North America?', 3),
-       (55, 'Which future country music artist witnessed one of Johnny Cash\'s San Quentin concerts firsthand ... as an inmate?', 3),
+       (55, 'Which future country music artist witnessed one of Johnny Cash''s San Quentin concerts firsthand ... as an inmate?', 3),
        (56, 'Which Mississippi Delta queen knocked the Beatles from the top of the charts in 1967?', 3),
        (57, 'Which city is considered the Country Music Capital of the World?', 3),
        (58, 'Who originally recorded Garth Brooks'' 1991 hit "The Thunder Rolls"?', 3),
-       (59, 'Which singer/songwriter reportedly landed a helicopter on Johnny Cash\'s lawn to hand deliver a music demo?', 3),
+       (59, 'Which singer/songwriter reportedly landed a helicopter on Johnny Cash''s lawn to hand deliver a music demo?', 3),
        (60, 'What was Hank Williams real name?', 3),
 
        (61, 'What is widely regarded as the first hip hop record?', 3),
@@ -91,4 +92,3 @@ VALUES (1,'Which famous music group were formerly known as the New Yardbirds?', 
        (84,'Assuming a guitar is in standard tuning, what note is on the 5th fret of the low E string?',2),
        (85,'Which of the following can be played over a b phrygian chord progression?',2),
        (86,'What notes are in the E minor scale?',2);
-

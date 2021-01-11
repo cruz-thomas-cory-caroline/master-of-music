@@ -71,34 +71,12 @@
     font-family: 'Press Start 2p';
 }
 
-/*@keyframes zoomHeader {*/
-/*    from {font-size: 1em;}*/
-/*    to {font-size: 3em;}*/
-/*}*/
-
-/*@keyframes moveHeaderUp {*/
-/*    from {top: 10%;}*/
-/*    to {top: 5%;}*/
-/*}*/
-
 #headerLM {
-    /*position: absolute;*/
-    width: 100vw;
-    /*z-index: 1;*/
-    /*top: 50%;*/
-    /*left: 50%;*/
-    /*transform: translate(-50%, -50%);*/
     font-weight: bolder;
     text-align: center;
     font-family: 'Press Start 2p';
     color: #c62a88;
     text-shadow: 1px 1px 2px #fcc910, 0 0 25px blue, 0 0 5px darkblue;
-    /*animation-name: zoomHeader;*/
-    animation-duration: 5000ms, 1000ms;
-    animation-delay: 0ms, 6000ms; /* add this */
-    animation-timing-function: ease-in, ease-out;
-    animation-iteration-count: 1, 1;
-    animation-fill-mode: forwards;
 }
 
 .lyricCards .LMcard{display:none;}

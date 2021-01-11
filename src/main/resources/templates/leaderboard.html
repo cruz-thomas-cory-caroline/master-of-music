@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="partials/head.html :: head"></div>
+    <title>Leaderboard</title>
+</head>
+<body>
+<main class="container-flex">
+    <div class="row justify-content-center">
+
+        <div th:if="${loggedIn}" class="col-12 col-md-4 card align-self-center"
+             style="background-color: transparent; color: white">
+            <div class="card-body text-center">
+                <h2>Your Global Rank: <span th:text="${globalRank}"></span></h2>
+                <h3>Total Score: <span th:text="${playerScore}"></span></h3>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-8 justify-content-center">
+            <div class="card mx-auto mt-5" style="width: 18rem;">
+                <div class="card-header text-center">Global Standing</div>
+                <ul class="list-group list-group-flush" style="max-height: 200px; overflow-y: auto">
+                    <li class="list-group-item text-center" th:each="user, int : ${rankedUsers}"
+                        th:text="${int.index+1}+ '. ' +${user.getUsername()}+ ' ' +${rankedScores.get(int.index)}">
+                        <span><img th:src="${user.images}"></span></li>
+                </ul>
+            </div>
+
+            <div class="mt-5">
+                <section class="container-fluid" id="userGameStatsContainer">
+                    <h2 id="gameHistoryHeader" class="text-light my-4" style="background-color: #1b0230">Global Rankings
+                        By
+                        Game</h2>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active text-warning fw-bolder" id="musicTrivia-tab" data-toggle="tab"
+                               href="#musicTriviaTab" role="tab" aria-controls="musicTriviaStats" aria-selected="true">TRIVIA
+                                MASTER</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-warning fw-bolder" id="lyricMaster-tab" data-toggle="tab"
+                               href="#lyricMasterTab" role="tab" aria-controls="lyricMasterStats" aria-selected="false">LYRIC
+                                MASTER</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-warning fw-bolder" id="musicTheory-tab" data-toggle="tab"
+                               href="#musicTheoryTab" role="tab" aria-controls="musicTheoryStats" aria-selected="false">THEORY
+                                MASTER</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-warning fw-bolder" id="unscramble-tab" data-toggle="tab"
+                               href="#unscrambleTab" role="tab" aria-controls="unscrambleStats" aria-selected="false">UNSCRAMBLE
+                                MASTER</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content mb-4" id="myTabContent">
+                        <!--music trivia tab-->
+                        <div class="tab-pane fade show active" id="musicTriviaTab" role="tabpanel"
+                             aria-labelledby="musicTrivia-tab">
+                            <section class="tab-content" id="myTabContent1">
+                                <div class="tab-pane fade show active h-75S" role="tabpanel"
+                                     aria-labelledby="musicTrivia-tab">
+                                    <!--start music trivia tab -->
+                                    <div class="card">
+                                        <h5 th:if="${game3Standing}" class="card-header text-white tabHeaders">You Rank:
+                                            <span
+                                                    th:text="${game3Standing}"></span>
+                                        </h5>
+                                        <h5 th:unless="${game3Standing}" class="card-header text-white tabHeaders"><span
+                                                th:text="${game3Standing}"></span>
+                                        </h5>
+                                        <div class="card-body cardBodyForTabs">
+                                            <div th:each="user, int : ${game3Players}"
+                                                 class="card mb-2 gameStatsCards border-gradient-purple"
+                                                 style="width: 100%;">
+                                                <p th:text="${int.index+1}+'. '+${user.getUsername()}+' '+${game3Scores.get(int.index)}"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <!--end of music trivia tab-->
+
+                        <!--start of lyric master tab-->
+                        <div class="tab-pane fade" id="lyricMasterTab" role="tabpanel"
+                             aria-labelledby="lyricMaster-tab">
+                            <section class="tab-content mb-4" id="myTabContent2">
+                                <div class="tab-pane fade show active h-75S" role="tabpanel"
+                                     aria-labelledby="lyricMaster-tab">
+
+                                    <!--start lyric master tabs -->
+                                    <div class="card">
+                                        <h5 th:if="${game1Standing}" class="card-header text-white tabHeaders">Your
+                                            Rank:
+                                            <span
+                                                    th:text="${game1Standing}"></span></h5>
+                                        <div class="card-body cardBodyForTabs">
+                                            <div th:each="user, int : ${game1Players}"
+                                                 class="card mb-2 gameStatsCards border-gradient-purple"
+                                                 style="width: 100%;">
+                                                <p th:text="${int.index+1}+'. '+${user.getUsername()}+' '+${game1Scores.get(int.index)}"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <!--End of lyric master tab-->
+
+                        <!--Start of music theory tab-->
+                        <div class="tab-pane fade" id="musicTheoryTab" role="tabpanel"
+                             aria-labelledby="musicTheory-tab">
+                            <section class="tab-content mb-4" id="myTabContent3">
+                                <div class="tab-pane fade show active h-75S" role="tabpanel"
+                                     aria-labelledby="musicTheory-tab">
+                                    <!--start music theory tabs -->
+
+                                    <div class="card">
+                                        <h5 th:if="${game2Standing}" class="card-header text-white tabHeaders">Your
+                                            Rank:
+                                            <span
+                                                    th:text="${game2Standing}"></span></h5>
+                                        <div class="card-body cardBodyForTabs">
+                                            <div th:each="user, int : ${game2Players}"
+                                                 class="card mb-2 gameStatsCards border-gradient-purple"
+                                                 style="width: 100%;">
+                                                <p th:text="${int.index+1}+'. '+${user.getUsername()}+' '+${game2Scores.get(int.index)}"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <!--End of music theory tab-->
+
+                        <!--Start of unscramble tab-->
+                        <div class="tab-pane fade" id="unscrambleTab" role="tabpanel" aria-labelledby="unscramble-tab">
+                            <section class="tab-content mb-4" id="myTabContent4">
+                                <div class="tab-pane fade show active h-75S" role="tabpanel"
+                                     aria-labelledby="unscramble-tab">
+                                    <!--start unscramble tabs -->
+                                    <div class="card">
+                                        <h5 th:if="${game4Standing}" class="card-header text-white tabHeaders">Your
+                                            Rank:
+                                            <span
+                                                    th:text="${game4Standing}"></span></h5>
+                                        <div class="card-body cardBodyForTabs container justify-content-center">
+                                            <div th:each="user, int : ${game4Players}"
+                                                 class="card mb-2 gameStatsCards border-gradient-purple row"
+                                                 style="width: 100%;">
+                                                <div class="col-4" th:text="${int.index+1}"></div>
+                                                <div class="col-4" th:text="${user.getUsername()}"></div>
+                                                <div class="col-4" th:text="${game4Scores.get(int.index)}"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</main>
+<div th:replace="partials/footerNav.html :: footerNav"></div>
+<div th:replace="partials/scripts.html :: scripts"></div>
+</body>
+</html>
