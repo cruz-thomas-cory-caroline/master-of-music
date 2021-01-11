@@ -1,8 +1,6 @@
 use master_of_music_db;
-
 insert into achievement(id, name, game_id, class_string, description)
 values (1, 'Tweedle Deedle', 1, 'fas fa-award badge1-gradient', 'Score 1500 Points In 3 Rounds'),
-
 (2, 'Ballad Monster',1, 'fas fa-medal badge3-gradient', 'Score 500 Points'),
 (3, 'Overture Lord',1, 'fas fa-crown badge2-gradient', 'Play 2 Perfect Games on Hard'),
 (4, 'Tempo King',1, 'fas fa-trophy badge4-gradient', 'Play 5 Game Rounds'),
@@ -18,4 +16,3 @@ values (1, 'Tweedle Deedle', 1, 'fas fa-award badge1-gradient', 'Score 1500 Poin
 (14, 'Game Jedi',3, 'fas fa-jedi badge3-gradient', 'Play At Least 10 Games'),
 (15, 'Score Phoenix',3, 'fab fa-phoenix-squadron badge4-gradient', 'Get A Total Score Of 5,000'),
 (16, 'Streak Shield',3, 'fas fa-shield-alt badge1-gradient', 'Get A Perfect Score Streak On 5 Games');
-

@@ -4,10 +4,17 @@
 <head>
     <div th:replace="partials/head.html :: head"></div>
     <title>Title</title>
+    <style>
+         #timesUpCard,#questionCard, #wrongCard, #correctCard{
+            border: 10px solid;
+            border-image-slice: 1;
+            border-image-source: linear-gradient(to left, #0061f5, #ac00ec);
+        }
+    </style>
 </head>
 <body>
-<div th:switch="${wrong != null || correct != null}" class="mt-5" id="questionCard">
-    <div th:case="${false}" class="card bg-dark m-auto" style="width: 38rem;">
+<div th:switch="${wrong != null || correct != null}" class="mt-5">
+    <div th:case="${false}" class="card bg-dark m-auto" style="width: 38rem;" id="questionCard">
         <div class="card-header">
             <h1 style="color: white" th:text="${questions}"></h1>
         </div>
@@ -29,8 +36,8 @@
 
 
 
-<div th:if="${correct != null}" id="correctCard">
-    <div class="card bg-dark m-auto" style="max-width: 18rem;">
+<div th:if="${correct != null}">
+    <div class="card bg-dark m-auto" style="max-width: 18rem;" id="correctCard">
         <div class="card-header">
             <h1 style="color: white">Correct!</h1>
         </div>
@@ -44,8 +51,8 @@
     </div>
 </div>
 
-<div th:if="${wrong != null}" id="wrongCard">
-    <div class="card bg-light m-auto" style="max-width: 18rem;">
+<div th:if="${wrong != null}">
+    <div class="card bg-dark m-auto" style="max-width: 18rem;" id="wrongCard">
         <div class="card-header">
             <h1>Sorry!</h1>
         </div>
@@ -59,8 +66,8 @@
     </div>
 </div>
 
-<div id="timesUpCard" class="hide d-none">
-    <div class="card bg-dark m-auto" style="max-width: 18rem;">
+<div class="hide d-none">
+    <div class="card bg-dark m-auto" style="max-width: 18rem;" id="timesUpCard">
         <div class="card-header">
             <h1 style="color: white">Sorry!</h1>
         </div>
