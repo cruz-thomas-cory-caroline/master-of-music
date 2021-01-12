@@ -158,7 +158,6 @@ public class UserController {
             mailMessage.setFrom("test-email@gmail.com");
             mailMessage.setText("To complete the password reset process, please click here: "
                     + "<html><body><a href='http://localhost:8080/confirm-reset?token="+confirmationToken.getConfirmationToken()+"\">click here</a> </body></html>");
-//            "<html><body><a href='www.abc.com\\activation?hash="+i+"\">click here</a> </body></html>";
             // Send the email
             emailSenderService.sendEmail(mailMessage);
 
