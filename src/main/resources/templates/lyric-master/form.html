@@ -27,17 +27,15 @@
         <input name="playerGame" type="hidden" th:value="${playerGame}">
         <input name="level" type="hidden" th:value="${round}">
         <input type="hidden" id="difficultySelected" name="songDifficulty" th:value="${songDifficulty}">
-
-        <div class="card-body lyricCards lm-cards hide forgotPasswordCard avatarBorderCont">
-            <div th:each="song : ${chosenSongs}" class="LMcard">
+        <div class="card-body lyricCards lm-cards hide forgotPasswordCard">
+            <div th:each="song : ${chosenSongs}" class="LMcard cardIndexShowing">
                 <input type="hidden" name="songId" th:value="${song.id}">
-
-                <ol class='video-game-button'>
+                <ol class="p-0 m-0 avatarBorderCont">
                     <div class="card m-auto lyricCardsBG forgotPasswordCard">
-
-                        <h2 class="card-title faqHeader" th:text="${song.lyrics}"></h2>
-                        <p class="text-left hide title">Title: <span th:text="${song.title}"></span></p>
-                        <p class="text-left">Artist: <span th:text="${song.artist}"></span></p>
+                        <h2 class="card-title faqHeader text-center" th:text="${song.lyrics}"></h2>
+                        <p class="text-left hide title text-center rockFont">Title: <span th:text="${song.title}"></span></p>
+                        <div class="hint start-btn mx-auto float-left rockFont"><i class="fas fa-star"></i></i>Hint<i class="fas fa-star"></i></i></div>
+                        <p class="text-left rockFont">Artist: <span th:text="${song.artist}"></span></p>
                         <h6>Time Remaining: <span class="lyricMaster-timer" th:text="${timeLimit}"></span></h6>
                         <div class="card-body form-check form-check-inline quizAnswers "
                              th:each="lyricAnswer : ${song.lyricAnswers}">
@@ -50,7 +48,7 @@
                             <input class="hide form-check-input solutions" type="radio" th:value="1"
                                    th:name="song_+${song.id}" checked/>
                         </div>
-                        <a class="start-btn hint">Submit</a>
+
                         <span class="mx-auto">
                     <a href="#" class="prev start-btn" id="previous">PREVIOUS</a>
                     <a href="#" class='start-btn next' id="next">NEXT</a>
@@ -58,7 +56,10 @@
                     </div>
                 </ol>
             </div>
-                <button type="submit" class="start-btn" value="Submit">Submit to View Results</button>
+            <div class="card-body video-game-button hidden mx-auto" id="submit">
+                <p class="card-text">Submit to View Results!</p>
+                <button type="submit" class="start-btn" value="Submit">Submit</button>
+            </div>
         </div>
     </form>
 </div>

@@ -54,6 +54,9 @@
         var nextNode = lyricCards.filter('.active').next();
         showCard(nextNode);
         cardIndexShowing++;
+        if (cardIndexShowing === $("#difficultySelected").length - 1) {
+                   $("#submit").show("slow");
+                 }
     });
 
     $('.lyricCards .LMcard:first').addClass('active');
@@ -63,6 +66,7 @@
 
         var previousNode = lyricCards.filter('.active').prev();
         showCard(previousNode);
+
         cardIndexShowing--;
     });
 
@@ -98,7 +102,6 @@
         // console.log($("#title").eq(cardIndexShowing));
         console.log( $(this).find($('.title')));
         $('.title').eq(cardIndexShowing).toggle('slow');
-
     });
 
 })();
