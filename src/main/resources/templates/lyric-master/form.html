@@ -10,34 +10,32 @@
 </head>
 <body>
 <div class="container-fluid">
-    <h4 id="headerLM" style="z-index: 1; position: absolute; size: 12em" class="text-center">Lyric Master</h4>
-    <div class="text-center card game-start start-menu lyricCards">
-        <div class="card-body lyricCardsBG">
+    <h4 id="headerLM" style="size: 12em" class="text-center faqHeader">Lyric Master</h4>
+    <div class="text-center card game-start start-menu lyricCards avatarBorderCont">
+        <div class="card-body forgotPasswordCard lyricCardsBG">
             <h5 class="card-title">How to Play</h5>
-            <ul class='video-game-button' style="appearance: none">
+            <ul class='video-game-button forgotPasswordCard' style="appearance: none">
                 <li>You will be given <span th:text="${questions}"></span> incomplete song lyrics.</li>
                 <li>Select the correct verse to complete the displayed lyrics.</li>
                 <li>Complete the game before time runs out! You have <span th:text="${timeLimit}"></span> seconds!</li>
                 <li>Have fun!</li>
             </ul>
-            <button type="button" class="start-btn" id="startButton">START</button>
+            <button type="button" class="start-btn  forgotPasswordCard" id="startButton">START</button>
         </div>
     </div>
     <form th:method="post" th:action="@{/lyric-master/submit}" id="lyricMasterQuizForm">
         <input name="playerGame" type="hidden" th:value="${playerGame}">
         <input name="level" type="hidden" th:value="${round}">
         <input type="hidden" id="difficultySelected" name="songDifficulty" th:value="${songDifficulty}">
-
-        <div class="card-body lyricCards lm-cards hide">
-            <div th:each="song : ${chosenSongs}" class="LMcard">
+        <div class="card-body lyricCards lm-cards hide forgotPasswordCard">
+            <div th:each="song : ${chosenSongs}" class="LMcard cardIndexShowing">
                 <input type="hidden" name="songId" th:value="${song.id}">
-
-                <a class="start-btn" id="hint">Submit</a>
-                <ol class='video-game-button'>
-                    <div class="card m-auto lyricCardsBG">
-                        <h2 class="card-title" th:text="${song.lyrics}"></h2>
-                        <p class="text-left hide" id="title">Title: <span th:text="${song.title}"></span></p>
-                        <p class="text-left">Artist: <span th:text="${song.artist}"></span></p>
+                <ol class="p-0 m-0 avatarBorderCont">
+                    <div class="card m-auto lyricCardsBG forgotPasswordCard">
+                        <h2 class="card-title faqHeader text-center" th:text="${song.lyrics}"></h2>
+                        <p class="text-left hide title text-center rockFont">Title: <span th:text="${song.title}"></span></p>
+                        <div class="hint start-btn mx-auto float-left rockFont"><i class="fas fa-star"></i></i>Hint<i class="fas fa-star"></i></i></div>
+                        <p class="text-left rockFont">Artist: <span th:text="${song.artist}"></span></p>
                         <h6>Time Remaining: <span class="lyricMaster-timer" th:text="${timeLimit}"></span></h6>
                         <div class="card-body form-check form-check-inline quizAnswers "
                              th:each="lyricAnswer : ${song.lyricAnswers}">
@@ -50,19 +48,17 @@
                             <input class="hide form-check-input solutions" type="radio" th:value="1"
                                    th:name="song_+${song.id}" checked/>
                         </div>
-                        <span>
 
+                        <span class="mx-auto">
                     <a href="#" class="prev start-btn" id="previous">PREVIOUS</a>
                     <a href="#" class='start-btn next' id="next">NEXT</a>
-                    </span>
+                        </span>
                     </div>
                 </ol>
             </div>
-            <div class="card video-game-button hidden" id="submit">
-                <div class="card-body">
-                    <p class="card-text">Submit to View Results!</p>
-                    <button type="submit" class="start-btn" value="Submit">Submit</button>
-                </div>
+            <div class="card-body video-game-button hidden mx-auto" id="submit">
+                <p class="card-text">Submit to View Results!</p>
+                <button type="submit" class="start-btn" value="Submit">Submit</button>
             </div>
         </div>
     </form>
@@ -71,5 +67,4 @@
 <div th:include="partials/scripts.html :: scripts"></div>
 <script th:src="@{/js/lyric-master.js}"></script>
 </body>
-
 </html>

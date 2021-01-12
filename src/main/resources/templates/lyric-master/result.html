@@ -15,7 +15,7 @@
             <input type="hidden" id="score" th:value="${score}">
     </div>
 </div>
-<div th:if="${awardEarned}" id="badgeEarned" class="hide">
+<div th:if="${awardEarned}" id="badgeEarned" class="hide d-flex justify-content-center welcomePlayerHeader">
     <h3>NEW <span th:if="${newAwards.size() > 1}">BADGES</span><span th:unless="${newAwards.size() > 1}">BADGE</span> EARNED!</h3>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">See Award</button>
 </div>
@@ -103,11 +103,11 @@
 
 <div th:if="${awardEarned}" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content avatarBorderCont">
             <div class="modal-header justify-content-center">
                 <h2 class="modal-title" id="exampleModalLabel"><i class="fas fa-award"></i> Your New <span th:if="${newAwards.size() > 1}">Awards!</span><span th:unless="${newAwards.size() > 1}">Award!</span> <i class="fas fa-award"></i></h2>
             </div>
-            <div class="modal-body row justify-content-center">
+            <div class="modal-body row justify-content-center forgotPasswordCard">
                 <div th:each="award : ${newAwards}" class="text-center">
                     <div class="text-center">
                         <i th:class="${award.getClassString()}"></i>

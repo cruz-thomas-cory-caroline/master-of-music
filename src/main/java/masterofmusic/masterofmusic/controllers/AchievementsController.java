@@ -46,6 +46,7 @@ public class AchievementsController {
             }
             model.addAttribute("loggedIn", true);
             model.addAttribute("userAchievements", userAchievements);
+            model.addAttribute("user", thisUser);
 
             for (Achievement ach : userAchievements) {
                 System.out.println(ach.getName());
@@ -53,6 +54,7 @@ public class AchievementsController {
         }
 
         List<Achievement> allAchievements = achievementDao.findAll();
+
         model.addAttribute("allAchievements", allAchievements);
         return "achievements";
     }
