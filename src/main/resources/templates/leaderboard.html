@@ -5,8 +5,8 @@
     <title>Leaderboard</title>
 </head>
 <body>
-<main class="container-flex">
-    <div id="rankingsContainer" class="row">
+<main class="container-fluid">
+    <div id="rankingsContainer" class="row justify-content-center">
 
         <div th:if="${loggedIn}" class="col-12 col-md-4 text-white card m-auto" style="background-color: transparent">
             <div class="card-body text-center pt-0 mb-4 mt-2">
@@ -26,19 +26,20 @@
                     <h2 class="gameHistoryHeader text-white my-4 rockFont text-center w-100"
                         style="background-color: #060285">
                         Global Rankings</h2>
-                    <ul class="list-group list-group-flush" style="max-height: 200px; overflow-y: auto"
-                        th:each="user, int : ${rankedUsers}">
-                        <li class="list-group-item d-flex flex-wrap justify-content-center">
-                            <p><span th:text="${int.index+1}+'.'"></span>
-                                <span th:text="${user.getUsername()}"></span>
-                                <i th:if="${user.getUsers_achievements()}"
-                                   th:each="achievement : ${user.getUsers_achievements()}"
-                                   th:class="${achievement.getClassString()} + ' ml-1'"></i>
-                                <span>  --  Score:</span>
-                                <span id="globalUserRatingLine" th:text="${rankedScores.get(int.index)}"></span>
-                            </p>
-                        </li>
-                    </ul>
+                    <section class="listRankingsGroup">
+                        <ul class="list-group list-group-flush" th:each="user, int : ${rankedUsers}">
+                            <li class="list-group-item d-flex flex-wrap justify-content-center">
+                                <p><span th:text="${int.index+1}+'.'"></span>
+                                    <span th:text="${user.getUsername()}"></span>
+                                    <i th:if="${user.getUsers_achievements()}"
+                                       th:each="achievement : ${user.getUsers_achievements()}"
+                                       th:class="${achievement.getClassString()} + ' ml-1'"></i>
+                                    <span>  --  Score:</span>
+                                    <span id="globalUserRatingLine" th:text="${rankedScores.get(int.index)}"></span>
+                                </p>
+                            </li>
+                        </ul>
+                    </section>
                 </div>
             </section>
 
@@ -86,7 +87,8 @@
                                         </h5>
                                         <div class="card-body cardBodyForTabs">
                                             <div th:each="user, int : ${game3Players}"
-                                                 class="card mb-2 gameStatsCards border-gradient-purple" style="width: 100%;">
+                                                 class="card mb-2 gameStatsCards border-gradient-purple"
+                                                 style="width: 100%;">
                                                 <p><span th:text="${int.index+1}+'.'"></span>
                                                     <span th:text="${user.getUsername()}"></span>
                                                     <i th:if="${user.getUsers_achievements()}"
