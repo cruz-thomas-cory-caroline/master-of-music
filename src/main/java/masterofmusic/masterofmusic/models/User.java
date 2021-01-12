@@ -40,14 +40,13 @@ public class User {
     )
     private List<Achievement> users_achievements;
 
-    private String emailId;
 
     private boolean isEnabled;
 
     public User() {
     }
 
-    public User(long id, String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games, String emailId, boolean isEnabled) {
+    public User(long id, String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games, boolean isEnabled, String resetPasswordToken) {
         this.id = id;
         this.email = email;
         this.username = username;
@@ -55,19 +54,19 @@ public class User {
         this.isAdmin = isAdmin;
         this.images = images;
         this.games = games;
-        this.emailId = emailId;
         this.isEnabled = isEnabled;
+        this.resetPasswordToken = resetPasswordToken;
     }
 
-    public User(String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games, String emailId, boolean isEnabled) {
+    public User(String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games, boolean isEnabled, String resetPasswordToken) {
         this.email = email;
         this.username = username;
         this.password = password;
         this.isAdmin = isAdmin;
         this.images = images;
         this.games = games;
-        this.emailId = emailId;
         this.isEnabled = isEnabled;
+        this.resetPasswordToken = resetPasswordToken;
     }
 
     public User(User copy) {
@@ -78,6 +77,8 @@ public class User {
         isAdmin = copy.isAdmin;
         images = copy.images;
         games = copy.games;
+        isEnabled = copy.isEnabled;
+        resetPasswordToken = copy.resetPasswordToken;
     }
 
     public <T> User(String name, List<T> asList) {
@@ -156,15 +157,6 @@ public class User {
         this.users_achievements = users_achievements;
 
     }
-
-    public String getEmailId() {
-        return emailId;
-    }
-
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
-    }
-
 
     public boolean isEnabled() {
         return isEnabled;

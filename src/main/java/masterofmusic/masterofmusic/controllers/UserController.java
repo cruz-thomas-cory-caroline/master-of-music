@@ -157,8 +157,8 @@ public class UserController {
             mailMessage.setSubject("Complete Password Reset!");
             mailMessage.setFrom("test-email@gmail.com");
             mailMessage.setText("To complete the password reset process, please click here: "
-                    + "http://localhost:8080/confirm-reset?token="+confirmationToken.getConfirmationToken());
-
+                    + "<html><body><a href='http://localhost:8080/confirm-reset?token="+confirmationToken.getConfirmationToken()+"\">click here</a> </body></html>");
+//            "<html><body><a href='www.abc.com\\activation?hash="+i+"\">click here</a> </body></html>";
             // Send the email
             emailSenderService.sendEmail(mailMessage);
 
@@ -177,11 +177,11 @@ public class UserController {
         ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
 
         if (token != null) {
-            User user = users.findByEmailIgnoreCase(token.getUser().getEmailId());
+            User user = users.findByEmailIgnoreCase(token.getUser().getEmail());
             user.setEnabled(true);
             users.save(user);
             modelAndView.addObject("user", user);
-            modelAndView.addObject("emailId", user.getEmailId());
+            modelAndView.addObject("emailId", user.getEmail());
             modelAndView.setViewName("resetPassword");
         } else {
             modelAndView.addObject("message", "The link is invalid or broken!");
@@ -193,9 +193,9 @@ public class UserController {
     // Endpoint to update a user's password
     @RequestMapping(value = "/reset-password", method = RequestMethod.POST)
     public ModelAndView resetUserPassword(ModelAndView modelAndView, User user) {
-        if (user.getEmailId() != null) {
+        if (user.getEmail() != null) {
             // Use email to find user
-            User tokenUser = users.findByEmailIgnoreCase(user.getEmailId());
+            User tokenUser = users.findByEmailIgnoreCase(user.getEmail());
             tokenUser.setPassword(passwordEncoder.encode(user.getPassword()));
             users.save(tokenUser);
             modelAndView.addObject("message", "Password successfully reset. You can now log in with the new credentials.");
