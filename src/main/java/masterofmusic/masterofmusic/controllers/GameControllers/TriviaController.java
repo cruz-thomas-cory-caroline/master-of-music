@@ -210,6 +210,7 @@ public class TriviaController {
         boolean mediumPerfect = false;
         boolean hardPerfect = false;
 
+
         for (PlayerGame playerGame : playerGamesForUser) {
             if (playerGame.getGame().getId() == 3) {
                 playerGameRoundsForTrivia.add(playerGame.getPlayerGameRounds());
@@ -335,6 +336,7 @@ public class TriviaController {
                 }
             }
         }
+
 
         if ((streakCount >= 5) && !userAchievements.contains(gameAchievements.get(3))) {
             Achievement achToChange = achievementDao.getOne(gameAchievements.get(3).getId());
