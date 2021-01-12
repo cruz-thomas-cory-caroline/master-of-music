@@ -86,7 +86,7 @@ public class UserController {
     @PostMapping("/forgotPassword")
     public String forgotPassword(Model model) {
         model.addAttribute("user", users.findAll());
-        return "forgotPassword";
+        return "passwordReset";
     }
 
     @PostMapping("/passwordReset")
