@@ -14,6 +14,7 @@
                 <button class="badge text-dark navbar-login mr-4">Logout</button>
             </form>
 
+
             <a class="mt-2 mb-2 text-white" th:href="@{/profile/}">
                 <img th:if="${user}" style="max-height: 50px;max-width: 50px" th:src="${user.images}">
                 <p th:if="${user}" class="d-inline rockFont p-0 m-0">Profile</p>
