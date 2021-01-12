@@ -51,7 +51,6 @@ public class UserController {
                            @RequestParam(name = "confirmPassword") String confirmPassword,
                            @RequestParam(name = "email") String email,
                            @RequestParam(name = "isAdmin", defaultValue = "false") boolean isAdmin,
-                           @RequestParam(name = "resetPasswordToken") String resetPasswordToken,
                            @ModelAttribute User user) {
         boolean passwordRequirements = (SecurityConfiguration.isValidPassword(password));
         boolean emailRequirements = (SecurityConfiguration.emailMeetsRequirements(email));
