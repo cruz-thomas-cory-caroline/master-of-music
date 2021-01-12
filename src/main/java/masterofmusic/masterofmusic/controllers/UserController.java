@@ -8,10 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
@@ -77,19 +74,24 @@ public class UserController {
     }
 
     @GetMapping("/usernameVerification")
-    public String emailVerification(@RequestParam(name = "username")String username){
-        User user = (users.findByUsername(username));
+    public String emailVerification(@RequestParam(name = "username")String username,
+                                    Model viewModel){
+        viewModel.addAttribute(users.findByUsername(username).getId());
         return "usernameVerification";
     }
 
-    @PostMapping("/securityQuestion")
-    public User securityQuestion(@RequestParam(name = "resetPasswordToken") String resetPasswordToken,
-                                 @RequestParam(name = "securityQuestion") String securityQuestion,
-                                 @ModelAttribute User user,
-                                 HttpServletRequest request) {
+//    @PostMapping("/securityQuestion/{id}")
+//    public User securityQuestion(@RequestParam(name = "resetPasswordToken") String resetPasswordToken,
+//                                 @RequestParam(name = "securityQuestion") String securityQuestion,
+//                                 @ModelAttribute User user,
+//                                 @PathVariable long id,
+//                                 HttpServletRequest request) {
+//
+//    for(User user1 : users.findAll()){
+//        if(user1.getUsername())
+//    }
 
-
-    }
+//    }
 
     @ModelAttribute("loggedinuser")
     public User globalUserObject(Model model) {
