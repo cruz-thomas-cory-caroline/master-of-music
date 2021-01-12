@@ -364,15 +364,17 @@ input[type="radio"]:checked + .avatarLabel {
 
 #userGameStatsContainer {
     max-width: 44em;
-    min-height: 30em;
+    min-height: 28em;
     overflow-y: scroll;
 }
 
-#globalRankingContainer {
-    max-width: 30em;
-    min-height: 10em;
+#globalRankingContainer, .listRankingsGroup {
+    max-width: 30rem;
+    height: 20rem;
     overflow-y: scroll;
 }
+
+
 
 .gameStatsCards {
     background-color: #02023c;

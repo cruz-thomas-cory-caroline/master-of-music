@@ -31,7 +31,7 @@ public class ProfileController {
         this.playerGameDao = playerGameDao;
     }
 
-    @GetMapping("/profile")
+    @GetMapping("/profile/")
     public String viewProfile(
             Model model
     ) {
