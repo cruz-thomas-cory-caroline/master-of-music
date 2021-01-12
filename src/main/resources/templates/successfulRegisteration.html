@@ -2,10 +2,14 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Registration Success</title>
+    <div th:include="partials/head.html :: head"></div>
 </head>
 <body>
 <center>
-    <span th:text="'A verification email has been sent to: ' + ${email}"></span>
+    <span th:text="'A verification email has been sent to: ' + ${user.email}"></span>
+
+    <div th:include="partials/footerNav.html :: footerNav"></div>
+    <div th:include="partials/scripts.html :: scripts"></div>
 </center>
 </body>
 </html>
