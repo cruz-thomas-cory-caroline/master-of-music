@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,7 +35,6 @@ public class UserController {
                            @RequestParam(name = "confirmPassword") String confirmPassword,
                            @RequestParam(name = "email") String email,
                            @RequestParam(name = "resetPasswordToken") String resetPasswordToken,
-                           @RequestParam(name = "securityQuestion") String securityQuestion,
                            @ModelAttribute User user) {
         boolean passwordRequirements = (SecurityConfiguration.isValidPassword(password));
         boolean emailRequirements = (SecurityConfiguration.emailMeetsRequirements(email));
@@ -67,31 +65,40 @@ public class UserController {
             String hash = passwordEncoder.encode(user.getPassword());
             user.setPassword(hash);
             user.setResetPasswordToken(resetPasswordToken);
-            user.setSecurityQuestion(securityQuestion);
             users.save(user);
             return "redirect:/login";
         }
     }
 
-    @GetMapping("/usernameVerification")
-    public String emailVerification(@RequestParam(name = "username")String username,
-                                    Model viewModel){
-        viewModel.addAttribute(users.findByUsername(username).getId());
-        return "usernameVerification";
+    //    @GetMapping("/usernameVerification")
+//    public String emailVerification(@RequestParam(name = "username")String username,
+//                                    Model viewModel){
+//        viewModel.addAttribute("user",users.findByUsername(username).getId());
+//        return "usernameVerification";
+//    }
+//
+    @GetMapping("/forgotPassword")
+    public String showForgotPasswordForm(Model model) {
+        model.addAttribute("user", users.findAll());
+        return "forgotPassword";
     }
 
-//    @PostMapping("/securityQuestion/{id}")
-//    public User securityQuestion(@RequestParam(name = "resetPasswordToken") String resetPasswordToken,
-//                                 @RequestParam(name = "securityQuestion") String securityQuestion,
-//                                 @ModelAttribute User user,
-//                                 @PathVariable long id,
-//                                 HttpServletRequest request) {
-//
-//    for(User user1 : users.findAll()){
-//        if(user1.getUsername())
-//    }
+    @PostMapping("/forgotPassword")
+    public String forgotPassword(Model model) {
+        model.addAttribute("user", users.findAll());
+        return "forgotPassword";
+    }
 
-//    }
+    @PostMapping("/passwordReset")
+    public String securityQuestion(@RequestParam(name = "password") String password,
+                                   @RequestParam(name = "confirmPassword") String confirmPassword,
+                                   @ModelAttribute User user) {
+        String hash = passwordEncoder.encode(user.getPassword());
+        user.setPassword(hash);
+        users.save(user);
+        return "redirect:/login";
+
+    }
 
     @ModelAttribute("loggedinuser")
     public User globalUserObject(Model model) {
