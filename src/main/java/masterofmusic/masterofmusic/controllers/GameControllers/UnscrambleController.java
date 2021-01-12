@@ -53,6 +53,8 @@ public class UnscrambleController {
                                  @RequestParam(name = "round") long num,
                                  Model model) {
 
+
+
         usedCheckFeature = false;
         chosenSongs = new ArrayList<>();
         chosenSongIDs = new ArrayList<>();
@@ -148,6 +150,9 @@ public class UnscrambleController {
             }
             scrambledLyricsList.add(scrambledLyric);
         }
+
+        User userNav = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         model.addAttribute("deezerAPI", deezerAPI);
         model.addAttribute("scrambledLyricsSet", scrambledLyricsList);
         model.addAttribute("originalLyrics", lyricsToScramble);
@@ -157,6 +162,7 @@ public class UnscrambleController {
         model.addAttribute("genre", genre);
         model.addAttribute("playerGame", currentGameID);
         model.addAttribute("round", num);
+        model.addAttribute("user", userDao.getOne(userNav.getId()));
         return "unscramble";
     }
 
@@ -337,6 +343,7 @@ public class UnscrambleController {
 
         model.addAttribute("awardEarned", awardEarned);
         model.addAttribute("newAwards", newAwards);
+        model.addAttribute("user", user);
         return "final";
     }
 

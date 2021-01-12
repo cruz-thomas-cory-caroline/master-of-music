@@ -1,6 +1,5 @@
 (function () {
     "use strict";
-    console.log($('main'))
 
     enquire.register("screen and (max-width: 599px)", {
         match: function () {
@@ -10,7 +9,7 @@
             $('.web-words').each(function () {
                 $(this).addClass('hide')
             })
-            $('.undo-button').eq(0).removeClass('hide')
+            $('.undo-button-class').eq(0).removeClass('hide')
             $('.web-instr').eq(0).addClass('hide')
             $('.mobile-instr').eq(0).removeClass('hide')
             checkType()
@@ -22,7 +21,7 @@
             $('main').eq(0).removeClass('mobile')
             $('main').eq(0).addClass('web')
             $('.web-words').eq(0).removeClass('hide')
-            $('.undo-button').addClass('hide')
+            $('.undo-button-class').addClass('hide')
             $('.mobile-instr').eq(0).addClass('hide')
             $('.web-instr').eq(0).removeClass('hide')
             checkType()
@@ -52,7 +51,6 @@
 
             $(".words").draggable({
                 start: function (event, ui) {
-                    console.log("firing")
                     itemToDetach = $(this)
                     previousParent = $(this)[0].parentElement
                 },
@@ -139,6 +137,7 @@
             })
 
             $('.undo-button').click(function () {
+                clearInterval(interval2)
                 $('.all-cards').eq(cardIndexShowing).find($('.words')).each(function () {
                     if (!$(this).hasClass("web-words")) {
                         $(this).removeClass('hide')
@@ -239,7 +238,9 @@
             } else {
                 clearInterval(interval2)
                 clearInterval(interval)
-                $('.unscramble-timer').html('Times Up!')
+                $('.unscramble-timer').html('')
+                $('.bar').eq(cardIndexShowing).addClass('hide')
+                $('.times-up').eq(cardIndexShowing).removeClass('hide')
                 $('.all-cards').eq(cardIndexShowing).find(".fullAnswer").val(lockAnswer())
                 setTimeout(function () {
                     if (cardIndexShowing + 1 === totalCardCount) {
@@ -268,7 +269,6 @@
         $('.game-start').addClass('hide')
         $(".all-cards").first().removeClass('hide')
         startTime = $('.unscramble-timer')[0].innerHTML
-        console.log(startTime)
         timerStart()
         progress(startTime, startTime, $('.progressBar').eq(cardIndexShowing));
     })
@@ -319,13 +319,11 @@
                 "userAnswer": userAnswer
             }
         }).done(function (response) {
-            console.log(response)
             clearInterval(interval2)
             let index = 0
 
             interval2 = setInterval(function () {
                 if (index === response.length) {
-                    console.log("index equals length")
                     clearInterval(interval2)
                     $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).each(function () {
                         $(this).removeClass('wrong')
@@ -336,9 +334,7 @@
                     if ($('main').eq(0).hasClass('mobile')) {
                         let w = $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).length
                         let z = 0
-                        console.log(w)
                         while (z < w) {
-                            console.log("running")
                             if ($('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(z).hasClass("unoccupied")) {
                                 $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(z).addClass("highlighted")
                                 break;
@@ -358,7 +354,7 @@
                     $('.all-cards').eq(cardIndexShowing).find($('.drop-zone')).eq(index).addClass('right')
                 }
                 index++
-            }, 320)
+            }, 350)
         })
     })
 
@@ -367,9 +363,7 @@
 
     const deezerAPI = document.querySelector('meta.deezerAPI').content;
     $('.song-clip-button').click(function () {
-        console.log($('.all-cards').eq(cardIndexShowing).find($('.title')))
         let songToSearch = $('.all-cards').eq(cardIndexShowing).find($('.title'))[0].innerHTML
-        console.log(songToSearch)
         const settings = {
             "async": true,
             "crossDomain": true,
@@ -382,9 +376,7 @@
         };
 
         $.ajax(settings).done(function (response) {
-            console.log(response);
             let artist = $('.artist')[cardIndexShowing].innerHTML
-            console.log(artist)
             let audioClipPath = ""
             let clipIndex = 0;
 
