@@ -23,15 +23,18 @@ public class FaqController {
     @GetMapping("/faq")
     public String viewFaq(Model model) {
         ArrayList<User> userIsAdmin = new ArrayList<>();
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user_db = userDao.findById(user.getId());
+        if (!SecurityContextHolder.getContext().getAuthentication().getName().equalsIgnoreCase("anonymousUser")) {
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User user_db = userDao.findById(user.getId());
+            model.addAttribute("user", user_db);
+        }
 
         for (User user1 : userDao.findAll()) {
             if (user1.isAdmin()) {
                 userIsAdmin.add(user1);
             }
         }
-        model.addAttribute("user", user_db);
+
         model.addAttribute("users", userIsAdmin);
         return "faq";
 
