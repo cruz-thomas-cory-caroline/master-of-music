@@ -40,10 +40,13 @@ public class User {
     )
     private List<Achievement> users_achievements;
 
+
+    private boolean isEnabled;
+
     public User() {
     }
 
-    public User(long id, String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games) {
+    public User(long id, String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games, boolean isEnabled, String resetPasswordToken) {
         this.id = id;
         this.email = email;
         this.username = username;
@@ -51,17 +54,19 @@ public class User {
         this.isAdmin = isAdmin;
         this.images = images;
         this.games = games;
-
+        this.isEnabled = isEnabled;
+        this.resetPasswordToken = resetPasswordToken;
     }
 
-    public User(String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games) {
+    public User(String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games, boolean isEnabled, String resetPasswordToken) {
         this.email = email;
         this.username = username;
         this.password = password;
         this.isAdmin = isAdmin;
         this.images = images;
         this.games = games;
-
+        this.isEnabled = isEnabled;
+        this.resetPasswordToken = resetPasswordToken;
     }
 
     public User(User copy) {
@@ -72,6 +77,8 @@ public class User {
         isAdmin = copy.isAdmin;
         images = copy.images;
         games = copy.games;
+        isEnabled = copy.isEnabled;
+        resetPasswordToken = copy.resetPasswordToken;
     }
 
     public <T> User(String name, List<T> asList) {
@@ -151,4 +158,11 @@ public class User {
 
     }
 
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
 }
