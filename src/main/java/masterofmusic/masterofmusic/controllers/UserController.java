@@ -93,12 +93,11 @@ public class UserController {
             mailMessage.setTo(user.getEmail());
             mailMessage.setSubject("Complete Registration!");
             mailMessage.setFrom("masterofmusic@codeup.com");
-            mailMessage.setText("To confirm your account, please click here : "
+            mailMessage.setText("To confirm your account, go to the url : "
                     +"http://localhost:8080/confirm-account?token="+confirmationToken.getConfirmationToken());
 
             emailSenderService.sendEmail(mailMessage);
-
-            return "successfulRegisteration";
+            return "redirect:/login";
         }
     }
 
@@ -161,7 +160,7 @@ public class UserController {
             mailMessage.setSubject("Complete Password Reset!");
             mailMessage.setFrom("test-email@gmail.com");
             mailMessage.setText("To complete the password reset process, please click here: "
-                    + "<html><body><a href='http://localhost:8080/confirm-reset?token="+confirmationToken.getConfirmationToken()+"\">click here</a> </body></html>");
+                    + "http://localhost:8080/confirm-reset?token="+confirmationToken.getConfirmationToken());
             // Send the email
             emailSenderService.sendEmail(mailMessage);
 
