@@ -32,6 +32,7 @@ $('#startButton').click(function () {
     $(".lm-cards").first().removeClass("hide")
     startTime = $('.lyricMaster-timer')[0].innerHTML
     timerStart()
+    cardIndexShowing++;
 })
 
     $("#showAnswerBtn").click(function() {
@@ -92,11 +93,11 @@ $('#startButton').click(function () {
     //         }
     //     });
 
-    $('#hint').click(function () {
-        console.log($('#title'));
+    $('.hint').click(function () {
+        console.log(cardIndexShowing);
         // console.log($("#title").eq(cardIndexShowing));
-        $(this).find($('#title'));
-        $('#title').eq(cardIndexShowing).show('slow');
+       console.log( $(this).find($('.title')));
+        $('.title').eq(cardIndexShowing).toggle('slow');
 
     });
 
