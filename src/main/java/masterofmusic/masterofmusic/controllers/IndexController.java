@@ -22,29 +22,43 @@ public class IndexController {
     private final PlayerGameRepository playerGameDao;
     private final PlayerGameRoundRepository playerGameRoundDao;
     private final GenreRepository genreDao;
+    private final UserRepository userDao;
 
 
-    public IndexController(QuestionRepository questionDao, AnswerRepository answerDao, GameRepository gameDao, PlayerGameRepository playerGameDao, PlayerGameRoundRepository playerGameRoundDao, GenreRepository genreDao){
+    public IndexController(QuestionRepository questionDao, AnswerRepository answerDao, GameRepository gameDao, PlayerGameRepository playerGameDao, PlayerGameRoundRepository playerGameRoundDao, GenreRepository genreDao, UserRepository userDao){
         this.questionDao = questionDao;
         this.answerDao = answerDao;
         this.gameDao = gameDao;
         this.playerGameDao = playerGameDao;
         this.playerGameRoundDao = playerGameRoundDao;
         this.genreDao = genreDao;
+        this.userDao = userDao;
     }
 
     @GetMapping("/index")
     public String indexPage(Model model) {
-        boolean loggedIn = false;
+
         if(!SecurityContextHolder.getContext().getAuthentication().getName().equalsIgnoreCase("anonymousUser")){
             User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            loggedIn = true;
-            model.addAttribute("user", user.getImages());
-        }else{
-
-            model.addAttribute("genericPfp","../../resources/static/img/unnamed.png" );
+            User userToShow = userDao.getOne(user.getId());
+            model.addAttribute("user", userToShow);
         }
+
+
         return "index";
+    }
+
+    @GetMapping("/footerNav")
+    public String footerNav(Model model){
+
+
+        if(!SecurityContextHolder.getContext().getAuthentication().getName().equalsIgnoreCase("anonymousUser")){
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User userToShow = userDao.getOne(user.getId());
+            model.addAttribute("user", userToShow);
+        }
+
+        return "../../resources/templates/partials/footerNav.html";
     }
 
 }

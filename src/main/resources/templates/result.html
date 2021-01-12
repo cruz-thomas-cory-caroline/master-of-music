@@ -5,15 +5,44 @@
     <title>Results</title>
 </head>
 <body>
-<section id= "resultsSection" class="container-fluid w-75 text-center">
+<!-- alert -->
+<div th:if="${triviaAwardEarned}" id="triviaBadgeAlert" class="alert alert-dismissible fade show p-2 container-fluid" role="alert">
+    <div class="row d-flex justify-content-center w-100 h-100 m-0">
+        <div class="col-12 text-center mt-2 w-100">
+            <h3><strong class="rockFont text-white">AWARD!</strong></h3>
+        </div>
+        <div class="col-12 d-flex justify-content-center mt-3 mb-auto w-100">
+            <div th:each="achievement : ${newAwards}">
+                <div class="text-center">
+                    <i id="newTriviaAwardsEarned" th:class="${achievement.getClassString() + ' fa-5x'}"></i>
+                    <p class="text-white mt-1 d-flex flex-wrap" th:text="${achievement.getDescription()}"></p>
+                </div>
+            </div>
+        </div>
+        <div id="badgeAlertControls" class="col-12 text-center w-100">
+            <button type="button" class="btn-close btn-warning mr-2" data-dismiss="alert" aria-label="Close">Keep
+                Playing!
+            </button>
+            <a th:href="@{/achievements}"><button  type="button" class="btn-info ml-2" aria-label="Achievements">
+                Check Out Achievements!
+            </button></a>
+        </div>
+    </div>
+</div>
+
+<section id="resultsSection" class="container-fluid text-center">
     <h2 class="triviaResultsHeader mt-2" th:text="${user.username}"></h2>
     <input type="hidden" id="triviaRoundScore" th:value="${roundScore}">
     <h3 class="fs-1 triviaResultsHeader">ROUND SCORE: <span id="roundScoreTrivia"></span></h3>
     <input type="hidden" id="triviaScore" th:value="${roundsScoreTotal}">
     <h3 class="fs-1 triviaResultsHeader">TOTAL ROUNDS SCORE: <span id="scoreCounterTrivia"></span></h3>
     <div class="mb-3 d-flex justify-content-center">
-        <a th:href="@{/trivia-game}"><button type="button" class="mr-2 btn btn-warning">Another Round!</button></a>
-        <form th:action="@{/trivia-game/new}" th:method="post"><button type="submit" class="ml-2 btn btn-warning">Start A New Game</button></form>
+        <a th:href="@{/trivia-game}">
+            <button type="button" class="mr-2 btn btn-warning">Another Round!</button>
+        </a>
+        <form th:action="@{/trivia-game/new}" th:method="post">
+            <button type="submit" class="ml-2 btn btn-warning">Start A New Game</button>
+        </form>
     </div>
     <div class="row d-flex">
         <div class="col-12 col-sm-6">
@@ -52,37 +81,33 @@
     function scoreCounter() {
         let scoreCount = setInterval(function () {
             if (zeroTotal === scoreToCount) {
-                console.log("done")
                 $('#scoreCounterTrivia').html(zeroTotal)
                 clearInterval(scoreCount)
                 $('#congrats').show()
             } else {
-                console.log(zeroTotal)
                 zeroTotal = zeroTotal + 5
                 $('#scoreCounterTrivia').html(zeroTotal)
             }
         }, 10)
     }
+
     scoreCounter()
 
     let roundScoreToCount = parseInt($('#triviaRoundScore').val())
-    console.log(roundScoreToCount)
 
     function roundScoreCounter() {
         let scoreCount = setInterval(function () {
             if (zeroRound === roundScoreToCount) {
-                console.log("done")
                 $('#roundScoreTrivia').html(zeroRound)
                 clearInterval(scoreCount)
             } else {
-                console.log(zeroRound)
                 zeroRound = zeroRound + 5
                 $('#roundScoreTrivia').html(zeroRound)
             }
         }, 10)
     }
-    roundScoreCounter()
 
+    roundScoreCounter()
 
 </script>
 </body>

@@ -5,6 +5,8 @@ var interval;
 var startTime;
 var timeEnd = 0
 var cardIndexShowing = -1;
+var dataVal = 0;
+
 
 function timerStart() {
     var timeStart = startTime
@@ -65,37 +67,13 @@ $('#startButton').click(function () {
     });
 
 
-    //hides cards and displays submit when card loop is complete
-        ShowTheelement(0);
-        $("#previous").addClass('hidden');
-        $("#submit").addClass('hidden');
 
-        var dataVal = 0;
-        $("#next").click(function () {
-            dataVal++;
-            $("#previous").removeClass('hidden');
-            dataVal === $("#difficultySelected").length - 1 ? $(this).addClass('hidden') : $(this).removeClass('hidden');
-            ShowTheelement(dataVal);
-            if (dataVal === $("#difficultySelected").length - 1) {
-                $("#submit").removeClass('hidden');
-            }
-        });
 
-        $("#previous").click(function () {
-            dataVal--;
-            $("#next").removeClass('hidden');
-            dataVal === 0 ? $(this).addClass('hidden') : $(this).removeClass('hidden');
-            ShowTheelement(dataVal);
-            if (dataVal === $(".idrow[data-questions]").length - 2) {
-                $("#submit").addClass('hidden');
-            }
-        });
+    $('#hint').click(function () {
+        console.log($('.title'));
+        $(this).find($('.title'));
+        $('.title').eq(cardIndexShowing).show('slow');
 
-        $("#hint").click()(function () {
-            console.log($("#title"));
-            console.log($("#title").eq(cardIndexShowing));
-            $("#title").eq(cardIndexShowing).show("slow");
-
-        });
+    });
 
 })();

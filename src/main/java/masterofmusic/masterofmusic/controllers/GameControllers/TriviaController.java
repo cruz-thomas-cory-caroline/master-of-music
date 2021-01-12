@@ -164,22 +164,22 @@ public class TriviaController {
 //        CHECK FOR CORRECT AND INCORRECT ANSWERS
         int roundScore = 0;
         for (String questionId : questionIds) {
-                long answerIsCorrect = questionDao.findAnswerIdCorrect(Long.parseLong(questionId));
+            long answerIsCorrect = questionDao.findAnswerIdCorrect(Long.parseLong(questionId));
 
-                if (answerIsCorrect == checkSubAnsForNull.get(questionIds.indexOf(questionId))) {
-                    correctAnswers.add(answerDao.getOne(answerIsCorrect).getAnswer());
-                    correctQs.add(questionDao.getOne(Long.parseLong(questionId)));
-                    roundScore += 100;
-                } else if (checkSubAnsForNull.get(questionIds.indexOf(questionId)) == -1) {
-                        submittedAnswersIds.add(checkSubAnsForNull.get(questionIds.indexOf(questionId)));
-                        incorrectAnswers.add(answerDao.getOne(answerIsCorrect).getAnswer());
-                        incorrectQs.add(questionDao.getOne(Long.parseLong(questionId)));
-                } else if (answerIsCorrect != checkSubAnsForNull.get(questionIds.indexOf(questionId))) {
-                    submittedAnswersIds.add(checkSubAnsForNull.get(questionIds.indexOf(questionId)));
-                    incorrectAnswers.add(answerDao.getOne(answerIsCorrect).getAnswer());
-                    incorrectQs.add(questionDao.getOne(Long.parseLong(questionId)));
-                }
+            if (answerIsCorrect == checkSubAnsForNull.get(questionIds.indexOf(questionId))) {
+                correctAnswers.add(answerDao.getOne(answerIsCorrect).getAnswer());
+                correctQs.add(questionDao.getOne(Long.parseLong(questionId)));
+                roundScore += 100;
+            } else if (checkSubAnsForNull.get(questionIds.indexOf(questionId)) == -1) {
+                submittedAnswersIds.add(checkSubAnsForNull.get(questionIds.indexOf(questionId)));
+                incorrectAnswers.add(answerDao.getOne(answerIsCorrect).getAnswer());
+                incorrectQs.add(questionDao.getOne(Long.parseLong(questionId)));
+            } else if (answerIsCorrect != checkSubAnsForNull.get(questionIds.indexOf(questionId))) {
+                submittedAnswersIds.add(checkSubAnsForNull.get(questionIds.indexOf(questionId)));
+                incorrectAnswers.add(answerDao.getOne(answerIsCorrect).getAnswer());
+                incorrectQs.add(questionDao.getOne(Long.parseLong(questionId)));
             }
+        }
 
         System.out.println(checkSubAnsForNull);
 
@@ -191,12 +191,14 @@ public class TriviaController {
             }
         }
 
+
         //  CHECK FOR ACHIEVEMENTS
         ArrayList<PlayerGame> playerGamesForUser = playerGameDao.findAllByUserId(user.getId());
         ArrayList<List<PlayerGameRound>> playerGameRoundsForTrivia = new ArrayList<>();
 
         var gameCount = 0;
         var scoreCount = 0;
+        var streakCount = 0;
         boolean triviaGemAward;
         boolean easyPerfect = false;
         boolean mediumPerfect = false;
@@ -222,7 +224,7 @@ public class TriviaController {
 
         for (List<PlayerGameRound> playerGameRound : playerGameRoundsForTrivia) {
             for (PlayerGameRound playerGameRound1 : playerGameRound) {
-                if (playerGameRound1.getDifficulty().equals("easy") && playerGameRound1.getScore() == 500) {
+                if (playerGameRound1.getDifficulty().equals("medium") && playerGameRound1.getScore() == 500) {
                     mediumPerfect = true;
                     break;
                 }
@@ -231,7 +233,7 @@ public class TriviaController {
 
         for (List<PlayerGameRound> playerGameRound : playerGameRoundsForTrivia) {
             for (PlayerGameRound playerGameRound1 : playerGameRound) {
-                if (playerGameRound1.getDifficulty().equals("easy") && playerGameRound1.getScore() == 500) {
+                if (playerGameRound1.getDifficulty().equals("hard") && playerGameRound1.getScore() == 500) {
                     hardPerfect = true;
                     break;
                 }
@@ -239,12 +241,21 @@ public class TriviaController {
         }
 
         boolean gemAwardEarned = false;
+        boolean jediAwardEarned = false;
+        boolean phoenixAwardEarned = false;
+        boolean shieldAwardEarned = false;
+        boolean triviaAwardEarned = false;
+
         List<Achievement> newAwards = new ArrayList<>();
         List<Achievement> userAchievements = user_db.getUsers_achievements();
+
         if (userAchievements == null) {
             userAchievements = new ArrayList<>();
         }
+
         List<Achievement> gameAchievements = achievementDao.findAllByGameId(3L);
+
+//         CHECK FOR GEM - GOT A PERFECT SCORE IN ALL DIFFICULTIES (13)
         if ((easyPerfect && mediumPerfect && hardPerfect) && !userAchievements.contains(gameAchievements.get(0))) {
             Achievement achToChange = achievementDao.getOne(gameAchievements.get(0).getId());
             List<User> usersWhoHaveBadge = achToChange.getUsers();
@@ -264,31 +275,90 @@ public class TriviaController {
             }
         }
 
+//         CHECK FOR JEDI - PLAYED AT LEAST 10 GAMES (14)
+        if ((gameCount >= 10) && !userAchievements.contains(gameAchievements.get(1))) {
+            Achievement achToChange = achievementDao.getOne(gameAchievements.get(1).getId());
+            List<User> usersWhoHaveBadge = achToChange.getUsers();
+            if (usersWhoHaveBadge == null) {
+                usersWhoHaveBadge = new ArrayList<>();
+            }
+            if (!usersWhoHaveBadge.contains(userDao.getOne(user.getId()))) {
+                usersWhoHaveBadge.add(user);
+                achToChange.setUsers(usersWhoHaveBadge);
+                achievementDao.save(achToChange);
+                userAchievements.add(achToChange);
+                User userToSave = userDao.getOne(user.getId());
+                userToSave.setUsers_achievements(userAchievements);
+                userDao.save(userToSave);
+                jediAwardEarned = true;
+                newAwards.add(achToChange);
+            }
+        }
 
-        // CHECK FOR JEDI - PLAYED AT LEAST 10 GAMES (14)
-//        if (gameCount == 10) {
-//
-//        }
 
         // CHECK FOR PHOENIX - TOTAL SCORE OF 5,000 (15)
-//        if (scoreCount == 5000) {
-//
-//        }
+        if ((scoreCount >= 5000) && !userAchievements.contains(gameAchievements.get(2))) {
+            Achievement achToChange = achievementDao.getOne(gameAchievements.get(2).getId());
+            List<User> usersWhoHaveBadge = achToChange.getUsers();
+            if (usersWhoHaveBadge == null) {
+                usersWhoHaveBadge = new ArrayList<>();
+            }
+            if (!usersWhoHaveBadge.contains(userDao.getOne(user.getId()))) {
+                usersWhoHaveBadge.add(user);
+                achToChange.setUsers(usersWhoHaveBadge);
+                achievementDao.save(achToChange);
+                userAchievements.add(achToChange);
+                User userToSave = userDao.getOne(user.getId());
+                userToSave.setUsers_achievements(userAchievements);
+                userDao.save(userToSave);
+                phoenixAwardEarned = true;
+                newAwards.add(achToChange);
+            }
+        }
 
-        // CHECK FOR SHIELD - PERFECT SCORE STREAK ON 5 GAMES (16)
-//        for (PlayerGame playerGame : playerGamesForUser) {
-//            if (playerGame.getGame().getId() == 3) {
-//                playerGameRoundsForTrivia.add(playerGame.getPlayerGameRounds());
-//                gameCount += 1;
-//                scoreCount += playerGame.getScore();
-//            }
-//        }
+
+//        CHECK FOR SHIELD - PERFECT SCORE STREAK ON 5 GAMES (16)
+        for (PlayerGame playerGame : playerGamesForUser) {
+            if (playerGame.getGame().getId() == 3) {
+                if (playerGame.getScore() == 500) {
+                    streakCount += 1;
+                } if (playerGame.getScore() != 500) {
+                    streakCount = 0;
+                } if (streakCount >= 5) {
+                    break;
+                }
+            }
+        }
+
+        if ((streakCount >= 5) && !userAchievements.contains(gameAchievements.get(3))) {
+            Achievement achToChange = achievementDao.getOne(gameAchievements.get(3).getId());
+            List<User> usersWhoHaveBadge = achToChange.getUsers();
+            if (usersWhoHaveBadge == null) {
+                usersWhoHaveBadge = new ArrayList<>();
+            }
+            if (!usersWhoHaveBadge.contains(userDao.getOne(user.getId()))) {
+                usersWhoHaveBadge.add(user);
+                achToChange.setUsers(usersWhoHaveBadge);
+                achievementDao.save(achToChange);
+                userAchievements.add(achToChange);
+                User userToSave = userDao.getOne(user.getId());
+                userToSave.setUsers_achievements(userAchievements);
+                userDao.save(userToSave);
+                shieldAwardEarned = true;
+                newAwards.add(achToChange);
+            }
+        }
+
+        if (gemAwardEarned  || jediAwardEarned  || phoenixAwardEarned  || shieldAwardEarned) {
+            triviaAwardEarned = true;
+        }
 
 
         System.out.println(easyPerfect);
         System.out.println(mediumPerfect);
         System.out.println(hardPerfect);
 
+        //UPDATE DATABASES
         gameLevel += 1;
         totalScore += roundScore;
         PlayerGameRound currentGameRound = new PlayerGameRound();
@@ -301,7 +371,8 @@ public class TriviaController {
         currentGameRound.setDifficulty(difficultyOption);
         playerGameRoundDao.save(currentGameRound);
 
-
+        model.addAttribute("newAwards", newAwards);
+        model.addAttribute("triviaAwardEarned", triviaAwardEarned);
         model.addAttribute("submittedAnswers", submittedAnswers);
         model.addAttribute("correctQs", correctQs);
         model.addAttribute("incorrectQs", incorrectQs);

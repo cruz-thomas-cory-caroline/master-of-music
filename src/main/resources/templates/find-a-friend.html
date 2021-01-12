@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="partials/head.html :: head"></div>
+    <title>Find A Friend</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.js"
+            integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
+    <link th:href="@{/css/find-a-friend.css}" rel="stylesheet"/>
+</head>
+<body>
+<div class="container">
+    <div class="container text-center">
+        <h1 style="color: white" class="rockFont mt-5" id="find-friend-title">Find A Friend</h1>
+        <div class="row justify-content-center">
+            <div class="search">
+                <input type="search" class="search-box" id="find-friend"/><span class="search-button"><span class="search-icon"></span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <div class="row d-flex flex-wrap justify-content-center">
+            <div class="card container m-4 user user-card" th:each="user : ${allUsers}">
+                <div class="card-body justify-content-center">
+                    <div class="row col-12 justify-content-center mx-auto">
+                        <img th:if="${user.getImages()}" th:src="${user.getImages()}" alt="avatar" class="user-image">
+                        <img th:unless="${user.getImages()}" src="/img/maleIcon1.jpg" alt="avatar" class="user-image">
+                    </div>
+                    <div class="card-title col-12 mb-0 row justify-content-center mx-auto rockFont my-2">
+                        <h1 th:text="${user.getUsername()}" class="find-friend-names"></h1>
+                    </div>
+                    <div class="col-12 row justify-content-center mx-auto">
+                        <a th:href="@{/view/profile/{id}(id=${user.getId()})}" class="effect effect-2">Profile</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div th:include="partials/footerNav.html :: footerNav"></div>
+<div th:include="partials/scripts.html :: scripts"></div>
+<script th:src="@{/js/find-a-friend.js}"></script>
+</body>
+</html>
