@@ -1,12 +1,10 @@
 package masterofmusic.masterofmusic.controllers;
+
 import masterofmusic.masterofmusic.SecurityConfiguration;
-import masterofmusic.masterofmusic.models.Achievement;
 import masterofmusic.masterofmusic.models.User;
 import masterofmusic.masterofmusic.repositories.UserRepository;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.swing.*;
-import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,7 +38,6 @@ public class UserController {
     public String saveUser(@RequestParam(name = "password") String password,
                            @RequestParam(name = "confirmPassword") String confirmPassword,
                            @RequestParam(name = "email") String email,
-                           @RequestParam(name = "isAdmin", defaultValue = "false") boolean isAdmin,
                            @RequestParam(name = "resetPasswordToken") String resetPasswordToken,
                            @RequestParam(name = "securityQuestion") String securityQuestion,
                            @ModelAttribute User user) {
@@ -65,7 +61,6 @@ public class UserController {
         } else if (!emailRequirements) {
             return "redirect:/sign-up?invalidEmail";
         } else if (password.equalsIgnoreCase("Admin@123")) {
-            user.getResetPasswordToken();
             user.setAdmin(true);
             String hash = passwordEncoder.encode(user.getPassword());
             user.setPassword(hash);
@@ -74,9 +69,26 @@ public class UserController {
         } else {
             String hash = passwordEncoder.encode(user.getPassword());
             user.setPassword(hash);
+            user.setResetPasswordToken(resetPasswordToken);
+            user.setSecurityQuestion(securityQuestion);
             users.save(user);
             return "redirect:/login";
         }
+    }
+
+    @GetMapping("/usernameVerification")
+    public String emailVerification(@RequestParam(name = "username")String username){
+        User user = (users.findByUsername(username));
+        return "usernameVerification";
+    }
+
+    @PostMapping("/securityQuestion")
+    public User securityQuestion(@RequestParam(name = "resetPasswordToken") String resetPasswordToken,
+                                 @RequestParam(name = "securityQuestion") String securityQuestion,
+                                 @ModelAttribute User user,
+                                 HttpServletRequest request) {
+
+
     }
 
     @ModelAttribute("loggedinuser")

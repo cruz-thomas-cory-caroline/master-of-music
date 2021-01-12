@@ -46,7 +46,7 @@ public class User {
     public User() {
     }
 
-    public User(long id, String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games, String resetPasswordToken) {
+    public User(long id, String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games, String resetPasswordToken, String securityQuestion) {
         this.id = id;
         this.email = email;
         this.username = username;
@@ -55,9 +55,10 @@ public class User {
         this.images = images;
         this.games = games;
         this.resetPasswordToken = resetPasswordToken;
+        this.securityQuestion = securityQuestion;
     }
 
-    public User(String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games, String resetPasswordToken) {
+    public User(String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games, String resetPasswordToken, String securityQuestion) {
         this.email = email;
         this.username = username;
         this.password = password;
@@ -65,6 +66,7 @@ public class User {
         this.images = images;
         this.games = games;
         this.resetPasswordToken = resetPasswordToken;
+        this.securityQuestion = securityQuestion;
     }
 
     public User(User copy) {
@@ -151,7 +153,14 @@ public class User {
 
     public void setUsers_achievements(List<Achievement> users_achievements) {
         this.users_achievements = users_achievements;
+    }
 
+    public String getSecurityQuestion() {
+        return securityQuestion;
+    }
+
+    public void setSecurityQuestion(String securityQuestion) {
+        this.securityQuestion = securityQuestion;
     }
 
 }
