@@ -30,13 +30,12 @@ public class UserController {
     @Autowired
     private ConfirmationTokenRepository confirmationTokenRepository;
 
-    @Autowired
     private EmailSenderService emailSenderService;
 
-    public UserController(UserRepository users, PasswordEncoder passwordEncoder) {
+    public UserController(UserRepository users, PasswordEncoder passwordEncoder, EmailSenderService emailSenderService) {
         this.users = users;
         this.passwordEncoder = passwordEncoder;
-
+        this.emailSenderService = emailSenderService;
     }
 
     @GetMapping("/sign-up")
