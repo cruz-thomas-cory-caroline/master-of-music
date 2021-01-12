@@ -303,7 +303,7 @@ public class TriviaController {
 
 
         // CHECK FOR PHOENIX - TOTAL SCORE OF 5,000 (15)
-        if ((scoreCount >= 5000) && !userAchievements.contains(gameAchievements.get(2))) {
+        if ((scoreCount + roundScore >= 5000) && !userAchievements.contains(gameAchievements.get(2))) {
             Achievement achToChange = achievementDao.getOne(gameAchievements.get(2).getId());
             List<User> usersWhoHaveBadge = achToChange.getUsers();
             if (usersWhoHaveBadge == null) {
