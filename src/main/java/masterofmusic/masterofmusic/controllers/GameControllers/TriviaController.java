@@ -236,7 +236,7 @@ public class TriviaController {
 
         for (List<PlayerGameRound> playerGameRound : playerGameRoundsForTrivia) {
             for (PlayerGameRound playerGameRound1 : playerGameRound) {
-                if (playerGameRound1.getDifficulty().equals("hard") && playerGameRound1.getScore() == 500) {
+                if (playerGameRound1.getDifficulty().equals("hard")  && playerGameRound1.getScore() == 500) {
                     hardPerfect = true;
                     break;
                 }

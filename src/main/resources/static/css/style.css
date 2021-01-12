@@ -358,7 +358,7 @@ input[type="radio"]:checked + .avatarLabel {
 
 #userGameStatsContainer {
     max-width: 44em;
-    min-height: 30em;
+    min-height: 28em;
     overflow-y: scroll;
 }
 

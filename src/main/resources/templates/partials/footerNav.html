@@ -14,7 +14,7 @@
                 <button class="badge text-dark navbar-login mr-2">Logout</button>
             </form>
 
-            <img th:if="${user}" style="max-height: 50px;max-width: 50px"  th:src="${user.images}">
+            <a th:href="@{/profile/}"> <img th:if="${user}" style="max-height: 50px;max-width: 50px"  th:src="${user.images}"></a>
             <img  th:unless="${user}" style="max-height: 50px;max-width: 50px"  src="/img/unnamed.png">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
