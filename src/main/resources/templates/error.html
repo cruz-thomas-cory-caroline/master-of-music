@@ -5,9 +5,18 @@
     <div th:include="partials/head.html :: head"></div>
 </head>
 <body>
-<center>This is an error page
-    <span th:text="${message}"></span>
-</center>
+
+<div class="card mx-auto my-5 avatarBorderCont" style="width: 18rem">
+    <div class="card-header">
+        <h3>This is an error page</h3>
+    </div>
+    <div class="card-body forgotPasswordCard">
+            <div th:text="${message}">
+            </div>
+    </div>
+</div>
+
+
 </body>
 <div th:include="partials/footerNav.html :: footerNav"></div>
 <div th:include="partials/scripts.html :: scripts"></div>
