@@ -94,7 +94,7 @@ public class UserController {
             mailMessage.setSubject("Complete Registration!");
             mailMessage.setFrom("masterofmusic@codeup.com");
             mailMessage.setText("To confirm your account, go to the url : "
-                    +"http://localhost:8080/confirm-account?token="+confirmationToken.getConfirmationToken());
+                    +"http://masterofmusic.fun/confirm-account?token="+confirmationToken.getConfirmationToken());
 
             emailSenderService.sendEmail(mailMessage);
             return "redirect:/login";
@@ -160,7 +160,7 @@ public class UserController {
             mailMessage.setSubject("Complete Password Reset!");
             mailMessage.setFrom("test-email@gmail.com");
             mailMessage.setText("To complete the password reset process, please click here: "
-                    + "http://localhost:8080/confirm-reset?token="+confirmationToken.getConfirmationToken());
+                    + "http://masterofmusic.fun/confirm-reset?token="+confirmationToken.getConfirmationToken());
             // Send the email
             emailSenderService.sendEmail(mailMessage);
 
