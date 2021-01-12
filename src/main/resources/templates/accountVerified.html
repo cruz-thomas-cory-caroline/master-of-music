@@ -5,11 +5,13 @@
     <title>Congratulations!</title>
 </head>
 <body>
-<center>
-    <h3>Congratulations! Your account has been activated and email is verified!</h3>
-
-    <div th:include="partials/footerNav.html :: footerNav"></div>
-    <div th:include="partials/scripts.html :: scripts"></div>
-</center>
+<div class="card mx-auto mb-5 avatarBorderCont" style="width: 23rem">
+    <div class="card-body forgotPasswordCard">
+        <h4 class="card-title text-center mb-4 mt-1">Congratulations! Your account has been activated and email is
+            verified!</h4>
+    </div>
+</div>
 </body>
+<div th:include="partials/footerNav.html :: footerNav"></div>
+<div th:include="partials/scripts.html :: scripts"></div>
 </html>
