@@ -36,12 +36,14 @@
                 $(this).unbind('click')
             })
 
+
             $('.undo-button').each(function () {
                 $(this).unbind('click')
             })
 
             $('.drop-zone').each(function () {
                 $(this).removeClass('highlighted')
+                snapToMiddle($(this).find($('.web-words')[0].draggable), $(this))
             })
 
             let previousParent
@@ -82,15 +84,15 @@
                     // }
                 },
 
-                out: function (event, ui) {
-                    // $(this).droppable("option", "accept", '.words');
-                    // $(this).find("input").val("")
-                    $(this).removeClass("occupied")
-                    // console.log("Removing Occupied Class...")
-                    if (!$(this).hasClass('occupied')) {
-                        // console.log("Removed")
-                    }
-                }
+                // out: function (event, ui) {
+                //     // $(this).droppable("option", "accept", '.words');
+                //     // $(this).find("input").val("")
+                //     $(this).removeClass("occupied")
+                //     // console.log("Removing Occupied Class...")
+                //     if (!$(this).hasClass('occupied')) {
+                //         // console.log("Removed")
+                //     }
+                // }
             })
 
             function revertDraggable() {
@@ -279,6 +281,7 @@
         clearInterval(interval)
         clearTimeout(songTimeout)
         timerStart()
+        $('.sound-wave').eq(cardIndexShowing).addClass('d-none')
         $('.all-cards').eq(cardIndexShowing + 1).removeClass('hide')
         if ($('main').eq(0).hasClass("mobile")) {
             $('.all-cards').eq(cardIndexShowing + 1).find($(".mobile-bank").removeClass('hide'))
@@ -361,6 +364,8 @@
 
     let songTimeout;
 
+
+    const deezerAPI = document.querySelector('meta.deezerAPI').content;
     $('.song-clip-button').click(function () {
         console.log($('.all-cards').eq(cardIndexShowing).find($('.title')))
         let songToSearch = $('.all-cards').eq(cardIndexShowing).find($('.title'))[0].innerHTML
@@ -371,7 +376,7 @@
             "url": "https://deezerdevs-deezer.p.rapidapi.com/search?q=" + songToSearch,
             "method": "GET",
             "headers": {
-                "x-rapidapi-key": SONG_API_KEY,
+                "x-rapidapi-key": deezerAPI,
                 "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com"
             }
         };
@@ -393,6 +398,7 @@
 
             $('source').eq(cardIndexShowing).attr('src', audioClipPath)
             $('.play-button').eq(cardIndexShowing).addClass('hide')
+            $('.sound-wave').eq(cardIndexShowing).removeClass('d-none')
             $('.audio-controls').eq(cardIndexShowing).removeClass('hide')
             $('audio').get(cardIndexShowing).volume = .2
             $('audio').get(cardIndexShowing).load();
@@ -402,6 +408,7 @@
                     songTimeout = setTimeout(function () {
                         $('audio')[cardIndexShowing].pause()
                         $('audio')[cardIndexShowing].currentTime = 0;
+                        $('.sound-wave').eq(cardIndexShowing).addClass('d-none')
                         $('.play-button-2').eq(cardIndexShowing).removeClass('hide')
                     }, 6500)
                 }).catch((error => {
@@ -416,11 +423,11 @@
         $('audio').get(cardIndexShowing).volume = .2
         $('audio').get(cardIndexShowing).load();
         $('audio').get(cardIndexShowing).play()
-        console.log("playing")
+        $('.sound-wave').eq(cardIndexShowing).removeClass('d-none')
         songTimeout = setTimeout(function () {
-            console.log("pausing")
             $('audio')[cardIndexShowing].pause()
             $('audio')[cardIndexShowing].currentTime = 0;
+            $('.sound-wave').eq(cardIndexShowing).addClass('d-none')
             $('.play-button-2').eq(cardIndexShowing).removeClass('hide')
         }, 6500)
     })

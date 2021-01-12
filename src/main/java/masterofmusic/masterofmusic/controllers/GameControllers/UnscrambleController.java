@@ -2,6 +2,7 @@ package masterofmusic.masterofmusic.controllers.GameControllers;
 
 import masterofmusic.masterofmusic.models.*;
 import masterofmusic.masterofmusic.repositories.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +31,11 @@ public class UnscrambleController {
     private long currentGameID;
     boolean usedCheckFeature;
 
+//    matches the name from applications.properties
+    @Value("${deezer.api.key}")
+    private String deezerAPI;
+
+
     public UnscrambleController(SongRepository songDao, GameRepository gameDao, PlayerGameRepository playerGameDao, PlayerGameRoundRepository playerGameRoundDoa, GenreRepository genreDao, AchievementRepository achievementDao, UserRepository userDao) {
         this.songDao = songDao;
         this.gameDao = gameDao;
@@ -46,6 +52,7 @@ public class UnscrambleController {
                                  @RequestParam(name = "genre") String genre,
                                  @RequestParam(name = "round") long num,
                                  Model model) {
+
         usedCheckFeature = false;
         chosenSongs = new ArrayList<>();
         chosenSongIDs = new ArrayList<>();
@@ -141,7 +148,7 @@ public class UnscrambleController {
             }
             scrambledLyricsList.add(scrambledLyric);
         }
-
+        model.addAttribute("deezerAPI", deezerAPI);
         model.addAttribute("scrambledLyricsSet", scrambledLyricsList);
         model.addAttribute("originalLyrics", lyricsToScramble);
         model.addAttribute("songs", chosenSongs);
@@ -159,7 +166,8 @@ public class UnscrambleController {
                                 @RequestParam(name = "playerGame") long num,
                                 HttpServletRequest request,
                                 Model model) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userToGetID = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDao.getOne(userToGetID.getId());
         PlayerGameRound newRoundCompleted = new PlayerGameRound();
         newRoundCompleted.setDifficulty(difficulty);
         newRoundCompleted.setLevel(playerGameDao.getOne(num).getPlayerGameRounds().size()+1);

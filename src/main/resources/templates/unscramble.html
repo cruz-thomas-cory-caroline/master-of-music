@@ -8,6 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/enquire.js/2.0.2/enquire.min.js"
             integrity="sha512-13gC1aPMpFBoGaB8mP2dhgYVNE0s6i9Jv13z4MV2MmeJlS5HDlrwkp8rvIkuzmxn4VWywFhn2AOi5BHF8kjcNA=="
             crossorigin="anonymous"></script>
+    <meta class="deezerAPI" th:content="${deezerAPI}">
 </head>
 <body>
 <main class="container web">
@@ -78,7 +79,10 @@
                         <h6><span class="unscramble-timer" th:text="${timeLimit}"></span></h6>
                     </div>
                 </div>
-                <div class="card-body justify-content-center">
+                <div class="card-body justify-content-center ">
+                    <div class="text-center sound-wave d-none" style="height: 200px">
+                        <img th:src="@{/img/wave.gif}" style="height: 100%; width: 50%" alt="Unavailable">
+                    </div>
                     <div class="text-center play-button my-2">
                         <button type="button" class="btn btn-success song-clip-button"><i class="fas fa-play"></i></button>
                     </div>
@@ -86,18 +90,13 @@
                         <audio>
                             <source class="track-source" type="audio/mpeg">
                         </audio>
-                        <button type="button" class="btn btn-success play-button-2 hide"><i class="fas fa-play"></i>Replay</button>
+                        <button type="button" class="btn btn-success play-button-2 hide"><i class="fas fa-play"></i> Replay</button>
                     </div>
                     <div class="row justify-content-center all-words my-4">
-                        <div th:each="word : ${lyricSet}">
-                            <div class="drop-zone m-1 unoccupied text-center">
+                            <div class="drop-zone m-1 unoccupied text-center" th:each="word : ${lyricSet}">
                                 <a href="#" class="m-auto hide btn btn-primary mobile-word"></a>
-                                <a href="#" class="web-words m-1 btn btn-primary words" th:text="${word}"></a>
+                                <a href="#" class="web-words m-1 btn btn-primary words p-0 align-items-center d-flex text-center justify-content-center" style="width: 100%;" th:text="${word}"></a>
                                 <input class="droppedWord" type="hidden" th:id="'word'+${lyricSet.indexOf(word)}" th:value="${word}">
-                            </div>
-                            <div th:if="${word.charAt(0)}">
-
-                            </div>
                         </div>
                     </div>
                     <div class="mobile-bank hide row justify-content-center mt-3 mb-2">
