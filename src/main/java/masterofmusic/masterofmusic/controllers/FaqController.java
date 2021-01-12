@@ -2,6 +2,7 @@ package masterofmusic.masterofmusic.controllers;
 import masterofmusic.masterofmusic.SecurityConfiguration;
 import masterofmusic.masterofmusic.models.User;
 import masterofmusic.masterofmusic.repositories.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,12 +23,15 @@ public class FaqController {
     @GetMapping("/faq")
     public String viewFaq(Model model) {
         ArrayList<User> userIsAdmin = new ArrayList<>();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user_db = userDao.findById(user.getId());
 
         for (User user1 : userDao.findAll()) {
             if (user1.isAdmin()) {
                 userIsAdmin.add(user1);
             }
         }
+        model.addAttribute("user", user_db);
         model.addAttribute("users", userIsAdmin);
         return "faq";
 

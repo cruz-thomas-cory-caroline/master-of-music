@@ -53,9 +53,9 @@ public class LeaderboardController {
                 }
                 model.addAttribute("loggedIn", true);
                 model.addAttribute("userToFind", userToFind);
+                model.addAttribute("user", userToFind);
             }
         }
-
 
         model.addAttribute("rankedUsers", rankedUserList);
         model.addAttribute("rankedScores", rankedScores);
