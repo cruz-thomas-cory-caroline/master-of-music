@@ -31,9 +31,10 @@
         <div class="card-body lyricCards lm-cards hide forgotPasswordCard avatarBorderCont">
             <div th:each="song : ${chosenSongs}" class="LMcard">
                 <input type="hidden" name="songId" th:value="${song.id}">
-
+                <a class="start-btn" id="hint">Submit</a>
                 <ol class='video-game-button'>
                     <div class="card m-auto lyricCardsBG forgotPasswordCard">
+
                         <h2 class="card-title faqHeader" th:text="${song.lyrics}"></h2>
                         <p class="text-left hide title">Title: <span th:text="${song.title}"></span></p>
                         <p class="text-left">Artist: <span th:text="${song.artist}"></span></p>
@@ -49,7 +50,7 @@
                             <input class="hide form-check-input solutions" type="radio" th:value="1"
                                    th:name="song_+${song.id}" checked/>
                         </div>
-                        <a class="start-btn" id="hint">Submit</a>
+
                         <span>
                     <a href="#" class="prev start-btn" id="previous">PREVIOUS</a>
                     <a href="#" class='start-btn next' id="next">NEXT</a>

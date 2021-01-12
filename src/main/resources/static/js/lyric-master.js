@@ -33,6 +33,7 @@ $('#startButton').click(function () {
     $(".lm-cards").first().removeClass("hide")
     startTime = $('.lyricMaster-timer')[0].innerHTML
     timerStart()
+    cardIndexShowing++;
 })
 
     $("#showAnswerBtn").click(function() {
