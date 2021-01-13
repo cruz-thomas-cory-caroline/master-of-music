@@ -78,3 +78,7 @@
 
 .lyricCards .LMcard{display:none;}
 .lyricCards .LMcard.active{display:initial}
+
+.title{
+    display: none;
+}
