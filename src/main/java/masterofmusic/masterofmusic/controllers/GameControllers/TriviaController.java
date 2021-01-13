@@ -55,6 +55,7 @@ public class TriviaController {
         difficultyOption = difficultySelection;
         genreOption = genreSelection;
         Game game = gameDao.getOne(3L);
+        currentPlayerGame = new PlayerGame();
         currentPlayerGame.setUser(user);
         currentPlayerGame.setGame(game);
         currentPlayerGame.setScore(totalScore);
