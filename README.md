@@ -34,7 +34,7 @@ Caroline Esquivel:
 
 Cruzanio Villarreal: 
 
-Corey Holley: 
+Courtney Holley: 
 
 Thomas Crowder: Responsible for the Music Theory mini game. Used Java to create a quiz style game, 
 that tests the player on their knowledge of music theory. Also helped with other small features such as profile
