@@ -1,6 +1,5 @@
 USE master_of_music_db;
 
-
 #Rock
 INSERT INTO songs (id, title, artist, lyrics)
 VALUES (6, 'Teenage Dirtbag', 'Wheatus', 'Yeah, I''m just a teenage dirtbag, baby listen to Iron Maiden'),
@@ -130,6 +129,13 @@ values (35, 4),
 
 INSERT INTO songs (id, title, artist, lyrics)
 VALUES (1000, 'title', 'artist', 'No answer selected');
+
+INSERT INTO songs (id, title, artist, lyrics)
+VALUES (46, 'Try', 'Nelly Furtado', 'Then I see you standing there');
+
+-- you can use sub-queries to make the song_id dynamic
+insert into songs_genres(song_id, genre_id)
+values ((select id from songs where title = 'Try'), 3);
 
 INSERT INTO lyric_answers (is_correct, lyric_answer, song_id)
 VALUES(false, 'No answer selected', 1000),
@@ -312,7 +318,8 @@ VALUES(false, 'No answer selected', 1000),
        (false, 'Telling my whole life with his words', 45),
        (true, 'And so I came to see him, to listen for a while', 45),
        (false, 'I found it hard, it''s hard to find', 45),
-       (false, 'I felt all flushed with fever', 45);
-
-
-
+       (false, 'I felt all flushed with fever', 45),
+      (false, 'And all I can do is try', 46),
+      (true, 'Wanting more from me, And all I can do is try', 46),
+      (false, 'All of the moments that already passed', 46),
+      (false, 'We''ll try to go back and make them last', 46);
