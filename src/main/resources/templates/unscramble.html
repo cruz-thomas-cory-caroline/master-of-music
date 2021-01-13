@@ -8,17 +8,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/enquire.js/2.0.2/enquire.min.js"
             integrity="sha512-13gC1aPMpFBoGaB8mP2dhgYVNE0s6i9Jv13z4MV2MmeJlS5HDlrwkp8rvIkuzmxn4VWywFhn2AOi5BHF8kjcNA=="
             crossorigin="anonymous"></script>
+    <meta class="deezerAPI" th:content="${deezerAPI}">
 </head>
 <body>
-<main class="container web">
+<main class="container web row align-items-center mx-auto justify-content-center" style="height: 100%">
     <div class="game-start">
-        <div class="card mx-auto">
+        <div class="card instr-card mx-auto">
             <div class="card-body">
-                <h2 class="card-title text-center">Before You Begin!</h2>
+                <h2 class="begin-instr text-center">Before You Begin!</h2>
                 <div class="row">
-                    <h4 class="card-subtitle mb-2 text-muted col-6 text-left">Difficulty: <span
+                    <h4 class="mb-2 col-6 text-center">Difficulty: <span
                             th:text="${difficulty}"></span></h4>
-                    <h4 class="card-subtitle mb-2 text-muted col-6 text-right">Genre: <span th:text="${genre}"></span>
+                    <h4 class="mb-2 col-6 text-center">Genre: <span th:text="${genre}"></span>
                     </h4>
                 </div>
                 <div class="mobile-instr hide">
@@ -39,19 +40,22 @@
                 <div class="web-instr">
                     <h4>
                         <ol>
-                            <li class="card-text">Drag and drop the words to have them swap positions</li>
-                            <li class="card-text">Click <i class="fas fa-binoculars"></i> to catch a glimpse of what words are in the right position.</li>
-                            <li class="card-text">You have <span th:text="${timeLimit}"></span> seconds to complete each lyric.</li>
-                            <li class="card-text">Click Start to Begin!</li>
+                            <li class="card-text m-4">Drag and drop the words to have them swap positions</li>
+                            <li class="card-text m-4">Hit the <i class="fas fa-play"></i> button to hear a 5 second clip of the song.</li>
+                            <ul>
+                                <li class="m-4"><span style="color: red;">NOTE: </span> This feature is to jog your memory of the song, the lyrics may or may not pick up where it stops.</li>
+                                <li class="m-4"><span style="color: green;">HINT: </span> All lyrics start with a capital word.</li>
+                            </ul>
+                            <li class="card-text m-4">Click <i class="fas fa-binoculars"></i> to catch a glimpse of what words are in the right position.</li>
+                            <li class="card-text m-4">You have <span th:text="${timeLimit}"></span> seconds to complete each lyric.</li>
+                            <li class="card-text m-4">Click Start to Begin!</li>
                         </ol>
                     </h4>
 
                 </div>
             </div>
             <div class="card-footer text-center">
-                <button type="button" id="startButton" class="btn btn-primary btn-lg"
-                        style="height: 100px; width: 200px;">Start
-                </button>
+                <button type="button" id="startButton" class="btn btn-primary" style="height: 100px; width: 200px;">Start</button>
             </div>
         </div>
 
@@ -65,39 +69,39 @@
         <div th:each="lyricSet : ${scrambledLyricsSet}" class="all-cards hide">
             <div class="card game-card">
                 <input class="song-id" name="song-id" type="hidden" th:value="${songs[scrambledLyricsSet.indexOf(lyricSet)].getId()}">
-                <div class="card-header row">
-                    <div class="mr-auto">
+                <div class="card-header row text-center">
+                    <div class="m-auto">
                         <h4 class="title" th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getTitle()}"></h4>
                         <h5 class="artist" th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getArtist()}"></h5>
-                        <h6>Round: <span th:text="${round}"></span></h6>
+                        <h6 class="round-show">Round: <span th:text="${round}"></span></h6>
                     </div>
                     <div class="progressBar">
-                        <div class="bar"></div>
-                    </div>
-                    <div class="ml-auto">
-                        <h6><span class="unscramble-timer" th:text="${timeLimit}"></span></h6>
+                        <h1 class="times-up hide">Times Up!</h1>
+                        <div class="bar row d-flex align-items-center">
+                            <h5>
+                                <span class="unscramble-timer" th:text="${timeLimit}"></span>
+                            </h5>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body justify-content-center">
+                    <div class="text-center sound-wave d-none" style="height: 200px">
+                        <img th:src="@{/img/wave.gif}" style="height: 100%; width: 50%" alt="Unavailable">
+                    </div>
                     <div class="text-center play-button my-2">
-                        <button type="button" class="btn btn-success song-clip-button"><i class="fas fa-play"></i></button>
+                        <button type="button" class="btn song-clip-button"><i class="fas fa-play"></i></button>
                     </div>
                     <div class="hide audio-controls text-center my-2">
                         <audio>
                             <source class="track-source" type="audio/mpeg">
                         </audio>
-                        <button type="button" class="btn btn-success play-button-2 hide"><i class="fas fa-play"></i>Replay</button>
+                        <button type="button" class="btn btn-success play-button-2 hide"><i class="fas fa-play"></i> Replay</button>
                     </div>
                     <div class="row justify-content-center all-words my-4">
-                        <div th:each="word : ${lyricSet}">
-                            <div class="drop-zone m-1 unoccupied text-center">
+                            <div class="drop-zone m-2 unoccupied text-center d-flex align-items-center" th:each="word : ${lyricSet}">
                                 <a href="#" class="m-auto hide btn btn-primary mobile-word"></a>
-                                <a href="#" class="web-words m-1 btn btn-primary words" th:text="${word}"></a>
+                                <a href="#" class="web-words m-2 btn btn-primary words p-0 align-items-center d-flex text-center justify-content-center" style="width: 100%; height: 75%" th:text="${word}"></a>
                                 <input class="droppedWord" type="hidden" th:id="'word'+${lyricSet.indexOf(word)}" th:value="${word}">
-                            </div>
-                            <div th:if="${word.charAt(0)}">
-
-                            </div>
                         </div>
                     </div>
                     <div class="mobile-bank hide row justify-content-center mt-3 mb-2">
@@ -107,24 +111,24 @@
                     </div>
 
                 </div>
-                <div class="card-footer text-center row">
-                    <div class="mr-auto">
-                        <p><span th:text="${scrambledLyricsSet.indexOf(lyricSet)+1}"></span>/<span
-                                th:text="${scrambledLyricsSet.size()}"></span></p>
+                <div class="card-footer text-center row align-items-center">
+                    <div class="col-md-4 col-sm-3 text-left">
+                        <h3 class="round-show"><span th:text="${scrambledLyricsSet.indexOf(lyricSet)+1}"></span>/<span
+                                th:text="${scrambledLyricsSet.size()}"></span></h3>
                     </div>
                     <input type="hidden" class="fullAnswer" th:name="'song'+${scrambledLyricsSet.indexOf(lyricSet)}">
-                    <div class="undo-button-class">
+                    <div class="undo-button-class col-md-4 col-sm-3 text-center">
                         <button type="button" class="btn btn-warning undo-button"><i class="fas fa-undo"></i></button>
                     </div>
-                    <div class="m-auto">
-                        <button type="button" class="btn btn-primary check-button ml-auto"><i class="fas fa-binoculars"></i></button>
+                    <div class="col-md-4 col-sm-3 text-center">
+                        <button type="button" class="check-button check-button ml-auto"><i class="fas fa-binoculars"></i> Check <i class="fas fa-binoculars"></i></button>
                     </div>
-                    <div class="ml-auto" th:if="${scrambledLyricsSet.indexOf(lyricSet) == scrambledLyricsSet.size()-1}">
-                        <button type="button" class="btn btn-primary last-cat-button">Lock It In!</button>
+                    <div class="col-md-4 col-sm-3 text-right" th:if="${scrambledLyricsSet.indexOf(lyricSet) == scrambledLyricsSet.size()-1}">
+                        <button type="button" class="lockin-button last-cat-button">Lock It In!</button>
                     </div>
-                    <div class="ml-auto"
+                    <div class="col-md-4 col-sm-3 text-right"
                          th:unless="${scrambledLyricsSet.indexOf(lyricSet) == scrambledLyricsSet.size()-1}">
-                        <button type="button" class="btn btn-primary cat-button ml-auto">Lock It In!</button>
+                        <button type="button" class="lockin-button cat-button ml-auto">Lock It In!</button>
                     </div>
                 </div>
             </div>
@@ -140,6 +144,7 @@
     </form>
 
 </main>
+<div th:include="partials/footerNav.html :: footerNav"></div>
 <div th:include="partials/scripts.html :: scripts"></div>
 <script th:src="@{/js/keys.js}"></script>
 <script th:src="@{/js/unscramble.js}"></script>

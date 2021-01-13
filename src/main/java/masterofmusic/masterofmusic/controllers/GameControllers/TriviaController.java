@@ -60,6 +60,9 @@ public class TriviaController {
         currentPlayerGame.setScore(totalScore);
         currentPlayerGame.setTimeElapsed(gameTime);
         playerGameDao.save(currentPlayerGame);
+
+        totalScore = 0;
+        gameLevel = 0;
         return "redirect:/trivia-game";
     }
 
@@ -224,7 +227,7 @@ public class TriviaController {
 
         for (List<PlayerGameRound> playerGameRound : playerGameRoundsForTrivia) {
             for (PlayerGameRound playerGameRound1 : playerGameRound) {
-                if (playerGameRound1.getDifficulty().equals("easy") && playerGameRound1.getScore() == 500) {
+                if (playerGameRound1.getDifficulty().equals("medium") && playerGameRound1.getScore() == 500) {
                     mediumPerfect = true;
                     break;
                 }
@@ -233,7 +236,7 @@ public class TriviaController {
 
         for (List<PlayerGameRound> playerGameRound : playerGameRoundsForTrivia) {
             for (PlayerGameRound playerGameRound1 : playerGameRound) {
-                if (playerGameRound1.getDifficulty().equals("easy") && playerGameRound1.getScore() == 500) {
+                if (playerGameRound1.getDifficulty().equals("hard")  && playerGameRound1.getScore() == 500) {
                     hardPerfect = true;
                     break;
                 }

@@ -79,10 +79,10 @@
                     </div>
                     <div>
                         <input name=round type="hidden" th:value="${currentLevel+1}">
-                        <button type="submit" class="btn btn-primart">Next Round</button>
+                        <button type="submit" class="btn btn-primary">Next Round</button>
                     </div>
                 </form>
-                <a href="/index" class="btn btn-danger">Quit</a>
+                <a href="/index" class="btn btn-danger">Quit Game</a>
             </div>
             <div th:unless="${canAdvance}">
                 <a href="/index" class="btn btn-primary">Home</a>
@@ -100,7 +100,7 @@
                 <div class="modal-body row justify-content-center">
                     <div th:each="award : ${newAwards}" class="text-center">
                         <div class="text-center">
-                            <i th:class="${award.getClassString()}"></i>
+                            <i th:class="${award.getClassString()}+' fa-8x'"></i>
                             <h4 th:text="${award.getDescription()}"></h4>
                         </div>
                     </div>
@@ -114,8 +114,10 @@
 
 
 </div>
+<div th:include="partials/footerNav.html :: footerNav"></div>
 </body>
 <th:block th:include="partials/scripts :: scripts"></th:block>
+
 <script th:src="@{/js/unscramble.js}"></script>
 <script type="text/javascript">
     let scoreToCount = parseInt($('#score').val())

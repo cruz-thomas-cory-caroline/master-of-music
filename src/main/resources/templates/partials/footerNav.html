@@ -7,18 +7,20 @@
 <body>
 
 <footer th:fragment="footerNav">
-    <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark">
+    <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark p-0 m-0">
         <div class="container-fluid">
-            <a sec:authorize="!isAuthenticated()" th:href="@{/sign-up}"><span class="badge text-dark navbar-login">Register or Login</span></a>
+            <a sec:authorize="!isAuthenticated()" th:href="@{/sign-up}"><span class="badge text-dark navbar-login mr-2">Register or Login</span></a>
             <form sec:authorize="isAuthenticated()" th:action="@{/logout}" th:method="post">
-                <button class="badge text-dark navbar-login">Logout</button>
+                <button class="badge text-dark navbar-login mr-4">Logout</button>
             </form>
 
-            <img style="max-height: 90px;max-width: 90px" sec:authorize="isAnonymous()" src="/img/unnamed.png">
-            <img style="max-height: 90px;max-width: 90px" sec:authorize="isAuthenticated()" th:src="${userPic}">
 
-<!--            <img class="shadowed" style="max-height:90px;max-width:90px;" th:src="${user}" onerror="this.onerror=null;this.src='/img/unnamed.png';">-->
+            <a class="mt-2 mb-2 text-white" th:href="@{/profile/}">
+                <img th:if="${user}" style="max-height: 50px;max-width: 50px" th:src="${user.images}">
+                <p th:if="${user}" class="d-inline rockFont p-0 m-0">Profile</p>
+            </a>
 
+            <img th:unless="${user}" style="max-height: 50px;max-width: 50px" src="/img/unnamed.png">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 

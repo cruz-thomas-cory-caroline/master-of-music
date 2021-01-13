@@ -31,8 +31,8 @@
     </script>
 </head>
 <body ng-app="myapp">
-<div class="card mx-auto my-5" style="width: 23rem">
-    <article class="card-body">
+<div class="card mx-auto my-5 avatarBorderCont" style="width: 23rem">
+    <article class="card-body forgotPasswordCard">
         <h4 class="card-title text-center mb-4 mt-1">Create Account</h4>
         <hr>
         <div th:if="${param.error}" class="text-center">
@@ -106,15 +106,9 @@
                                name="confirmPassword">
                     </div>
                 </div>
-
             <div class="form-group">
                 <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"> <i class="fas fa-key"></i> </span>
-                    </div>
-                    <div>Security Question</div>
-                    <p>What was the house number and street name you lived in as a child?</p>
-                    <input th:field="*{resetPasswordToken}" class="form-control" placeholder="Security Answer" type="text">
+                    <p>You will receive a verification email upon sign-up.</p>
                 </div>
             </div>
                 <p class="text-center">Already have an account? <a th:href="@{/login}">Login</a></p>

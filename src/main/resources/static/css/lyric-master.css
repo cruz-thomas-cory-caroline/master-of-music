@@ -1,21 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');*/
 
 .start-menu{
    top: 20%;
 }
 
-.highlight {
-    background: green;
-}
+/*.highlight {*/
+/*    background: green;*/
+/*}*/
 
-@font-face {
-    font-family: 'Press Start 2p';
-}
+/*@font-face {*/
+/*    font-family: 'Press Start 2p';*/
+/*}*/
 
-.lyricCardsBG {
-    background-color: rgba(0, 0, 0, 0.34);
-    font-family: 'Press Start 2p';
-}
+/*.lyricCardsBG {*/
+/*    background-color: rgba(0, 0, 0, 0.34);*/
+/*    font-family: 'Press Start 2p';*/
+/*}*/
 
 .video-game-button {
     text-shadow: 1px 1px blue, -1px -1px darkblue;
@@ -39,12 +39,10 @@
     background-image: -moz-linear-gradient(left top, #07c837 3%, blue 22%, darkblue 99%);
     background-image: -webkit-linear-gradient(left top, #07c837 3%, blue 22%, darkblue 99%);
     background-image: linear-gradient(left top, #07c837 3%, blue 22%, darkblue 99%);
-    /*border: 10px solid;*/
-    /*border-image-slice: 1;*/
     border-image-source: linear-gradient(to left, #0061f5, #07c837);
     cursor: pointer;
     padding-left: 5px;
-    font-family: 'Press Start 2p';
+    font-family: 'New Rocker', cursive;
 }
 .start-btn{
     text-align: center;
@@ -61,20 +59,19 @@
     border-radius: 7px;
     box-shadow: 0 .2em gray;
     cursor: pointer;
-    font-family: 'Press Start 2p';
+    font-family: 'New Rocker', cursive;
 
 }
 .video-game-button:active, .start-btn:active {
     box-shadow: none;
     position: relative;
     top: .2em;
-    font-family: 'Press Start 2p';
 }
 
 #headerLM {
     font-weight: bolder;
     text-align: center;
-    font-family: 'Press Start 2p';
+    font-family: 'New Rocker', cursive;
     color: #c62a88;
     text-shadow: 1px 1px 2px #fcc910, 0 0 25px blue, 0 0 5px darkblue;
 }

@@ -1,31 +1,32 @@
 (function () {
     "use strict";
 
-var interval;
-var startTime;
-var timeEnd = 0;
-var cardIndexShowing = -1;
-var dataVal = 0;
+    var interval;
+    var startTime;
+    var timeEnd = 0;
+    var cardIndexShowing = -1;
+    var dataVal = 0;
 
-function timerStart() {
-    var timeStart = startTime
-    $('.lyricMaster-timer').html(timeStart)
-    interval = setInterval(function () {
-        if (timeStart !== timeEnd) {
-            timeStart--
-            $('.lyricMaster-timer').html(timeStart)
-        } else {
-            redirect();
-            clearInterval(interval)
-            $('.lyricMaster-timer').html('Times Up!');
-        }
-    }, 1000)
-}
+    function timerStart() {
+        var timeStart = startTime
+        $('.lyricMaster-timer').html(timeStart)
+        interval = setInterval(function () {
+            if (timeStart !== timeEnd) {
+                timeStart--
+                $('.lyricMaster-timer').html(timeStart)
+            } else {
+                redirect();
+                clearInterval(interval)
+                $('.lyricMaster-timer').html('Times Up!');
+            }
+        }, 1000)
+    }
 
     let lyricMasterQuizForm = $("#lyricMasterQuizForm");
     function redirect() {
         lyricMasterQuizForm.submit();
     }
+
 
 $('#startButton').click(function () {
     $(".game-start").addClass("hide")
@@ -54,6 +55,9 @@ $('#startButton').click(function () {
         var nextNode = lyricCards.filter('.active').next();
         showCard(nextNode);
         cardIndexShowing++;
+        if (cardIndexShowing === $("#difficultySelected").length - 1) {
+                   $("#submit").show("slow");
+                 }
     });
 
     $('.lyricCards .LMcard:first').addClass('active');
@@ -63,6 +67,7 @@ $('#startButton').click(function () {
 
         var previousNode = lyricCards.filter('.active').prev();
         showCard(previousNode);
+
         cardIndexShowing--;
     });
 
@@ -96,6 +101,7 @@ $('#startButton').click(function () {
     $('.hint').click(function () {
         console.log(cardIndexShowing);
         // console.log($("#title").eq(cardIndexShowing));
+
        console.log( $(this).find($('.title')));
         $('.title').eq(cardIndexShowing).toggle('slow');
 
