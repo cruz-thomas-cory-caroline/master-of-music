@@ -181,8 +181,7 @@
     padding: 10px 10px;
     text-align: center;
     text-decoration: none;
-}
-@keyframes glowing {
+} @keyframes glowing {
     0% {
         background-color: #2ba805;
         box-shadow: 0 0 5px #2ba805;
@@ -198,9 +197,10 @@
 }
 
 .result-button {
-    outline: none;
+    outline: none !important;
     animation: glowing 1300ms infinite;
 }
+
 
 .final-screen {
     background-color: black;

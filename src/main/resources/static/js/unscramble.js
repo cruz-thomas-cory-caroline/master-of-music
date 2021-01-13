@@ -275,7 +275,6 @@
 
     $(".cat-button").click(function () {
         $('.all-cards').eq(cardIndexShowing).find(".fullAnswer").val(lockAnswer())
-        console.log($(this).parent().parent().find("input")[0].value)
         $('.all-cards').eq(cardIndexShowing).addClass('hide')
         clearInterval(interval2)
         clearInterval(interval)
