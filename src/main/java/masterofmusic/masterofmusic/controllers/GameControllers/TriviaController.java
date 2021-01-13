@@ -231,7 +231,7 @@ public class TriviaController {
 
         for (List<PlayerGameRound> playerGameRound : playerGameRoundsForTrivia) {
             for (PlayerGameRound playerGameRound1 : playerGameRound) {
-                if (playerGameRound1.getDifficulty().equals("medium") && playerGameRound1.getScore() == 500  || (roundScore == 500 && difficultyOption.equalsIgnoreCase("medium"))) {
+                if (playerGameRound1.getDifficulty().equals("medium") && playerGameRound1.getScore() == 500 || (roundScore == 500 && difficultyOption.equalsIgnoreCase("medium"))) {
                     mediumPerfect = true;
                     break;
                 }
@@ -240,7 +240,7 @@ public class TriviaController {
 
         for (List<PlayerGameRound> playerGameRound : playerGameRoundsForTrivia) {
             for (PlayerGameRound playerGameRound1 : playerGameRound) {
-                if (playerGameRound1.getDifficulty().equals("hard")  && playerGameRound1.getScore() == 500  || (roundScore == 500 && difficultyOption.equalsIgnoreCase("hard"))) {
+                if (playerGameRound1.getDifficulty().equals("hard") && playerGameRound1.getScore() == 500 || (roundScore == 500 && difficultyOption.equalsIgnoreCase("hard"))) {
                     hardPerfect = true;
                     break;
                 }
@@ -325,18 +325,22 @@ public class TriviaController {
 
 
 //        CHECK FOR SHIELD - PERFECT SCORE STREAK ON 5 GAMES (16)
-        for (PlayerGame playerGame : playerGamesForUser) {
-            if (playerGame.getGame().getId() == 3) {
-                if (playerGame.getScore() == 500) {
-                    streakCount += 1;
-                } if (playerGame.getScore() != 500) {
-                    streakCount = 0;
-                } if (streakCount >= 5) {
-                    break;
+        if (roundScore == 500) {
+            streakCount += 1;
+            for (PlayerGame playerGame : playerGamesForUser) {
+                if (playerGame.getGame().getId() == 3) {
+                    if (playerGame.getScore() == 500) {
+                        streakCount += 1;
+                    }
+                    if (playerGame.getScore() != 500) {
+                        streakCount = 0;
+                    }
+                    if (streakCount >= 5) {
+                        break;
+                    }
                 }
             }
         }
-
 
         if ((streakCount >= 5) && !userAchievements.contains(gameAchievements.get(3))) {
             Achievement achToChange = achievementDao.getOne(gameAchievements.get(3).getId());
@@ -357,7 +361,7 @@ public class TriviaController {
             }
         }
 
-        if (gemAwardEarned  || jediAwardEarned  || phoenixAwardEarned  || shieldAwardEarned) {
+        if (gemAwardEarned || jediAwardEarned || phoenixAwardEarned || shieldAwardEarned) {
             triviaAwardEarned = true;
         }
 
