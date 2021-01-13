@@ -92,7 +92,8 @@ faHover{
 }
 
 faHover:hover{
-    background-color: hotpink;
+    background: #d60e96;
+    color: #fff;
 }
 /*.linkFooterTC {*/
 /*    display: none;*/
