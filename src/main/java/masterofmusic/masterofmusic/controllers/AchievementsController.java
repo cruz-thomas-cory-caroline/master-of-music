@@ -41,16 +41,12 @@ public class AchievementsController {
             User thisUser = userDao.getOne(user.getId());
             List<Achievement> userAchievements = thisUser.getUsers_achievements();
             if (userAchievements == null) {
-                System.out.println("I'm EMpty");
                 userAchievements = new ArrayList<>();
             }
             model.addAttribute("loggedIn", true);
             model.addAttribute("userAchievements", userAchievements);
             model.addAttribute("user", thisUser);
 
-            for (Achievement ach : userAchievements) {
-                System.out.println(ach.getName());
-            }
         }
 
         List<Achievement> allAchievements = achievementDao.findAll();
@@ -58,6 +54,5 @@ public class AchievementsController {
         model.addAttribute("allAchievements", allAchievements);
         return "achievements";
     }
-
 
 }
