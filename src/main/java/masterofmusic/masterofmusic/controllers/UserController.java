@@ -42,6 +42,11 @@ public class UserController {
     @GetMapping("/sign-up")
     public String showSignupForm(Model model) {
         model.addAttribute("user", new User());
+        if (!SecurityContextHolder.getContext().getAuthentication().getName().equalsIgnoreCase("anonymousUser")) {
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User user_db = users.findById(user.getId());
+            model.addAttribute("user", user_db);
+        }
         return "sign-up";
     }
 
@@ -51,7 +56,13 @@ public class UserController {
                            @RequestParam(name = "confirmPassword") String confirmPassword,
                            @RequestParam(name = "email") String email,
                            @RequestParam(name = "isAdmin", defaultValue = "false") boolean isAdmin,
-                           @ModelAttribute User user) {
+                           @ModelAttribute User user,
+                           Model model) {
+        if (!SecurityContextHolder.getContext().getAuthentication().getName().equalsIgnoreCase("anonymousUser")) {
+            User user1 = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User user_db = users.findById(user1.getId());
+            model.addAttribute("user", user_db);
+        }
         boolean passwordRequirements = (SecurityConfiguration.isValidPassword(password));
         boolean emailRequirements = (SecurityConfiguration.emailMeetsRequirements(email));
         List<User> usersList = users.findAll();
