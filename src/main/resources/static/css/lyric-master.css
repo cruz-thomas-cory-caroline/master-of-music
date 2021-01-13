@@ -82,3 +82,7 @@
 .title{
     display: none;
 }
+
+#badgeEarned{
+    display: none;
+}
