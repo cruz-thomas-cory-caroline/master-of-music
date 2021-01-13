@@ -88,7 +88,6 @@ public class ProfileController {
             @RequestParam(name = "avatarSelection") String avatarSelected,
             Model model
     ) {
-//        User user = userDao.findById(id);
         User user = userDao.getOne(id);
         user.setImages(avatarSelected);
         User dbUser = userDao.save(user);
