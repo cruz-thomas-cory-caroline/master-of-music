@@ -94,7 +94,7 @@ public class ProfileController {
         User dbUser = userDao.save(user);
         System.out.println(avatarSelected);
         model.addAttribute("user", userDao.getOne(dbUser.getId()));
-        return "redirect:/profile";
+        return "redirect:/profile/";
     }
 
     @GetMapping("/view/profile/{id}")

@@ -1,47 +1,99 @@
 .hide {
-    display: none;
+    display: none !important;
 }
 
-.drop-zone {
-    border-bottom: solid black 1px;
-    width: 75px;
+.web-instr h4 ul li {
+    list-style-type: none;
+}
+
+.web-instr h4 ul li:before {
+    content: '🎵';
+    margin-left: -20px;
+    margin-right: 10px;
+}
+
+.instr-card {
+    background-color: black;
+    color: white;
+    border: 10px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to left, #7cf300, #d53a9d);
+    font-family: 'New Rocker', cursive;
+}
+
+
+.title {
+    font-size: 2.5rem;
+    color: #c62a88;
+    text-shadow: 1px 1px 2px #fcc910, 0 0 25px blue, 0 0 5px darkblue;
+}
+
+.artist {
+    font-size: 2.0rem;
+    color: #c62a88;
+    text-shadow: 1px 1px 2px #fcc910, 0 0 25px blue, 0 0 5px darkblue;
+}
+
+.round-show {
+    font-size: 1.5rem;
+    color: #c62a88;
+    text-shadow: 1px 1px 2px #fcc910, 0 0 25px blue, 0 0 5px darkblue;
+}
+
+.unscramble-timer {
+    font-size: 100%;
+    color: #00fede;
+}
+
+.times-up {
+    font-size: 2.5rem;
+    -webkit-text-fill-color: black; /* Will override color (regardless of order) */
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: #f82525;
+
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.song-clip-button {
+    background-color: #2e5eef;
     height: 50px;
+    width: 50px;
+    font-size: 100%;
+}
+
+
+.drop-zone {
+    width: 5em;
+    height: 3.5em;
+    border-bottom: 2px solid white !important;
 }
 
 .occupied{
-    border-bottom: solid black 1px;
-    width: 75px;
-    height: 50px;
+    /*border-bottom: 1px solid blue;*/
+    /*width: 75px;*/
+    /*height: 50px;*/
 }
 
 .unoccupied{
-    border-bottom: solid black 1px;
-    width: 75px;
-    height: 50px;
+    border-bottom: 1px solid black;
 }
 
 .highlighted {
-    border: solid lightgreen 3px;
-    width: 75px;
-    height: 50px;
+    border: 3px solid lightgreen !important;
 }
 
 .wrong {
-    border: solid red 3px;
-    width: 75px;
-    height: 50px;
+    border: 3px solid red !important;
 }
 
 .right {
-    border: solid lightgreen 3px;
-    width: 75px;
-    height: 50px;
+    border: 3px solid lightgreen !important;
 }
 
 .progressBar {
     width: 90%;
     margin: 10px auto;
-    height: 22px;
+    height: 25px;
     background-color: transparent;
 }
 
@@ -49,8 +101,68 @@
     height: 100%;
     text-align: right;
     padding: 0 10px;
-    line-height: 22px; /* same as #progressBar height if we want text middle aligned */
+    line-height: 25px; /* same as #progressBar height if we want text middle aligned */
     width: 0;
-    background-color: green;
+    background-color: #248af3;
     box-sizing: border-box;
+}
+
+.all-cards {
+    /*border: 4px solid #00fede;*/
+    /*box-shadow: 0px 0px 5px 3px #00fede;;*/
+    border: 10px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to left, #7cf300, #d53a9d);
+    font-family: 'New Rocker', cursive;
+}
+
+.game-card {
+    background-color: black;
+}
+
+.web-words, .mobile-word {
+    font-size: 100%;
+    background-color: #8B74BD;
+}
+
+.lockin-button {
+    padding: 10px 10px;
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+    outline: none !important;
+    color: #fff;
+    background-color: #f30a0a;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 7px #999;
+}
+
+.lockin-button:hover {background-color: #248af3}
+
+.lockin-button:active {
+    background-color: #248af3;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+.check-button {
+    padding: 10px 10px;
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+    outline: none !important;
+    color: #070707;
+    background-color: #7ad204;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 7px #999;
+}
+
+.check-button:hover {background-color: #248af3}
+
+.check-button:active {
+    background-color: #248af3;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
 }
