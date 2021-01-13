@@ -275,7 +275,6 @@
 
     $(".cat-button").click(function () {
         $('.all-cards').eq(cardIndexShowing).find(".fullAnswer").val(lockAnswer())
-        console.log($(this).parent().parent().find("input")[0].value)
         $('.all-cards').eq(cardIndexShowing).addClass('hide')
         clearInterval(interval2)
         clearInterval(interval)
@@ -390,7 +389,9 @@
 
             $('source').eq(cardIndexShowing).attr('src', audioClipPath)
             $('.play-button').eq(cardIndexShowing).addClass('hide')
-            $('.sound-wave').eq(cardIndexShowing).removeClass('d-none')
+            // $('.sound-wave').eq(cardIndexShowing).removeClass('d-none')
+            $('.still-wave').eq(cardIndexShowing).addClass('hide')
+            $('.wave').eq(cardIndexShowing).removeClass('hide')
             $('.audio-controls').eq(cardIndexShowing).removeClass('hide')
             $('audio').get(cardIndexShowing).volume = .2
             $('audio').get(cardIndexShowing).load();
@@ -400,7 +401,9 @@
                     songTimeout = setTimeout(function () {
                         $('audio')[cardIndexShowing].pause()
                         $('audio')[cardIndexShowing].currentTime = 0;
-                        $('.sound-wave').eq(cardIndexShowing).addClass('d-none')
+                        $('.still-wave').eq(cardIndexShowing).removeClass('hide')
+                        $('.wave').eq(cardIndexShowing).addClass('hide')
+                        // $('.sound-wave').eq(cardIndexShowing).addClass('d-none')
                         $('.play-button-2').eq(cardIndexShowing).removeClass('hide')
                     }, 6500)
                 }).catch((error => {
@@ -415,11 +418,15 @@
         $('audio').get(cardIndexShowing).volume = .2
         $('audio').get(cardIndexShowing).load();
         $('audio').get(cardIndexShowing).play()
-        $('.sound-wave').eq(cardIndexShowing).removeClass('d-none')
+        // $('.sound-wave').eq(cardIndexShowing).removeClass('d-none')
+        $('.still-wave').eq(cardIndexShowing).addClass('hide')
+        $('.wave').eq(cardIndexShowing).removeClass('hide')
         songTimeout = setTimeout(function () {
             $('audio')[cardIndexShowing].pause()
             $('audio')[cardIndexShowing].currentTime = 0;
-            $('.sound-wave').eq(cardIndexShowing).addClass('d-none')
+            $('.still-wave').eq(cardIndexShowing).removeClass('hide')
+            $('.wave').eq(cardIndexShowing).addClass('hide')
+            // $('.sound-wave').eq(cardIndexShowing).addClass('d-none')
             $('.play-button-2').eq(cardIndexShowing).removeClass('hide')
         }, 6500)
     })

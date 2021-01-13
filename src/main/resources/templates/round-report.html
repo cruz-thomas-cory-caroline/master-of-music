@@ -47,7 +47,9 @@
         <div class="card-body">
             <h3 style="color: #ffffff">Score</h3><br>
             <h4 style="color: #ffffff" th:text="${score}"></h4>
-
+            <form th:action="@{/round-report/end}" th:method="post">
+                <button type="submit" class="ml-2 btn btn-warning">Start A New Game</button>
+            </form>
         </div>
     </div>
 </div>
