@@ -86,3 +86,46 @@
 #badgeEarned{
     display: none;
 }
+
+faHover{
+    background-color: white;
+}
+
+faHover:hover{
+    background-color: hotpink;
+}
+/*.linkFooterTC {*/
+/*    display: none;*/
+/*}*/
+
+/*.linkFooterCH {*/
+/*    display: none;*/
+/*}*/
+
+/*.linkFooterCV {*/
+/*    display: none;*/
+/*}*/
+
+/*.linkFooterCE {*/
+/*    display: none;*/
+/*}*/
+
+/*.thomas:hover .linkFooterTC{*/
+/*    display: block;*/
+/*    height: 50%;*/
+/*}*/
+
+/*.cory:hover .linkFooterCH{*/
+/*    display: block;*/
+/*    height: 50%;*/
+/*}*/
+
+/*.cruz:hover .linkFooterCV{*/
+/*    display: block;*/
+/*    height: 50%;*/
+/*}*/
+
+/*.caroline:hover .linkFooterCE{*/
+/*    display: block;*/
+/*    height: 50%;*/
+/*}*/
