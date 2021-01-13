@@ -5,9 +5,8 @@
     <title>Login</title>
 </head>
 <body>
-<div>
-
-    <div class="card text-center">
+<div class="container">
+    <div class="final-card card text-center">
         <input type="hidden" id="score" th:value="${score}">
         <h5 class="card-header">Score <span id="scoreCounter"></span></h5>
         <div class="card-body">
@@ -114,7 +113,7 @@
 
 
 </div>
-<div th:include="partials/footerNav.html :: footerNav"></div>
+<!--<div th:include="partials/footerNav.html :: footerNav"></div>-->
 </body>
 <th:block th:include="partials/scripts :: scripts"></th:block>
 

@@ -1,3 +1,4 @@
+
 .hide {
     display: none !important;
 }
@@ -165,4 +166,47 @@
     background-color: #248af3;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
+}
+
+.result-button {
+    background-color: #1c87c9;
+    -webkit-border-radius: 60px;
+    border-radius: 60px;
+    border: none;
+    color: black;
+    cursor: pointer;
+    display: inline-block;
+    font-family: sans-serif;
+    font-size: 20px;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+}
+@keyframes glowing {
+    0% {
+        background-color: #2ba805;
+        box-shadow: 0 0 5px #2ba805;
+    }
+    50% {
+        background-color: #49e819;
+        box-shadow: 0 0 20px #49e819;
+    }
+    100% {
+        background-color: #2ba805;
+        box-shadow: 0 0 5px #2ba805;
+    }
+}
+
+.result-button {
+    outline: none;
+    animation: glowing 1300ms infinite;
+}
+
+.final-screen {
+    background-color: black;
+    color: white;
+    border: 10px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to left, #7cf300, #d53a9d);
+    font-family: 'New Rocker', cursive;
 }
