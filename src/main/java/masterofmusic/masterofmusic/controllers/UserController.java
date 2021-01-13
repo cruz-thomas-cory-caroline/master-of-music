@@ -102,26 +102,21 @@ public class UserController {
     }
 
     @RequestMapping(value="/confirm-account", method= {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView confirmUserAccount(ModelAndView modelAndView, @RequestParam("token")String confirmationToken)
-    {
+    public ModelAndView confirmUserAccount(ModelAndView modelAndView, @RequestParam("token")String confirmationToken) {
         ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
 
-        if(token != null)
-        {
+        if(token != null) {
             User user = users.findByEmailIgnoreCase(token.getUser().getEmail());
             user.setEnabled(true);
             users.save(user);
             modelAndView.setViewName("accountVerified");
-        }
-        else
-        {
+        } else {
             modelAndView.addObject("message","The link is invalid or broken!");
             modelAndView.setViewName("error");
         }
-
         return modelAndView;
     }
-    // getters and setters
+
 
 
 
