@@ -25,17 +25,18 @@ import java.util.List;
 
 @Controller
 public class UserController {
-    private UserRepository users;
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private ConfirmationTokenRepository confirmationTokenRepository;
+    private final UserRepository users;
+    private final PasswordEncoder passwordEncoder;
 
-    private EmailSenderService emailSenderService;
+    private final ConfirmationTokenRepository confirmationTokenRepository;
 
-    public UserController(UserRepository users, PasswordEncoder passwordEncoder, EmailSenderService emailSenderService) {
+    private final EmailSenderService emailSenderService;
+
+    public UserController(UserRepository users, PasswordEncoder passwordEncoder, EmailSenderService emailSenderService, ConfirmationTokenRepository confirmationTokenRepository) {
         this.users = users;
         this.passwordEncoder = passwordEncoder;
         this.emailSenderService = emailSenderService;
+        this.confirmationTokenRepository = confirmationTokenRepository;
     }
 
     @GetMapping("/sign-up")
