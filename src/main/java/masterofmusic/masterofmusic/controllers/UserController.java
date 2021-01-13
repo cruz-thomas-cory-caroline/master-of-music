@@ -25,18 +25,18 @@ import java.util.List;
 
 @Controller
 public class UserController {
-    private UserRepository users;
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private ConfirmationTokenRepository confirmationTokenRepository;
+    private final UserRepository users;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private EmailSenderService emailSenderService;
+    private final ConfirmationTokenRepository confirmationTokenRepository;
 
-    public UserController(UserRepository users, PasswordEncoder passwordEncoder) {
+    private final EmailSenderService emailSenderService;
+
+    public UserController(UserRepository users, PasswordEncoder passwordEncoder, EmailSenderService emailSenderService, ConfirmationTokenRepository confirmationTokenRepository) {
         this.users = users;
         this.passwordEncoder = passwordEncoder;
-
+        this.emailSenderService = emailSenderService;
+        this.confirmationTokenRepository = confirmationTokenRepository;
     }
 
     @GetMapping("/sign-up")
@@ -105,7 +105,7 @@ public class UserController {
             mailMessage.setSubject("Complete Registration!");
             mailMessage.setFrom("masterofmusic@codeup.com");
             mailMessage.setText("To confirm your account, go to the url : "
-                    +"http://localhost:8080/confirm-account?token="+confirmationToken.getConfirmationToken());
+                    +"http://masterofmusic.fun/confirm-account?token="+confirmationToken.getConfirmationToken());
 
             emailSenderService.sendEmail(mailMessage);
             return "redirect:/login";
@@ -113,26 +113,21 @@ public class UserController {
     }
 
     @RequestMapping(value="/confirm-account", method= {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView confirmUserAccount(ModelAndView modelAndView, @RequestParam("token")String confirmationToken)
-    {
+    public ModelAndView confirmUserAccount(ModelAndView modelAndView, @RequestParam("token")String confirmationToken) {
         ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
 
-        if(token != null)
-        {
+        if(token != null) {
             User user = users.findByEmailIgnoreCase(token.getUser().getEmail());
             user.setEnabled(true);
             users.save(user);
             modelAndView.setViewName("accountVerified");
-        }
-        else
-        {
+        } else {
             modelAndView.addObject("message","The link is invalid or broken!");
             modelAndView.setViewName("error");
         }
-
         return modelAndView;
     }
-    // getters and setters
+
 
 
 
@@ -171,7 +166,7 @@ public class UserController {
             mailMessage.setSubject("Complete Password Reset!");
             mailMessage.setFrom("test-email@gmail.com");
             mailMessage.setText("To complete the password reset process, please click here: "
-                    + "http://localhost:8080/confirm-reset?token="+confirmationToken.getConfirmationToken());
+                    + "http://masterofmusic.fun/confirm-reset?token="+confirmationToken.getConfirmationToken());
             // Send the email
             emailSenderService.sendEmail(mailMessage);
 

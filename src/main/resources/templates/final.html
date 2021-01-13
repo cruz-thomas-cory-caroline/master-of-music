@@ -114,8 +114,10 @@
 
 
 </div>
+<div th:include="partials/footerNav.html :: footerNav"></div>
 </body>
 <th:block th:include="partials/scripts :: scripts"></th:block>
+
 <script th:src="@{/js/unscramble.js}"></script>
 <script type="text/javascript">
     let scoreToCount = parseInt($('#score').val())
