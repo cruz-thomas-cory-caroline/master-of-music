@@ -20,11 +20,8 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(name = "resetPasswordToken")
+    @Column(name = "reset_password_token")
     private String resetPasswordToken;
-
-    @Column(name = "securityQuestion")
-    private String securityQuestion;
 
     @Column(nullable = false)
     private boolean isAdmin;
@@ -43,10 +40,13 @@ public class User {
     )
     private List<Achievement> users_achievements;
 
+
+    private boolean isEnabled;
+
     public User() {
     }
 
-    public User(long id, String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games, String resetPasswordToken, String securityQuestion) {
+    public User(long id, String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games, boolean isEnabled, String resetPasswordToken) {
         this.id = id;
         this.email = email;
         this.username = username;
@@ -54,19 +54,19 @@ public class User {
         this.isAdmin = isAdmin;
         this.images = images;
         this.games = games;
+        this.isEnabled = isEnabled;
         this.resetPasswordToken = resetPasswordToken;
-        this.securityQuestion = securityQuestion;
     }
 
-    public User(String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games, String resetPasswordToken, String securityQuestion) {
+    public User(String email, String username, String password, boolean isAdmin, String images, List<PlayerGame> games, boolean isEnabled, String resetPasswordToken) {
         this.email = email;
         this.username = username;
         this.password = password;
         this.isAdmin = isAdmin;
         this.images = images;
         this.games = games;
+        this.isEnabled = isEnabled;
         this.resetPasswordToken = resetPasswordToken;
-        this.securityQuestion = securityQuestion;
     }
 
     public User(User copy) {
@@ -77,6 +77,8 @@ public class User {
         isAdmin = copy.isAdmin;
         images = copy.images;
         games = copy.games;
+        isEnabled = copy.isEnabled;
+        resetPasswordToken = copy.resetPasswordToken;
     }
 
     public <T> User(String name, List<T> asList) {
@@ -153,14 +155,14 @@ public class User {
 
     public void setUsers_achievements(List<Achievement> users_achievements) {
         this.users_achievements = users_achievements;
+
     }
 
-    public String getSecurityQuestion() {
-        return securityQuestion;
+    public boolean isEnabled() {
+        return isEnabled;
     }
 
-    public void setSecurityQuestion(String securityQuestion) {
-        this.securityQuestion = securityQuestion;
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
     }
-
 }
