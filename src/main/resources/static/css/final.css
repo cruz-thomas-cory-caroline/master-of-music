@@ -1,0 +1,55 @@
+.final-result-card {
+    color: white;
+    background-color: black;
+    border: 10px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to left, #7cf300, #d53a9d);
+    font-family: 'New Rocker', cursive;
+}
+
+.final-title {
+    color: #c62a88;
+    text-shadow: 1px 1px 2px #fcc910, 0 0 25px blue, 0 0 5px darkblue;
+    font-size: 2.3em;
+}
+
+.lyric-answer {
+    color: #fcc910
+}
+
+.final-hr {
+    border-color: #00fede;
+}
+
+.title-and-artist {
+    color: #c62a88;
+    text-shadow: 1px 1px 2px #fcc910, 0 0 25px blue, 0 0 5px darkblue;
+}
+
+#scoreCounterFinal{
+    color: #f7ff00;
+    text-shadow: 1px 1px 2px #fcc910, 0 0 25px blue, 0 0 5px #00008b;
+}
+
+.home-button {
+    text-decoration: none !important;
+    padding: 10px 10px;
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+    outline: none !important;
+    color: #050505;
+    background-color: #00fede;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 7px #999;
+}
+
+.home-button:hover {background-color: #f6f6f8
+}
+
+.home-button:active {
+    background-color: #f6f8fa;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
