@@ -362,7 +362,7 @@
 
     const deezerAPI = document.querySelector('meta.deezerAPI').content;
     $('.song-clip-button').click(function () {
-        let songToSearch = $('.all-cards').eq(cardIndexShowing).find($('.title'))[0].innerHTML
+        let songToSearch = $('.all-cards').eq(cardIndexShowing).find($('.unscramble-title'))[0].innerHTML
         const settings = {
             "async": true,
             "crossDomain": true,
@@ -375,7 +375,7 @@
         };
 
         $.ajax(settings).done(function (response) {
-            let artist = $('.artist')[cardIndexShowing].innerHTML
+            let artist = $('.unscramble-artist')[cardIndexShowing].innerHTML
             let audioClipPath = ""
             let clipIndex = 0;
 
