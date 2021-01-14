@@ -78,8 +78,8 @@
                 <input class="song-id" name="song-id" type="hidden" th:value="${songs[scrambledLyricsSet.indexOf(lyricSet)].getId()}">
                 <div class="card-header row text-center">
                     <div class="m-auto">
-                        <h4 class="title" th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getTitle()}"></h4>
-                        <h5 class="artist" th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getArtist()}"></h5>
+                        <h4 class="unscramble-title" th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getTitle()}"></h4>
+                        <h5 class="unscramble-artist" th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getArtist()}"></h5>
                         <h6 class="round-show">Round: <span th:text="${round}"></span></h6>
                     </div>
                     <div class="progressBar">
