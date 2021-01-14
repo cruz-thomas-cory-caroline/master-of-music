@@ -8,11 +8,13 @@
 <body>
 
 <div class="container-flex m-2">
-    <div class="row">
+    <div class="row align-items-center">
         <div class="col-12 col-md-4">
             <div class="mt-5">
-                <h3 th:if="${loggedIn}" class="welcomePlayerHeader text-center">WELCOME PLAYER <span th:text="${user.username.toUpperCase()}"></span></h3>
-                <h3 th:unless="${loggedIn}" class="welcomePlayerHeader text-center" th:text="${user.username.toUpperCase()}"></h3>
+                <h3 th:if="${loggedIn}" class="welcomePlayerHeader text-center">WELCOME PLAYER<br> <span
+                        th:text="${user.username.toUpperCase()}"></span></h3>
+                <h3 th:unless="${loggedIn}" class="welcomePlayerHeader text-center"
+                    th:text="${user.username.toUpperCase()}"></h3>
                 <section class="row">
                     <div class="col-12 d-flex justify-content-center">
                         <img class="m-2" id="profileAvatar" th:src="${user.images}" alt="profile-icon">
@@ -23,7 +25,8 @@
                             Change Avatar
                         </button>
                     </div>
-                    <a th:href="@{/achievements}" class="w-100 text-center mt-4"> <h3 class="text-white rockFont">Achievements:</h3></a>
+                    <a th:href="@{/achievements}" class="w-100 text-center mt-4"><h3 class="text-white rockFont">
+                        Achievements:</h3></a>
                     <div class="col-12 d-flex flex-wrap justify-content-center">
                         <div th:each="achievement : ${userAchievements}" class="mx-2 mt-3 justify-content-center">
                             <div>
@@ -173,26 +176,30 @@
 
         <div class="container-fluid col-12 col-md-8">
             <section class="container-fluid" id="userGameStatsContainer">
-                <h2 id="gameHistoryHeader" class="text-light my-4">Game History</h2>
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <h2 id="gameHistoryHeader" class="text-light my-5 pinkShadowFont">GAME HISTORY</h2>
+                <ul class="nav nav-tabs mt-2" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active text-warning fw-bolder" id="musicTrivia-tab" data-toggle="tab"
+                        <a class="nav-link active text-warning fw-bolder bg-dark  border border-white"
+                           id="musicTrivia-tab" data-toggle="tab"
                            href="#musicTriviaTab"
                            role="tab"
                            aria-controls="musicTriviaStats" aria-selected="true">TRIVIA MASTER</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-warning fw-bolder" id="lyricMaster-tab" data-toggle="tab"
+                        <a class="nav-link text-warning fw-bolder bg-dark  border border-white" id="lyricMaster-tab"
+                           data-toggle="tab"
                            href="#lyricMasterTab" role="tab"
                            aria-controls="lyricMasterStats" aria-selected="false">LYRIC MASTER</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-warning fw-bolder" id="musicTheory-tab" data-toggle="tab"
+                        <a class="nav-link text-warning fw-bolder bg-dark  border border-white" id="musicTheory-tab"
+                           data-toggle="tab"
                            href="#musicTheoryTab" role="tab"
                            aria-controls="musicTheoryStats" aria-selected="false">THEORY MASTER</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-warning fw-bolder" id="unscramble-tab" data-toggle="tab"
+                        <a class="nav-link text-warning fw-bolder bg-dark  border border-white" id="unscramble-tab"
+                           data-toggle="tab"
                            href="#unscrambleTab" role="tab"
                            aria-controls="unscrambleStats" aria-selected="false">UNSCRAMBLE MASTER</a>
                     </li>
@@ -210,15 +217,16 @@
                                     <h5 class="card-header text-white tabHeaders">OVERALL SCORE: <span
                                             th:text="${totalTriviaScore}"></span></h5>
                                     <div class="card-body cardBodyForTabs">
-                                        <div th:each="playerGame : ${playerGamesForTrivia}"
+                                        <div th:each="playerGame, int : ${playerGamesForTrivia}"
                                              class="card mb-2 gameStatsCards border-gradient-purple"
                                              style="width: 100%;">
                                             <div class="card-header">
-                                                <p>Total Game Score: <span th:text="${playerGame.getScore()}"></span>
+                                                <p>Game <span th:text="${int.index+1}"></span> Total Score: <span
+                                                        th:text="${playerGame.getScore()}"></span>
                                                 </p>
-                                                <ul th:each="playerGameRound : ${playerGame.getPlayerGameRounds()}">
-                                                    <li>Player Game Round Level <span
-                                                            th:text="${playerGameRound.getLevel()}"></span> Score: <span
+                                                <ul th:each="playerGameRound, int : ${playerGame.getPlayerGameRounds()}">
+                                                    <li>Player Game Round <span
+                                                            th:text="${int.index+1}"></span> Score: <span
                                                             th:text="${playerGameRound.getScore()}"></span></li>
                                                     <li>Player Game Round Difficulty: <span
                                                             th:text="${playerGameRound.getDifficulty()}"></span></li>
@@ -243,15 +251,16 @@
                                     <h5 class="card-header text-white tabHeaders">OVERALL SCORE: <span
                                             th:text="${totalLyricScore}"></span></h5>
                                     <div class="card-body cardBodyForTabs">
-                                        <div th:each="playerGame : ${playerGamesForLyric}"
+                                        <div th:each="playerGame, int : ${playerGamesForLyric}"
                                              class="card mb-2 gameStatsCards border-gradient-purple"
                                              style="width: 100%;">
                                             <div class="card-header">
-                                                <p>Total Game Score: <span th:text="${playerGame.getScore()}"></span>
+                                                <p>Game <span th:text="${int.index+1}"></span> Total Score: <span
+                                                        th:text="${playerGame.getScore()}"></span>
                                                 </p>
-                                                <ul th:each="playerGameRound : ${playerGame.getPlayerGameRounds()}">
-                                                    <li>Player Game Round Level <span
-                                                            th:text="${playerGameRound.getLevel()}"></span> Score: <span
+                                                <ul th:each="playerGameRound, int : ${playerGame.getPlayerGameRounds()}">
+                                                    <li>Player Game Round <span
+                                                            th:text="${int.index+1}"></span> Score: <span
                                                             th:text="${playerGameRound.getScore()}"></span></li>
                                                     <li>Player Game Round Difficulty: <span
                                                             th:text="${playerGameRound.getDifficulty()}"></span></li>
@@ -276,15 +285,16 @@
                                     <h5 class="card-header text-white tabHeaders">OVERALL SCORE: <span
                                             th:text="${totalTheoryScore}"></span></h5>
                                     <div class="card-body cardBodyForTabs">
-                                        <div th:each="playerGame : ${playerGamesForTheory}"
+                                        <div th:each="playerGame, int : ${playerGamesForTheory}"
                                              class="card mb-2 gameStatsCards border-gradient-purple"
                                              style="width: 100%;">
                                             <div class="card-header">
-                                                <p>Total Game Score: <span th:text="${playerGame.getScore()}"></span>
+                                                <p>Game <span th:text="${int.index+1}"></span> Total Score: <span
+                                                        th:text="${playerGame.getScore()}"></span>
                                                 </p>
-                                                <ul th:each="playerGameRound : ${playerGame.getPlayerGameRounds()}">
-                                                    <li>Player Game Round Level <span
-                                                            th:text="${playerGameRound.getLevel()}"></span> Score: <span
+                                                <ul th:each="playerGameRound, int : ${playerGame.getPlayerGameRounds()}">
+                                                    <li>Player Game Round <span
+                                                            th:text="${int.index+1}"></span> Score: <span
                                                             th:text="${playerGameRound.getScore()}"></span></li>
                                                     <li>Player Game Round Difficulty: <span
                                                             th:text="${playerGameRound.getDifficulty()}"></span></li>
@@ -308,15 +318,16 @@
                                     <h5 class="card-header text-white tabHeaders">OVERALL SCORE: <span
                                             th:text="${totalUnscrambleScore}"></span></h5>
                                     <div class="card-body cardBodyForTabs">
-                                        <div th:each="playerGame : ${playerGamesForUnscramble}"
+                                        <div th:each="playerGame, int : ${playerGamesForUnscramble}"
                                              class="card mb-2 gameStatsCards border-gradient-purple"
                                              style="width: 100%;">
                                             <div class="card-header">
-                                                <p>Total Game Score: <span th:text="${playerGame.getScore()}"></span>
+                                                <p>Game <span th:text="${int.index+1}"></span> Total Score: <span
+                                                        th:text="${playerGame.getScore()}"></span>
                                                 </p>
-                                                <ul th:each="playerGameRound : ${playerGame.getPlayerGameRounds()}">
-                                                    <li>Player Game Round Level <span
-                                                            th:text="${playerGameRound.getLevel()}"></span> Score: <span
+                                                <ul th:each="playerGameRound, int : ${playerGame.getPlayerGameRounds()}">
+                                                    <li>Player Game Round <span
+                                                            th:text="${int.index+1}"></span> Score: <span
                                                             th:text="${playerGameRound.getScore()}"></span></li>
                                                     <li>Player Game Round Difficulty: <span
                                                             th:text="${playerGameRound.getDifficulty()}"></span></li>

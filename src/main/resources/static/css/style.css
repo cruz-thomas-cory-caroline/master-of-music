@@ -80,15 +80,15 @@ body {
     to {top: 48%; left:50%}
 }
 
-/*#wordMenu {*/
-/*    position: absolute;*/
-/*    top: 91%;*/
-/*    left: 88%;*/
-/*    z-index: 100;*/
-/*    background-color: #a207e5;*/
-/*    font-family: 'New Rocker', cursive;*/
-/*    font-size: 3em;*/
-/*}*/
+#wordMenu {
+    position: absolute;
+    top: 91%;
+    left: 88%;
+    z-index: 100;
+    background-color: #a207e5;
+    font-family: 'New Rocker', cursive;
+    font-size: 3em;
+}
 
 @keyframes zoomHeader {
     from {font-size: 1em;}
@@ -110,7 +110,7 @@ body {
     font-weight: bolder;
     text-align: center;
     font-family: 'New Rocker', cursive;
-    color: #de0088;
+    color: #f30196;
     text-shadow: 1px 1px 2px #fcc910, 0 0 25px blue, 0 0 5px darkblue;
     animation-name: zoomHeader, moveHeaderUp;
     animation-duration: 5000ms, 1000ms;
@@ -142,7 +142,7 @@ body {
     top: 55%;
     left: 48%;
     transform: translate(-50%, -50%);
-    color: #b7138a;
+    color: #e701a6;
 }
 
 #gameOptions {
@@ -158,7 +158,7 @@ body {
 #triviaIcon, #lyricIcon, #musicTheoryIcon, #unscrambleLyricIcon {
     animation: pulse 4s infinite;
     font-size: 13em;
-    color: #07dce5;
+    color: #00f4ff;
 }
 
 .gameTitles {
@@ -177,7 +177,7 @@ body {
 
 .genreLabel, .difficultyLabel, #roundScore, #roundScoreCounter, #score, #scoreCounter, #userName{
     font-family: 'New Rocker', cursive;
-    color: #b7138a;
+    color: #fd03bb;
     text-shadow: 1px 1px 2px #fcc910, 0 0 25px blue, 0 0 5px darkblue;
     font-size: 2.5em;
 }
@@ -243,7 +243,7 @@ body {
 #startGameButton {
     animation: pulse 2s infinite;
     font-size: 100px;
-    color: #b7138a;
+    color: #db009d;
 }
 
 #timerInfoHeader {
@@ -259,8 +259,8 @@ body {
 
 .triviaResultsHeader, #achievementHeader {
     font-family: 'New Rocker', cursive;
-    color: #ee00ff;
-    text-shadow: 1px 1px 2px blue, 0 0 25px #fcc910, 0 0 5px darkblue;
+    color: #fd03bb;
+    text-shadow: 1px 1px 2px #fcc910, 0 0 25px blue, 0 0 5px darkblue;
     font-size: 2.5em;
 }
 
@@ -318,8 +318,8 @@ body {
 
 #staticBackdropLabel {
     font-family: 'New Rocker', cursive;
-    color: #ee00ff;
-    text-shadow: 1px 1px 2px blue, 0 0 25px #fcc910, 0 0 5px darkblue;
+    color: #fd03bb;
+    text-shadow: 1px 1px 2px #fcc910, 0 0 25px blue, 0 0 5px darkblue;
     font-size: 2.5em;
 }
 
@@ -369,7 +369,7 @@ input[type="radio"]:checked + .avatarLabel {
 .border-gradient-purple {
     border: 10px solid;
     border-image-slice: 1;
-    border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
+    border-image-source: linear-gradient(to left, #6100ff, #ff00a3);
 }
 
 .gameStatsCards:hover {
@@ -389,7 +389,7 @@ input[type="radio"]:checked + .avatarLabel {
 }
 
 .tabHeaders {
-    background-color: #b7138a;
+    background-color: #f800b5;
 }
 
 .navTabs:active {
@@ -398,15 +398,15 @@ input[type="radio"]:checked + .avatarLabel {
 
 .faqHeader {
     font-family: 'New Rocker', cursive;
-    color: #ee00ff;
-    text-shadow: 1px 1px 2px blue, 0 0 25px #fcc910, 0 0 5px darkblue;
+    color: #fd03bb;
+    text-shadow: 2px 2px 25px #23003e, 0 0 25px #020273, 0 0 25px #4e0130;
     font-size: 4em;
 }
 
 .welcomePlayerHeader {
     font-family: 'New Rocker', cursive;
-    color: #ee00ff;
-    text-shadow: 1px 1px 2px blue, 0 0 25px #fcc910, 0 0 5px darkblue;
+    color: #fd03bb;
+    text-shadow: 2px 2px 25px #23003e, 0 0 25px #020273, 0 0 25px #4e0130;
     font-size: 2em;
 }
 
