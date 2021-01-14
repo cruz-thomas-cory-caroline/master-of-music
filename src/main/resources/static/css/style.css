@@ -6,6 +6,7 @@ body,html {
     background-image: url("../img/readyPlay.gif");
     background-repeat: repeat;
     background-size: cover;
+    background-color: #1b0230;
 }
 
 body {
@@ -181,6 +182,12 @@ body {
     text-shadow: 1px 1px 1px #fcc910, 0 0 25px blue, 0 0 5px darkblue;
     font-size: 2.5em;
 }
+
+label.genreLabel, label.difficultyLabel {
+    cursor: pointer;
+}
+
+
 
 /*TRIVIA-GAME CAROUSEL*/
 #carouselExampleIndicators {
