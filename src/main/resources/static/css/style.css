@@ -474,7 +474,7 @@ background-color: #02093e;
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
-#achieveContainer, #myTabContent, #globalRankingContainer, .listRankingsGroup, #userGameStatsContainer, #resultsSection {
+#achieveContainer, #myTabContent, #globalRankingContainer, .listRankingsGroup, #userGameStatsContainer, #resultsSection, #forum-window {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }

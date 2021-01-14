@@ -28,7 +28,9 @@ public class ForumController {
         model.addAttribute("posts", postDao.findAll());
         model.addAttribute("post", new Post());
         if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString().equalsIgnoreCase("anonymousUser")) {
-            model.addAttribute("user", (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+            User userToFind = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User user = userDao.getOne(userToFind.getId());
+            model.addAttribute("user", user);
         }
         return "forum";
     }
@@ -60,11 +62,12 @@ public class ForumController {
                                  @RequestParam(name = "post-body") String body,
                                  Model model) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDao.getOne(loggedInUser.getId());
         post.setOwner(postDao.getOne(id).getOwner());
         post.setTitle(title);
         post.setBody(body);
         Post dbPost = postDao.save(post);
-        model.addAttribute("user", loggedInUser);
+        model.addAttribute("user", user);
         return "redirect:/forum";
     }
 
@@ -73,10 +76,11 @@ public class ForumController {
                                     @RequestParam(name = "comment-body") String body,
                                     Model model) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDao.getOne(loggedInUser.getId());
         Comment commentEdit = commentDao.getOne(id);
         commentEdit.setBody(body);
         commentDao.save(commentEdit);
-        model.addAttribute("user", loggedInUser);
+        model.addAttribute("user", user);
         return "redirect:/forum";
     }
 
@@ -84,14 +88,16 @@ public class ForumController {
     public String deletePost(@PathVariable long id, Model model) {
         postDao.deleteById(id);
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("user", loggedInUser);
+        User user = userDao.getOne(loggedInUser.getId());
+        model.addAttribute("user", user);
         return "redirect:/forum";
     }
 
     @PostMapping("/comment/{id}/delete")
     public String deleteComment(@PathVariable long id, Model model) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("user", loggedInUser);
+        User user = userDao.getOne(loggedInUser.getId());
+        model.addAttribute("user", user);
         commentDao.deleteById(id);
         return "redirect:/forum";
     }

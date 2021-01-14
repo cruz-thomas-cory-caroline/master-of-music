@@ -61,8 +61,8 @@
                     </div>
                 </div>
             </div>
-            <div class="card-footer text-center">
-                <button type="button" id="startButton" class="btn btn-primary" style="height: 100px; width: 200px;">Start</button>
+            <div class="card-footer text-center pt-0 pb-4">
+                <button type="button" id="startButton" class="unscramble-start-button">Start</button>
             </div>
         </div>
 
@@ -96,14 +96,14 @@
                         <img class="still-wave" th:src="@{/img/still-wave.jpg}" style="height: 100%; width: 50%" alt="Unavailable">
                         <img class="wave hide" th:src="@{/img/wave.gif}" style="height: 100%; width: 50%" alt="Unavailable">
                     </div>
-                    <div class="text-center play-button my-2">
-                        <button type="button" class="btn song-clip-button"><i class="fas fa-play"></i></button>
+                    <div class="text-center play-button my-2 mt-3">
+                        <button type="button" class="btn song-clip-button"><i class="fas fa-play mx-3"></i></button>
                     </div>
-                    <div class="hide audio-controls text-center my-2">
+                    <div class="hide audio-controls text-center my-2 mt-3">
                         <audio>
                             <source class="track-source" type="audio/mpeg">
                         </audio>
-                        <button type="button" class="btn btn-success play-button-2 hide"><i class="fas fa-play"></i> Replay</button>
+                        <button type="button" class="btn btn-success play-button-2 hide">Replay <i class="fas fa-play mx-1"></i></button>
                     </div>
                     <div class="row justify-content-center all-words my-4">
                             <div class="drop-zone m-2 unoccupied text-center d-flex align-items-center" th:each="word : ${lyricSet}">
@@ -119,7 +119,7 @@
                     </div>
 
                 </div>
-                <div class="card-footer text-center row align-items-center">
+                <div class="card-footer text-center row align-items-center pb-3">
                     <div class="col-md-4 col-sm-3 text-left">
                         <h3 class="round-show"><span th:text="${scrambledLyricsSet.indexOf(lyricSet)+1}"></span>/<span
                                 th:text="${scrambledLyricsSet.size()}"></span></h3>
@@ -129,14 +129,14 @@
                         <button type="button" class="btn btn-warning undo-button"><i class="fas fa-undo"></i></button>
                     </div>
                     <div class="col-md-4 col-sm-3 text-center">
-                        <button type="button" class="check-button check-button ml-auto"><i class="fas fa-binoculars"></i> Check <i class="fas fa-binoculars"></i></button>
+                        <button type="button" class="check-button check-button ml-auto"></i> Check <i class="fas fa-binoculars m-1"></i></button>
 
                     </div>
                     <div class="col-md-4 col-sm-3 text-right" th:if="${scrambledLyricsSet.indexOf(lyricSet) == scrambledLyricsSet.size()-1}">
-                        <button type="button" class="lockin-button last-cat-button">Lock It In!</button>
+                        <button type="button" class="lockin-button last-cat-button">Lock It In! <i class="fas fa-lock mx-1"></i></button>
                     </div>
                     <div class="col-md-4 col-sm-3 text-right" th:unless="${scrambledLyricsSet.indexOf(lyricSet) == scrambledLyricsSet.size()-1}">
-                        <button type="button" class="lockin-button cat-button ml-auto">Lock It In!</button>
+                        <button type="button" class="lockin-button cat-button ml-auto">Lock It In! <i class="fas fa-lock mx-1"></i></button>
 
                     </div>
                 </div>
