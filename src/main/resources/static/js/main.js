@@ -69,6 +69,20 @@
             $("#backButton").show();
         });
 
+        $('.unscramble-diff-options').click(function () {
+            $('.unscramble-diff-options').each(function () {
+                $(this).removeClass('unscramble-diff-selected')
+            })
+            $(this).addClass('unscramble-diff-selected')
+        })
+
+        $('.unscramble-genre-options').click(function () {
+            $('.unscramble-genre-options').each(function () {
+                $(this).removeClass('unscramble-genre-selected')
+            })
+            $(this).addClass('unscramble-genre-selected')
+        })
+
     });
 
 })();

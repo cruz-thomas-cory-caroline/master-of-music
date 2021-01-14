@@ -178,7 +178,7 @@ body {
 .genreLabel, .difficultyLabel, #roundScore, #roundScoreCounter, #score, #scoreCounter, #userName{
     font-family: 'New Rocker', cursive;
     color: #fd03bb;
-    text-shadow: 1px 1px 2px #fcc910, 0 0 25px blue, 0 0 5px darkblue;
+    text-shadow: 1px 1px 1px #fcc910, 0 0 25px blue, 0 0 5px darkblue;
     font-size: 2.5em;
 }
 
@@ -509,6 +509,21 @@ background-color: #02093e;
     width: 14em;
     padding: 0 8px;
 }
+
+.unscramble-diff-options:hover, .unscramble-genre-options:hover{
+    text-shadow: 2px 2px 1px #fcc910, 0 0 5px blue, 0 0 5px darkblue;
+}
+
+.unscramble-diff-selected, .unscramble-genre-selected {
+    color: transparent;
+    text-shadow: 0px 0px 2px 3px #f602b9;
+}
+
+
+
+
+
+
 
 
 
