@@ -20,7 +20,8 @@
                 <p th:if="${user}" class="d-inline rockFont p-0 m-0">Profile</p>
             </a>
 
-            <img th:unless="${user}" style="max-height: 50px;max-width: 50px" src="/img/unnamed.png">
+
+            <i th:unless="${user}" style="color: #a207e5" class="fas fa-user-circle fa-2x"></i>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 
