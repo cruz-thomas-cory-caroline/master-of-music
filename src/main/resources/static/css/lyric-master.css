@@ -78,3 +78,55 @@
 
 .lyricCards .LMcard{display:none;}
 .lyricCards .LMcard.active{display:initial}
+
+.title{
+    display: none;
+}
+
+#badgeEarned{
+    display: none;
+}
+
+faHover{
+    background-color: white;
+}
+
+faHover:hover{
+    background: #d60e96;
+    color: #fff;
+}
+/*.linkFooterTC {*/
+/*    display: none;*/
+/*}*/
+
+/*.linkFooterCH {*/
+/*    display: none;*/
+/*}*/
+
+/*.linkFooterCV {*/
+/*    display: none;*/
+/*}*/
+
+/*.linkFooterCE {*/
+/*    display: none;*/
+/*}*/
+
+/*.thomas:hover .linkFooterTC{*/
+/*    display: block;*/
+/*    height: 50%;*/
+/*}*/
+
+/*.cory:hover .linkFooterCH{*/
+/*    display: block;*/
+/*    height: 50%;*/
+/*}*/
+
+/*.cruz:hover .linkFooterCV{*/
+/*    display: block;*/
+/*    height: 50%;*/
+/*}*/
+
+/*.caroline:hover .linkFooterCE{*/
+/*    display: block;*/
+/*    height: 50%;*/
+/*}*/

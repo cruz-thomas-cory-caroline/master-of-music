@@ -33,14 +33,16 @@ public class TheoryController {
         this.userDao = userDao;
     }
 
+
+
+
     PlayerGame playerGame = new PlayerGame();
-
-
     @GetMapping("/music-theory/{id}")
     public String viewQuizFormat(
             @PathVariable int id,
             @RequestParam(name = "theoryDifficultyOptions") String difficultySelection,
             Model model) {
+
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Game game = gameDao.findById(2);
         long playerGameId = playerGame.getId();
@@ -106,6 +108,13 @@ public class TheoryController {
 
         model.addAttribute("score", score);
         return "round-report";
+    }
+
+    @PostMapping("/round-report/end")
+    public String submit() {
+        playerGame = new PlayerGame();
+
+        return "redirect:/index";
     }
 
 
