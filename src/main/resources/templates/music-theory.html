@@ -16,6 +16,9 @@
     </style>
 </head>
 <body>
+<div>
+    <h1 class="questionHeader result-cards">Music Theory Master</h1>
+</div>
 <div th:switch="${wrong != null || correct != null}" class="mt-5">
     <div th:case="${false}" class="card bg-dark m-auto" style="width: 38rem;" id="questionCard">
         <div class="card-header">
