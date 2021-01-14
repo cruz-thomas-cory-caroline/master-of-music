@@ -1,21 +1,42 @@
-/*@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');*/
 
 .start-menu{
    top: 20%;
 }
 
-/*.highlight {*/
-/*    background: green;*/
-/*}*/
+.LMCardBorder {
+    background: linear-gradient(to right, #0049ff, #9b029b);
+    padding: 3px;
+}
 
-/*@font-face {*/
-/*    font-family: 'Press Start 2p';*/
-/*}*/
+.titleArtistHeader {
+    font-family: 'New Rocker', cursive;
+    color: #9b029b;
+    text-shadow: 2px 2px 25px #23003e, 0 0 25px #020273, 0 0 25px #4e0130;
+    font-size: 1.5em;
+}
 
-/*.lyricCardsBG {*/
-/*    background-color: rgba(0, 0, 0, 0.34);*/
-/*    font-family: 'Press Start 2p';*/
-/*}*/
+
+.video-game-button-black {
+    text-shadow: 1px 1px #000005, -1px -1px #000005;
+    line-height: 1.5em;
+    text-align: center;
+    display: inline-block;
+    -webkit-border-radius: .75em;
+    -moz-border-radius: .75em;
+    -o-border-radius: .75em;
+    border-radius: .75em;
+    background-color: #222;
+    -webkit-box-shadow:  0 .2em #222;
+    -moz-box-shadow:  0 .2em #222;
+    -o-box-shadow:  0 .2em #222;
+    box-shadow:  0 .2em #222;
+    color: white;
+    margin: 5px;
+    background-color: #222;
+    cursor: pointer;
+    padding-left: 5px;
+    font-family: 'New Rocker', cursive;
+}
 
 .video-game-button {
     text-shadow: 1px 1px blue, -1px -1px darkblue;
@@ -50,24 +71,42 @@
     margin:5px;
     font-weight: bold;
     padding: 10px 10px 10px 10px ;
-    background-color: lightgray;
     text-shadow: -1px -1px black;
-    color: gray;
+    color: #ddd903 !important;
     -webkit-border-radius: 7px;
     -moz-border-radius: 7px;
     -o-border-radius: 7px;
     border-radius: 7px;
-    box-shadow: 0 .2em gray;
     cursor: pointer;
     font-family: 'New Rocker', cursive;
 
 }
+
+.hint-btn {
+    padding: 10px 10px;
+    text-align: center;
+    cursor: pointer;
+    outline: none !important;
+    color: #070707;
+    background-color: #7ad204;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 7px #999;
+    margin-bottom: 1em;
+}
+
+
 .video-game-button:active, .start-btn:active {
     box-shadow: none;
     position: relative;
     top: .2em;
 }
 
+.video-game-button-black:active, .start-btn:active {
+    box-shadow: none;
+    position: relative;
+    top: .2em;
+}
 #headerLM {
     font-weight: bolder;
     text-align: center;
@@ -121,6 +160,19 @@
     size: 4em;
     transform: skewY(20deg)
 }
+
+.LMGameHeader {
+    font-family: 'New Rocker', cursive;
+    color: #ddd903;
+    text-shadow: 2px 2px 25px #23003e, 0 0 25px #020273, 0 0 25px #4e0130;
+    font-size: 4em;
+}
+
+/*.forgotPasswordCard {*/
+/*    background: #222;*/
+/*    color: white;*/
+/*    padding: 1rem;*/
+/*}*/
 /*.linkFooterTC {*/
 /*    display: none;*/
 /*}*/
