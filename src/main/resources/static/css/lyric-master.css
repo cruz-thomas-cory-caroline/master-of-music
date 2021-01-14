@@ -68,9 +68,7 @@
 .start-btn{
     text-align: center;
     display: inline-block;
-    margin:5px;
     font-weight: bold;
-    padding: 10px 10px 10px 10px ;
     text-shadow: -1px -1px black;
     color: #ddd903 !important;
     -webkit-border-radius: 7px;
