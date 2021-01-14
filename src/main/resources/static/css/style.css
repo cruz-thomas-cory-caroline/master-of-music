@@ -253,8 +253,10 @@ body {
 
 #resultsSection {
     margin: auto;
-    height: 40em;
+    height: 45rem;
+    width: 80%;
     overflow-y: scroll;
+    padding-bottom: 80px;
 }
 
 .triviaResultsHeader, #achievementHeader {
