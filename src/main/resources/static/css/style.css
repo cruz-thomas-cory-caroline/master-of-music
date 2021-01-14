@@ -448,6 +448,37 @@ background-color: #02093e;
     margin: 10px auto;
 }
 
+/* Hide scrollbar for Chrome, Safari and Opera */
+#achieveContainer::-webkit-scrollbar {
+    display: none;
+}
+
+#resultsSection::-webkit-scrollbar {
+    display: none;
+}
+
+#myTabContent::-webkit-scrollbar {
+    display: none;
+}
+
+#globalRankingContainer::-webkit-scrollbar {
+    display: none;
+}
+
+.listRankingsGroup::-webkit-scrollbar {
+    display: none;
+}
+
+#userGameStatsContainer::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+#achieveContainer, #myTabContent, #globalRankingContainer, .listRankingsGroup, #userGameStatsContainer, #resultsSection {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
 .hrLine2 {
     border-top: 5px solid;
     border-image-slice: 1;
