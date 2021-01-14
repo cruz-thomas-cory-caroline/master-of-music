@@ -49,7 +49,7 @@
     display: inline-block;
     margin:5px;
     font-weight: bold;
-    padding: 10px 0 10px 10px ;
+    padding: 10px 10px 10px 10px ;
     background-color: lightgray;
     text-shadow: -1px -1px black;
     color: gray;
@@ -78,3 +78,81 @@
 
 .lyricCards .LMcard{display:none;}
 .lyricCards .LMcard.active{display:initial}
+
+.title{
+    display: none;
+}
+
+#badgeEarned{
+    display: none;
+}
+
+
+.pulseTime{
+    transform: scale(1);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.95);
+
+    }
+
+    70% {
+        transform: scale(1);
+
+    }
+
+    100% {
+        transform: scale(0.95);
+
+    }
+}
+
+.faHover{
+    color: white;
+    size: 3em;
+
+}
+
+.faHover:hover{
+    color: #a16ef6;
+    size: 4em;
+    transform: skewY(20deg)
+}
+/*.linkFooterTC {*/
+/*    display: none;*/
+/*}*/
+
+/*.linkFooterCH {*/
+/*    display: none;*/
+/*}*/
+
+/*.linkFooterCV {*/
+/*    display: none;*/
+/*}*/
+
+/*.linkFooterCE {*/
+/*    display: none;*/
+/*}*/
+
+/*.thomas:hover .linkFooterTC{*/
+/*    display: block;*/
+/*    height: 50%;*/
+/*}*/
+
+/*.cory:hover .linkFooterCH{*/
+/*    display: block;*/
+/*    height: 50%;*/
+/*}*/
+
+/*.cruz:hover .linkFooterCV{*/
+/*    display: block;*/
+/*    height: 50%;*/
+/*}*/
+
+/*.caroline:hover .linkFooterCE{*/
+/*    display: block;*/
+/*    height: 50%;*/
+/*}*/

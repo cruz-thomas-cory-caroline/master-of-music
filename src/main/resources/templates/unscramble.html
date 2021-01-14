@@ -11,7 +11,7 @@
     <meta class="deezerAPI" th:content="${deezerAPI}">
 </head>
 <body>
-<main class="container web row align-items-center mx-auto justify-content-center" style="height: 100%">
+<main class="container web mb-5" style="height: 75%">
     <div class="game-start">
         <div class="card instr-card mx-auto">
             <div class="card-body">
@@ -43,7 +43,7 @@
                             <li class="card-text m-4">Drag and drop the words to have them swap positions</li>
                             <li class="card-text m-4">Hit the <i class="fas fa-play"></i> button to hear a 5 second clip of the song.</li>
                             <ul>
-                                <li class="m-4"><span style="color: red;">NOTE: </span> This feature is to jog your memory of the song, the lyrics may or may not pick up where it stops.</li>
+                                <li class="m-4"><span style="color: red;">NOTE: </span> Use this to jog your memory of the song, the lyrics may or may not pick up where it stops.</li>
                                 <li class="m-4"><span style="color: green;">HINT: </span> All lyrics start with a capital word.</li>
                             </ul>
                             <li class="card-text m-4">Click <i class="fas fa-binoculars"></i> to catch a glimpse of what words are in the right position.</li>
@@ -51,7 +51,14 @@
                             <li class="card-text m-4">Click Start to Begin!</li>
                         </ol>
                     </h4>
+                    <div>
+                        <h4>
 
+                        </h4>
+                        <h4>
+
+                        </h4>
+                    </div>
                 </div>
             </div>
             <div class="card-footer text-center">
@@ -71,13 +78,13 @@
                 <input class="song-id" name="song-id" type="hidden" th:value="${songs[scrambledLyricsSet.indexOf(lyricSet)].getId()}">
                 <div class="card-header row text-center">
                     <div class="m-auto">
-                        <h4 class="title" th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getTitle()}"></h4>
-                        <h5 class="artist" th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getArtist()}"></h5>
+                        <h4 class="unscramble-title" th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getTitle()}"></h4>
+                        <h5 class="unscramble-artist" th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getArtist()}"></h5>
                         <h6 class="round-show">Round: <span th:text="${round}"></span></h6>
                     </div>
                     <div class="progressBar">
                         <h1 class="times-up hide">Times Up!</h1>
-                        <div class="bar row d-flex align-items-center">
+                        <div class="bar">
                             <h5>
                                 <span class="unscramble-timer" th:text="${timeLimit}"></span>
                             </h5>
@@ -85,8 +92,9 @@
                     </div>
                 </div>
                 <div class="card-body justify-content-center">
-                    <div class="text-center sound-wave d-none" style="height: 200px">
-                        <img th:src="@{/img/wave.gif}" style="height: 100%; width: 50%" alt="Unavailable">
+                    <div class="text-center sound-wave" style="height: 200px">
+                        <img class="still-wave" th:src="@{/img/still-wave.jpg}" style="height: 100%; width: 50%" alt="Unavailable">
+                        <img class="wave hide" th:src="@{/img/wave.gif}" style="height: 100%; width: 50%" alt="Unavailable">
                     </div>
                     <div class="text-center play-button my-2">
                         <button type="button" class="btn song-clip-button"><i class="fas fa-play"></i></button>
@@ -122,13 +130,14 @@
                     </div>
                     <div class="col-md-4 col-sm-3 text-center">
                         <button type="button" class="check-button check-button ml-auto"><i class="fas fa-binoculars"></i> Check <i class="fas fa-binoculars"></i></button>
+
                     </div>
                     <div class="col-md-4 col-sm-3 text-right" th:if="${scrambledLyricsSet.indexOf(lyricSet) == scrambledLyricsSet.size()-1}">
                         <button type="button" class="lockin-button last-cat-button">Lock It In!</button>
                     </div>
-                    <div class="col-md-4 col-sm-3 text-right"
-                         th:unless="${scrambledLyricsSet.indexOf(lyricSet) == scrambledLyricsSet.size()-1}">
+                    <div class="col-md-4 col-sm-3 text-right" th:unless="${scrambledLyricsSet.indexOf(lyricSet) == scrambledLyricsSet.size()-1}">
                         <button type="button" class="lockin-button cat-button ml-auto">Lock It In!</button>
+
                     </div>
                 </div>
             </div>
@@ -138,17 +147,20 @@
             <div class="card-body text-center">
                 <h2 class="card-title">Great Job!</h2>
                 <h4 class="card-text">Ready to see your results?</h4>
-                <button type="submit" class="btn btn-primary result-button">View Results</button>
+                <button type="submit" class="result-button ">View Results</button>
             </div>
         </div>
     </form>
-
+    <footer>
+        <div th:include="partials/footerNav.html :: footerNav"></div>
+    </footer>
 </main>
-<div th:include="partials/footerNav.html :: footerNav"></div>
 <div th:include="partials/scripts.html :: scripts"></div>
+
 <script th:src="@{/js/keys.js}"></script>
 <script th:src="@{/js/unscramble.js}"></script>
 
 
 </body>
+
 </html>
