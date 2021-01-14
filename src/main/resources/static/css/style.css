@@ -46,6 +46,29 @@ body {
     margin-left: auto;
 }
 
+.navLinkItemText {
+    font-size: 1rem;
+    font-weight: bolder;
+}
+
+
+.navLinkItemContainer {
+    position:relative;
+    width:80px;
+    height:80px; /*dimensions of image*/
+}
+
+.navLinkItemContainer .navTabLinkOverlay, .navLinkItemContainer .navLinkItemText {
+    transition: opacity 0.5s ease-in-out;
+}
+.navLinkItemContainer .navLinkItemText {
+    position:absolute;
+    opacity:0;
+}
+
+.navLinkItemContainer:hover .navTabLinkOverlay {opacity:0;}
+.navLinkItemContainer:hover .navLinkItemText {opacity:1;}
+
 #backButton {
     position: absolute;
     top: 0;
