@@ -79,11 +79,8 @@
                                      aria-labelledby="musicTrivia-tab">
                                     <!--start music trivia tab -->
                                     <div class="card">
-                                        <h5 th:if="${game3Standing}" class="card-header text-white tabHeaders">You Rank:
+                                        <h5 th:if="${game3Standing}" class="card-header text-white tabHeaders">Your Rank:
                                             <span th:text="${game3Standing}"></span>
-                                        </h5>
-                                        <h5 th:unless="${game3Standing}" class="card-header text-white tabHeaders"><span
-                                                th:text="${game3Standing}"></span>
                                         </h5>
                                         <div class="card-body cardBodyForTabs">
                                             <div th:each="user, int : ${game3Players}"
