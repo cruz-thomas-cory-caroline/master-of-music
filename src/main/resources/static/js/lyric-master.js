@@ -54,6 +54,7 @@
         var nextNode = lyricCards.filter('.active').next();
         showCard(nextNode);
         cardIndexShowing++;
+        $('.hint').removeClass('hide');
         // if (cardIndexShowing === $("#difficultySelected").length - 1) {
         //            $("#submit").show("slow");
         //          }
@@ -70,6 +71,10 @@
         cardIndexShowing--;
     });
 
+    $('.hint').click(function () {
+        $('.title').eq(cardIndexShowing).toggle('slow');
+        $('.hint').addClass('hide');
+    });
 
     //hides cards and displays submit when card loop is complete
     //     ShowTheelement(0);
@@ -97,11 +102,5 @@
     //         }
     //     });
 
-    $('.hint').click(function () {
-        console.log(cardIndexShowing);
-        // console.log($("#title").eq(cardIndexShowing));
-        console.log( $(this).find($('.title')));
-        $('.title').eq(cardIndexShowing).toggle('slow');
-    });
 
 })();

@@ -127,6 +127,11 @@ public class TheoryController {
         User user = userDao.getOne(userIdToGrab.getId());
         ArrayList<PlayerGame> theoryGameList = playerGameDao.findAllByGameId(2L);
 
+        //PROFILE PIC
+        if (!SecurityContextHolder.getContext().getAuthentication().getName().equalsIgnoreCase("anonymousUser")) {
+            User userToShow = userDao.getOne(user.getId());
+            model.addAttribute("user", userToShow);
+        }
 
 //        finding the correct answer
         ArrayList<Question> theoryList = questionDao.findAllByGameId(2L);

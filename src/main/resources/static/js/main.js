@@ -83,6 +83,7 @@
             $(this).addClass('unscramble-genre-selected')
         })
 
+
     });
 
 })();

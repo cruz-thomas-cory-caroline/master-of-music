@@ -34,7 +34,7 @@ Caroline Esquivel:
 
 Cruzanio Villarreal: 
 
-Courtney Holley: 
+Courtney Holley: My contributions to Master of Music consisted of: Overall front-end design, database design, the creation of the music trivia mini-game, the users profile page, and the achievements page.
 
 Thomas Crowder: Responsible for the Music Theory mini game. Used Java to create a quiz style game, 
 that tests the player on their knowledge of music theory. Also helped with other small features such as profile

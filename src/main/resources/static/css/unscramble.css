@@ -55,14 +55,6 @@
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
-.song-clip-button {
-    background-color: #2e5eef;
-    height: 50px;
-    width: 50px;
-    font-size: 100%;
-}
-
-
 .drop-zone {
     width: 5em;
     height: 3.5em;
@@ -132,8 +124,8 @@
     text-align: center;
     cursor: pointer;
     outline: none !important;
-    color: #fff;
-    background-color: #f30a0a;
+    color: black;
+    background-color:  #7ad204;
     border: none;
     border-radius: 15px;
     box-shadow: 0 7px #999;
@@ -154,7 +146,7 @@
     cursor: pointer;
     outline: none !important;
     color: #070707;
-    background-color: #7ad204;
+    background-color: #fae70a;
     border: none;
     border-radius: 15px;
     box-shadow: 0 7px #999;
@@ -163,6 +155,78 @@
 .check-button:hover {background-color: #248af3}
 
 .check-button:active {
+    background-color: #248af3;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+.song-clip-button {
+    padding: 5px 5px;
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+    outline: none !important;
+    color: #f1ecec;
+    background-color: #0360e3;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px #999;
+}
+
+.song-clip-button:hover {
+    background-color: white;
+    color: #0360e3;
+}
+
+.song-clip-button:active {
+    background-color: #0360e3;
+    box-shadow: 0 4px #666;
+    transform: translateY(4px);
+}
+
+.play-button-2 {
+    padding: 5px 5px;
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+    outline: none !important;
+    color: #fcf9f9;
+    background-color: #0360e3;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 7px #999;
+}
+
+.play-button-2:hover {
+    background-color: white;
+    color: #0360e3;
+}
+
+.play-button-2:active {
+    background-color: #248af3;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+.unscramble-start-button {
+    padding: 20px 30px;
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+    outline: none !important;
+    color: #fcf9f9;
+    background-color: #0360e3;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 8px #999;
+}
+
+.unscramble-start-button:hover {
+    background-color: white;
+    color: #0360e3;
+}
+
+.unscramble-start-button:active {
     background-color: #248af3;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
