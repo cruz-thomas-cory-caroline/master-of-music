@@ -180,8 +180,8 @@ body,html {
     position: absolute;
     top: 20%;
     font-family: 'New Rocker', cursive;
-    color: #b7138a;
-    text-shadow: 2px 2px 4px #1b0230, 0 0 25px #ebebee, 0 0 10px darkblue;
+    color: #fd03bb;
+    text-shadow: 2px 2px 25px #23003e, 0 0 25px #020273, 0 0 25px #4e0130;
     font-size: 3em;
 }
 
