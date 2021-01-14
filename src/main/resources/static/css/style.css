@@ -58,6 +58,10 @@ body {
     height:80px; /*dimensions of image*/
 }
 
+.navTabLinkOverlay {
+
+}
+
 .navLinkItemContainer .navTabLinkOverlay, .navLinkItemContainer .navLinkItemText {
     transition: opacity 0.5s ease-in-out;
 }
