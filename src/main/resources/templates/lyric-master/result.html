@@ -24,10 +24,10 @@
     </div>
     <body text="white">
     <div class="container">
-        <div class="row video-game-button">
+        <div class="row video-game-button-black">
             <div class="col-sm">
 
-                <div class="video-game-button">
+                <div class="video-game-button-black">
                     <form th:action="@{/lyric-master/}" method="post">
                         <section>
                             <h5 class="text-white text-start">Difficulty:</h5>
@@ -77,7 +77,7 @@
                     </form>
                 </div>
             </div>
-            <div class="col-sm video-game-button">
+            <div class="col-sm video-game-button-black">
                 <h4 class="text-light fs-1 bg-success">CORRECT ANSWERS</h4>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item start-btn" th:each="song, int : ${correctSongs}">
@@ -88,7 +88,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-sm video-game-button mt-5">
+            <div class="col-sm video-game-button-black mt-5">
                 <h4 class="text-light fs-1 bg-danger">INCORRECT ANSWERS</h4>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item start-btn" th:each="song, int : ${incorrectSongs}">
