@@ -28,23 +28,35 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" aria-current="page" th:href="@{/index}">Games</a>
+                    <li class="nav-item active navLinkItemContainer mx-2 d-flex justify-content-center align-items-center">
+                        <a class="nav-link navLinkItemText text-white h-100 w-100 d-flex justify-content-center align-items-center"
+                           aria-current="page"
+                           th:href="@{/index}">Games</a>
+                        <i class="fas fa-gamepad text-white navTabLinkOverlay fa-3x badge2-gradient"></i>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/leaderboard}">Leaderboard</a>
+                    <li class="nav-item navLinkItemContainer mx-2 d-flex justify-content-center align-items-center">
+                        <a class="nav-link text-white navLinkItemText h-100 w-100 p-0 d-flex justify-content-center align-items-center"
+                           th:href="@{/leaderboard}">Leaderboard</a>
+                        <i class="fas fa-list-alt navTabLinkOverlay text-white fa-3x badge2-gradient"></i>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/findafriend">Find A Friend</a>
+                    <li class="nav-item navLinkItemContainer mx-2 d-flex justify-content-center align-items-center">
+                        <a class="nav-link navLinkItemText text-white h-100 w-100 p-0 d-flex text-center align-items-center" th:href="@{/find-a-friend}">Find A Friend</a>
+                        <i class="fas fa-users text-white navTabLinkOverlay fa-3x badge2-gradient"></i>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/achievements">Achievements</a>
+                    <li class="nav-item navLinkItemContainer mx-2 d-flex justify-content-center align-items-center">
+                        <a class="nav-link navLinkItemText text-white h-100 w-100 p-0 m-auto d-flex justify-content-center align-items-center"
+                           href="/achievements">Achievements</a>
+                        <i class="fas fa-award text-white navTabLinkOverlay fa-3x badge2-gradient"></i>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/forum}">Forum</a>
+                    <li class="nav-item navLinkItemContainer mx-2 d-flex justify-content-center align-items-center">
+                        <a class="nav-link navLinkItemText text-white h-100 w-100 p-0 m-auto d-flex justify-content-center align-items-center"
+                           th:href="@{/forum}">Forum</a>
+                        <i class="fas fa-comments text-white navTabLinkOverlay fa-3x badge2-gradient"></i>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/faq}">FAQ</a>
+                    <li class="nav-item navLinkItemContainer mx-2 d-flex justify-content-center align-items-center">
+                        <a class="nav-link navLinkItemText text-white h-100 w-100 p-0 m-auto d-flex justify-content-center align-items-center"
+                           th:href="@{/faq}">FAQ</a>
+                        <i class="fas fa-id-card text-white navTabLinkOverlay fa-3x badge2-gradient"></i>
                     </li>
                 </ul>
             </div>

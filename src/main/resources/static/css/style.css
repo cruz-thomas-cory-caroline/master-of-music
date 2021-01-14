@@ -6,6 +6,7 @@ body,html {
     background-image: url("../img/readyPlay.gif");
     background-repeat: repeat;
     background-size: cover;
+    background-color: #1b0230;
 }
 
 body {
@@ -44,6 +45,33 @@ body {
 #navbarCollapse {
     margin-left: auto;
 }
+
+.navLinkItemText {
+    font-size: 1rem;
+    font-weight: bolder;
+}
+
+
+.navLinkItemContainer {
+    position:relative;
+    width:80px;
+    height:80px; /*dimensions of image*/
+}
+
+.navTabLinkOverlay {
+
+}
+
+.navLinkItemContainer .navTabLinkOverlay, .navLinkItemContainer .navLinkItemText {
+    transition: opacity 0.5s ease-in-out;
+}
+.navLinkItemContainer .navLinkItemText {
+    position:absolute;
+    opacity:0;
+}
+
+.navLinkItemContainer:hover .navTabLinkOverlay {opacity:0;}
+.navLinkItemContainer:hover .navLinkItemText {opacity:1;}
 
 #backButton {
     position: absolute;
@@ -181,6 +209,12 @@ body {
     text-shadow: 1px 1px 1px #fcc910, 0 0 25px blue, 0 0 5px darkblue;
     font-size: 2.5em;
 }
+
+label.genreLabel, label.difficultyLabel {
+    cursor: pointer;
+}
+
+
 
 /*TRIVIA-GAME CAROUSEL*/
 #carouselExampleIndicators {
