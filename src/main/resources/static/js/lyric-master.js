@@ -54,9 +54,9 @@
         var nextNode = lyricCards.filter('.active').next();
         showCard(nextNode);
         cardIndexShowing++;
-        if (cardIndexShowing === $("#difficultySelected").length - 1) {
-                   $("#submit").show("slow");
-                 }
+        // if (cardIndexShowing === $("#difficultySelected").length - 1) {
+        //            $("#submit").show("slow");
+        //          }
     });
 
     $('.lyricCards .LMcard:first').addClass('active');
