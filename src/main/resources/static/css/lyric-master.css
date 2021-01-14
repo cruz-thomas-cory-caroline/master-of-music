@@ -49,7 +49,7 @@
     display: inline-block;
     margin:5px;
     font-weight: bold;
-    padding: 10px 0 10px 10px ;
+    padding: 10px 10px 10px 10px ;
     background-color: lightgray;
     text-shadow: -1px -1px black;
     color: gray;
@@ -87,13 +87,39 @@
     display: none;
 }
 
-faHover{
-    background-color: white;
+
+.pulseTime{
+    transform: scale(1);
+    animation: pulse 2s infinite;
 }
 
-faHover:hover{
-    background: #d60e96;
-    color: #fff;
+@keyframes pulse {
+    0% {
+        transform: scale(0.95);
+
+    }
+
+    70% {
+        transform: scale(1);
+
+    }
+
+    100% {
+        transform: scale(0.95);
+
+    }
+}
+
+.faHover{
+    color: white;
+    size: 3em;
+
+}
+
+.faHover:hover{
+    color: #a16ef6;
+    size: 4em;
+    transform: skewY(20deg)
 }
 /*.linkFooterTC {*/
 /*    display: none;*/
