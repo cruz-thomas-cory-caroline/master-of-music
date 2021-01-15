@@ -19,7 +19,7 @@ public class FindFriendController {
         this.userDao = userDao;
     }
 
-    @GetMapping("/findafriend")
+    @GetMapping("/find-a-friend")
     public String findFriendPage(Model model){
 
         if (!SecurityContextHolder.getContext().getAuthentication().getName().equalsIgnoreCase("anonymousUser")) {
