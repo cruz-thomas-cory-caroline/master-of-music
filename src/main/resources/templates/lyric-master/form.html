@@ -9,11 +9,11 @@
     <title>Title</title>
 </head>
 <body class="body">
-<div class="container w-60 pb-80" style="padding-bottom: 100px">
-    <h4 id="headerLM" style="size: 12em" class="text-center LMGameHeader">Lyric Master</h4>
+<div class="container pb-80" style="padding-bottom: 100px; width: 40rem">
+    <h1 id="headerLM" class="text-center">Lyric Master</h1>
     <div class=" card text-center game-start start-menu lyricCards avatarBorderCont">
         <div class="card-body forgotPasswordCard lyricCardsBG video-game-button-black">
-            <h5 class="rockFont">How to Play</h5>
+            <h4 class="rockFont">How to Play</h4>
             <p>You will be given <span th:text="${questions}"></span> incomplete song lyrics.</p>
             <p>Select the correct verse to complete the displayed lyrics.</p>
             <p>Complete the game before time runs out! You have <span th:text="${timeLimit}"></span> seconds!
@@ -45,7 +45,7 @@
                             <h6 class="titleArtistHeader text-center pulseTime">Time Remaining: <span
                                     class="lyricMaster-timer pulseTime"
                                     th:text="${timeLimit}"></span></h6>
-                            <div class="form-check form-check-inline quizAnswers "
+                            <div class="form-check form-check-inline LMquizAnswers d-flex"
                                  th:each="lyricAnswer : ${song.lyricAnswers}">
                                 <li class='video-game-button-black'>
                                     <input class="form-check-input solutions" th:id="${lyricAnswer.id}"
@@ -66,7 +66,7 @@
                 </div>
                 <div class="card-body video-game-button-black m-0 hidden w-100" id="submit">
                     <p class="card-text">Submit to View Results!</p>
-                    <button type="submit" class="lockin-button" value="Submit">Submit</button>
+                    <button type="submit" class="finishedBtn" value="Submit">Finished the Quiz!</button>
                 </div>
             </div>
         </div>
