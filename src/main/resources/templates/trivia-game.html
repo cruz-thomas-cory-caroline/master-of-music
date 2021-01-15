@@ -6,9 +6,9 @@
 </head>
 <body class="body">
 
-<div id="triviaGameContainer" class="container-fluid h-100 w-100" style="padding-bottom: 120px">
+<div id="triviaGameContainer" class="container-fluid h-100 w-100 text-center" style="padding-bottom: 120px">
     <h1 class="text-center mt-3 rockFont pinkShadowFont display-4">Trivia Master</h1>
-    <!--    <span id="timer" class="badge rounded-pill bg-primary"></span>-->
+    <span id="timer" class="badge rounded-pill bg-primary"></span>
 
     <div id="carouselExampleIndicators" class="carousel slide" style="padding-bottom: 100px" data-pause="false">
         <ol class="carousel-indicators mt-4">
@@ -38,7 +38,6 @@
                 <div class="carousel-item triviaCarItem" th:each="question : ${questions}">
                     <div class="triviaCarItem">
                         <div class="card m-auto triviaCard">
-                            <span id="timer" class="badge rounded-pill bg-primary"></span>
                             <h3 class="card-header questionLabel p-0" th:text="${question.question}"></h3>
                             <input type="hidden" name="questionId" th:value="${question.id}"/>
                             <div class="card-body form-check form-check-inline quizAnswers"
