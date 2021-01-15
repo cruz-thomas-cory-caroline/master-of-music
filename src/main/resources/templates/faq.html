@@ -4,17 +4,45 @@
     <div th:include="partials/head.html :: head"></div>
     <meta charset="UTF-8">
     <title>FAQ</title>
-<style>
-    .avatar:hover {
-        border: 3px solid #ff00f2;
-    }
-</style>
+    <style>
+        .avatar:hover {
+            border: 3px solid #ff00f2;
+        }
+
+        .flip-card {
+            background-color: transparent;
+            /*perspective: 1000px;*/
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+
+    </style>
 </head>
 <body class="body">
-
-<style>
-
-</style>
 <main style="padding-bottom: 90px">
     <header>
         <h1 class="faqHeader text-center" style="padding-top:2% ">Meet the Creators</h1>
@@ -22,16 +50,27 @@
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4" style="padding-top: 5%">
             <div class="col mt-3">
-                <div class="card h-100 avatarBorderCont triviaCard avatar thomas">
-                    <img class="card-img-top rounded-circle" th:src="@{/img/thomas.png}" alt="">
-                    <div class="card-body">
-                        <div class="card-footer linkFooterTC">
-                        <h2 class="text-center pb-2 d-flex" style="overflow-wrap: break-word">Thomas Crowder</h2>
-                            <p class="text-center"><a th:href="@{https://github.com/ThomasCrowder703}"><i class="fab fa-github fa-2x faHover"></i></a>
-                            <a th:href="@{https://www.linkedin.com/in/thomas-crowder-b1a922203/}"><i class="fab fa-linkedin fa-2x faHover"></i></a>
-                                <i class="fas fa-graduation-cap fa-2x faHover"></i></p>
+                <div class="card h-100 avatarBorderCont triviaCard avatar thomas flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front p-0 m-0">
+                            <img class="card-img-top rounded-circle" th:src="@{/img/thomas.png}" alt="">
+                        </div>
+                        <div class="flip-card-back">
+                            <img class="card-img-top rounded-circle" th:src="@{/img/cory.jpeg}" alt="">
                         </div>
                     </div>
+<!--                    <div class="card-body">-->
+                        <div class="linkFooterTC pb-3 card-footer">
+                            <h2 class="text-center pb-2 d-flex" style="overflow-wrap: break-word">Thomas
+                                Crowder</h2>
+                            <p class="text-center"><a th:href="@{https://github.com/ThomasCrowder703}"><i
+                                    class="fab fa-github fa-2x faHover"></i></a>
+                                <a th:href="@{https://www.linkedin.com/in/thomas-crowder-b1a922203/}"><i
+                                        class="fab fa-linkedin fa-2x faHover"></i></a>
+                                <i class="fas fa-graduation-cap fa-2x faHover"></i></p>
+
+                        </div>
+<!--                    </div>-->
                 </div>
             </div>
             <div class="col mt-3">
@@ -39,9 +78,11 @@
                     <img class="card-img-top rounded-circle" th:src="@{/img/cory.jpeg}" alt="">
                     <div class="card-body">
                         <div class="card-footer linkFooterCH">
-                        <h2 class="text-center pb-2 d-flex" style="overflow-wrap: break-word">Courtney Holley</h2>
-                            <p class="text-center"><a th:href="@{https://github.com/coryholley}"><i class="fab fa-github fa-2x faHover"></i></a>
-                            <a th:href="@{https://www.linkedin.com/in/courtney-holley/}"><i class="fab fa-linkedin fa-2x faHover"></i></a>
+                            <h2 class="text-center pb-2 d-flex" style="overflow-wrap: break-word">Courtney Holley</h2>
+                            <p class="text-center"><a th:href="@{https://github.com/coryholley}"><i
+                                    class="fab fa-github fa-2x faHover"></i></a>
+                                <a th:href="@{https://www.linkedin.com/in/courtney-holley/}"><i
+                                        class="fab fa-linkedin fa-2x faHover"></i></a>
                                 <i class="fas fa-graduation-cap fa-2x faHover"></i></p>
                         </div>
                     </div>
@@ -53,9 +94,12 @@
                     <img class="card-img-top rounded-circle" th:src="@{/img/cruz.jpeg}" alt="">
                     <div class="card-body">
                         <div class="card-footer linkFooterCV">
-                        <h2 class="text-center pb-2 d-flex" style="overflow-wrap: break-word">Cruzanio Villarreal</h2>
-                            <p class="text-center"><a th:href="@{https://github.com/cruzaniovillarreal}"><i class="fab fa-github fa-2x faHover"></i></a>
-                            <a th:href="@{https://www.linkedin.com/in/cruzaniovillarreal/}"><i class="fab fa-linkedin fa-2x faHover"></i></a>
+                            <h2 class="text-center pb-2 d-flex" style="overflow-wrap: break-word">Cruzanio
+                                Villarreal</h2>
+                            <p class="text-center"><a th:href="@{https://github.com/cruzaniovillarreal}"><i
+                                    class="fab fa-github fa-2x faHover"></i></a>
+                                <a th:href="@{https://www.linkedin.com/in/cruzaniovillarreal/}"><i
+                                        class="fab fa-linkedin fa-2x faHover"></i></a>
                                 <i class="fas fa-graduation-cap fa-2x faHover"></i></p>
                         </div>
                     </div>
@@ -66,9 +110,11 @@
                     <img th:src="@{/img/caroline.jpeg}" class="card-img-top rounded-circle" alt="...">
                     <div class="card-body">
                         <div class="card-footer m-0 linkFooterCE">
-                        <h2 class="text-center pb-2 d-flex" style="overflow-wrap: break-word">Caroline Esquivel</h2>
-                            <p class="text-center"><a th:href="@{https://github.com/Caroline1986}"><i class="fab fa-github fa-2x faHover"></i></a>
-                            <a th:href="@{https://www.linkedin.com/in/ceesquivel}"><i class="fab fa-linkedin fa-2x faHover"></i></a>
+                            <h2 class="text-center pb-2 d-flex" style="overflow-wrap: break-word">Caroline Esquivel</h2>
+                            <p class="text-center"><a th:href="@{https://github.com/Caroline1986}"><i
+                                    class="fab fa-github fa-2x faHover"></i></a>
+                                <a th:href="@{https://www.linkedin.com/in/ceesquivel}"><i
+                                        class="fab fa-linkedin fa-2x faHover"></i></a>
                                 <i class="fas fa-graduation-cap fa-2x faHover"></i></p>
                         </div>
                     </div>
