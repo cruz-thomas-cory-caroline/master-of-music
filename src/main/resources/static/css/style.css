@@ -1,18 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=New+Rocker&display=swap');
 
-body,html {
-    height: 100vh;
-    position: relative;
-    background-image: url("../img/readyPlay.gif");
-    background-repeat: repeat;
+.body, html {
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url("../img/readyPlay.gif") repeat;
+    -webkit-background-size: cover;
+    -moz-background-size:  cover;
+    -o-background-size: cover;
     background-size: cover;
-    background-color: #1b0230;
-}
-
-body {
-    min-height: 400px;
-    margin-bottom: 100px;
-    clear: both;
+    position: relative;
+    height: 100vh;
+    /*background-repeat: repeat;*/
 }
 
 .rockFont {
