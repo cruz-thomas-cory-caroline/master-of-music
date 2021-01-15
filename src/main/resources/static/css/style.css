@@ -11,6 +11,19 @@
     /*background-repeat: repeat;*/
 }
 
+.submit-button{
+    padding: 10px 10px;
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+    outline: none !important;
+    color: #070707;
+    background-color: #94ff00;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 7px #999;
+}
+
 .titleHeader{
     font-family: 'New Rocker', cursive;
     text-shadow: 2px 2px 1px #fcc910, 0 0 5px blue, 0 0 5px darkblue;
