@@ -15,7 +15,7 @@
         </div>
     </div>
 
-    <div class="card m-5" id="new-post">
+    <div class="card m-5 new-post" id="new-post">
         <div class="card-header text-left">New Post</div>
         <form th:action="@{/forum/post}" method="post" th:object="${post}">
             <div class="card-body">
@@ -35,13 +35,22 @@
     </div>
 
     <div th:each="post : ${posts}" class="m-5">
-        <div class="card text-center">
-            <div class="card-header text-left" th:text="${post.getOwner().getUsername()}"></div>
+        <div class="card text-center post-cards">
             <form th:action="@{/post/{id}/edit(id=${post.id})}" method="post">
                 <div class="card-body">
-                    <h5 th:id="'title-edit'+${post.id}" class="card-title post-title" th:text="${post.getTitle()}"></h5>
+                    <div class="row">
+                        <div class="col-4 text-right">
+                            <img class="" th:src="${post.getOwner().getImages}" alt="Image Unavailable" style="width: 10rem; height: 10rem;">
+                            <h5 th:class="" th:text="${post.getOwner().getUsername()}" class=""></h5>
+                        </div>
+                        <div class="col-8 text-left">
+                            <h5 th:id="'title-edit'+${post.id}" class="card-title post-title" th:text="${post.getTitle()}"></h5>
+                            <p th:id="'body-edit'+${post.id}" class="card-text post-body" th:text="${post.getBody()}"></p>
+                        </div>
+                    </div>
+
                     <br>
-                    <p th:id="'body-edit'+${post.id}" class="card-text post-body" th:text="${post.getBody()}"></p>
+
                     <br>
                     <div class="post-edit-buttons" th:id="'post-edit-buttons'+${post.id}">
                         <button type="button" class="btn btn-danger close-post-edit" th:value="${post.id}">Close</button>
