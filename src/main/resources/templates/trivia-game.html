@@ -6,11 +6,11 @@
 </head>
 <body class="body">
 
-<div id="triviaGameContainer" class="container-fluid h-100 w-100" style="padding-bottom: 120px">
-    <h1 class="text-center mt-4 rockFont pinkShadowFont display-4">Trivia Master</h1>
+<div id="triviaGameContainer" class="container-fluid h-100 w-100 text-center" style="padding-bottom: 120px">
+    <h1 class="text-center mt-3 rockFont pinkShadowFont display-4">Trivia Master</h1>
     <span id="timer" class="badge rounded-pill bg-primary"></span>
 
-    <div id="carouselExampleIndicators" class="carousel slide" style="padding-bottom: 120px" data-pause="false">
+    <div id="carouselExampleIndicators" class="carousel slide" style="padding-bottom: 100px" data-pause="false">
         <ol class="carousel-indicators mt-4">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -21,14 +21,16 @@
         <div id="triviaCarousel-inner" class="carousel-inner">
             <div class="carousel-item active">
                 <div class="triviaCarItem mt-2">
-                <div class="card m-auto triviaCard">
-                    <div class="card-body d-flex row">
-                        <h4 id="timerInfoHeader" class="col-12 text-center m-auto text-wrap">Timer Starts When You Press
-                            Play!</h4>
-                        <a class="col-12 text-center" href="#carouselExampleIndicators" role="button" data-slide="next"><i
-                                id="startGameButton" class="fas fa-play-circle"></i></a>
+                    <div class="card m-auto triviaCard">
+                        <div class="card-body d-flex row">
+                            <h4 id="timerInfoHeader" class="col-12 text-center m-auto text-wrap">Timer Starts When You
+                                Press
+                                Play!</h4>
+                            <a class="col-12 text-center" href="#carouselExampleIndicators" role="button"
+                               data-slide="next"><i
+                                    id="startGameButton" class="fas fa-play-circle"></i></a>
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
             <form th:action="@{/trivia-game/submit}" th:method="post" id="quizForm">
@@ -36,7 +38,7 @@
                 <div class="carousel-item triviaCarItem" th:each="question : ${questions}">
                     <div class="triviaCarItem">
                         <div class="card m-auto triviaCard">
-                            <h3 class="card-header questionLabel" th:text="${question.question}"></h3>
+                            <h3 class="card-header questionLabel p-0" th:text="${question.question}"></h3>
                             <input type="hidden" name="questionId" th:value="${question.id}"/>
                             <div class="card-body form-check form-check-inline quizAnswers"
                                  th:each="answer : ${question.getAnswers()}">

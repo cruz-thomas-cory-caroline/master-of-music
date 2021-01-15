@@ -8,30 +8,31 @@
     <title>Master of Music Results</title>
 </head>
 
-<h3 id="headerLM" class="text-center">Result</h3>
-<div class="container">
-    <div class="row justify-content-start">
-        <div class="col">
-            <h5 id="headerLM">Score <span id="scoreCounter"></span></h5>
-            <input type="hidden" id="score" th:value="${score}">
+<body class="body" text="white">
+<div class="container" style="padding-bottom: 100px">
+    <h3 id="headerLM" class="text-center">Result</h3>
+    <div class="container">
+        <div class="row justify-content-start">
+            <div class="col">
+                <h5 id="headerLM">Score <span id="scoreCounter"></span></h5>
+                <input type="hidden" id="score" th:value="${score}">
+            </div>
         </div>
-    </div>
-    <div th:if="${awardEarned}" id="badgeEarned" class="welcomePlayerHeader">
-        <h3>NEW <span th:if="${newAwards.size() > 1}">BADGES</span><span
-                th:unless="${newAwards.size() > 1}">BADGE</span> EARNED!</h3>
-        <button type="button" class="start-btn mx-auto float-left" data-toggle="modal" data-target="#exampleModal">See Award
-        </button>
+        <div th:if="${awardEarned}" id="badgeEarned" class="welcomePlayerHeader d-flex justify-content-center">
+<!--            <h3>NEW <span th:if="${newAwards.size() > 1}">BADGES</span>-->
+<!--                <span th:unless="${newAwards.size() > 1}">BADGE</span> EARNED!</h3>-->
+            <button type="button" class="start-btn" data-toggle="modal" data-target="#exampleModal">See
+                Award
+            </button>
+            <hr>
+        </div>
 
-    </div>
-    <body class="body" text="white">
-    <div class="container" style="padding-bottom: 100px">
         <div class="row video-game-button-black">
             <div class="col-sm">
-
                 <div class="video-game-button-black">
                     <form th:action="@{/lyric-master/}" method="post">
                         <section>
-                            <h5 class="text-white text-start">Difficulty:</h5>
+                            <h5 class="text-start" style="color: #FD04BC">Difficulty:</h5>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="songDifficulty" id="easySong"
                                        value="easy" checked>
@@ -49,7 +50,7 @@
                             </div>
                         </section>
                         <section>
-                            <h5 class="text-white text-start">Genre:</h5>
+                            <h5 class="text-start" style="color: #FD04BC">Genre:</h5>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="songGenre" id="rockSong"
                                        value="Rock" checked>
@@ -73,14 +74,18 @@
                         </section>
                         <div>
                             <input name=round type="hidden" th:value="${currentLevel+1}">
-                            <button type="submit">Next Round</button>
+                            <button type="submit" class="mr-2 btn btn-warning">Next Round</button>
+                            <a th:href="@{/index}">
+                                <button type="button" class="mr-2 btn btn-warning">Home</button>
+                            </a>
                         </div>
                     </form>
                 </div>
             </div>
+            <hr>
             <div class="col-sm video-game-button-black">
                 <h4 class="text-light fs-1 bg-success">CORRECT ANSWERS</h4>
-                <ul class="list-group list-group-flush">
+                <ul class="list-group">
                     <li class="list-group-item start-btn" th:each="song, int : ${correctSongs}">
                         <h4 class="questionsResults" th:text="${song.getLyrics()}"></h4>
                         <p class="bg-success text-light">CORRECT ANSWER: <span
@@ -91,7 +96,7 @@
             </div>
             <div class="col-sm video-game-button-black mt-5">
                 <h4 class="text-light fs-1 bg-danger">INCORRECT ANSWERS</h4>
-                <ul class="list-group list-group-flush">
+                <ul class="list-group">
                     <li class="list-group-item start-btn" th:each="song, int : ${incorrectSongs}">
                         <h4 class="questionsResults" th:text="${song.getLyrics()}"></h4>
                         <p class="bg-danger text-light">SUBMITTED ANSWER: <span
@@ -110,48 +115,48 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content avatarBorderCont">
                 <div class="modal-header justify-content-center">
-                    <h2 class="modal-title" id="exampleModalLabel"><i class="fas fa-award"></i> Your New <span
+                    <h2 class="modal-title rockFont" style="color: yellow;" id="exampleModalLabel"><i class="fas fa-award"></i> Your New <span
                             th:if="${newAwards.size() > 1}">Awards!</span><span th:unless="${newAwards.size() > 1}">Award!</span>
                         <i class="fas fa-award"></i></h2>
                 </div>
-                <div class="modal-body row justify-content-center forgotPasswordCard">
+                <div class="modal-body row justify-content-center rockFont">
                     <div th:each="award : ${newAwards}" class="text-center">
                         <div class="text-center">
-                            <i th:class="${award.getClassString()}"></i>
-                            <h4 th:text="${award.getDescription()}"></h4>
+                            <i th:class="${award.getClassString()}  + ' fa-5x'" ></i>
+                            <h4 th:text="${award.getDescription()}" class="rockFont" style="color: yellow"></h4>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer text-center">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <div class="text-center">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
-    </body>
-    <div th:include="partials/footerNav.html :: footerNav"></div>
-    <div th:include="partials/scripts.html :: scripts"></div>
-    <script type="text/javascript">
-        let scoreToCount = parseInt($('#score').val())
-        console.log(scoreToCount)
-        let zero = 0
+</body>
+<div th:include="partials/footerNav.html :: footerNav"></div>
+<div th:include="partials/scripts.html :: scripts"></div>
+<script type="text/javascript">
+    let scoreToCount = parseInt($('#score').val())
+    console.log(scoreToCount)
+    let zero = 0
 
-        function scoreCounter() {
-            var scoreCount = setInterval(function () {
-                if (zero === scoreToCount) {
-                    console.log("done")
-                    $('#scoreCounter').html(zero)
-                    clearInterval(scoreCount)
-                    $('#congrats').show()
-                    $('#badgeEarned').show()
-                } else {
-                    console.log(zero)
-                    zero = zero + 1
-                    $('#scoreCounter').html(zero)
-                }
-            }, 10)
-        }
+    function scoreCounter() {
+        var scoreCount = setInterval(function () {
+            if (zero === scoreToCount) {
+                console.log("done")
+                $('#scoreCounter').html(zero)
+                clearInterval(scoreCount)
+                $('#congrats').show()
+                $('#badgeEarned').show()
+            } else {
+                console.log(zero)
+                zero = zero + 1
+                $('#scoreCounter').html(zero)
+            }
+        }, 10)
+    }
 
-        scoreCounter()
-    </script>
+    scoreCounter()
+</script>
 </html>

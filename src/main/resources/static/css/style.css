@@ -74,7 +74,7 @@
 
 .navbar-login {
     background-color: #eee31a;
-    font-size: 1em;
+    font-size: 1.5rem;
 }
 
 #navbarCollapse {
@@ -163,19 +163,13 @@
     to {top: 40%;}
 }
 
-#header {
-    position: absolute;
+#signup-header {
     width: 100vw;
     z-index: 100;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     font-weight: bolder;
-    text-align: center;
     font-family: 'New Rocker', cursive;
     color: #f30196;
     text-shadow: 1px 1px 2px #fcc910, 0 0 25px blue, 0 0 5px darkblue;
-    animation-name: zoomHeader, moveHeaderUp;
     animation-duration: 5000ms, 1000ms;
     animation-delay: 0ms, 6000ms; /* add this */
     animation-timing-function: ease-in, ease-out;
@@ -241,7 +235,7 @@
 .genreLabel, .difficultyLabel, #roundScore, #roundScoreCounter, #score, #scoreCounter, #userName{
     font-family: 'New Rocker', cursive;
     color: #fd03bb;
-    text-shadow: 1px 1px 1px #fcc910, 0 0 25px blue, 0 0 5px darkblue;
+    text-shadow: 1px 1px 1px #fad900, 0 0 25px blue, 0 0 5px darkblue;
     font-size: 2.5em;
 }
 
@@ -290,23 +284,30 @@ label.genreLabel, label.difficultyLabel {
     font-weight: bold;
 }
 
-.questionLabel, #gameHistoryHeader {
+#gameHistoryHeader {
     font-family: 'New Rocker', cursive;
     font-size: 2em;
     text-align: center;
     color: #fad100;
 }
 
+.questionLabel {
+    font-family: 'New Rocker', cursive;
+    font-size: 2rem;
+    text-align: center;
+    color: #fad100;
+}
+
 .quizAnswers {
-    font-size: 1.5em;
-    padding: 10px;
+    font-size: 1.5rem;
+    padding: 5px;
     font-family: 'New Rocker', cursive;
 }
 
 #timer {
     float: right;
-    margin: 1em;
-    font-size: 4em;
+    margin-right: 10rem;
+    font-size: 4rem;
 }
 
 #startGameButton {
@@ -347,7 +348,7 @@ label.genreLabel, label.difficultyLabel {
 #submitQuiz {
     width: 6em;
     margin-left: auto;
-    background-color: #7ad204;
+    background-color: #94ff00;
 }
 
 .controlQ {
