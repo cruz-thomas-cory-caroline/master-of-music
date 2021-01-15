@@ -11,6 +11,14 @@
     /*background-repeat: repeat;*/
 }
 
+.titleHeader{
+    font-family: 'New Rocker', cursive;
+    text-shadow: 2px 2px 1px #fcc910, 0 0 5px blue, 0 0 5px darkblue;
+    color: #fd03bb;
+    text-align: center;
+    font-size: 4rem;
+    margin-top: 1rem;
+}
 
 .rockFont {
     font-family: 'New Rocker', cursive;
