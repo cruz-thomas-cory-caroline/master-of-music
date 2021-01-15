@@ -47,8 +47,8 @@
     <div class="row d-flex">
         <div class="col-12 col-sm-6">
             <h4 class="text-light fs-1 bg-success">CORRECT ANSWERS</h4>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item" th:each="correctQ, int : ${correctQs}">
+            <ul class="list-group list-group-flush text-white">
+                <li class="list-group-item bg-dark " th:each="correctQ, int : ${correctQs}">
                     <p class="questionsResults" th:text="${correctQ.question}"></p>
                     <p class="bg-success text-light">CORRECT ANSWER: <span
                             th:text="${correctAnswers.get(int.index)}"></span></p>
@@ -57,8 +57,8 @@
         </div>
         <div class="col-12 col-sm-6">
             <h4 class="text-light fs-1 bg-danger">INCORRECT ANSWERS</h4>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item" th:each="incorrectQ, int : ${incorrectQs}">
+            <ul class="list-group list-group-flush text-white">
+                <li class="list-group-item bg-dark" th:each="incorrectQ, int : ${incorrectQs}">
                     <p class="questionsResults" th:text="${incorrectQ.question}"></p>
                     <p class="bg-danger text-light">SUBMITTED ANSWER: <span
                             th:text="${submittedAnswers.get(int.index)}"></span></p>
