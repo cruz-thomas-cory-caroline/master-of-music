@@ -215,7 +215,8 @@
                                 <!--start music trivia tab -->
                                 <div class="card">
                                     <h5 class="card-header text-white tabHeaders">OVERALL SCORE: <span
-                                            th:text="${totalTriviaScore}"></span></h5>
+                                            th:text="${#numbers.formatDecimal(totalTriviaScore,0,'COMMA', 0, 'POINT')}"></span>
+                                    </h5>
                                     <div class="card-body cardBodyForTabs">
                                         <div th:each="playerGame, int : ${playerGamesForTrivia}"
                                              class="card mb-2 gameStatsCards border-gradient-purple"
@@ -249,7 +250,8 @@
                                 <!--start lyric master tabs -->
                                 <div class="card">
                                     <h5 class="card-header text-white tabHeaders">OVERALL SCORE: <span
-                                            th:text="${totalLyricScore}"></span></h5>
+                                            th:text="${#numbers.formatDecimal(totalLyricScore,0,'COMMA', 0, 'POINT')}"></span>
+                                    </h5>
                                     <div class="card-body cardBodyForTabs">
                                         <div th:each="playerGame, int : ${playerGamesForLyric}"
                                              class="card mb-2 gameStatsCards border-gradient-purple"
@@ -283,7 +285,8 @@
 
                                 <div class="card">
                                     <h5 class="card-header text-white tabHeaders">OVERALL SCORE: <span
-                                            th:text="${totalTheoryScore}"></span></h5>
+                                            th:text="${#numbers.formatDecimal(totalTheoryScore,0,'COMMA', 0, 'POINT')}"></span>
+                                    </h5>
                                     <div class="card-body cardBodyForTabs">
                                         <div th:each="playerGame, int : ${playerGamesForTheory}"
                                              class="card mb-2 gameStatsCards border-gradient-purple"
@@ -316,7 +319,8 @@
                                 <!--start unscramble tabs -->
                                 <div class="card">
                                     <h5 class="card-header text-white tabHeaders">OVERALL SCORE: <span
-                                            th:text="${totalUnscrambleScore}"></span></h5>
+                                            th:text="${#numbers.formatDecimal(totalUnscrambleScore,0,'COMMA', 0, 'POINT')}"></span>
+                                    </h5>
                                     <div class="card-body cardBodyForTabs">
                                         <div th:each="playerGame, int : ${playerGamesForUnscramble}"
                                              class="card mb-2 gameStatsCards border-gradient-purple"
