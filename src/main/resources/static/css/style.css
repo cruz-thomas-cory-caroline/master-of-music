@@ -290,8 +290,8 @@ label.genreLabel, label.difficultyLabel {
 
 #timer {
     float: right;
-    margin-bottom: 10px;
-    font-size: 1.5em;
+    margin-right: 10rem;
+    font-size: 4rem;
 }
 
 #startGameButton {
@@ -332,7 +332,7 @@ label.genreLabel, label.difficultyLabel {
 #submitQuiz {
     width: 6em;
     margin-left: auto;
-    background-color: #7ad204;
+    background-color: #94ff00;
 }
 
 .controlQ {
