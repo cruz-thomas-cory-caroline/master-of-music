@@ -1,13 +1,47 @@
 .forum-title {
-    font-size: 2.5rem;
+    margin-top: 20px;
+    font-size: 7em;
     color: #c62a88;
     text-shadow: 1px 1px 2px #fcc910, 0 0 25px blue, 0 0 5px darkblue;
+    font-family: 'New Rocker', cursive;
 }
 
 .post-cards {
+    color: white;
     background-color: black;
     border: 4px solid;
     border-image-slice: 1;
     border-image-source: linear-gradient(to left, #7cf300, #d53a9d);
     font-family: 'New Rocker', cursive;
 }
+
+.forum-list {
+    padding-bottom: 80px;
+}
+
+.new-post-button {
+    padding: 10px 10px;
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+    outline: none !important;
+    color: #f6f1f1;
+    background-color: #02ba32;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 7px #999;
+}
+
+.check-button:hover {background-color: #248af3}
+
+.check-button:active {
+    background-color: #248af3;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+/*.profile-block {*/
+/*    border-right: 2px solid;*/
+/*    border-image-slice: 1;*/
+/*    border-image-source: linear-gradient(to left, #7cf300, #d53a9d);*/
+/*}*/
