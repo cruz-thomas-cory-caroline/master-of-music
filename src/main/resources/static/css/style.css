@@ -1,18 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=New+Rocker&display=swap');
 
-body,html {
-    height: 100vh;
-    position: relative;
-    background-image: url("../img/readyPlay.gif");
-    background-repeat: repeat;
+.body, html {
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url("../img/readyPlay.gif") repeat;
+    -webkit-background-size: cover;
+    -moz-background-size:  cover;
+    -o-background-size: cover;
     background-size: cover;
-    background-color: #1b0230;
-}
-
-body {
-    min-height: 400px;
-    margin-bottom: 100px;
-    clear: both;
+    position: relative;
+    height: 100vh;
+    /*background-repeat: repeat;*/
 }
 
 .rockFont {
@@ -76,7 +72,7 @@ body {
 }
 
 .navTabLinkOverlay {
-
+    color: #eee31a;
 }
 
 .navLinkItemContainer .navTabLinkOverlay, .navLinkItemContainer .navLinkItemText {
@@ -237,7 +233,7 @@ label.genreLabel, label.difficultyLabel {
 #carouselExampleIndicators {
     position: absolute;
     max-width: 34em;
-    height: 40em;
+    height: 39em;
     z-index: 4;
     top: 50vh;
     left: 50vw;
@@ -257,7 +253,7 @@ label.genreLabel, label.difficultyLabel {
 
 .triviaCard {
     max-width: 32em;
-    height: 35em;
+    height: 34em;
     background: #222;
     color: white;
     padding: 1rem;
@@ -313,7 +309,7 @@ label.genreLabel, label.difficultyLabel {
 .triviaResultsHeader, #achievementHeader, .questionHeader {
     font-family: 'New Rocker', cursive;
     color: #fd03bb;
-    text-shadow: 1px 1px 2px #fcc910, 0 0 25px blue, 0 0 5px darkblue;
+    text-shadow: 2px 2px 25px #23003e, 0 0 25px #020273, 0 0 25px #4e0130;
     font-size: 2.5em;
 }
 
@@ -329,6 +325,7 @@ label.genreLabel, label.difficultyLabel {
 #submitQuiz {
     width: 6em;
     margin-left: auto;
+    background-color: #7ad204;
 }
 
 .controlQ {
