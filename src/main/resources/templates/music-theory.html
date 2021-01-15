@@ -15,7 +15,7 @@
         }
     </style>
 </head>
-<body class="body">
+<body class="body" id="theoryBody">
 <div>
     <h1 class="questionHeader result-cards">Music Theory Master</h1>
 </div>
@@ -32,7 +32,7 @@
                     <label style="font-size:20px " class="radioButton rockFont" th:for="${answer.id}" th:text="${answer.answer}"></label>
                 </div>
                 <input name="theoryDifficultyOptions" type="hidden" th:value="${songDifficulty}">
-                <button style="color: white" id="submitButton" class="d-none check-button" type="submit">Submit your answer!</button>
+                <button style="color: black" id="submitButton" class="d-none check-button" type="submit">Submit your answer!</button>
             </form>
             <p style="color: #ffffff" id="timer"></p>
         </div>

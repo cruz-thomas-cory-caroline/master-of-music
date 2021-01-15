@@ -15,13 +15,11 @@
             </form>
 
 
-            <a class="text-white d-flex justify-content-center align-items-center"
+            <a th:if="${user}" class="text-white d-flex justify-content-center align-items-center"
                th:href="@{/profile/}">
-                <img th:if="${user}" style="max-height: 60px;max-width: 60px"
+                <img  style="max-height: 60px;max-width: 60px"
                      th:src="${user.images}">
-                <p th:if="${user}"
-                   class="rockFont text-white h-100 w-100 mb-0 ml-2 d-flex justify-content-center align-items-center">
-                    Profile</p>
+                <p class="rockFont text-white h-100 w-100 mb-0 ml-2 d-flex justify-content-center align-items-center">Profile</p>
             </a>
 
             <i th:unless="${user}" style="color: #b200ff" class="fas fa-user-circle fa-3x ml-2 "></i>
