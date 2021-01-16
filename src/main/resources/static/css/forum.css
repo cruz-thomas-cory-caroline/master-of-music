@@ -16,6 +16,12 @@
     font-family: 'New Rocker', cursive;
 }
 
+.post-reply {
+color: white;
+background-color: black;
+font-family: 'New Rocker', cursive;
+}
+
 .card-holder, .new-post{
     width: 75%;
 }
@@ -85,7 +91,7 @@
     border-radius: 3px;
 }
 
-#new-post-body, .post-body-edit, .post-title-edit, .comment-body-edit {
+#new-post-body, .post-body-edit, .post-title-edit, .comment-body-edit, .reply-body {
     background-color: transparent;
     color: white;
     border: 1px solid grey;
