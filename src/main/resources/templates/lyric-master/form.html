@@ -11,17 +11,17 @@
 <body class="body">
 <div class="container w-60 pb-80" style="padding-bottom: 100px">
     <h4 id="headerLM" style="size: 12em" class="text-center LMGameHeader">Lyric Master</h4>
-        <div class=" card text-center game-start start-menu lyricCards avatarBorderCont">
-            <div class="card-body forgotPasswordCard lyricCardsBG video-game-button-black">
-                <h5 class="rockFont">How to Play</h5>
-                    <p>You will be given <span th:text="${questions}"></span> incomplete song lyrics.</p>
-                    <p>Select the correct verse to complete the displayed lyrics.</p>
-                    <p>Complete the game before time runs out! You have <span th:text="${timeLimit}"></span> seconds!
-                    </p>
-                    <p>Have fun!</p>
-                    <p><a type="button" class="start-btn text-center forgotPasswordCard" id="startButton"><i
-                            id="startGameButton" class="fas fa-play-circle"></i></a></p>
-            </div>
+    <div class=" card text-center game-start start-menu lyricCards avatarBorderCont">
+        <div class="card-body forgotPasswordCard lyricCardsBG video-game-button-black">
+            <h5 class="rockFont">How to Play</h5>
+            <p>You will be given <span th:text="${questions}"></span> incomplete song lyrics.</p>
+            <p>Select the correct verse to complete the displayed lyrics.</p>
+            <p>Complete the game before time runs out! You have <span th:text="${timeLimit}"></span> seconds!
+            </p>
+            <p>Have fun!</p>
+            <p><a type="button" class="start-btn text-center forgotPasswordCard" id="startButton"><i
+                    id="startGameButton" class="fas fa-play-circle"></i></a></p>
+        </div>
 
     </div>
     <form th:method="post" th:action="@{/lyric-master/submit}" id="lyricMasterQuizForm">
@@ -35,14 +35,16 @@
                     <ol class="p-0 m-0 avatarBorderCont">
                         <div class="card m-auto lyricCardsBG forgotPasswordCard">
                             <h2 class="card-title LMGameHeader text-center" th:text="${song.lyrics}"></h2>
-                            <p class="text-left title text-center titleArtistHeader">Title: <span th:text="${song.title}"></span>
+                            <p class="text-left title text-center titleArtistHeader">Title: <span
+                                    th:text="${song.title}"></span>
                             </p>
                             <div class="hint hint-btn mx-auto rockFont text-center pb-1"><i
                                     class="fas fa-star"></i>Hint<i class="fas fa-star"></i>
                             </div>
                             <p class="text-center titleArtistHeader">Artist: <span th:text="${song.artist}"></span></p>
-                            <h6 class="titleArtistHeader text-center pulseTime">Time Remaining: <span class="lyricMaster-timer pulseTime"
-                                                                                 th:text="${timeLimit}"></span></h6>
+                            <h6 class="titleArtistHeader text-center pulseTime">Time Remaining: <span
+                                    class="lyricMaster-timer pulseTime"
+                                    th:text="${timeLimit}"></span></h6>
                             <div class="form-check form-check-inline quizAnswers "
                                  th:each="lyricAnswer : ${song.lyricAnswers}">
                                 <li class='video-game-button-black'>
@@ -55,10 +57,10 @@
                                        th:name="song_+${song.id}" checked/>
                             </div>
 
-                            <span class="mx-auto">
-                    <a href="#" class="prev start-btn text-center" id="previous">PREVIOUS</a>
-                    <a href="#" class='start-btn next text-center' id="next">NEXT</a>
-                        </span>
+                            <div class="d-flex row justify-content-center">
+                                <a href="#" class="prev start-btn text-center mr-2 btn btn-warning" id="previous">PREVIOUS</a>
+                                <a href="#" class='start-btn next text-center mr-2 btn btn-warning' id="next">NEXT</a>
+                            </div>
                         </div>
                     </ol>
                 </div>

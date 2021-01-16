@@ -5,7 +5,7 @@
     <title>Leaderboard</title>
 </head>
 <body class="body">
-<main class="container-fluid" style="padding-bottom: 80px" >
+<main class="container-fluid" style="padding-bottom: 80px">
     <div id="rankingsContainer" class="row justify-content-center">
 
         <div th:if="${loggedIn}" class="col-12 col-md-4 text-white card m-auto" style="background-color: transparent">
@@ -15,7 +15,8 @@
                 <h1 class="rockFont m-2 "><span th:if="${globalRank}" th:text="${globalRank}"></span><span
                         th:unless="${globalRank}">No Rank</span></h1>
                 <h2 class="rockFont m-2 pinkShadowFont">Total Score:</h2>
-                <h1 class="rockFont"><span id="playerScore" th:if="${playerScore}" th:text="${playerScore}"></span><span
+                <h1 class="rockFont"><span id="playerScore" th:if="${playerScore}"
+                                           th:text="${#numbers.formatDecimal(playerScore,0,'COMMA', 0, 'POINT')}"></span><span
                         th:unless="${playerScore}">0</span></h1>
             </div>
         </div>
@@ -34,7 +35,8 @@
                                        th:each="achievement : ${user.getUsers_achievements()}"
                                        th:class="${achievement.getClassString()} + ' ml-1'"></i>
                                     <span>  --  Score:</span>
-                                    <span id="globalUserRatingLine" th:text="${rankedScores.get(int.index)}"></span>
+                                    <span id="globalUserRatingLine"
+                                          th:text="${#numbers.formatDecimal(rankedScores.get(int.index),0,'COMMA', 0, 'POINT')}"></span>
                                 </p>
                             </li>
                         </ul>
@@ -44,25 +46,30 @@
 
             <div class="mt-5">
                 <section class="container-fluid" id="userGameStatsContainer">
-                    <h1 class="gameHistoryHeader text-dark bg-white my-4 rockFont text-center">Global Rankings By Game</h1>
+                    <h1 class="gameHistoryHeader text-dark bg-white my-4 rockFont text-center">Global Rankings By
+                        Game</h1>
                     <ul class="nav nav-tabs fw-bolder" id="myTab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active text-warning fw-bolder bg-dark border border-white" id="musicTrivia-tab" data-toggle="tab"
+                            <a class="nav-link active text-warning fw-bolder bg-dark border border-white"
+                               id="musicTrivia-tab" data-toggle="tab"
                                href="#musicTriviaTab" role="tab" aria-controls="musicTriviaStats" aria-selected="true">TRIVIA
                                 MASTER</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-warning fw-bolder bg-dark border border-white" id="lyricMaster-tab" data-toggle="tab"
+                            <a class="nav-link text-warning fw-bolder bg-dark border border-white" id="lyricMaster-tab"
+                               data-toggle="tab"
                                href="#lyricMasterTab" role="tab" aria-controls="lyricMasterStats" aria-selected="false">LYRIC
                                 MASTER</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-warning fw-bolder bg-dark border border-white" id="musicTheory-tab" data-toggle="tab"
+                            <a class="nav-link text-warning fw-bolder bg-dark border border-white" id="musicTheory-tab"
+                               data-toggle="tab"
                                href="#musicTheoryTab" role="tab" aria-controls="musicTheoryStats" aria-selected="false">THEORY
                                 MASTER</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-warning fw-bolder bg-dark border border-white" id="unscramble-tab" data-toggle="tab"
+                            <a class="nav-link text-warning fw-bolder bg-dark border border-white" id="unscramble-tab"
+                               data-toggle="tab"
                                href="#unscrambleTab" role="tab" aria-controls="unscrambleStats" aria-selected="false">UNSCRAMBLE
                                 MASTER</a>
                         </li>
@@ -77,7 +84,8 @@
                                      aria-labelledby="musicTrivia-tab">
                                     <!--start music trivia tab -->
                                     <div class="card">
-                                        <h5 th:if="${game3Standing}" class="card-header text-white tabHeaders">Your Rank:
+                                        <h5 th:if="${game3Standing}" class="card-header text-white tabHeaders">Your
+                                            Rank:
                                             <span th:text="${game3Standing}"></span>
                                         </h5>
                                         <div class="card-body cardBodyForTabs">
@@ -90,7 +98,7 @@
                                                        th:each="achievement : ${user.getUsers_achievements()}"
                                                        th:class="${achievement.getClassString()} + ' ml-1'"></i>
                                                     <span>  --  Score:</span>
-                                                    <span th:text="${game3Scores.get(int.index)}"></span>
+                                                    <span th:text="${#numbers.formatDecimal(game3Scores.get(int.index),0,'COMMA', 0, 'POINT')}"></span>
                                                 </p>
                                             </div>
                                         </div>
@@ -122,7 +130,7 @@
                                                        th:each="achievement : ${user.getUsers_achievements()}"
                                                        th:class="${achievement.getClassString()} + ' ml-1'"></i>
                                                     <span>  --  Score:</span>
-                                                    <span th:text="${game1Scores.get(int.index)}"></span>
+                                                    <span th:text="${#numbers.formatDecimal(game1Scores.get(int.index),0,'COMMA', 0, 'POINT')}"></span>
                                                 </p>
                                             </div>
                                         </div>
@@ -154,7 +162,7 @@
                                                        th:each="achievement : ${user.getUsers_achievements()}"
                                                        th:class="${achievement.getClassString()} + ' ml-1'"></i>
                                                     <span>  --  Score:</span>
-                                                    <span th:text="${game2Scores.get(int.index)}"></span>
+                                                    <span th:text="${#numbers.formatDecimal(game2Scores.get(int.index),0,'COMMA', 0, 'POINT')}"></span>
                                                 </p>
                                             </div>
                                         </div>
@@ -185,7 +193,7 @@
                                                        th:each="achievement : ${user.getUsers_achievements()}"
                                                        th:class="${achievement.getClassString()} + ' ml-1'"></i>
                                                     <span>  --  Score:</span>
-                                                    <span th:text="${game4Scores.get(int.index)}"></span>
+                                                    <span th:text="${#numbers.formatDecimal(game4Scores.get(int.index),0,'COMMA', 0, 'POINT')}"></span>
                                                 </p>
                                             </div>
                                         </div>
