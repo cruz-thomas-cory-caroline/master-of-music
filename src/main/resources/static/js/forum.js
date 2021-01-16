@@ -46,9 +46,9 @@
 
     $('.post-edit').click(function () {
         buttonValue = $(this).attr("value");
-        // previousPostTitle = $('#title-edit'+buttonValue)[0].outerHTML
+        previousPostTitle = $('#title-edit'+buttonValue)[0].outerHTML
         previousPostBody = $('#body-edit' + buttonValue)[0].outerHTML
-        // $('#title-edit'+buttonValue).replaceWith($('<input name="post-title" style="width: 50%"></input>').val($('#title-edit'+buttonValue).text()).attr('id', "input-post-title"+buttonValue));
+        $('#title-edit'+buttonValue).replaceWith($('<input name="post-title" class="post-title-edit" style="width: 75%"></input>').val($('#title-edit'+buttonValue).text()).attr('id', "input-post-title"+buttonValue));
         $('#body-edit' + buttonValue).replaceWith($('<textarea name="post-body" class="post-body-edit" style="width: 100%; height: 100px"></textarea>').text($('#body-edit' + buttonValue).text()).attr('id', "input-post-body" + buttonValue));
         $('#post-edit-buttons' + buttonValue).show()
         $('#post-admin-buttons' + buttonValue).hide()
@@ -67,7 +67,7 @@
     $('.comment-edit').click(function () {
         buttonValue = $(this).attr("value");
         previousCommentBody = $('#comment-edit' + buttonValue)[0].outerHTML
-        $('#comment-edit' + buttonValue).replaceWith($('<textarea name="comment-body" style="width: 100%; height: 100px"></textarea>').text($('#comment-edit' + buttonValue).text()).attr('id', "input-comment-body" + buttonValue));
+        $('#comment-edit' + buttonValue).replaceWith($('<textarea name="comment-body" class="comment-body-edit" style="width: 100%; height: 100px"></textarea>').text($('#comment-edit' + buttonValue).text()).attr('id', "input-comment-body" + buttonValue));
         $('#comment-edit-buttons' + buttonValue).show()
         $('#comment-admin-buttons' + buttonValue).hide()
     });
