@@ -5,132 +5,131 @@
     <meta charset="UTF-8">
     <div th:include="partials/head.html :: head"></div>
     <link th:href="@{/css/lyric-master.css}" rel="stylesheet"/>
-    <title>Master of Music Results</title>
+    <title>Lyric Master Results</title>
 </head>
 
 <body class="body" text="white">
-<div class="container" style="padding-bottom: 100px">
-    <h3 id="headerLM" class="text-center">Result</h3>
-    <div class="container">
-        <div class="row justify-content-start">
-            <div class="col">
-                <h5 id="headerLM">Score <span id="scoreCounter"></span></h5>
-                <input type="hidden" id="score" th:value="${score}">
-            </div>
-        </div>
-        <div th:if="${awardEarned}" id="badgeEarned" class="welcomePlayerHeader d-flex justify-content-center">
-            <button type="button" class="start-btn" data-toggle="modal" data-target="#exampleModal">See
-                Award
-            </button>
-            <hr>
-        </div>
+<div class="container-fluid text-center w-60" style="padding-bottom: 100px">
+    <h1 id="headerLM" class="text-center">Result</h1>
+    <h2 id="headerLM">Score <span id="scoreCounter"></span></h2>
+    <input type="hidden" id="score" th:value="${score}">
 
-        <div class="row video-game-button-black">
-            <div class="col-sm">
-                <div class="video-game-button-black">
-                    <form th:action="@{/lyric-master/}" method="post">
-                        <section>
-                            <h5 class="text-start" style="color: #FD04BC">Difficulty:</h5>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="songDifficulty" id="easySong"
-                                       value="easy" checked>
-                                <label class="form-check-label" for="easySong">Easy</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="songDifficulty" id="mediumSong"
-                                       value="medium">
-                                <label class="form-check-label" for="mediumSong">Medium</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="songDifficulty" id="hardSong"
-                                       value="hard">
-                                <label class="form-check-label" for="hardSong">Hard</label>
-                            </div>
-                        </section>
-                        <section>
-                            <h5 class="text-start" style="color: #FD04BC">Genre:</h5>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="songGenre" id="rockSong"
-                                       value="Rock" checked>
-                                <label class="form-check-label" for="rockSong">Rock</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="songGenre" id="popSong"
-                                       value="Pop">
-                                <label class="form-check-label" for="popSong">Pop</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="songGenre" id="hiphopSong"
-                                       value="Hip-Hop">
-                                <label class="form-check-label" for="hiphopSong">Hip-Hop</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="songGenre" id="countrySong"
-                                       value="Country">
-                                <label class="form-check-label" for="countrySong">Country</label>
-                            </div>
-                        </section>
-                        <div>
-                            <input name=round type="hidden" th:value="${currentLevel+1}">
-                            <button type="submit" class="mr-2 btn btn-warning">Next Round</button>
-                            <a th:href="@{/index}">
-                                <button type="button" class="mr-2 btn btn-warning">Home</button>
-                            </a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <hr>
-            <div class="col-sm video-game-button-black">
-                <h4 class="text-light fs-1 bg-success">CORRECT ANSWERS</h4>
-                <ul class="list-group">
-                    <li class="list-group-item start-btn" th:each="song, int : ${correctSongs}">
-                        <h4 class="questionsResults" th:text="${song.getLyrics()}"></h4>
-                        <p class="bg-success text-light">CORRECT ANSWER: <span
-                                th:each="la : ${song.getLyricAnswers()}" th:if="${la.isCorrect()}"><span
-                                th:text="${la.getLyricAnswer()}"></span></span></p>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-sm video-game-button-black mt-5">
-                <h4 class="text-light fs-1 bg-danger">INCORRECT ANSWERS</h4>
-                <ul class="list-group">
-                    <li class="list-group-item start-btn" th:each="song, int : ${incorrectSongs}">
-                        <h4 class="questionsResults" th:text="${song.getLyrics()}"></h4>
-                        <p class="bg-danger text-light">SUBMITTED ANSWER: <span
-                                th:text="${incorrectUserAnswers.get(int.index)}"></span></p>
-                        <p class="bg-success text-light">CORRECT ANSWER: <span
-                                th:each="la : ${song.getLyricAnswers()}" th:if="${la.isCorrect()}"><span
-                                th:text="${la.getLyricAnswer()}"></span></span></p>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    <div th:if="${awardEarned}" id="badgeEarned" class=" welcomePlayerHeader d-flex justify-content-center">
+        <button type="button" class="start-btn" data-toggle="modal" data-target="#exampleModal">See
+            Award
+        </button>
     </div>
 
-    <div th:if="${awardEarned}" class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-         aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content avatarBorderCont">
-                <div class="modal-header justify-content-center">
-                    <h2 class="modal-title rockFont" style="color: yellow;" id="exampleModalLabel"><i class="fas fa-award"></i> Your New <span
-                            th:if="${newAwards.size() > 1}">Awards!</span><span th:unless="${newAwards.size() > 1}">Award!</span>
-                        <i class="fas fa-award"></i></h2>
-                </div>
-                <div class="modal-body row justify-content-center rockFont">
-                    <div th:each="award : ${newAwards}" class="text-center">
-                        <div class="text-center">
-                            <i th:class="${award.getClassString()}  + ' fa-5x'" ></i>
-                            <h4 th:text="${award.getDescription()}" class="rockFont" style="color: yellow"></h4>
+
+    <hr>
+    <div class="row video-game-button-black">
+        <div class="col-sm">
+            <div class="video-game-button-black">
+                <form th:action="@{/lyric-master/}" method="post">
+                    <section>
+                        <h5 class="text-start" style="color: #FD04BC">Difficulty:</h5>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="songDifficulty" id="easySong"
+                                   value="easy" checked>
+                            <label class="form-check-label" for="easySong">Easy</label>
                         </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="songDifficulty" id="mediumSong"
+                                   value="medium">
+                            <label class="form-check-label" for="mediumSong">Medium</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="songDifficulty" id="hardSong"
+                                   value="hard">
+                            <label class="form-check-label" for="hardSong">Hard</label>
+                        </div>
+                    </section>
+                    <section>
+                        <h5 class="text-start" style="color: #FD04BC">Genre:</h5>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="songGenre" id="rockSong"
+                                   value="Rock" checked>
+                            <label class="form-check-label" for="rockSong">Rock</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="songGenre" id="popSong"
+                                   value="Pop">
+                            <label class="form-check-label" for="popSong">Pop</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="songGenre" id="hiphopSong"
+                                   value="Hip-Hop">
+                            <label class="form-check-label" for="hiphopSong">Hip-Hop</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="songGenre" id="countrySong"
+                                   value="Country">
+                            <label class="form-check-label" for="countrySong">Country</label>
+                        </div>
+                    </section>
+                    <div>
+                        <input name=round type="hidden" th:value="${currentLevel+1}">
+                        <button type="submit" class="mr-2 btn btn-warning">Next Round</button>
+                        <a th:href="@{/index}">
+                            <button type="button" class="mr-2 btn btn-warning">Home</button>
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <div class="col-sm video-game-button-black">
+            <h4 class="text-light fs-1 bg-success">CORRECT ANSWERS</h4>
+            <ul class="list-group">
+                <li class="list-group-item start-btn" th:each="song, int : ${correctSongs}">
+                    <h4 class="questionsResults" th:text="${song.getLyrics()}"></h4>
+                    <p class="bg-success text-light">CORRECT ANSWER: <span
+                            th:each="la : ${song.getLyricAnswers()}" th:if="${la.isCorrect()}"><span
+                            th:text="${la.getLyricAnswer()}"></span></span></p>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm video-game-button-black mt-5">
+            <h4 class="text-light fs-1 bg-danger">INCORRECT ANSWERS</h4>
+            <ul class="list-group">
+                <li class="list-group-item start-btn" th:each="song, int : ${incorrectSongs}">
+                    <h4 class="questionsResults" th:text="${song.getLyrics()}"></h4>
+                    <p class="bg-danger text-light">SUBMITTED ANSWER: <span
+                            th:text="${incorrectUserAnswers.get(int.index)}"></span></p>
+                    <p class="bg-success text-light">CORRECT ANSWER: <span
+                            th:each="la : ${song.getLyricAnswers()}" th:if="${la.isCorrect()}"><span
+                            th:text="${la.getLyricAnswer()}"></span></span></p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div th:if="${awardEarned}" class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content avatarBorderCont">
+            <div class="modal-header justify-content-center">
+                <h2 class="modal-title rockFont" style="color: yellow;" id="exampleModalLabel"><i
+                        class="fas fa-award"></i> Your New <span
+                        th:if="${newAwards.size() > 1}">Awards!</span><span
+                        th:unless="${newAwards.size() > 1}">Award!</span>
+                    <i class="fas fa-award"></i></h2>
+            </div>
+            <div class="modal-body row justify-content-center rockFont">
+                <div th:each="award : ${newAwards}" class="text-center">
+                    <div class="text-center">
+                        <i th:class="${award.getClassString()}  + ' fa-5x'"></i>
+                        <h4 th:text="${award.getDescription()}" class="rockFont" style="color: yellow"></h4>
                     </div>
                 </div>
-                <div class="text-center">
-                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-                </div>
+            </div>
+            <div class="text-center">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
+</div>
 </body>
 <div th:include="partials/footerNav.html :: footerNav"></div>
 <div th:include="partials/scripts.html :: scripts"></div>
