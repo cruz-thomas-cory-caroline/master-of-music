@@ -443,15 +443,17 @@ background-color: #02093e;
 }
 
 .border-gradient-purple {
-    border: 10px solid;
+    border: 5px solid;
     border-image-slice: 1;
     border-image-source: linear-gradient(to left, #6100ff, #ff00a3);
+    border-radius: 5px;
 }
 
 .gameStatsCards:hover {
-    border: 10px solid;
+    border: 5px solid;
     border-image-slice: 1;
     border-image-source: linear-gradient(to left, #0061f5, #07c837);
+    border-radius: 5px;
 }
 
 #myTabContent {
@@ -462,6 +464,10 @@ background-color: #02093e;
 
 .cardBodyForTabs {
     background-color: #370337;
+}
+
+.historyCards {
+    border-radius: 20px;
 }
 
 .tabHeaders {
@@ -477,6 +483,10 @@ background-color: #02093e;
     color: #fd03bb;
     text-shadow: 2px 2px 25px #23003e, 0 0 25px #020273, 0 0 25px #4e0130;
     font-size: 4em;
+}
+
+#myTab {
+    border-bottom: none;
 }
 
 .welcomePlayerHeader {

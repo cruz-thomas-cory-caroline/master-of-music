@@ -46,7 +46,7 @@
 
             <div class="mt-5">
                 <section class="container-fluid" id="userGameStatsContainer">
-                    <h1 class="gameHistoryHeader text-dark bg-white my-4 rockFont text-center">Global Rankings By
+                    <h1 class="gameHistoryHeader text-dark bg-white my-4 rockFont text-center" style="border-radius: 20px">Global Rankings By
                         Game</h1>
                     <ul class="nav nav-tabs fw-bolder" id="myTab" role="tablist">
                         <li class="nav-item">
@@ -83,7 +83,7 @@
                                 <div class="tab-pane fade show active h-75S" role="tabpanel"
                                      aria-labelledby="musicTrivia-tab">
                                     <!--start music trivia tab -->
-                                    <div class="card">
+                                    <div class="card historyCards">
                                         <h5 th:if="${game3Standing}" class="card-header text-white tabHeaders">Your
                                             Rank:
                                             <span th:text="${game3Standing}"></span>
@@ -116,7 +116,7 @@
                                      aria-labelledby="lyricMaster-tab">
 
                                     <!--start lyric master tabs -->
-                                    <div class="card">
+                                    <div class="card historyCards">
                                         <h5 th:if="${game1Standing}" class="card-header text-white tabHeaders">Your
                                             Rank:
                                             <span th:text="${game1Standing}"></span></h5>
@@ -148,7 +148,7 @@
                                      aria-labelledby="musicTheory-tab">
                                     <!--start music theory tabs -->
 
-                                    <div class="card">
+                                    <div class="card historyCards">
                                         <h5 th:if="${game2Standing}" class="card-header text-white tabHeaders">Your
                                             Rank:
                                             <span th:text="${game2Standing}"></span></h5>
@@ -178,7 +178,7 @@
                                 <div class="tab-pane fade show active h-75S" role="tabpanel"
                                      aria-labelledby="unscramble-tab">
                                     <!--start unscramble tabs -->
-                                    <div class="card">
+                                    <div class="card historyCards">
                                         <h5 th:if="${game4Standing}" class="card-header text-white tabHeaders">Your
                                             Rank:
                                             <span
