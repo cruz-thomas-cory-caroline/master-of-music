@@ -80,7 +80,7 @@
                     <div class="m-auto">
                         <h4 class="unscramble-title" th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getTitle()}"></h4>
                         <h5 class="unscramble-artist" th:text="${songs[scrambledLyricsSet.indexOf(lyricSet)].getArtist()}"></h5>
-                        <h6 class="round-show">Round: <span th:text="${round}"></span></h6>
+                        <h6 class="round-show">Round: <span th:text="${round}" class="unscramble-round-count"></span></h6>
                     </div>
                     <div class="progressBar">
                         <h1 class="times-up hide">Times Up!</h1>

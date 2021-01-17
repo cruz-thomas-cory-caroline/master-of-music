@@ -41,7 +41,7 @@ public class UserController {
 
     @GetMapping("/sign-up")
     public String showSignupForm(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("userToSignUp", new User());
         if (!SecurityContextHolder.getContext().getAuthentication().getName().equalsIgnoreCase("anonymousUser")) {
             User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User user_db = users.findById(user.getId());

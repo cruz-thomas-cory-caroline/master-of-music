@@ -6,6 +6,9 @@
 </head>
 
 <body class="body">
+<div>
+    <h1 class="titleHeader">Master Of Music</h1>
+</div>
 
 <div class="container-fluid">
     <a th:href="@{/index}"><i id="backButton" class="fas fa-backward"></i></a>
@@ -16,9 +19,9 @@
         <div id="gameOptions" class="row d-flex justify-space-around">
             <div class="col-sm-12 col-md-6 text-center divMoveDown">
 
-                <section id="triviaSection">
+                <section id="triviaSection" class="pt-5">
                     <i id="triviaIcon" class="fas fa-music"></i>
-                    <a href="#"><p id="triviaSelection" class="gameTitles">MUSIC TRIVIA MASTER</p></a>
+                    <a href="#"><p id="triviaSelection" class="gameTitles pt-5">MUSIC TRIVIA MASTER</p></a>
                 </section>
                 <section id="lyricOptions">
                     <form th:action="@{/lyric-master/}" method="post">
@@ -71,9 +74,9 @@
 
             <div class="col-sm-12 col-md-6 text-center divMoveDown">
 
-                <section id="lyricSection">
+                <section id="lyricSection" class="pt-5">
                     <i id="lyricIcon" class="fas fa-microphone-alt"></i>
-                    <a href=#><p id="lyricSelection" class="gameTitles">LYRIC MASTER</p></a>
+                    <a href=#><p id="lyricSelection" class="gameTitles pt-5">LYRIC MASTER</p></a>
                 </section>
 
                 <section id="triviaOptions">
@@ -126,9 +129,9 @@
 
             <div class="col-sm-12 col-md-6 text-center">
 
-                <section id="musicTheorySection">
+                <section id="musicTheorySection" class="pb-4">
                     <i id="musicTheoryIcon" class="fas fa-guitar"></i>
-                    <a href="#"><p id="musicTheorySelection" class="gameTitles">MUSIC THEORY MASTER</p></a>
+                    <a href="#"><p id="musicTheorySelection" class="gameTitles pb-4">MUSIC THEORY MASTER</p></a>
                 </section>
 
                 <section id="unscrambleOptions">
@@ -182,9 +185,9 @@
 
             <div class="col-sm-12 col-md-6 text-center">
 
-                <section id="unscrambleLyricSection" class="w-100 h-100">
+                <section id="unscrambleLyricSection" class="w-100 h-100 pb-4">
                     <i id="unscrambleLyricIcon" class="fas fa-compact-disc"></i>
-                    <a href="#"><p id="unscrambleLyricSelection" class="gameTitles">UNSCRAMBLE MASTER</p></a>
+                    <a href="#"><p id="unscrambleLyricSelection" class="gameTitles pb-4">UNSCRAMBLE MASTER</p></a>
                 </section>
 
 <!--        MUSIC THEORY DIFFICULTY SELECTION BELOW        -->
