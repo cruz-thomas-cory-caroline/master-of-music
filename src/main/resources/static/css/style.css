@@ -336,6 +336,16 @@ label.genreLabel, label.difficultyLabel {
     width: 6em;
     margin-left: auto;
     background-color: #94ff00;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 7px #999;
+}
+
+.btnButtonEffect {
+    background-color: #94ff00;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 7px #999;
 }
 
 .controlQ {
@@ -420,6 +430,10 @@ input[type="radio"]:checked + .avatarLabel {
     overflow-y: scroll;
 }
 
+#globalRankingContainer {
+    border-radius: 20px;
+}
+
 .leaderboardULs {
 background-color: #02093e;
 }
@@ -429,15 +443,17 @@ background-color: #02093e;
 }
 
 .border-gradient-purple {
-    border: 10px solid;
+    border: 5px solid;
     border-image-slice: 1;
     border-image-source: linear-gradient(to left, #6100ff, #ff00a3);
+    border-radius: 5px;
 }
 
 .gameStatsCards:hover {
-    border: 10px solid;
+    border: 5px solid;
     border-image-slice: 1;
     border-image-source: linear-gradient(to left, #0061f5, #07c837);
+    border-radius: 5px;
 }
 
 #myTabContent {
@@ -463,6 +479,10 @@ background-color: #02093e;
     color: #fd03bb;
     text-shadow: 2px 2px 25px #23003e, 0 0 25px #020273, 0 0 25px #4e0130;
     font-size: 4em;
+}
+
+#myTab {
+    border-bottom: none;
 }
 
 .welcomePlayerHeader {
