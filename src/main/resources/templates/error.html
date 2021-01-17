@@ -13,59 +13,27 @@
 </head>
 
 <body class="body">
-<div class="container-fluid">
-    <a th:href="@{/index}"><i id="backButton" class="fas fa-backward"></i></a>
-    <a href="#"><i id="audioButton" class="fas fa-volume-up mr-3"></i></a>
-    <a href="#"><i id="audioButtonOff" class="fas fa-volume-mute mr-3"></i></a>
-<!--    <section id="pickGame" class="container">-->
-<!--        <div id="gameOptions" class="row d-flex justify-space-around">-->
 
-<!--            <div class="col-sm-12 col-md-6 text-center divMoveDown">-->
-<!--                <section id="triviaSection">-->
-<!--                    <i id="triviaIcon" class="fas fa-music"></i>-->
-<!--                </section>-->
-<!--            </div>-->
-
-<!--            <div class="col-sm-12 col-md-6 text-center divMoveDown">-->
-<!--                <section id="lyricSection">-->
-<!--                    <i id="lyricIcon" class="fas fa-microphone-alt"></i>-->
-<!--                </section>-->
-<!--            </div>-->
-
-
-            <div class="card mx-auto my-5 avatarBorderCont" style="width: 18rem">
-                <div class="card-header">
-                    <h3>This is an error page</h3>
-                </div>
-                <div class="card-body forgotPasswordCard">
-                    <div th:text="${message}">
-                    </div>
+<a th:href="@{/index}"><i id="backButton" class="fas fa-backward"></i></a>
+<a href="#"><i id="audioButton" class="fas fa-volume-up mr-3"></i></a>
+<a href="#"><i id="audioButtonOff" class="fas fa-volume-mute mr-3"></i></a>
+<div class="container">
+    <div class="row justify-content-around align-items-center">
+        <div class="col card avatarBorderCont" style="width: 18rem">
+            <div class="card-header">
+                <h3>There seems to be a malfunction!</h3>
+            </div>
+            <div class="card-body forgotPasswordCard">
+                <div th:text="${message}">
                 </div>
             </div>
-
-
-<!--            <div class="col-sm-12 col-md-6 text-center">-->
-<!--                <section id="musicTheorySection">-->
-<!--                    <i id="musicTheoryIcon" class="fas fa-guitar"></i>-->
-<!--                </section>-->
-<!--            </div>-->
-
-<!--            <div class="col-sm-12 col-md-6 text-center">-->
-<!--                <section id="unscrambleLyricSection" class="w-100 h-100">-->
-<!--                    <i id="unscrambleLyricIcon" class="fas fa-compact-disc"></i>-->
-<!--                </section>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </section>-->
-<!--</div>-->
-
-
-<div th:include="partials/footerNav.html :: footerNav"></div>
-<div th:include="partials/scripts.html :: scripts"></div>
-</body>
-</html>
-
+        </div>
+        <div class="col">
+            <h1 class="titleHeader text-center" id="unscrambleLyricIcon">4<i class="fas fa-compact-disc"></i>4</h1>
+        </div>
+    </div>
 </div>
+
 
 
 </body>
