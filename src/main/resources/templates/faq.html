@@ -10,8 +10,6 @@
         }
 
         .flip-card {
-            /*background-color: transparent;*/
-            /*perspective: 1000px;*/
             background-color: rgba(0, 0, 0, 0.4);
         }
 
@@ -55,7 +53,7 @@
                 <div class="card  avatarBorderCont faqCard avatar flip-card">
                     <div class="flip-card-inner">
                         <div class="flip-card-front p-0 m-0">
-                            <img class="card-img-top rounded-circle" th:src="@{/img/thomasAvatar.png}" alt="">
+                            <img class="card-img-top rounded-circle" th:src="@{/img/thomasAvatar.png}"  alt="" >
                         </div>
                         <div class="flip-card-back">
                             <img class="card-img-top rounded-circle" th:src="@{/img/thomas.png}" alt="">
@@ -123,7 +121,7 @@
                             <img class="card-img-top rounded-circle" th:src="@{/img/carolineAvatar.png}" alt="">
                         </div>
                         <div class="flip-card-back">
-                            <img class="card-img-top rounded-circle" th:src="@{/img/caroline.jpeg}" alt="">
+                            <img class="card-img-top rounded-circle"  th:src="@{/img/caroline.jpeg}" alt="">
                         </div>
                     </div>
                     <div>
@@ -139,6 +137,97 @@
             </div>
         </div>
     </div>
+
+<!--    <div class="container">-->
+<!--        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4" style="padding-top: 5%">-->
+<!--            <div class="col mt-3">-->
+<!--                <div class="card  avatarBorderCont faqCard avatar flip-card">-->
+<!--                    <div class="flip-card-inner">-->
+<!--                        <div class="flip-card-front p-0 m-0">-->
+<!--                            <img class="card-img-top rounded-circle"  alt="" th:src="@{/img/thomas.png}">-->
+<!--                        </div>-->
+<!--                        <div class="flip-card-back">-->
+<!--                            <img class="card-img-top rounded-circle" th:src="@{/img/thomasAvatar.png}" alt="">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div>-->
+<!--                        <h2 class="text-center pb-2 d-flex rockFont" style="overflow-wrap: break-word">Thomas-->
+<!--                            Crowder</h2>-->
+<!--                        <p class="text-center"><a th:href="@{https://github.com/ThomasCrowder703}"><i-->
+<!--                                class="fab fa-github fa-2x faHover"></i></a>-->
+<!--                            <a th:href="@{https://www.linkedin.com/in/thomas-crowder-b1a922203/}"><i-->
+<!--                                    class="fab fa-linkedin fa-2x faHover"></i></a>-->
+<!--                            <i class="fas fa-graduation-cap fa-2x faHover"></i></p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="col mt-3">-->
+<!--                <div class="card avatarBorderCont faqCard avatar flip-card">-->
+<!--                    <div class="flip-card-inner">-->
+<!--                        <div class="flip-card-front p-0 m-0">-->
+<!--                            <img class="card-img-top rounded-circle" th:src="@{/img/cory.jpeg}" alt="">-->
+<!--                        </div>-->
+<!--                        <div class="flip-card-back p-0 m-0">-->
+<!--                            <img class="card-img-top rounded-circle" th:src="@{/img/coryAvatar.png}" alt="">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div>-->
+<!--                        <h2 class="text-center pb-2 d-flex rockFont" style="overflow-wrap: break-word">Courtney-->
+<!--                            Holley</h2>-->
+<!--                        <p class="text-center"><a th:href="@{https://github.com/coryholley}"><i-->
+<!--                                class="fab fa-github fa-2x faHover"></i></a>-->
+<!--                            <a th:href="@{https://www.linkedin.com/in/courtney-holley/}"><i-->
+<!--                                    class="fab fa-linkedin fa-2x faHover"></i></a>-->
+<!--                            <i class="fas fa-graduation-cap fa-2x faHover"></i></p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="col mt-3">-->
+<!--                <div class="card avatarBorderCont faqCard avatar flip-card">-->
+<!--                    <div class="flip-card-inner">-->
+<!--                        <div class="flip-card-front p-0 m-0">-->
+<!--                            <img class="card-img-top rounded-circle" th:src="@{/img/cruz.jpeg}" alt="">-->
+<!--                        </div>-->
+<!--                        <div class="flip-card-back">-->
+<!--                            <img class="card-img-top rounded-circle" th:src="@{/img/cruzAvatar.png}" alt="">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div>-->
+<!--                        <h2 class="text-center pb-2 d-flex rockFont" style="overflow-wrap: break-word">Cruzanio-->
+<!--                            Villarreal</h2>-->
+<!--                        <p class="text-center"><a th:href="@{https://github.com/cruzaniovillarreal}"><i-->
+<!--                                class="fab fa-github fa-2x faHover"></i></a>-->
+<!--                            <a th:href="@{https://www.linkedin.com/in/cruzaniovillarreal/}"><i-->
+<!--                                    class="fab fa-linkedin fa-2x faHover"></i></a>-->
+<!--                            <i class="fas fa-graduation-cap fa-2x faHover"></i></p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col mt-3">-->
+<!--                <div class="card avatarBorderCont faqCard avatar flip-card">-->
+<!--                    <div class="flip-card-inner">-->
+<!--                        <div class="flip-card-front p-0 m-0">-->
+<!--                            <img class="card-img-top rounded-circle" th:src="@{/img/caroline.jpeg}"alt="">-->
+<!--                        </div>-->
+<!--                        <div class="flip-card-back">-->
+<!--                            <img class="card-img-top rounded-circle" th:src="@{/img/carolineAvatar.png}"  alt="">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div>-->
+<!--                        <h2 class="text-center pb-2 d-flex rockFont" style="overflow-wrap: break-word">Caroline-->
+<!--                            Esquivel</h2>-->
+<!--                        <p class="text-center"><a th:href="@{https://github.com/Caroline1986}"><i-->
+<!--                                class="fab fa-github fa-2x faHover"></i></a>-->
+<!--                            <a th:href="@{https://www.linkedin.com/in/ceesquivel}"><i-->
+<!--                                    class="fab fa-linkedin fa-2x faHover"></i></a>-->
+<!--                            <i class="fas fa-graduation-cap fa-2x faHover"></i></p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 </main>
 
 <div th:include="partials/footerNav.html :: footerNav"></div>
