@@ -1,4 +1,10 @@
+.form-gap {
+    padding-top: 70px;
+}
 
+.lock{
+    color: #FD04BC;
+}
 .start-menu{
    top: 20%;
 }
@@ -229,64 +235,10 @@
     padding: 1rem;
 }
 
-/*.linkFooterTC, .linkFooterCH, .linkFooterCV, .linkFooterCE {*/
-/*    display: none;*/
-/*}*/
-
-
-
-/*.thomas:hover .linkFooterTC{*/
-/*    display: block;*/
-/*    height: 50%;*/
-/*}*/
-
-/*.cory:hover .linkFooterCH{*/
-/*    display: block;*/
-/*    height: 50%;*/
-/*}*/
-
-/*.cruz:hover .linkFooterCV{*/
-/*    display: block;*/
-/*    height: 50%;*/
-/*}*/
-
-/*.caroline:hover .linkFooterCE{*/
-/*    display: block;*/
-/*    height: 50%;*/
-/*}*/
-
-/*.linkFooterTC {*/
-/*    display: none;*/
-/*}*/
-
-/*.linkFooterCH {*/
-/*    display: none;*/
-/*}*/
-
-/*.linkFooterCV {*/
-/*    display: none;*/
-/*}*/
-
-/*.linkFooterCE {*/
-/*    display: none;*/
-/*}*/
-
-/*.thomas:hover .linkFooterTC{*/
-/*    display: block;*/
-/*    height: 50%;*/
-/*}*/
-
-/*.cory:hover .linkFooterCH{*/
-/*    display: block;*/
-/*    height: 50%;*/
-/*}*/
-
-/*.cruz:hover .linkFooterCV{*/
-/*    display: block;*/
-/*    height: 50%;*/
-/*}*/
-
-/*.caroline:hover .linkFooterCE{*/
-/*    display: block;*/
-/*    height: 50%;*/
-/*}*/
+.faqCard {
+    max-width: 32em;
+    height: 27em;
+    background: #222;
+    color: white;
+    padding: 1rem;
+}
