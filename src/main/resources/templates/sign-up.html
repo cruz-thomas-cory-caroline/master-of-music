@@ -31,97 +31,103 @@
     </script>
 </head>
 <body class="body" ng-app="myapp">
-<div class="container w-100" style="padding-top: 5%">
-<div class="card w-70 mx-auto my-5 avatarBorderCont" style="width: 23rem">
-    <article class="card-body forgotPasswordCard">
-        <h4 class="card-title text-center mb-4 mt-1">Create Account</h4>
-        <hr>
-        <div th:if="${param.error}" class="text-center">
-            <p class="text-danger">Invalid Username or Password.</p>
-        </div>
-        <div th:if="${param.logout}" class="text-center">
-            <p class="text-success">You have successfully logged out.</p>
-        </div>
-        <div th:if="${param.emailNotAvailable}" class="text-center">
-            <p class="text-danger">Email already in use.</p>
-        </div>
-        <div th:if="${param.invalidpw}" class="text-center">
-            <p class="text-danger">Passwords do not match.</p>
-        </div>
-        <div th:if="${param.invalidEmail}" class="text-center">
-            <p class="text-danger">Invalid Email.</p>
-        </div>
-        <div th:if="${param.usernameNotAvailable}" class="text-center">
-            <p class="text-danger">Username not available.</p>
-        </div>
-        <div th:if="${param.invalidpwRequirements}">
-            <p class="text-danger">Password does not meet requirements.</p>
-        </div>
-        <ul id="pwRequirementsList" class="text-danger"><h6>Password Requirements:</h6>
-            <li>It contains at least 8 characters and at most 20 characters.</li>
-            <li>It contains at least one digit.</li>
-            <li>It contains at least one upper case alphabet.</li>
-            <li>It contains at least one lower case alphabet.</li>
-            <li>It contains at least one special character which includes:</li>
-            <ul>!@#$%&*()-+=^.</ul>
-            <li>No spaces.</li>
-        </ul>
 
-        <form th:action="@{/sign-up}" method="post" th:object="${userToSignUp}">
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fa fa-user"></i></span>
-                    </div>
-                    <input th:field="*{username}" class="form-control" placeholder="Enter username" type="text">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                    </div>
-                    <input class="form-control" placeholder="Enter email" type="email" th:field="*{email}">
-                </div>
-            </div>
-            <div class="form-group" ng-controller="PasswordController" id="myPassword">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"> <i class="fa fa-lock"></i></span>
-                    </div>
-                    <input class="form-control" ng-model="password" ng-change="analyze(password)"
-                           placeholder="Enter password" type="password" id="passwordEntered" name="password"
-                           th:field="*{password}">
-                    <div id="passwordStrength" ng-style="passwordStrength">
-                    </div>
-                </div>
-                <a id="pwRequirements" href="#">Password Requirements</a>
-
-            </div>
-
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"> <i class="fas fa-key"></i> </span>
-                    </div>
-                    <input class="form-control" placeholder="Confirm password" type="password"
-                           name="confirmPassword">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <p>You will receive a verification email upon sign-up.</p>
-                </div>
-            </div>
-            <p class="text-center">Already have an account? <a th:href="@{/login}">Login</a></p>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
-            </div>
-        </form>
-    </article>
+<div>
+    <h1 class="titleHeader">Master Of Music</h1>
 </div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col">
+            <div class="card w-70 mx-auto my-5 avatarBorderCont" style="width: 30rem">
+                <article class="card-body forgotPasswordCard">
+                    <h4 class="card-title text-center mb-4 mt-1">Create Account</h4>
+                    <hr>
+                    <div th:if="${param.error}" class="text-center">
+                        <p class="text-danger">Invalid Username or Password.</p>
+                    </div>
+                    <div th:if="${param.logout}" class="text-center">
+                        <p class="text-success">You have successfully logged out.</p>
+                    </div>
+                    <div th:if="${param.emailNotAvailable}" class="text-center">
+                        <p class="text-danger">Email already in use.</p>
+                    </div>
+                    <div th:if="${param.invalidpw}" class="text-center">
+                        <p class="text-danger">Passwords do not match.</p>
+                    </div>
+                    <div th:if="${param.invalidEmail}" class="text-center">
+                        <p class="text-danger">Invalid Email.</p>
+                    </div>
+                    <div th:if="${param.usernameNotAvailable}" class="text-center">
+                        <p class="text-danger">Username not available.</p>
+                    </div>
+                    <div th:if="${param.invalidpwRequirements}">
+                        <p class="text-danger">Password does not meet requirements.</p>
+                    </div>
+                    <ul id="pwRequirementsList" class="text-danger"><h6>Password Requirements:</h6>
+                        <li>It contains at least 8 characters and at most 20 characters.</li>
+                        <li>It contains at least one digit.</li>
+                        <li>It contains at least one upper case alphabet.</li>
+                        <li>It contains at least one lower case alphabet.</li>
+                        <li>It contains at least one special character which includes:</li>
+                        <ul>!@#$%&*()-+=^.</ul>
+                        <li>No spaces.</li>
+                    </ul>
+                    <form th:action="@{/sign-up}" method="post" th:object="${userToSignUp}">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                </div>
+                                <input th:field="*{username}" class="form-control" placeholder="Enter username"
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                </div>
+                                <input class="form-control" placeholder="Enter email" type="email" th:field="*{email}">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-controller="PasswordController" id="myPassword">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-lock"></i></span>
+                                </div>
+                                <input class="form-control" ng-model="password" ng-change="analyze(password)"
+                                       placeholder="Enter password" type="password" id="passwordEntered" name="password"
+                                       th:field="*{password}">
+                                <div id="passwordStrength" ng-style="passwordStrength">
+                                </div>
+                            </div>
+                            <a id="pwRequirements" href="#">Password Requirements</a>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fas fa-key"></i> </span>
+                                </div>
+                                <input class="form-control" placeholder="Confirm password" type="password"
+                                       name="confirmPassword">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <p>You will receive a verification email upon sign-up.</p>
+                            </div>
+                        </div>
+                        <p class="text-center">Already have an account? <a th:href="@{/login}">Login</a></p>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+                        </div>
+                    </form>
+                </article>
+            </div>
+        </div>
+    </div>
 </div>
+</body>
 <div th:replace="partials/footerNav.html :: footerNav"></div>
 <th:block th:include="partials/scripts :: scripts"></th:block>
-</body>
 </html>
