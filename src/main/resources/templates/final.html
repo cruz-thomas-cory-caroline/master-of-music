@@ -5,19 +5,19 @@
     <title>Login</title>
 </head>
 <body class="body">
-<div class="container">
+<div class="container final-container">
     <div class="final-result-card card text-center">
         <input type="hidden" id="score" th:value="${score}">
         <h1 class="card-header final-title">Score <span id="scoreCounterFinal"></span></h1>
         <div class="card-body">
             <div th:if="${canAdvance}" id="congrats" class="hide">
-                <h3>Congratulations!</h3>
-                <p>You successfully answered enough to proceed to the next round!</p>
+                <h3 style="color: green">Congratulations!</h3>
+                <h4>You have scored enough points to continue!</h4>
                 <hr>
             </div>
-            <div th:if="${awardEarned}" id="badgeEarned" class="hide">
+            <div th:if="${awardEarned}" id="unscrambled-badge-earned" class="hide">
                 <h3>NEW <span th:if="${newAwards.size() > 1}">BADGES</span><span th:unless="${newAwards.size() > 1}">BADGE</span> EARNED!</h3>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">See Award</button>
+                <button type="button" class="unscramble-award-open" data-toggle="modal" data-target="#exampleModal">See Award</button>
             </div>
             <div th:each="song, int : ${songs}" class="my-2">
                 <div class="row my-4 text-center">
@@ -37,50 +37,51 @@
             </div>
             <div th:if="${canAdvance}">
                 <form th:action="@{/unscramble}" method="get">
-                    <h5 class="text-white text-start">Difficulty:</h5>
+                    <h5 class="text-start unscramble-options-titles">Difficulty:</h5>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="difficulty" id="inlineRadio8"
-                               value="easy">
-                        <label class="form-check-label" for="inlineRadio8">Easy</label>
+                               value="easy" checked hidden>
+                        <label class="form-check-label unscramble-diff-options2 unscramble-diff-selected2 unscramble-options" for="inlineRadio8">Easy</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="difficulty" id="inlineRadio9"
-                               value="medium">
-                        <label class="form-check-label" for="inlineRadio9">Medium</label>
+                               value="medium" hidden>
+                        <label class="form-check-label unscramble-diff-options2 unscramble-options" for="inlineRadio9">Medium</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="difficulty" id="inlineRadio10"
-                               value="hard">
-                        <label class="form-check-label" for="inlineRadio10">Hard</label>
+                               value="hard" hidden>
+                        <label class="form-check-label unscramble-diff-options2 unscramble-options" for="inlineRadio10">Hard</label>
                     </div>
 
-                    <h5 class="text-white text-start">Genre:</h5>
+                    <h5 class="text-start unscramble-options-titles">Genre:</h5>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="genre" id="inlineRadio11"
-                               value="rock">
-                        <label class="form-check-label" for="inlineRadio11">Classic Rock</label>
+                               value="rock" checked hidden>
+                        <label class="form-check-label unscramble-options unscramble-genre-options2 unscramble-genre-selected2" for="inlineRadio11">Classic Rock</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="genre" id="inlineRadio12"
-                               value="pop">
-                        <label class="form-check-label" for="inlineRadio12">Pop</label>
+                               value="pop" hidden>
+                        <label class="form-check-label unscramble-options unscramble-genre-options2" for="inlineRadio12">Pop</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="genre" id="inlineRadio13"
-                               value="hip-hop">
-                        <label class="form-check-label" for="inlineRadio13">Hip-Hop</label>
+                               value="hip-hop" hidden>
+                        <label class="form-check-label unscramble-options unscramble-genre-options2" for="inlineRadio13">Hip-Hop</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="genre" id="inlineRadio14"
-                               value="country">
-                        <label class="form-check-label" for="inlineRadio14">Country</label>
+                               value="country" hidden>
+                        <label class="form-check-label unscramble-options unscramble-genre-options2" for="inlineRadio14">Country</label>
                     </div>
-                    <div>
+                    <div class="mt-3">
                         <input name=round type="hidden" th:value="${currentLevel+1}">
-                        <button type="submit" class="btn btn-primary">Next Round</button>
+                        <button type="submit" class="unscramble-next-round">Next Round</button>
+                        <a href="/index" class="unscramble-quit-game">Quit Game</a>
                     </div>
                 </form>
-                <a href="/index" class="btn btn-danger">Quit Game</a>
+
             </div>
             <div th:unless="${canAdvance}">
                 <a href="/index" class="home-button"><i class="fas fa-music"></i> Home <i class="fas fa-music"></i></a>
@@ -91,26 +92,28 @@
 
     <div th:if="${awardEarned}" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <div class="modal-content unscramble-award-model">
                 <div class="modal-header justify-content-center">
-                    <h2 class="modal-title" id="exampleModalLabel"><i class="fas fa-award"></i> Your New <span th:if="${newAwards.size() > 1}">Awards!</span><span th:unless="${newAwards.size() > 1}">Award!</span> <i class="fas fa-award"></i></h2>
+                    <h1 class="modal-title unscramble-modal-title" id="exampleModalLabel"><i class="fas fa-award"></i> Your New <span th:if="${newAwards.size() > 1}">Awards!</span><span th:unless="${newAwards.size() > 1}">Award!</span> <i class="fas fa-award"></i></h1>
                 </div>
                 <div class="modal-body row justify-content-center">
-                    <div th:each="award : ${newAwards}" class="text-center">
+                    <div th:each="award : ${newAwards}" class="text-center mt-4">
                         <div class="text-center">
-                            <i th:class="${award.getClassString()}+' fa-8x'"></i>
-                            <h4 th:text="${award.getDescription()}"></h4>
+                            <i th:class="${award.getClassString()}+' fa-8x mt-2'"></i>
+                            <h2 class="unscramble-award-title mt-2" th:text="${award.getDescription()}"></h2>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer text-center my-3">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <div class="modal-footer text-center d-flex justify-content-center my-3">
+                    <button type="button" class="unscramble-award-close" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
 
-
+    <footer>
+        <div th:include="partials/footerNav.html :: footerNav"></div>
+    </footer>
 </div>
 </body>
 <th:block th:include="partials/scripts :: scripts"></th:block>
@@ -125,14 +128,28 @@
             if (zero === scoreToCount) {
                 $('#scoreCounterFinal').html(zero)
                 clearInterval(scoreCount)
-                $('#congrats').show()
-                $('#badgeEarned').show()
+                $('#congrats').removeClass('hide')
+                $('#unscrambled-badge-earned').removeClass('hide')
             } else {
                 zero = zero + 1
                 $('#scoreCounterFinal').html(zero)
             }
         }, 5)
     }
+
+    $('.unscramble-diff-options2').click(function () {
+        $('.unscramble-diff-options2').each(function () {
+            $(this).removeClass('unscramble-diff-selected2')
+        })
+        $(this).addClass('unscramble-diff-selected2')
+    })
+
+    $('.unscramble-genre-options2').click(function () {
+        $('.unscramble-genre-options2').each(function () {
+            $(this).removeClass('unscramble-genre-selected2')
+        })
+        $(this).addClass('unscramble-genre-selected2')
+    })
 
     scoreCounter()
 </script>
