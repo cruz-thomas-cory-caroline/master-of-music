@@ -66,7 +66,6 @@ public class LyricController {
             playerGameDao.save(playerGame);
             currentGameID = playerGameDao.save(playerGame).getId();
         }
-
         return "redirect:/lyric-master";
     }
 
@@ -128,23 +127,16 @@ public class LyricController {
         ArrayList<Song> hints = new ArrayList<>();
         for (Song song : songsToPass) {
             long answerIdCorrect = songService.findAnswerIdCorrect(song.getId());
-            if(answerIdCorrect != song.getId());
+            if (answerIdCorrect != song.getId()) ;
             hints.add(song);
         }
 
-        ArrayList<LyricAnswer> lyricAnswerArrayList= new ArrayList<>();
+        ArrayList<LyricAnswer> lyricAnswerArrayList = new ArrayList<>();
         for (LyricAnswer lyricAnswer1 : lyricAnswerDao.findAll()) {
             if (!lyricAnswer1.isCorrect()) {
                 lyricAnswerArrayList.add(lyricAnswer1);
             }
         }
-
-
-        for (var i = 0; i < 2; i++){
-
-        }
-
-
 
         modelMap.addAttribute("songDifficulty", songDifficulty);
         modelMap.addAttribute("numberOfQuestion", questions);
@@ -171,7 +163,6 @@ public class LyricController {
         newPlayerGameRound.setScore(0);
         newPlayerGameRound.setPlay_time(String.valueOf(new Timestamp(0)));
         newPlayerGameRound.setPlayerGame(currentPlayerGame);
-
 
         ArrayList<String> incorrectUserAnswers = new ArrayList<>();
         ArrayList<Song> correctSongs = new ArrayList<>();
@@ -305,11 +296,6 @@ public class LyricController {
             }
         }
 
-
-        System.out.println(playerGameRound);
-        System.out.println(round);
-        System.out.println(awardEarned);
-        System.out.println(newAwards);
         request.setAttribute("awardEarned", awardEarned);
         request.setAttribute("newAwards", newAwards);
         request.setAttribute("correctSongs", correctSongs);
