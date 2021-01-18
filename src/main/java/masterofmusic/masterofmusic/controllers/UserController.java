@@ -105,6 +105,7 @@ public class UserController {
             mailMessage.setSubject("Complete Registration!");
             mailMessage.setFrom("masterofmusic@codeup.com");
             mailMessage.setText("To confirm your account, go to the url : "
+//                    +"http://localhost:8080/confirm-account?token="+confirmationToken.getConfirmationToken());
                     +"http://masterofmusic.fun/confirm-account?token="+confirmationToken.getConfirmationToken());
 
             emailSenderService.sendEmail(mailMessage);
@@ -166,6 +167,7 @@ public class UserController {
             mailMessage.setSubject("Complete Password Reset!");
             mailMessage.setFrom("test-email@gmail.com");
             mailMessage.setText("To complete the password reset process, please click here: "
+//                    +"http://localhost:8080/confirm-reset?token="+confirmationToken.getConfirmationToken());
                     + "http://masterofmusic.fun/confirm-reset?token="+confirmationToken.getConfirmationToken());
             // Send the email
             emailSenderService.sendEmail(mailMessage);
@@ -200,7 +202,10 @@ public class UserController {
 
     // Endpoint to update a user's password
     @RequestMapping(value = "/reset-password", method = RequestMethod.POST)
-    public ModelAndView resetUserPassword(ModelAndView modelAndView, User user) {
+    public ModelAndView resetUserPassword(ModelAndView modelAndView,
+                                          User user,
+                                          @RequestParam(name = "password") String password,
+                                          @RequestParam(name = "confirmPassword") String confirmPassword) {
         if (user.getEmail() != null) {
             // Use email to find user
             User tokenUser = users.findByEmailIgnoreCase(user.getEmail());
@@ -208,7 +213,10 @@ public class UserController {
             users.save(tokenUser);
             modelAndView.addObject("message", "Password successfully reset. You can now log in with the new credentials.");
             modelAndView.setViewName("successResetPassword");
-        } else {
+        } else if (!password.equals(confirmPassword)) {
+            modelAndView.addObject("message","Passwords do not match");
+            modelAndView.setViewName("error");
+        }else{
             modelAndView.addObject("message","The link is invalid or broken!");
             modelAndView.setViewName("error");
         }

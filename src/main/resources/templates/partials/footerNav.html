@@ -9,9 +9,9 @@
 <footer th:fragment="footerNav">
     <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark p-0 m-0">
         <div class="container-fluid">
-            <a sec:authorize="!isAuthenticated()" th:href="@{/sign-up}"><span class="badge text-dark navbar-login mr-2">Register or Login</span></a>
+            <a sec:authorize="!isAuthenticated()" th:href="@{/login}"><span class="badge text-dark navbar-login mr-2 loginButton">Register or Login</span></a>
             <form sec:authorize="isAuthenticated()" th:action="@{/logout}" th:method="post">
-                <button class="badge text-dark navbar-login mr-4">Logout</button>
+                <button class="badge text-dark navbar-login mr-4 loginButton">Logout</button>
             </form>
 
 

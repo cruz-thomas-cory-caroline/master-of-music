@@ -1,4 +1,10 @@
+.form-gap {
+    padding-top: 70px;
+}
 
+.lock{
+    color: #FD04BC;
+}
 .start-menu{
    top: 20%;
 }
@@ -12,7 +18,7 @@
     font-family: 'New Rocker', cursive;
     color: #9b029b;
     text-shadow: 2px 2px 25px #23003e, 0 0 25px #020273, 0 0 25px #4e0130;
-    font-size: 1.5em;
+    font-size: 1.3em;
 }
 
 
@@ -33,7 +39,6 @@
     color: white;
     background-color: #222;
     cursor: pointer;
-    padding-left: 5px;
     font-family: 'New Rocker', cursive;
 }
 
@@ -94,18 +99,18 @@
     margin-bottom: 1em;
 }
 
-.lockin-button {
-    padding: 10px 10px;
-    font-size: 20px;
-    text-align: center;
-    cursor: pointer;
-    outline: none !important;
-    color: black;
-    background-color: #7ad204;
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 7px #999;
-}
+/*.lockin-button {*/
+/*    padding: 10px 10px;*/
+/*    font-size: 20px;*/
+/*    text-align: center;*/
+/*    cursor: pointer;*/
+/*    outline: none !important;*/
+/*    color: black;*/
+/*    background-color: #7ad204;*/
+/*    border: none;*/
+/*    border-radius: 15px;*/
+/*    box-shadow: 0 7px #999;*/
+/*}*/
 
 .video-game-button:active, .start-btn:active {
     box-shadow: none;
@@ -124,13 +129,33 @@
     font-family: 'New Rocker', cursive;
     color: #c62a88;
     text-shadow: 1px 1px 2px #fcc910, 0 0 25px blue, 0 0 5px darkblue;
+    size:36em;
 }
+
+.LMquizAnswers {
+    font-size: 1.25em;
+    padding: 10px;
+    font-family: 'New Rocker', cursive;
+}
+
 
 .lyricCards .LMcard{display:none;}
 .lyricCards .LMcard.active{display:initial}
 
 .title{
     display: none;
+}
+
+.finishedBtn {
+    width: 6em;
+    background-color: #7ad204;
+}
+
+.questionLabel {
+    font-family: 'New Rocker', cursive;
+    font-size: 2em;
+    text-align: center;
+    color: #fad100;
 }
 
 #badgeEarned{
@@ -194,7 +219,14 @@
     font-family: 'New Rocker', cursive;
     color: #ddd903;
     text-shadow: 2px 2px 25px #23003e, 0 0 25px #020273, 0 0 25px #4e0130;
-    font-size: 4em;
+    font-size: 2em;
+}
+
+.LMGameHeader {
+    font-family: 'New Rocker', cursive;
+    color: #ddd903;
+    text-shadow: 2px 2px 25px #23003e, 0 0 25px #020273, 0 0 25px #4e0130;
+    font-size: 2em;
 }
 
 .forgotPasswordCard {
@@ -203,64 +235,10 @@
     padding: 1rem;
 }
 
-/*.linkFooterTC, .linkFooterCH, .linkFooterCV, .linkFooterCE {*/
-/*    display: none;*/
-/*}*/
-
-
-
-/*.thomas:hover .linkFooterTC{*/
-/*    display: block;*/
-/*    height: 50%;*/
-/*}*/
-
-/*.cory:hover .linkFooterCH{*/
-/*    display: block;*/
-/*    height: 50%;*/
-/*}*/
-
-/*.cruz:hover .linkFooterCV{*/
-/*    display: block;*/
-/*    height: 50%;*/
-/*}*/
-
-/*.caroline:hover .linkFooterCE{*/
-/*    display: block;*/
-/*    height: 50%;*/
-/*}*/
-
-/*.linkFooterTC {*/
-/*    display: none;*/
-/*}*/
-
-/*.linkFooterCH {*/
-/*    display: none;*/
-/*}*/
-
-/*.linkFooterCV {*/
-/*    display: none;*/
-/*}*/
-
-/*.linkFooterCE {*/
-/*    display: none;*/
-/*}*/
-
-/*.thomas:hover .linkFooterTC{*/
-/*    display: block;*/
-/*    height: 50%;*/
-/*}*/
-
-/*.cory:hover .linkFooterCH{*/
-/*    display: block;*/
-/*    height: 50%;*/
-/*}*/
-
-/*.cruz:hover .linkFooterCV{*/
-/*    display: block;*/
-/*    height: 50%;*/
-/*}*/
-
-/*.caroline:hover .linkFooterCE{*/
-/*    display: block;*/
-/*    height: 50%;*/
-/*}*/
+.faqCard {
+    max-width: 32em;
+    height: 27em;
+    background: #222;
+    color: white;
+    padding: 1rem;
+}
