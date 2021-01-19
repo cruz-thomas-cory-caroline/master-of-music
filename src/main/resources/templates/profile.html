@@ -17,7 +17,8 @@
                     th:text="${user.username.toUpperCase()}"></h3>
                 <section class="row">
                     <div class="col-12 d-flex justify-content-center">
-                        <img class="m-2" id="profileAvatar" th:src="${user.images}" alt="profile-icon">
+                        <img th:if="${user.images}" class="m-2" id="profileAvatar" th:src="${user.images}" alt="profile-icon">
+                        <img th:unless="${user.images}" class="m-2" id="profileAvatar" th:src="@{/img/maleIcon1.jpg}" alt="profile-icon">
                     </div>
                     <!-- Button trigger modal -->
                     <div th:if="${loggedIn}" class="col-12 d-flex justify-content-center ">

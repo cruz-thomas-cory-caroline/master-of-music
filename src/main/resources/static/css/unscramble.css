@@ -3,6 +3,10 @@
     display: none !important;
 }
 
+.game-start {
+    padding-bottom: 80px;
+}
+
 .web-instr h4 ul li {
     list-style-type: none;
 }

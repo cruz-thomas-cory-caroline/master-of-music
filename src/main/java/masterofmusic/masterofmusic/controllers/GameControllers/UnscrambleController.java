@@ -76,16 +76,16 @@ public class UnscrambleController {
 
         switch (difficulty) {
             case "easy":
-                numberOfQuestions = 5;
+                numberOfQuestions = 3;
                 timeLimit = 90;
                 break;
             case "medium":
-                numberOfQuestions = 7;
+                numberOfQuestions = 5;
                 timeLimit = 60;
                 break;
             case "hard":
-                numberOfQuestions = 10;
-                timeLimit = 30;
+                numberOfQuestions = 7;
+                timeLimit = 45;
                 break;
         }
 

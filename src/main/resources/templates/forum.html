@@ -7,219 +7,188 @@
 </head>
 <body class="body">
 <main class="container forum-list">
-    <h1 class="text-center forum-title">Forum</h1>
+    <h1 class="text-center forum-title">Ask The Devs</h1>
     <div sec:authorize="isAuthenticated()">
         <div class="text-center mt-5">
             <button type="button" class="new-post-button" id="post-form">New Post</button>
         </div>
     </div>
 
-    <div class="card m-5 new-post" id="new-post">
+    <div class="card m-5 new-post mx-auto" id="new-post">
         <div class="card-header text-left">New Post</div>
         <form th:action="@{/forum/post}" method="post" th:object="${post}">
-            <div class="card-body">
+            <div class="card-body pb-0">
                 <label for="new-post-title">Subject: </label>
                 <br>
-                <input class="card-title" id="new-post-title" style="width: 50%" th:field="*{title}">
+                <input class="card-title" id="new-post-title" style="width: 50%" th:field="*{title}"
+                       placeholder="Enter subject...">
                 <br>
                 <label for="new-post-body">Post: </label>
                 <textarea id="new-post-body" placeholder="Type your comment here" style="width: 100%; height: 100px"
                           th:field="*{body}"></textarea>
             </div>
-            <div class="card-footer">
-                <button type="button" id="close-post" class="btn btn-danger">Close</button>
-                <button type="submit" class="btn btn-primary">Post</button>
+            <div class="card-footer row justify-content-between">
+                <button type="button" id="close-post" class="close-new-post ml-4 mb-2">Close</button>
+                <button type="submit" class="submit-new-post mr-4 mb-2">Post</button>
             </div>
         </form>
     </div>
 
-    <div th:each="post : ${posts}" class="mx-auto my-5" style="width: 75%">
+    <div th:each="post : ${posts}" class="mx-auto my-5 card-holder">
         <div class="card text-center post-cards">
-            <form th:action="@{/post/{id}/edit(id=${post.id})}" method="post">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-4 text-center profile-block text-left d-flex flex-wrap align-items-center pr-0">
-                            <div class="row" style="width: 100%">
+            <div class="card-body">
+                <div sec:authorize="isAuthenticated()">
+                    <div th:if="${post.getOwner().getId() == user.getId() || user.isAdmin()}" class="row"
+                         style="float: right">
+                        <button type="button" th:value="${post.id}" class="post-edit mx-1"><i
+                                class="fas fa-pencil-alt"></i></button>
+                        <form th:action="@{/post/{id}/delete(id=${post.id})}" method="post">
+                            <button type="submit" class="mx-1 delete-post-button"><i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="row mx-auto" style="width: 100%">
+                    <div class="col-4 profile-block d-flex flex-wrap align-items-center justify-content-center">
+                        <div class="row" style="width: 100%">
+                            <div class="col-12">
                                 <div class="col-12">
-                                    <div class="col-12">
-                                        <img th:if="${post.getOwner().getImages()}"
-                                             th:src="${post.getOwner().getImages()}" alt="Image Unavailable"
-                                             style="width: 6.5rem; height: 6.5rem;">
-                                        <img th:unless="${post.getOwner().getImages()}" th:src="@{/img/maleIcon1.jpg}"
-                                             alt="Image Unavailable"
-                                             style="width: 6.5rem; height: 6.5rem;">
-                                    </div>
-                                    <div class="col-12 mt-2">
-                                        <h5 th:text="${post.getOwner().getUsername()}"></h5>
-                                    </div>
+                                    <img th:if="${post.getOwner().getImages()}"
+                                         th:src="${post.getOwner().getImages()}" alt="Image Unavailable"
+                                         style="width: 6rem; height: 6rem;">
+                                    <img th:unless="${post.getOwner().getImages()}" th:src="@{/img/maleIcon1.jpg}"
+                                         alt="Image Unavailable" style="width: 6rem; height: 6rem;">
+                                </div>
+                                <div class="col-12 mt-2">
+                                    <h4 th:text="${post.getOwner().getUsername()}"></h4>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-8 text-left d-flex flex-wrap align-items-center pl-0">
+                    </div>
+                    <div class="col-8 text-left d-flex flex-wrap align-items-center pl-0">
+                        <form th:action="@{/post/{id}/edit(id=${post.id})}" method="post" style="width: 100%">
                             <div class="row" style="width: 100%">
                                 <div class="col-12">
                                     <h3 th:id="'title-edit'+${post.id}" class="card-title post-title"
                                         th:text="${post.getTitle()}"></h3>
                                 </div>
                                 <div class="col-12">
-                                    <p th:id="'body-edit'+${post.id}" class="card-text post-body"
-                                       th:text="${post.getBody()}"></p>
+                                    <h4 th:id="'body-edit'+${post.id}" class="card-text post-body"
+                                        th:text="${post.getBody()}"></h4>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div  th:if="${post.getCommentList().size() > 0}" class="row justify-content-center m-auto" style="width: 100%">
-                        <hr class="col-8" style="border: 1px solid lightblue">
-                    </div>
-
-                    <div class="row " style="width: 100%" th:each="comment : ${post.getCommentList()}">
-                        <form th:action="@{/comment/{id}/edit(id=${comment.id})}" method="post">
-                            <div class="col-6 text-center profile-block text-left d-flex flex-wrap align-items-center pr-0">
-                                <div class="row" style="width: 100%">
-                                    <div class="col-12">
-                                        <div class="col-12">
-                                            <img th:if="${comment.getOwner().getImages()}"
-                                                 th:src="${comment.getOwner().getImages()}" alt="Image Unavailable"
-                                                 style="width: 6.5rem; height: 6.5rem;">
-                                            <img th:unless="${comment.getOwner().getImages()}"
-                                                 th:src="@{/img/maleIcon1.jpg}" alt="Image Unavailable"
-                                                 style="width: 6.5rem; height: 6.5rem;">
-                                        </div>
-                                        <div class="col-12 mt-2">
-                                            <h5 th:text="${post.getOwner().getUsername()}"></h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 text-left d-flex flex-wrap align-items-center pl-0">
-                                <div class="row" style="width: 100%">
-                                    <div class="col-12">
-                                        <p class="card-text comment-body" th:id="'comment-edit'+${comment.id}"
-                                           th:text="${comment.getBody()}"></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row" style="width: 100%">
-                                <div class="comment-edit-buttons" th:id="'comment-edit-buttons'+${comment.id}">
-                                    <button type="button" class="close-comment-edit btn btn-danger"
-                                            th:value="${comment.id}">Close
+                                <div class="col-12 pb-3 post-edit-buttons" th:id="'post-edit-buttons'+${post.id}">
+                                    <button type="button" class="btn btn-danger close-post-edit" th:value="${post.id}">
+                                        Close
                                     </button>
-                                    <button type="submit" name="post-id" class="btn btn-primary">Submit Edit
-                                    </button>
+                                    <button type="submit" class="btn btn-primary">Submit Edit</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-            </form>
+                <div class="row mx-auto" style="width: 100%">
+                    <div class="col-6 text-left mb-2">
+                        <button sec:authorize="isAuthenticated()" th:if="${user.isAdmin()}" type="button"
+                                th:value="'comment'+${post.id}" class="view-replies reply">Reply
+                        </button>
+                    </div>
+                    <div th:if="${post.getCommentList().size() > 0}" class="col-6 text-right">
+                        <button type="button" class="view-replies" th:id="'view-replies'+${post.getId()}">Replies: <span th:text="${post.getCommentList().size()}"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="comment-section" th:id="'comment-section'+${post.getId()}">
+                    <div th:if="${post.getCommentList().size() > 0}" class="row justify-content-center mx-auto mb-2"
+                         style="width: 100%">
+                        <hr class="col-8" style="border: 1px solid lightblue">
+                    </div>
+                    <div class="row comment-card mx-auto my-2" style="width: 100%"
+                         th:each="comment : ${post.getCommentList()}">
 
-            <div class="post-edit-buttons" th:id="'post-edit-buttons'+${post.id}">
-                <button type="button" class="btn btn-danger close-post-edit" th:value="${post.id}">Close
-                </button>
-                <button type="submit" class="btn btn-primary">Submit Edit</button>
+
+                        <div sec:authorize="isAuthenticated()"
+                             th:if="${post.getOwner().getId() == user.getId() || user.isAdmin()}"
+                             class="row ml-auto justify-content-end"
+                             style="width: 100%">
+                            <button type="button" th:value="${comment.id}" class="comment-edit mx-1"><i
+                                    class="fas fa-pencil-alt"></i></button>
+                            <form th:action="@{/comment/{id}/delete(id=${comment.id})}" method="post">
+                                <button type="submit" class="mx-1 delete-post-button"><i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                        </div>
+
+                        <form th:action="@{/comment/{id}/edit(id=${comment.id})}" method="post" style="width: 100%" class="row">
+                            <div class="col-6 profile-block d-flex flex-wrap align-items-center justify-content-end">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <img th:if="${comment.getOwner().getImages()}"
+                                             th:src="${comment.getOwner().getImages()}" alt="Image Unavailable"
+                                             style="width: 4.5rem; height: 4.5rem;">
+                                        <img th:unless="${comment.getOwner().getImages()}"
+                                             th:src="@{/img/maleIcon1.jpg}" alt="Image Unavailable"
+                                             style="width: 4.5rem; height: 4.5rem;">
+                                    </div>
+                                    <div class="col-12 mt-2">
+                                        <h4 th:text="${post.getOwner().getUsername()}"></h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 text-left d-flex flex-wrap align-items-center">
+                                <div class="row" style="width: 100%">
+                                    <div class="col-12">
+                                        <h4 class="card-text comment-body" th:id="'comment-edit'+${comment.id}"
+                                            th:text="${comment.getBody()}"></h4>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="comment-edit-buttons" th:id="'comment-edit-buttons'+${comment.id}">
+                                            <button type="button" class="close-comment-edit btn btn-danger"
+                                                    th:value="${comment.id}">Close
+                                            </button>
+                                            <button type="submit" name="post-id" class="btn btn-primary">Submit Edit
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div sec:authorize="isAuthenticated()" th:id="'comment'+${post.id}" class="card text-center ml-auto post-reply">
+                        <form th:action="@{forum/comment/}" th:method="post" style="width: 100%" class="row">
+                            <div class="col-6 profile-block d-flex flex-wrap align-items-center justify-content-end">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <img th:if="${user.getImages()}"
+                                             th:src="${user.getImages()}" alt="Image Unavailable"
+                                             style="width: 4.5rem; height: 4.5rem;">
+                                        <img th:unless="${user.getImages()}"
+                                             th:src="@{/img/maleIcon1.jpg}" alt="Image Unavailable"
+                                             style="width: 4.5rem; height: 4.5rem;">
+                                    </div>
+                                    <div class="col-12 mt-2">
+                                        <h4 th:text="${user.getUsername()}"></h4>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6 text-left d-flex flex-wrap align-items-center">
+                                <div class="row" style="width: 100%">
+                                    <div class="col-12">
+                                        <h4 class="card-title">RE: <span th:text="${post.getTitle()}"></span></h4>
+                                        <textarea class="reply-body" id="body" name="body" placeholder="Type your comment here"
+                                                  style="width: 100%; height: 100px"></textarea>
+                                    </div>
+                                    <div class="col-12">
+                                            <button type="button" class="btn btn-danger close-reply" th:value="'comment'+${post.id}">Close</button>
+                                            <button type="submit" name="post-id" th:value="${post.id}" class="btn btn-primary">Post</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-
-
-            <!--                        <div class="row" style="width: 100%">-->
-            <!--                            <div class="col-12">-->
-            <!--                                <div class="col-12">-->
-            <!--                                    <img th:src="${comment.getOwner().getImages()}" alt="Image Unavailable"-->
-            <!--                                         style="width: 8rem; height: 8rem;">-->
-            <!--                                </div>-->
-            <!--                                <div class="col-12">-->
-            <!--                                    <h5 th:text="${comment.getOwner().getUsername()}"></h5>-->
-            <!--                                </div>-->
-            <!--                            </div>-->
-            <!--                        </div>-->
-
-            <!--                    <div class="col-8 text-left d-flex flex-wrap align-items-center pl-5">-->
-            <!--                        <div class="row" style="width: 100%">-->
-            <!--                            <div class="col-12">-->
-            <!--                                <h5 th:id="'title-edit'+${post.id}" class="card-title post-title"-->
-            <!--                                    th:text="${comment.getTitle()}"></h5>-->
-            <!--                            </div>-->
-            <!--                            <div class="col-12">-->
-            <!--                                <p th:id="'body-edit'+${post.id}" class="card-text post-body"-->
-            <!--                                   th:text="${comment.getBody()}"></p>-->
-            <!--                            </div>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-
-            <!--            <div class="card-footer">-->
-            <!--                <div sec:authorize="isAuthenticated()" class="row justify-content-between">-->
-            <!--                    <button type="button" th:value="'comment'+${post.id}" class="reply btn btn-primary">Reply</button>-->
-            <!--                    <div th:if="${user.isAdmin() == false && user.getId() == post.getOwner().getId()}" class="row">-->
-            <!--                        <form th:action="@{/post/{id}/delete(id=${post.id})}" method="post">-->
-            <!--                            <button type="submit" class="btn btn-danger">Remove</button>-->
-            <!--                        </form>-->
-            <!--                        <button type="button" th:value="${post.id}" class="post-edit btn btn-secondary">Edit</button>-->
-            <!--                    </div>-->
-            <!--                    <div th:if="${user.isAdmin() == true}" class="post-buttons row justify-content-around"-->
-            <!--                         th:id="'post-admin-buttons'+${post.id}">-->
-            <!--                        <form th:action="@{/post/{id}/delete(id=${post.id})}" method="post">-->
-            <!--                            <button type="submit" class="btn btn-danger">Remove</button>-->
-            <!--                        </form>-->
-            <!--                        <button type="button" th:value="${post.id}" class="post-edit btn btn-secondary">Edit</button>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--            </div>-->
-            <!--        </div>-->
-
-
-            <!--        <div th:each="comment : ${post.getCommentList()}">-->
-            <!--            <div class="card text-center ml-auto" style="width: 90%">-->
-            <!--                <div class="card-header text-left" th:text="${comment.getOwner().getUsername()}"></div>-->
-            <!--                <form th:action="@{/comment/{id}/edit(id=${comment.id})}" method="post">-->
-            <!--                    <div class="card-body">-->
-            <!--                        <p class="card-text comment-body" th:id="'comment-edit'+${comment.id}"-->
-            <!--                           th:text="${comment.getBody()}"></p>-->
-            <!--                        <br>-->
-            <!--                        <div class="comment-edit-buttons" th:id="'comment-edit-buttons'+${comment.id}">-->
-            <!--                            <button type="button" class="close-comment-edit btn btn-danger" th:value="${comment.id}">-->
-            <!--                                Close-->
-            <!--                            </button>-->
-            <!--                            <button type="submit" name="post-id" class="btn btn-primary">Submit Edit</button>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                </form>-->
-            <!--                <div class="card-footer">-->
-            <!--                    <div sec:authorize="isAuthenticated()">-->
-            <!--                        <div th:if="${user.isAdmin() == true || user.getId() == comment.getOwner().getId()}"-->
-            <!--                             class="comment-buttons row justify-content-around"-->
-            <!--                             th:id="'comment-admin-buttons'+${comment.id}">-->
-            <!--                            <form th:action="@{/comment/{id}/delete(id=${comment.id})}" method="post">-->
-            <!--                                <button type="submit" class="btn btn-danger">Remove</button>-->
-            <!--                            </form>-->
-            <!--                            <button type="button" th:value="${comment.id}" class="comment-edit btn btn-secondary">Edit-->
-            <!--                            </button>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--            </div>-->
-            <!--        </div>-->
-
-
-            <!--        <div th:id="'comment'+${post.id}" class="card text-center ml-auto post-reply" style="width: 90%">-->
-            <!--            <form th:action="@{forum/comment/}" th:method="post">-->
-            <!--                <div class="card">-->
-            <!--                    <h5 class="card-header">Reply</h5>-->
-            <!--                    <div class="card-body">-->
-            <!--                        <h4 class="card-title">RE: <span th:text="${post.getTitle()}"></span></h4>-->
-            <!--                        <textarea id="body" name="body" placeholder="Type your comment here"-->
-            <!--                                  style="width: 100%; height: 100px"></textarea>-->
-            <!--                        <div>-->
-            <!--                            <button type="button" class="btn btn-danger close-reply" th:value="'comment'+${post.id}">-->
-            <!--                                Close-->
-            <!--                            </button>-->
-            <!--                            <button type="submit" name="post-id" th:value="${post.id}" class="btn btn-primary">Post-->
-            <!--                            </button>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--            </form>-->
-            <!--        </div>-->
-
-
         </div>
     </div>
 </main>
