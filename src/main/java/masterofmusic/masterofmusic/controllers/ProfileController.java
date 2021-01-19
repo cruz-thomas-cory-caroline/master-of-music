@@ -88,11 +88,13 @@ public class ProfileController {
             @RequestParam(name = "avatarSelection") String avatarSelected,
             Model model
     ) {
+
         User user = userDao.getOne(id);
         user.setImages(avatarSelected);
         User dbUser = userDao.save(user);
         System.out.println(avatarSelected);
-        model.addAttribute("user", userDao.getOne(dbUser.getId()));
+        model.addAttribute("userToShow", userDao.getOne(dbUser.getId()));
+
         return "redirect:/profile/";
     }
 
@@ -100,9 +102,16 @@ public class ProfileController {
     public String viewProfileOfUser(@PathVariable long id,
             Model model
     ) {
-        User user = userDao.getOne(id);
+        User profileUser = userDao.getOne(id);
 
-        ArrayList<PlayerGame> playerGamesForUser = playerGameDao.findAllByUserId(user.getId());
+        if(!SecurityContextHolder.getContext().getAuthentication().getName().equalsIgnoreCase("anonymousUser")) {
+            User userToFind = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User user = userDao.getOne(userToFind.getId());
+            model.addAttribute("user", user);
+        }
+
+
+        ArrayList<PlayerGame> playerGamesForUser = playerGameDao.findAllByUserId(profileUser.getId());
         ArrayList<PlayerGame> playerGamesForTrivia = new ArrayList<>();
         ArrayList<PlayerGame> playerGamesForLyric = new ArrayList<>();
         ArrayList<PlayerGame> playerGamesForTheory = new ArrayList<>();
@@ -130,11 +139,11 @@ public class ProfileController {
             }
         }
 
-        User thisUser = userDao.getOne(user.getId());
+        User thisUser = userDao.getOne(profileUser.getId());
         List<Achievement> userAchievements = thisUser.getUsers_achievements();
 
         model.addAttribute("userAchievements", userAchievements);
-        model.addAttribute("user", userDao.getOne(user.getId()));
+        model.addAttribute("userToShow", profileUser);
         model.addAttribute("totalTriviaScore", totalTriviaScore);
         model.addAttribute("playerGamesForTrivia", playerGamesForTrivia);
         model.addAttribute("totalLyricScore", totalLyricScore);
@@ -143,7 +152,8 @@ public class ProfileController {
         model.addAttribute("playerGamesForTheory", playerGamesForTheory);
         model.addAttribute("totalUnscrambleScore", totalUnscrambleScore);
         model.addAttribute("playerGamesForUnscramble", playerGamesForUnscramble);
-        return "profile";
+
+        return "view-player-profile";
     }
 
 
