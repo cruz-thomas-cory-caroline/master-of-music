@@ -88,7 +88,7 @@
                 </div>
                 <div class="row mx-auto" style="width: 100%">
                     <div class="col-6 text-left mb-2">
-                        <button sec:authorize="isAuthenticated()" th:if="${user.isAdmin()}" type="button"
+                        <button sec:authorize="isAuthenticated()" th:if="${user.isAdmin() && user.getId() != post.getOwner().getId()}" type="button"
                                 th:value="'comment'+${post.id}" class="view-replies reply">Reply
                         </button>
                     </div>
