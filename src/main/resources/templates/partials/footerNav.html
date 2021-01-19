@@ -19,7 +19,7 @@
                th:href="@{/profile/}">
                 <img  style="max-height: 60px;max-width: 60px"
                      th:src="${user.images}">
-                <p class="rockFont text-white h-100 w-100 mb-0 ml-2 d-flex justify-content-center align-items-center">Profile</p>
+                <p class="rockFont text-white h-100 w-100 mb-0 ml-2 d-flex justify-content-center align-items-center"><span class="welcomePlayerNav" th:text="'Welcome '+${user.username}+ '!'"></span></p>
             </a>
 
             <i th:unless="${user}" style="color: #b200ff" class="fas fa-user-circle fa-3x ml-2 "></i>
