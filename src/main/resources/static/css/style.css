@@ -59,6 +59,10 @@
     background: rgba(20, 20, 31, 0.8);
 }
 
+.welcomePlayerNav {
+    font-size: 1.5rem;
+}
+
 .navbar-login {
     background-color: #eee31a;
     font-size: 1.5rem;
