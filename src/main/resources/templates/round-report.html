@@ -42,11 +42,11 @@
 <div class="mt-5">
     <div class="card bg-dark m-auto" id="reportCard" style="width: 38rem;">
         <div class="card-header">
-            <h1 style="color: #ffffff">Congratulations! Here are your results</h1>
+            <h1 class="questionHeader result-cards">Congratulations! Here are your results</h1>
         </div>
         <div class="card-body">
-            <h3 style="color: #ffffff">Score</h3><br>
-            <h4 style="color: #ffffff" th:text="${score}"></h4>
+            <h3 class="rockFont" style="color: #ffffff">Score</h3><br>
+            <h4 class="rockFont" style="color: #ffffff" th:text="${score}"></h4>
             <form th:action="@{/round-report/end}" th:method="post">
                 <button type="submit" class="ml-2 btn submit-button">Start A New Game</button>
             </form>
