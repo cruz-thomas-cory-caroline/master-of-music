@@ -28,7 +28,7 @@
     }
 
     $('#startButton').click(function () {
-        $(".game-start").addClass("hide")
+        $(".game-start-lm").addClass("hide")
         $(".lm-cards").first().removeClass("hide")
         startTime = $('.lyricMaster-timer')[0].innerHTML
         timerStart()
@@ -76,13 +76,6 @@
         $('.hint').addClass('hide');
     });
 
-    // $('.thomas').hover(function() {
-    //     $('.linkFooterTC').removeClass('d-none');
-    // });
-    //
-    // $('.cory').hover(function() {
-    //     $('.linkFooterCH').toggle();
-    // });
 
 
 })();
