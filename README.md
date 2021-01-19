@@ -30,9 +30,9 @@ MailTrap
 
 **Developers**
 
-Caroline Esquivel: 
+Caroline Esquivel: My contributions to Master of Music consisted of: Database design, Lyric Master mini game, user sign up and registration, FAQ and error pages.
 
-Cruzanio Villarreal: 
+Cruzanio Villarreal: My contributions to Master of Music consisted of: Complete development of the Unscramble minigame, Forum page, and Find-A-Friend page. I am also responsible for database design, as well as, the back-end logic of the Achievements and Leaderboard page.
 
 Courtney Holley: My contributions to Master of Music consisted of: Overall front-end design, database design, the creation of the music trivia mini-game, the users profile page, and the achievements page.
 
