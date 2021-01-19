@@ -107,7 +107,7 @@
 
 
                         <div sec:authorize="isAuthenticated()"
-                             th:if="${post.getOwner().getId() == user.getId() || user.isAdmin()}"
+                             th:if="${comment.getOwner().getId() == user.getId() || user.isAdmin()}"
                              class="row ml-auto justify-content-end"
                              style="width: 100%">
                             <button type="button" th:value="${comment.id}" class="comment-edit mx-1"><i
@@ -140,7 +140,7 @@
                                         <h4 class="card-text comment-body" th:id="'comment-edit'+${comment.id}"
                                             th:text="${comment.getBody()}"></h4>
                                     </div>
-                                    <div class="col-12" th:if="${comment.getOwner().getId() == user.getId() || user.isAdmin()}">
+                                    <div class="col-12">
                                         <div class="comment-edit-buttons" th:id="'comment-edit-buttons'+${comment.id}">
                                             <button type="button" class="close-comment-edit btn btn-danger"
                                                     th:value="${comment.id}">Close

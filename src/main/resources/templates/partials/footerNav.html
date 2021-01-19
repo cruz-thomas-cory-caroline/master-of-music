@@ -9,7 +9,7 @@
 <footer th:fragment="footerNav">
     <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark p-0 m-0">
         <div class="container-fluid">
-            <a sec:authorize="!isAuthenticated()" th:href="@{/sign-up}"><span class="badge text-dark navbar-login mr-2 loginButton">Register or Login</span></a>
+            <a sec:authorize="!isAuthenticated()" th:href="@{/login}"><span class="badge text-dark navbar-login mr-2 loginButton">Register or Login</span></a>
             <form sec:authorize="isAuthenticated()" th:action="@{/logout}" th:method="post">
                 <button class="badge text-dark navbar-login mr-4 loginButton">Logout</button>
             </form>
@@ -19,7 +19,7 @@
                th:href="@{/profile/}">
                 <img  style="max-height: 60px;max-width: 60px"
                      th:src="${user.images}">
-                <p class="rockFont text-white h-100 w-100 mb-0 ml-2 d-flex justify-content-center align-items-center">Profile</p>
+                <p class="rockFont text-white h-100 w-100 mb-0 ml-2 d-flex justify-content-center align-items-center"><span class="welcomePlayerNav" th:text="'Welcome '+${user.username}+ '!'"></span></p>
             </a>
 
             <i th:unless="${user}" style="color: #b200ff" class="fas fa-user-circle fa-3x ml-2 "></i>
