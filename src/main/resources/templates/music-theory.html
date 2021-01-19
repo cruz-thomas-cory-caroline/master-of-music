@@ -32,7 +32,7 @@
                     <label style="font-size:20px " class="radioButton rockFont" th:for="${answer.id}" th:text="${answer.answer}"></label>
                 </div>
                 <input name="theoryDifficultyOptions" type="hidden" th:value="${songDifficulty}">
-                <button style="color: black" id="submitButton" class="d-none check-button" type="submit">Submit your answer!</button>
+                <button style="color: black" id="submitButton" class="d-none submit-button" type="submit">Submit your answer!</button>
             </form>
             <p style="color: #ffffff" id="timer"></p>
         </div>
@@ -51,7 +51,7 @@
             <h2 class="result-cards questionHeader" style="color: white">You gained <span th:text="${score}"></span> points!</h2>
             <form method="GET" class="result-cards" th:action="@{|/music-theory/${id + 1}|}">
                 <input name="theoryDifficultyOptions" type="hidden" th:value="${songDifficulty}">
-                <button class="check-button" name="next-round">Next Round!</button>
+                <button class="submit-button" name="next-round">Next Round!</button>
             </form>
         </div>
     </div>
@@ -66,7 +66,7 @@
             <h2 class="result-cards questionHeader" style="color: white">You gained 0 points</h2>
             <form method="GET" class="result-cards" th:action="@{|/music-theory/${id + 1}|}">
                 <input name="theoryDifficultyOptions" type="hidden" th:value="${songDifficulty}">
-                <button name="next-round" class="check-button">Next Round</button>
+                <button name="next-round" class="submit-button">Next Round</button>
             </form>
         </div>
     </div>
@@ -81,7 +81,7 @@
             <h2 style="color: white" class="result-cards questionHeader">You ran out of time. You gained 0 points</h2>
             <form method="GET" class="result-cards" th:action="@{|/music-theory/${id + 1}|}">
                 <input name="theoryDifficultyOptions" type="hidden" th:value="${songDifficulty}">
-                <button name="next-round" class="check-button">Next Round</button>
+                <button name="next-round" class="submit-button">Next Round</button>
             </form>
         </div>
     </div>
