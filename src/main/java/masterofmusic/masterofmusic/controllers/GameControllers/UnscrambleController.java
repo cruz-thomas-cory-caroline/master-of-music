@@ -347,6 +347,7 @@ public class UnscrambleController {
         return "final";
     }
 
+
     @RequestMapping("/check")
     @ResponseBody
     public List<Integer> check(@RequestParam(name = "id") long id,
@@ -379,6 +380,9 @@ public class UnscrambleController {
         }
 
         return rightWrong;
+
     }
+
+
 
 }

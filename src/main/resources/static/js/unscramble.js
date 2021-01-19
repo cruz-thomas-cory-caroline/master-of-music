@@ -28,6 +28,7 @@
         }
     });
 
+
     function checkType() {
         if ($('main').eq(0).hasClass('web')) {
 
